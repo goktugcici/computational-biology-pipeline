@@ -954,6 +954,122 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
         )
     },
 
+    'adc_therapies': {
+        'patterns': [
+            r'adc nedir', r'antikor.*ilaç.*konjugat', r'enhertu', r'trastuzumab deruxtecan',
+            r'trodelvy', r'sacituzumab', r'padcev', r'enfortumab'
+        ],
+        'title': 'Yeni Nesil Antikor-İlaç Konjugatları (ADC) ve Truva Atı Teknolojisi',
+        'answer': (
+            "🎯 **Antikor-İlaç Konjugatları (ADC - Antibody-Drug Conjugates) Nedir?**\n\n"
+            "• **Truva Atı Prensibi:** Bir monoklonal antikorun ucuna kimyasal bir bağlayıcı (linker) ile son derece güçlü bir sitotoksik kemoterapi molekülü (payload) bağlanır.\n"
+            "• **Nasıl Çalışır?** Antikor yalnızca kanser hücresindeki spesifik reseptörü (örn. HER2, Trop-2, Nectin-4) tanır, hücre içine girer ve ölümcül yükünü doğrudan kanser hücresinin içinde serbest bırakır. Çevreleyen sağlıklı dokuya zarar vermez.\n"
+            "• **Önemli İlaçlar:**\n"
+            "   1. **Trastuzumab Deruxtecan (Enhertu):** HER2-pozitif ve HER2-low meme ve akciğer kanserinde çığır açmıştır (DESTINY çalışmaları).\n"
+            "   2. **Sacituzumab Govitecan (Trodelvy):** Üçlü negatif meme kanseri (Trop-2) tedavisinde onaylıdır.\n"
+            "   3. **Enfortumab Vedotin (Padcev):** İleri evre mesane kanserinde (Nectin-4) Pembrolizumab ile kombine standarttır."
+        )
+    },
+    'cart_cell_therapy': {
+        'patterns': [
+            r'car-t', r'car t', r'kymriah', r'yescarta', r'hücresel tedavi', r'kimerik antijen', r'car-t hücre'
+        ],
+        'title': 'CAR-T Hücre Tedavisi (Kimerik Antijen Reseptörü) & Yaşayan İlaçlar',
+        'answer': (
+            "🧬 **CAR-T Hücre Tedavisi (Chimeric Antigen Receptor T-Cell) Nedir?**\n\n"
+            "• **Yaşayan İlaç (Living Drug):** Hastanın kendi kanından alınan T-lenfositleri (bağışıklık hücreleri) laboratuvarda genetik mühendislikle yeniden programlanır.\n"
+            "• **Mekanizma:** T hücrelerine kanser hücresi yüzeyindeki antijeni (örn. CD19 veya BCMA) tanıyan kimerik bir reseptör eklenir, çoğaltılır ve hastaya geri infüze edilir.\n"
+            "• **Kullanım Alanları:** Dirençli B-hücreli lösemiler (ALL), lenfomalar (DLBCL) ve multipl miyelomda daha önce tüm tedavileri tüketmiş olgularda dahi %70-80 tam yanıt sağlayabilir.\n"
+            "• **Onaylı Örnekler:** Tisagenlecleucel (Kymriah), Axicabtagene ciloleucel (Yescarta), Ciltacabtagene autoleucel (Carvykti)."
+        )
+    },
+    'bispecific_antibodies': {
+        'patterns': [
+            r'bispesifik antikor', r'amivantamab', r'rybrevant', r'tebentafusp', r'ikili antikor', r'bispecific'
+        ],
+        'title': 'Bispesifik Antikorlar (Bispecific Antibodies) & Çift Hedefleme',
+        'answer': (
+            "🔗 **Bispesifik Antikorlar Nedir?**\n\n"
+            "• **Çift Hedef:** Klasik antikorlar tek bir hedefi tanırken, bispesifik antikorlar iki farklı antijeni veya epitopu aynı anda bağlayabilir.\n"
+            "• **İki Temel Çalışma Şekli:**\n"
+            "   1. **T-Hücre Bağlayıcı (BiTE):** Bir koluyla kanser hücresini, diğer koluyla T hücresini (CD3) tutarak bağışıklık hücresini kansere zorla kenetler (Örn: Blinatumomab).\n"
+            "   2. **Çift Onkojenik Reseptör Blokajı:** Örneğin **Amivantamab (Rybrevant)**, akciğer kanserinde hem EGFR hem de MET reseptörlerini aynı anda bloke ederek Exon 20 insersiyonlarında ve dirençte devrim yaratmıştır (PAPILLON çalışması)."
+        )
+    },
+    'recist_criteria': {
+        'patterns': [
+            r'recist', r'tam yanıt', r'kısmi yanıt', r'progresyon nedir', r'stabil hastalık', r'tümör küçülmesi', r'cr pr sd pd'
+        ],
+        'title': 'Kanserde Tedavi Yanıt Kriterleri: RECIST 1.1 Kılavuzu',
+        'answer': (
+            "📏 **RECIST 1.1 (Response Evaluation Criteria in Solid Tumors) Kriterleri:**\n\n"
+            "Radyolojik olarak (BT/MR) tümör boyutlarındaki değişimi nesnel olarak ölçen uluslararası standarttır:\n\n"
+            "1. **Tam Yanıt (CR - Complete Response):** Tüm hedef lezyonların tamamen yok olması ve patolojik lenf bezlerinin <10 mm'ye gerilemesi.\n"
+            "2. **Kısmi Yanıt (PR - Partial Response):** Hedef lezyonların en uzun çaplarının toplamında **en az %30 küçülme** olması.\n"
+            "3. **Progresif Hastalık (PD - Progressive Disease):** En küçük boyuta kıyasla lezyonlarda **en az %20 artış** veya yeni metastatik lezyon çıkması.\n"
+            "4. **Stabil Hastalık (SD - Stable Disease):** Ne PR için yeterli küçülme ne de PD için yeterli büyüme olmaması; hastalığın duraklaması."
+        )
+    },
+    'amp_mtb_tiers': {
+        'patterns': [
+            r'amp seviyesi', r'amp.*tier', r'tier 1', r'tier 2', r'vus nedir', r'tümör konseyi', r'moleküler tümör konseyi'
+        ],
+        'title': 'Moleküler Tümör Konseyi & AMP/ASCO/CAP Kanıt Seviyeleri (Tier I-IV)',
+        'answer': (
+            "🏛️ **AMP / ASCO / CAP Somatik Varyant Kanıt Seviyeleri:**\n\n"
+            "Moleküler Tümör Konseyleri (MTB), yeni nesil dizileme (NGS) raporundaki mutasyonları kanıt gücüne göre 4 seviyede değerlendirir:\n\n"
+            "• **Tier I (Güçlü Klinik Önemi Olanlar):** FDA onaylı hedefe yönelik ilacı bulunan veya NCCN/ESMO rehberlerinde Kategori 1 tedavi standardı olan alterasyonlar (Örn: EGFR L858R, BRAF V600E, KRAS G12C).\n"
+            "• **Tier II (Potansiyel Klinik Önemi Olanlar):** Faz 2/3 klinik çalışmalarda yanıt gösteren veya etiket dışı (off-label) umut vadeden mutasyonlar.\n"
+            "• **Tier III (Bilinmeyen Klinik Öneme Sahip Varyantlar - VUS):** Literatürde yeterli kanıt bulunmayan varyantlar; standart dışı tedavi kararı verilmez.\n"
+            "• **Tier IV (Benign / Etkisiz):** Tümör gelişimine etkisi olmayan zararsız polimorfizmler."
+        )
+    },
+    'cancer_pathways_signaling': {
+        'patterns': [
+            r'mapk yolağı', r'ras raf mek', r'pi3k akt', r'sinyal iletimi', r'sinyal yolağı', r'onkojenik kaskad'
+        ],
+        'title': 'Kanserde Temel Sinyal İletim Yolakları (MAPK, PI3K/AKT, DDR)',
+        'answer': (
+            "⚡ **Kanserde Temel Onkojenik Sinyal Kaskadları:**\n\n"
+            "1. **MAPK / ERK Kaskadı (RTK -> RAS -> RAF -> MEK -> ERK):**\n"
+            "   Hücre bölünmesini ve proliferasyonunu kamçılar. Akciğer, kolon, melanom ve pankreas kanserlerinde KRAS, BRAF, EGFR mutasyonlarıyla sürekli 'AÇIK' kalır.\n\n"
+            "2. **PI3K / AKT / PTEN / mTOR Yolağı:**\n"
+            "   Hücre sağkalımı, anabolizma ve glukoz kullanımını yönetir. PTEN kaybı veya PIK3CA mutasyonları apoptozu (hücre ölümünü) engeller.\n\n"
+            "3. **DDR (DNA Hasar Yanıtı) & Homolog Onarım (HRR):**\n"
+            "   BRCA1, BRCA2 ve ATM genleri çift iplik kırıklarını onarır; bozulduğunda PARP inhibitörlerine aşırı duyarlılık (Sentetik Letalite) oluşur.\n\n"
+            "4. **CDK4/6 - Retinoblastoma (RB1) Aksı:**\n"
+            "   Hücre döngüsünün G1 fazından S fazına geçişini denetler."
+        )
+    },
+    'clinical_trials_phases': {
+        'patterns': [
+            r'faz 1', r'faz 2', r'faz 3', r'klinik çalışma', r'klinik deney', r'ilaç aşamaları'
+        ],
+        'title': 'Kanser İlaçlarında Klinik Çalışma Fazları (Faz I, II, III)',
+        'answer': (
+            "🧪 **Kanser İlaç Geliştirme Fazları:**\n\n"
+            "• **Faz I (Güvenlik & Doz Belirleme):** Genellikle 15-30 hasta üzerinde yapılır. Amacı ilacın insan vücudundaki güvenliğini, yan etkilerini ve tolere edilebilir maksimum dozunu (MTD) bulmaktır.\n"
+            "• **Faz II (Etkinlik Araştırması):** 50-200 hastada uygulanır. İlacın hedeflenen kanser türünde tümörü küçültüp küçültmediği (Objektif Yanıt Oranı - ORR) değerlendirilir.\n"
+            "• **Faz III (Rastgele Karşılaştırmalı Standart Test - RCT):** Yüzlerce veya binlerce hastada uygulanır. Yeni ilaç, mevcut en iyi tedaviye (Standart Bakım - SoC) karşı rastgele (randomize) yarıştırılır; Genel Sağkalım (OS) veya PFS farkı kanıtlanırsa FDA/EMA ruhsatı alır."
+        )
+    },
+    'comprehensive_genomic_profiling': {
+        'patterns': [
+            r'ngs nedir', r'kapsamlı genomik profil', r'cgp', r'tümör dna dizileme', r'genetik test kanser', r'foundationone'
+        ],
+        'title': 'Kapsamlı Genomik Profilleme (CGP) & Yeni Nesil Dizileme (NGS)',
+        'answer': (
+            "🧬 **Kapsamlı Genomik Profilleme (Comprehensive Genomic Profiling - CGP):**\n\n"
+            "• **Tek Seferde 500+ Gen:** Geleneksel tek gen testleri (PCR) yerine, biyopsideki tümör DNA ve RNA'sını tek seferde yüzlerce kanser geninde dizileyen (NGS) ileri teknolojidir.\n"
+            "• **Neler Saptanır?**\n"
+            "   1. **Nokta Mutasyonlar & İndeller:** (EGFR, KRAS, BRAF, PIK3CA)\n"
+            "   2. **Kopya Sayısı Değişimleri (CNV):** (HER2, MET amplifikasyonları, PTEN kaybı)\n"
+            "   3. **Gen Füzyonları:** (ALK, ROS1, RET, NTRK)\n"
+            "   4. **Genomik İmzalar:** TMB (Tümör Mutasyon Yükü), MSI (Mikrosatellit İnstabilite) ve HRD (Homolog Rekombinasyon Eksikliği).\n"
+            "• **Klinik Değeri:** Hastanın standart kemoterapi yerine kişiye özel akıllı ilaç veya immünoterapi alma şansını katbekat artırır."
+        )
+    },
+
     'bot_help': {
         'patterns': [
             r'sen kimsin', r'ne yapabilirsin', r'yardım', r'komutlar', r'neler yaparsın',

@@ -21,6 +21,7 @@ from immunotherapy_response import ImmunotherapyPredictor
 from docking_scorer import DockingScorer
 from sequence_aligner import SequenceAligner
 from molecular_tumor_board import MolecularTumorBoardEngine
+from cancer_pathway_engine import CancerPathwayEngine, CANONICAL_PATHWAYS
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -87,6 +88,14 @@ class TestExhaustivePipeline(unittest.TestCase):
             'cancer_prevention_diet': 'Kanserden korunma yolları ve beslenme nasıldır?',
             'hpv_vaccine': 'HPV aşısı Gardasil rahim ağzı kanserini önler mi?',
             'genetic_counseling': 'Genetik kanser testi ve BRCA danışmanlığı nedir?',
+            'adc_therapies': 'ADC nedir antikor ilaç konjugatları Enhertu nasıl çalışır?',
+            'cart_cell_therapy': 'CAR-T hücre tedavisi nedir ve yaşayan ilaçlar ne yapar?',
+            'bispecific_antibodies': 'Bispesifik antikorlar ve Amivantamab nasıl etki eder?',
+            'recist_criteria': 'RECIST 1.1 kriterleri tam yanıt ve progresyon nedir?',
+            'amp_mtb_tiers': 'AMP seviyeleri Tier 1 Tier 2 ve VUS nedir?',
+            'cancer_pathways_signaling': 'Kanserde MAPK yolağı ve sinyal iletimi kaskadı nedir?',
+            'clinical_trials_phases': 'Kanser klinik çalışma Faz 1 Faz 2 ve Faz 3 nedir?',
+            'comprehensive_genomic_profiling': 'Kapsamlı genomik profil CGP ve NGS testi nedir?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -372,6 +381,43 @@ class TestExhaustivePipeline(unittest.TestCase):
         self.assertIn("Osimertinib", eval_res['tier1_actionable_targets'][0]['therapy'])
         self.assertIn("İmmün kontrol noktası", eval_res['mtb_consensus_recommendation'])
         self.assertEqual(eval_res['evidence_strength'], 'Tier I (FDA / NCCN Cat 1)')
+
+    # =========================================================================
+    # 12. CANCER PATHWAYS & ONCOGENIC SIGNALING FLUX ENGINE
+    # =========================================================================
+    def test_cancer_pathway_engine_all_cascades(self):
+        """Verify that all canonical cancer signaling pathways are modeled."""
+        engine = CancerPathwayEngine()
+        pathways = engine.list_pathways()
+        self.assertEqual(len(pathways), 5)
+        pathway_ids = [p['id'] for p in pathways]
+        self.assertIn('MAPK_ERK', pathway_ids)
+        self.assertIn('PI3K_AKT_MTOR', pathway_ids)
+        self.assertIn('DDR_HRR', pathway_ids)
+        self.assertIn('CELL_CYCLE_CDK', pathway_ids)
+        self.assertIn('IMMUNE_CHECKPOINT', pathway_ids)
+
+    def test_cancer_pathway_engine_drug_perturbation(self):
+        """Verify flux simulation, combination therapy synergy, and resistance feedback."""
+        engine = CancerPathwayEngine()
+
+        # 1. MAPK baseline with KRAS G12C
+        res_mut = engine.simulate_pathway_flux('MAPK_ERK', alterations=['KRAS_G12C'])
+        self.assertGreater(res_mut['final_flux'], 70.0)
+        self.assertEqual(res_mut['status'], 'AŞIRI AKTİF / DİRENÇLİ')
+
+        # 2. KRAS G12C + Sotorasib monotherapy (feedback flag)
+        res_mono = engine.simulate_pathway_flux('MAPK_ERK', alterations=['KRAS_G12C'], drugs=['Sotorasib'])
+        self.assertTrue(any('feedback' in f.lower() for f in res_mono['resistance_flags']))
+
+        # 3. KRAS G12C + Sotorasib + Panitumumab (dual blockade suppression)
+        res_combo = engine.simulate_pathway_flux('MAPK_ERK', alterations=['KRAS_G12C'], drugs=['Sotorasib', 'Panitumumab'])
+        self.assertLess(res_combo['final_flux'], 35.0)
+        self.assertEqual(res_combo['status'], 'BASKILANDI')
+
+        # 4. DDR synthetic lethality (BRCA1 loss + Olaparib)
+        res_ddr = engine.simulate_pathway_flux('DDR_HRR', alterations=['BRCA1_MUT'], drugs=['Olaparib'])
+        self.assertGreater(res_ddr['apoptosis_score'], 80.0)
 
 if __name__ == "__main__":
     unittest.main()

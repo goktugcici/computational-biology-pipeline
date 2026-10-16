@@ -275,6 +275,14 @@ const sampleQuestions = [
   'PET-BT SUVmax değeri ne anlama gelir?',
   'Kanser evreleri Evre 4 ve TNM sistemi nedir?',
   'HPV aşısı Gardasil rahim ağzı kanserini önler mi?',
+  'ADC nedir antikor ilaç konjugatları Enhertu nasıl çalışır?',
+  'CAR-T hücre tedavisi nedir ve yaşayan ilaçlar ne yapar?',
+  'Bispesifik antikorlar ve Amivantamab nasıl etki eder?',
+  'RECIST kriterleri tam yanıt ve progresyon nedir?',
+  'AMP seviyeleri Tier 1 Tier 2 ve VUS nedir?',
+  'Kanserde MAPK yolağı ve sinyal iletimi kaskadı nedir?',
+  'Kanser klinik çalışma Faz 1 Faz 2 ve Faz 3 nedir?',
+  'Kapsamlı genomik profil CGP ve NGS testi nedir?',
   'Merhaba günaydın',
   'Çok teşekkür ederim'
 ];
