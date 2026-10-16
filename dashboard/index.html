@@ -104,6 +104,9 @@
         <button onclick="switchTab('pharma')" id="tabBtn-pharma" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           💊 Farmakoloji
         </button>
+        <button onclick="switchTab('mtb')" id="tabBtn-mtb" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🩺 Moleküler Tümör Konseyi (MTB)
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -550,10 +553,18 @@
 
           <!-- Mesaj Giriş Alanı -->
           <div class="p-4 bg-slate-950 border-t border-slate-800 flex items-center gap-3">
+            <button 
+              onclick="toggleChatSpeechRecognition()" 
+              id="chatMicBtn" 
+              title="Sesli Konuşma (Mikrofon ile Yaz)" 
+              class="p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-emerald-400 border border-slate-700 transition-all flex items-center justify-center text-sm shadow"
+            >
+              <span id="chatMicIcon">🎙️</span>
+            </button>
             <input 
               type="text" 
               id="chatInputText" 
-              placeholder="Şikayetinizi veya cevabınızı buraya yazınız (Örn: 2 aydır öksürüyorum ve kanlı balgam var)..." 
+              placeholder="Şikayetinizi veya cevabınızı buraya yazınız veya sesli söyleyiniz (Örn: 2 aydır öksürüyorum ve kanlı balgam var)..." 
               onkeydown="if(event.key === 'Enter') handleChatSubmit()" 
               class="flex-1 bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
             >
@@ -1543,6 +1554,318 @@
             <span class="text-xs font-bold text-white block">Boylamsal ctDNA VAF Dinamiği (Seri Takip Simülasyonu)</span>
             <div class="relative h-44 w-full">
               <canvas id="ctdnaTrajectoryChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- TAB 17: MOLECULAR TUMOR BOARD (MTB) & VIRTUAL CASE STUDIO -->
+    <section id="tab-mtb" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Üst Aksiyon Çubuğu -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">HASSAS ONKOLOJİ</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">AMP / ASCO / CAP SEVİYE I-IV</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-black text-white flex items-center gap-2">
+            <span>🩺 Moleküler Tümör Konseyi (MTB) & Karar Destek Stüdyosu</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-1 max-w-3xl">
+            Karmaşık kanser olgularının yeni nesil dizileme (NGS) profilini değerlendiren, genomik varyantları AMP/ASCO/CAP kanıt hiyerarşisine göre sınıflandıran ve NCCN / ESMO rehberliğinde çok disiplinli konsensüs sentezleyen interaktif konsey stüdyosu.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button 
+            onclick="printMtbConsensusReport()" 
+            id="printMtbReportBtn"
+            class="px-4 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-indigo-600/20 transition-all"
+          >
+            <span>🖨️ MTB Konsensüs Raporu Yazdır / PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Kanonik MTB Vakaları Seçim Kartları -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <span>📋 Gerçek Dünya Kanonik Vaka Kütüphanesi</span>
+            <span class="text-[11px] text-slate-400 font-normal">(6 Karakteristik Karmaşık Senaryo)</span>
+          </h3>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <button 
+            onclick="loadMtbCase('CASE_01_LUNG_MET_EGFR')" 
+            id="mtbCaseBtn-CASE_01_LUNG_MET_EGFR"
+            class="mtb-case-card p-3 rounded-2xl bg-slate-900 border border-indigo-500/50 hover:border-indigo-400 text-left transition-all space-y-1 shadow-md"
+          >
+            <div class="text-[10px] text-indigo-400 font-bold uppercase">Akciğer Adeno</div>
+            <div class="text-xs font-bold text-white leading-tight">EGFR L858R + METCN Gain</div>
+            <div class="text-[10px] text-slate-400">Tier I Primer Direnç</div>
+          </button>
+
+          <button 
+            onclick="loadMtbCase('CASE_02_COLON_KRAS_G12C')" 
+            id="mtbCaseBtn-CASE_02_COLON_KRAS_G12C"
+            class="mtb-case-card p-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+          >
+            <div class="text-[10px] text-emerald-400 font-bold uppercase">Kolon Adeno</div>
+            <div class="text-xs font-bold text-white leading-tight">KRAS G12C (MSS)</div>
+            <div class="text-[10px] text-slate-400">Anti-EGFR Blokajı</div>
+          </button>
+
+          <button 
+            onclick="loadMtbCase('CASE_03_TNBC_BRCA1_PDL1')" 
+            id="mtbCaseBtn-CASE_03_TNBC_BRCA1_PDL1"
+            class="mtb-case-card p-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+          >
+            <div class="text-[10px] text-pink-400 font-bold uppercase">Meme (TNBC)</div>
+            <div class="text-xs font-bold text-white leading-tight">gBRCA1+ & PD-L1+</div>
+            <div class="text-[10px] text-slate-400">PARPi + İmmünoterapi</div>
+          </button>
+
+          <button 
+            onclick="loadMtbCase('CASE_04_PROSTATE_HRD_CDK12')" 
+            id="mtbCaseBtn-CASE_04_PROSTATE_HRD_CDK12"
+            class="mtb-case-card p-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+          >
+            <div class="text-[10px] text-sky-400 font-bold uppercase">Prostat (mCRPC)</div>
+            <div class="text-xs font-bold text-white leading-tight">CDK12 Biallelik</div>
+            <div class="text-[10px] text-slate-400">Tandem Dup & HRD</div>
+          </button>
+
+          <button 
+            onclick="loadMtbCase('CASE_05_GBM_MGMT_METHYLATED')" 
+            id="mtbCaseBtn-CASE_05_GBM_MGMT_METHYLATED"
+            class="mtb-case-card p-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+          >
+            <div class="text-[10px] text-amber-400 font-bold uppercase">Glioblastom (GBM)</div>
+            <div class="text-xs font-bold text-white leading-tight">MGMT Metile + IDH-wt</div>
+            <div class="text-[10px] text-slate-400">Stupp + TTFields</div>
+          </button>
+
+          <button 
+            onclick="loadMtbCase('CASE_06_MELANOMA_BRAF_V600E')" 
+            id="mtbCaseBtn-CASE_06_MELANOMA_BRAF_V600E"
+            class="mtb-case-card p-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+          >
+            <div class="text-[10px] text-rose-400 font-bold uppercase">Kutanöz Melanom</div>
+            <div class="text-xs font-bold text-white leading-tight">BRAF V600E + TMB 24.5</div>
+            <div class="text-[10px] text-slate-400">Hedefe Yönelik vs IO</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Aktif Vaka & Hasta Profili Bilgi Kartı -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-base">📋</span>
+            <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider" id="mtbCaseId">MTB-2026-001</span>
+            <span class="text-slate-600">|</span>
+            <h4 class="text-sm font-bold text-white" id="mtbCaseTitle">İlerlemiş Akciğer Adenokarsinomu (EGFR L858R + De Novo MET Amplifikasyonu)</h4>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-800 text-slate-300 border border-slate-700" id="mtbEcogTag">ECOG 1</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-0.5">
+            <span class="text-[10px] text-slate-400">Hasta Yaşı & Cinsiyet</span>
+            <span class="font-bold text-white block" id="mtbPatientDemographics">62 Yaş / Kadın</span>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-0.5">
+            <span class="text-[10px] text-slate-400">Sigara Maruziyeti</span>
+            <span class="font-bold text-white block" id="mtbSmokingStatus">Hiç içmemiş (0 P-Y)</span>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-0.5">
+            <span class="text-[10px] text-slate-400">Primer Tanı & Evre</span>
+            <span class="font-bold text-indigo-300 block truncate" id="mtbPrimaryDiagnosis">Akciğer Adeno (Evre IVB)</span>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-0.5">
+            <span class="text-[10px] text-slate-400">Histopatoloji</span>
+            <span class="font-bold text-white block truncate" id="mtbHistopathology">TTF-1 (+), p40 (-)</span>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-0.5">
+            <span class="text-[10px] text-slate-400">Tümör Mutasyon Yükü (TMB)</span>
+            <span class="font-bold text-emerald-400 block" id="mtbTmbVal">5.2 Mut/Mb (Düşük)</span>
+          </div>
+          <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-0.5">
+            <span class="text-[10px] text-slate-400">MSI & PD-L1 TPS/CPS</span>
+            <span class="font-bold text-amber-400 block" id="mtbMsiPdl1Val">MSS / PD-L1: %15</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Genomik Alterasyonlar & Konsensüs Paneli İki Kolonlu Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- SOL KOLON: GENOMİK PROFİL VE AMP KANIT SINIFLANDIRMASI (6 Kolon) -->
+        <div class="lg:col-span-6 space-y-6">
+          <!-- Somatik NGS Alterasyonları Tablosu -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>🧬 Tespit Edilen Genomik Alterasyonlar & AMP Kılavuzu</span>
+              </h4>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">NGS Kapsamı: 500+ Gen</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-800 text-[10px] text-slate-400 uppercase">
+                    <th class="py-2 px-3">Gen</th>
+                    <th class="py-2 px-3">Varyant / Alterasyon</th>
+                    <th class="py-2 px-3">VAF (%)</th>
+                    <th class="py-2 px-3">AMP Seviyesi</th>
+                    <th class="py-2 px-3">Klinik Etki</th>
+                  </tr>
+                </thead>
+                <tbody id="mtbGenomicTableBody" class="divide-y divide-slate-800/60 font-mono text-[11px]">
+                  <!-- JavaScript ile doldurulur -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- AMP Kılavuz Açıklaması Bilgi Çubuğu -->
+            <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-[10px] text-slate-400 space-y-1">
+              <span class="font-bold text-slate-300 block">AMP/ASCO/CAP Kanıt Derecelendirme Kriterleri:</span>
+              <div class="grid grid-cols-2 gap-2">
+                <div><strong class="text-emerald-400">Tier I:</strong> FDA onaylı / NCCN Kat 1 terapötik etki.</div>
+                <div><strong class="text-indigo-400">Tier II:</strong> Faz 2/3 çalışma / etiket dışı potansiyel.</div>
+                <div><strong class="text-amber-400">Tier III:</strong> Bilinmeyen anlamlı varyant (VUS).</div>
+                <div><strong class="text-slate-400">Tier IV:</strong> Benign veya klinik etkisiz varyant.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- İnteraktif Özel Vaka Sentezleyici & Simülatör -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>🧪 Özel Vaka Konsensüs Hesaplayıcı & Test Edici</span>
+            </h4>
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <label class="text-[10px] text-slate-400 block mb-1">Primer Tümör Tipi</label>
+                <select id="mtbCustomOrgan" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs">
+                  <option value="LUNG">Akciğer Karsinomu</option>
+                  <option value="COLON">Kolorektal Kanser</option>
+                  <option value="BREAST">Meme Karsinomu</option>
+                  <option value="PROSTATE">Prostat Karsinomu</option>
+                  <option value="MELANOMA">Malign Melanom</option>
+                  <option value="OVARY">Over Karsinomu</option>
+                  <option value="PANCREAS">Pankreas Duktal Adeno</option>
+                  <option value="GLIOBLASTOMA">Glioblastoma</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-[10px] text-slate-400 block mb-1">Sürücü Gen Alterasyonu</label>
+                <select id="mtbCustomGene" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs">
+                  <option value="EGFR_L858R">EGFR p.L858R</option>
+                  <option value="EGFR_T790M">EGFR p.T790M</option>
+                  <option value="EGFR_EXON20_INS">EGFR Exon 20 İnsersiyonu</option>
+                  <option value="KRAS_G12C">KRAS p.G12C</option>
+                  <option value="KRAS_G12D">KRAS p.G12D</option>
+                  <option value="BRAF_V600E">BRAF p.V600E</option>
+                  <option value="BRCA1_TRUNCATING">BRCA1 Truncating Mutasyon</option>
+                  <option value="BRCA2_MUT">BRCA2 Patojenik Varyant</option>
+                  <option value="MET_AMPLIFICATION">MET Yüksek Kopya Kazanımı (Amplifikasyon)</option>
+                  <option value="ERBB2_HER2_AMP">HER2 / ERBB2 Amplifikasyonu</option>
+                  <option value="ALK_FUSION">EML4-ALK Füzyonu</option>
+                  <option value="RET_FUSION">RET Füzyonu</option>
+                  <option value="NTRK_FUSION">NTRK1/2/3 Gen Füzyonu</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-[10px] text-slate-400 block mb-1">VAF Allel Frekansı (%)</label>
+                <input type="number" id="mtbCustomVaf" value="35.0" min="0.1" max="100" step="0.5" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs">
+              </div>
+
+              <div>
+                <label class="text-[10px] text-slate-400 block mb-1">TMB (Mut/Mb)</label>
+                <input type="number" id="mtbCustomTmb" value="8.0" min="0" max="150" step="0.5" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs">
+              </div>
+
+              <div>
+                <label class="text-[10px] text-slate-400 block mb-1">MSI Durumu</label>
+                <select id="mtbCustomMsi" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs">
+                  <option value="MSS">MSS (Mikrosatellit Stabil)</option>
+                  <option value="MSI_HIGH">MSI-High / dMMR (Yüksek)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-[10px] text-slate-400 block mb-1">PD-L1 TPS / CPS (%)</label>
+                <input type="number" id="mtbCustomPdl1" value="20.0" min="0" max="100" step="1" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs">
+              </div>
+            </div>
+
+            <button 
+              onclick="generateCustomMtbConsensus()" 
+              id="generateCustomMtbBtn"
+              class="w-full py-2.5 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-bold text-xs shadow-lg transition-all"
+            >
+              ⚡ Özel Vaka Konsensüsünü Değerlendir ve Raporla
+            </button>
+          </div>
+        </div>
+
+        <!-- SAĞ KOLON: ÇOK DİSİPLİNLİ UZMAN KONSENSÜSÜ & KLİNİK ÇALIŞMALAR (6 Kolon) -->
+        <div class="lg:col-span-6 space-y-6">
+          <!-- Resmi MTB Konsensüs Kararı ve Kılavuz Seviyesi -->
+          <div class="bg-slate-900 border border-indigo-500/40 rounded-3xl p-5 shadow-xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>🏛️ NCCN / ESMO Kılavuz Konsensüsü</span>
+              </h4>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">HASSAS ONKOLOJİ</span>
+            </div>
+            <div id="mtbGuidelineBox" class="p-4 rounded-2xl bg-slate-950 border border-indigo-900/50 text-xs font-bold text-indigo-300">
+              NCCN Kategori 2A / ESMO Tier I-B: EGFR-TKI + MET İnhibitörü Kombinasyonu
+            </div>
+          </div>
+
+          <!-- Uzman Panelleri (Patoloji, Onkoloji, Genetik) -->
+          <div class="space-y-4">
+            <!-- Moleküler Patoloji -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-2">
+              <div class="flex items-center gap-2 text-xs font-bold text-emerald-400">
+                <span>🔬 Moleküler Patoloji & Biyoinformatik Görüşü</span>
+              </div>
+              <p id="mtbPathologyBox" class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-3 rounded-2xl border border-slate-800/80">
+                EGFR L858R ile eş zamanlı primer MET amplifikasyonu mevcuttur. Standart osimertinib monoterapisi durumunda 4-6 ay içinde erken progresyon riski yüksektir.
+              </p>
+            </div>
+
+            <!-- Tıbbi Onkoloji -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-2">
+              <div class="flex items-center gap-2 text-xs font-bold text-sky-400">
+                <span>💊 Tıbbi Onkoloji Tedavi Planı</span>
+              </div>
+              <p id="mtbOncologyBox" class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-3 rounded-2xl border border-slate-800/80">
+                Birinci basamakta Osimertinib (80 mg) + Savolitinib (300-600 mg) kombinasyonu (SAVANNAH / TATTON protokolü) veya Platin+Pemetreksed kemoterapisi eşliğinde TKI değerlendirilmelidir.
+              </p>
+            </div>
+
+            <!-- Tıbbi Genetik -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-2">
+              <div class="flex items-center gap-2 text-xs font-bold text-purple-400">
+                <span>🧬 Tıbbi Genetik & Aile Danışmanlığı</span>
+              </div>
+              <p id="mtbGeneticsBox" class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-3 rounded-2xl border border-slate-800/80">
+                Hasta sigara içmemiş genç-orta yaş kadındır. Germline BRCA/Lynch paneli temizdir; somatik sürücü mutasyonlar hedeflenmelidir.
+              </p>
+            </div>
+          </div>
+
+          <!-- Eşleşen Aktif Klinik Çalışmalar -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>🧪 Eşleşen Aktif Faz II/III Klinik Çalışmalar (ClinicalTrials.gov)</span>
+            </h4>
+            <div id="mtbTrialsContainer" class="space-y-2">
+              <!-- JavaScript ile doldurulur -->
             </div>
           </div>
         </div>
@@ -4518,6 +4841,549 @@ NICE NG12 Kararı: ${evalRes.niceStatus}
         alert("Özet kopyalanırken bir hata oluştu.");
       });
     }
+
+    // ==========================================
+    // SESLİ KONUŞMA (SPEECH-TO-TEXT / STT)
+    // ==========================================
+    let chatSpeechRecognizer = null;
+    let isChatListening = false;
+
+    function toggleChatSpeechRecognition() {
+      const micBtn = document.getElementById('chatMicBtn');
+      const micIcon = document.getElementById('chatMicIcon');
+      const inputEl = document.getElementById('chatInputText');
+
+      const SpeechRec = (typeof window !== 'undefined') && (window.SpeechRecognition || window.webkitSpeechRecognition);
+      if (!SpeechRec) {
+        alert("Tarayıcınız Web Speech API (Ses Tanıma) desteğine sahip değil veya mikrofon izni verilmedi. Google Chrome, Edge veya Safari önerilir.");
+        return;
+      }
+
+      if (isChatListening && chatSpeechRecognizer) {
+        try { chatSpeechRecognizer.stop(); } catch(e){}
+        isChatListening = false;
+        if (micBtn) {
+          micBtn.classList.remove('bg-rose-600', 'animate-pulse');
+          micBtn.classList.add('bg-slate-900');
+        }
+        if (micIcon) micIcon.innerText = '🎙️';
+        return;
+      }
+
+      try {
+        chatSpeechRecognizer = new SpeechRec();
+        chatSpeechRecognizer.lang = 'tr-TR';
+        chatSpeechRecognizer.continuous = false;
+        chatSpeechRecognizer.interimResults = false;
+
+        chatSpeechRecognizer.onstart = function() {
+          isChatListening = true;
+          if (micBtn) {
+            micBtn.classList.remove('bg-slate-900');
+            micBtn.classList.add('bg-rose-600', 'animate-pulse');
+          }
+          if (micIcon) micIcon.innerText = '⏹️';
+        };
+
+        chatSpeechRecognizer.onresult = function(event) {
+          if (event.results && event.results.length > 0) {
+            const transcript = event.results[0][0].transcript;
+            if (inputEl) {
+              inputEl.value = (inputEl.value ? inputEl.value + ' ' : '') + transcript;
+              inputEl.focus();
+            }
+          }
+        };
+
+        chatSpeechRecognizer.onerror = function(event) {
+          console.warn("Ses tanıma hatası:", event.error);
+          isChatListening = false;
+          if (micBtn) {
+            micBtn.classList.remove('bg-rose-600', 'animate-pulse');
+            micBtn.classList.add('bg-slate-900');
+          }
+          if (micIcon) micIcon.innerText = '🎙️';
+        };
+
+        chatSpeechRecognizer.onend = function() {
+          isChatListening = false;
+          if (micBtn) {
+            micBtn.classList.remove('bg-rose-600', 'animate-pulse');
+            micBtn.classList.add('bg-slate-900');
+          }
+          if (micIcon) micIcon.innerText = '🎙️';
+        };
+
+        chatSpeechRecognizer.start();
+      } catch (err) {
+        console.error("STT Hatası:", err);
+        isChatListening = false;
+        if (micBtn) {
+          micBtn.classList.remove('bg-rose-600', 'animate-pulse');
+          micBtn.classList.add('bg-slate-900');
+        }
+        if (micIcon) micIcon.innerText = '🎙️';
+      }
+    }
+
+    // ==========================================
+    // TAB 17: MOLECULAR TUMOR BOARD (MTB) ENGINE
+    // ==========================================
+    const CANONICAL_MTB_CASES = {
+      'CASE_01_LUNG_MET_EGFR': {
+        case_id: 'MTB-2026-001',
+        title: 'İlerlemiş Akciğer Adenokarsinomu (EGFR L858R + De Novo MET Amplifikasyonu)',
+        demographics: { age: 62, gender: 'Kadın', smoking: 'Hiç içmemiş (0 Paket-Yıl)', ecog_ps: 1 },
+        primary_diagnosis: 'Akciğer Adeno (Evre IVB - Akciğer içi ve plevral yayılım)',
+        histopathology: 'TTF-1 pozitif, p40 negatif invaziv adenokarsinom',
+        genomic_alterations: [
+          { gene: 'EGFR', alteration: 'p.L858R (Exon 21)', vaf_percent: 38.5, tier: 'Tier I', implication: '1-3. Kuşak TKI Duyarlılığı (Osimertinib)' },
+          { gene: 'MET', alteration: 'MET Gene Copy Number Gain (CN >= 6.2)', vaf_percent: null, tier: 'Tier I/II', implication: 'Primer TKI Direnci Baypası (Savolitinib / Capmatinib)' },
+          { gene: 'TP53', alteration: 'p.R273H (DNA Binding Domain)', vaf_percent: 42.0, tier: 'Tier II', implication: 'Olumsuz Prognostik Gösterge' }
+        ],
+        biomarkers: { tmb_mut_per_mb: 5.2, msi_status: 'MSS', pdl1_tps_percent: 15.0 },
+        mtb_consensus: {
+          molecular_pathologist: 'EGFR L858R ile eş zamanlı primer MET amplifikasyonu mevcuttur. Standart osimertinib monoterapisi durumunda 4-6 ay içinde erken progresyon riski yüksektir.',
+          medical_oncologist: 'Birinci basamakta Osimertinib (80 mg) + Savolitinib (300-600 mg) kombinasyonu (SAVANNAH / TATTON protokolü) veya Platin+Pemetreksed kemoterapisi eşliğinde TKI değerlendirilmelidir.',
+          clinical_geneticist: 'Hasta sigara içmemiş genç-orta yaş kadındır. Germline BRCA/Lynch paneli temizdir; somatik sürücü mutasyonlar hedeflenmelidir.',
+          guideline_recommendation: 'NCCN Kategori 2A / ESMO Tier I-B: EGFR-TKI + MET İnhibitörü Kombinasyonu',
+          relevant_trials: [{ nct: 'NCT03778229', name: 'SAVANNAH (Osimertinib + Savolitinib in MET+ EGFRm NSCLC)', phase: 'Faz 2' }]
+        }
+      },
+      'CASE_02_COLON_KRAS_G12C': {
+        case_id: 'MTB-2026-002',
+        title: 'Metastatik Kolorektal Kanser (KRAS G12C, Sol Kolon, MSS)',
+        demographics: { age: 54, gender: 'Erkek', smoking: '15 Paket-Yıl', ecog_ps: 0 },
+        primary_diagnosis: 'Kolon Adenokarsinomu (Evre IV - Karaciğer oligometastatik)',
+        histopathology: 'Orta diferansiye sol kolon adenokarsinomu, CDX-2 pozitif',
+        genomic_alterations: [
+          { gene: 'KRAS', alteration: 'p.G12C (Exon 2)', vaf_percent: 31.2, tier: 'Tier I', implication: 'Anti-EGFR Tek Ajan Direnci; G12C Hedeflenebilir' },
+          { gene: 'APC', alteration: 'p.R1450* (Stop-gain)', vaf_percent: 34.0, tier: 'Tier III', implication: 'Wnt Yolağı Konstitütif Aktivasyonu' }
+        ],
+        biomarkers: { tmb_mut_per_mb: 6.8, msi_status: 'MSS (pMMR)', pdl1_tps_percent: 0.0 },
+        mtb_consensus: {
+          molecular_pathologist: 'KRAS G12C kovalent cebi hedeflenebilir yapıdadır; ancak kolorektal kanserde EGFR aracılı hızlı feedback aktivasyonu nedeniyle tek ajan Sotorasib/Adagrasib yanıt oranı düşüktür (%10-15).',
+          medical_oncologist: 'CodeBreak-300 ve KRYSTAL-1 çalışmaları doğrultusunda Sotorasib + Panitumumab (Anti-EGFR) ikili blokajı veya FOLFIRI + Bevacizumab sonrası kovalent kombinasyon önerilir.',
+          clinical_geneticist: 'MSS fenotipinde Lynch şüphesi yoktur. Aile taraması gerektirmez.',
+          guideline_recommendation: 'NCCN Kategori 1: Sotorasib + Panitumumab veya Adagrasib + Setuksimab Kombinasyonu',
+          relevant_trials: [{ nct: 'NCT05192486', name: 'CodeBreak-300 (Sotorasib + Panitumumab vs SoC)', phase: 'Faz 3' }]
+        }
+      },
+      'CASE_03_TNBC_BRCA1_PDL1': {
+        case_id: 'MTB-2026-003',
+        title: 'Üçlü Negatif Meme Kanseri (gBRCA1+, PD-L1 CPS 18, TMB 12.4)',
+        demographics: { age: 48, gender: 'Kadın', smoking: 'Hiç içmemiş', ecog_ps: 0 },
+        primary_diagnosis: 'İnvaziv Duktal Meme Karsinomu (Evre III - T2N2M0, ER-, PR-, HER2- 0)',
+        histopathology: 'Grade 3, yüksek Ki-67 (%75), lenfovasküler invazyon pozitif',
+        genomic_alterations: [
+          { gene: 'BRCA1', alteration: 'c.68_69delAG (p.Glu23fs)', vaf_percent: 50.1, tier: 'Tier I (Germline)', implication: 'HRD Tamir Kusuru & PARP Duyarlılığı (Olaparib)' },
+          { gene: 'TP53', alteration: 'p.R175H', vaf_percent: 48.0, tier: 'Tier II', implication: 'Apoptoz Direnci & Genomik İnstabilite' }
+        ],
+        biomarkers: { tmb_mut_per_mb: 12.4, msi_status: 'MSS', pdl1_tps_percent: 18.0 },
+        mtb_consensus: {
+          molecular_pathologist: 'Homolog rekombinasyon eksikliği (HRD) skoru yüksektir (>42). PD-L1 CPS >= 10 ve TMB-High eş zamanlı immünojenik mikroçevre sağlar.',
+          medical_oncologist: 'Neoadjuvan dönemde KEYNOTE-522 protokolü (Karboplatin+Paklitaksel+Doksorubisin+Siklofosfamid + Pembrolizumab). Cerrahi kalıntı durumunda OlympiA protokolü ile 1 yıl adjuvan Olaparib.',
+          clinical_geneticist: 'Kalıtsal BRCA1 patojenik varyantı nedeniyle hastanın 1. derece akrabalarına presemptomatik test ve profilaktik bilateral salpingo-ooferektomi (BSO) danışmanlığı.',
+          guideline_recommendation: 'NCCN Kategori 1 (KEYNOTE-522 & OlympiA): İmmünoterapi + Kemo ardından Adjuvan PARP İnhibitörü',
+          relevant_trials: [{ nct: 'NCT03036488', name: 'KEYNOTE-522 (Pembrolizumab + Chemo in High-Risk Early TNBC)', phase: 'Faz 3' }]
+        }
+      },
+      'CASE_04_PROSTATE_HRD_CDK12': {
+        case_id: 'MTB-2026-004',
+        title: 'Metastatik Kastrasyona Dirençli Prostat Kanseri (mCRPC, CDK12+)',
+        demographics: { age: 70, gender: 'Erkek', smoking: '20 Paket-Yıl', ecog_ps: 1 },
+        primary_diagnosis: 'Prostat Adenokarsinomu (Evre IVB - Kemik ve Pelvik Lenf Nodu Metastazı)',
+        histopathology: 'Gleason Skoru 4+5 = 9 (Grup 5), Akut idrar retansiyonu ve osteoblastik lezyonlar',
+        genomic_alterations: [
+          { gene: 'CDK12', alteration: 'p.E462* (Çift allelik inaktivasyon)', vaf_percent: 44.0, tier: 'Tier I', implication: 'Tandem Duplikasyon Fenotipi & PARPi Duyarlılığı' },
+          { gene: 'AR', alteration: 'AR Copy Number Gain (Amplifikasyon)', vaf_percent: null, tier: 'Tier II', implication: '1. Kuşak Androjen Reseptör Blokajı Direnci' }
+        ],
+        biomarkers: { tmb_mut_per_mb: 11.0, msi_status: 'MSS', pdl1_tps_percent: 5.0 },
+        mtb_consensus: {
+          molecular_pathologist: 'CDK12 kaybı, genom genelinde fokal tandem duplikasyonlara ve neoantijen yükünde artışa yol açar. DNA tamir defekti taşır.',
+          medical_oncologist: 'TALAPRO-2 ve PROpel çalışmaları temelinde Enzalutamid veya Abirateron ile kombine PARP inhibitörü (Talazoparib veya Olaparib). CDK12 ayrıca Anti-PD-1 immünoterapisine duyarlılık gösterebilir.',
+          clinical_geneticist: 'CDK12 germline taşıyıcılığı nadir de olsa dışlanmalı, germline kanda doğrulanmalıdır.',
+          guideline_recommendation: 'NCCN Kategori 1: PARP İnhibitörü + Yeni Nesil Androjen Reseptör İnhibitörü Kombinasyonu',
+          relevant_trials: [{ nct: 'NCT03395197', name: 'TALAPRO-2 (Talazoparib + Enzalutamide in mCRPC)', phase: 'Faz 3' }]
+        }
+      },
+      'CASE_05_GBM_MGMT_METHYLATED': {
+        case_id: 'MTB-2026-005',
+        title: 'Glioblastoma Multiforme (GBM Evre IV, IDH-wt, MGMT Promotörü Metile)',
+        demographics: { age: 58, gender: 'Kadın', smoking: '5 Paket-Yıl', ecog_ps: 1 },
+        primary_diagnosis: 'Glioblastoma (WHO Grade 4 - Sol Temporal Lob)',
+        histopathology: 'Mikrovasküler proliferasyon, psödo-palizatlanan nekroz, GFAP pozitif',
+        genomic_alterations: [
+          { gene: 'IDH1', alteration: 'Wild-Type (R132 Negatif)', vaf_percent: null, tier: 'Tier I', implication: 'Klasik Primer Glioblastoma Fenotipi' },
+          { gene: 'MGMT', alteration: 'Promoter Hypermethylation (>45%)', vaf_percent: null, tier: 'Tier I', implication: 'Alkilleyici Ajan (Temozolomid) Duyarlılığı' },
+          { gene: 'TERT', alteration: 'p.C228T (Promoter)', vaf_percent: 46.5, tier: 'Tier II', implication: 'Telomeraz Aktivasyonu' }
+        ],
+        biomarkers: { tmb_mut_per_mb: 3.1, msi_status: 'MSS', pdl1_tps_percent: 0.0 },
+        mtb_consensus: {
+          molecular_pathologist: 'MGMT metilasyonu, DNA tamir enzimi olan MGMT\'nin susturulduğunu kanıtlar. Bu durum alkilleyici kemoterapiye (Temozolomid) belirgin duyarlılık öngörür.',
+          medical_oncologist: 'Stupp Protokolü: Maksimal cerrahi rezeksiyon sonrası 6 hafta eşzamanlı Radyoterapi (60 Gy) + Temozolomid (75 mg/m²), ardından 6 siklus adjuvan Temozolomid ve TTFields (Optune) cihazı.',
+          clinical_geneticist: 'Kalıtsal sendrom (Li-Fraumeni vb.) düşündürecek aile öyküsü yoktur.',
+          guideline_recommendation: 'NCCN Kategori 1: Radyoterapi + Temozolomid + Tümör Tedavi Alanları (TTFields)',
+          relevant_trials: [{ nct: 'NCT00916409', name: 'EF-14 (TTFields + Temozolomide for Newly Diagnosed Glioblastoma)', phase: 'Faz 3' }]
+        }
+      },
+      'CASE_06_MELANOMA_BRAF_V600E': {
+        case_id: 'MTB-2026-006',
+        title: 'Metastatik Malign Melanom (BRAF V600E, LDH Yüksek, Evre IV)',
+        demographics: { age: 52, gender: 'Erkek', smoking: '10 Paket-Yıl', ecog_ps: 0 },
+        primary_diagnosis: 'Kutanöz Malign Melanom (Evre IV M1c - Karaciğer ve Akciğer Tutulumu)',
+        histopathology: 'S100+, Melan-A+, HMB-45+ iğsi hücreli melanom',
+        genomic_alterations: [
+          { gene: 'BRAF', alteration: 'p.V600E (c.1799T>A, Exon 15)', vaf_percent: 42.0, tier: 'Tier I', implication: 'BRAF+MEK İnhibitörü Hedeflenebilir (Dabrafenib+Trametinib)' },
+          { gene: 'CDKN2A', alteration: 'Homozygous Deletion', vaf_percent: null, tier: 'Tier II', implication: 'Hücre Döngüsü G1/S Kontrol Kaybı' }
+        ],
+        biomarkers: { tmb_mut_per_mb: 24.5, msi_status: 'MSS', pdl1_tps_percent: 45.0 },
+        mtb_consensus: {
+          molecular_pathologist: 'BRAF V600E ile birlikte TMB-High (>20 mut/Mb) ve yüksek PD-L1 mevcuttur. Hem hedefe yönelik TKI hem de immünoterapi potansiyeli çok yüksektir.',
+          medical_oncologist: 'DREAMseq çalışması uyarınca: Yüksek tümör yükü ve LDH yüksekliğinde acil yanıt için Dabrafenib + Trametinib ile indüksiyon, veya uzun vadeli kalıcı küratif yanıt için Nivolumab + Ipilimumab ikili immünoterapisi.',
+          clinical_geneticist: 'CDKN2A germline mutasyonları melanom ve pankreas kanseri yatkınlığı yapabilir; germline kontrolü tavsiye edilir.',
+          guideline_recommendation: 'NCCN Kategori 1: Nivolumab + Ipilimumab veya Dabrafenib + Trametinib',
+          relevant_trials: [{ nct: 'NCT02224781', name: 'DREAMseq (Sequencing Nivolumab+Ipilimumab vs Dabrafenib+Trametinib)', phase: 'Faz 3' }]
+        }
+      }
+    };
+
+    let activeMtbCaseKey = 'CASE_01_LUNG_MET_EGFR';
+
+    function loadMtbCase(caseKey) {
+      const caseData = CANONICAL_MTB_CASES[caseKey];
+      if (!caseData) return;
+      activeMtbCaseKey = caseKey;
+
+      // Buton Aktiflik Durumları
+      document.querySelectorAll('.mtb-case-card').forEach(btn => {
+        btn.classList.remove('border-indigo-500', 'border-indigo-500/50', 'bg-indigo-950/30');
+        btn.classList.add('border-slate-800');
+      });
+      const activeBtn = document.getElementById(`mtbCaseBtn-${caseKey}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('border-slate-800');
+        activeBtn.classList.add('border-indigo-500/50', 'bg-indigo-950/30');
+      }
+
+      // Başlık ve Demografi
+      const caseIdEl = document.getElementById('mtbCaseId');
+      const caseTitleEl = document.getElementById('mtbCaseTitle');
+      const ecogEl = document.getElementById('mtbEcogTag');
+      const demoEl = document.getElementById('mtbPatientDemographics');
+      const smokingEl = document.getElementById('mtbSmokingStatus');
+      const diagEl = document.getElementById('mtbPrimaryDiagnosis');
+      const histoEl = document.getElementById('mtbHistopathology');
+      const tmbEl = document.getElementById('mtbTmbVal');
+      const msiPdl1El = document.getElementById('mtbMsiPdl1Val');
+
+      if (caseIdEl) caseIdEl.innerText = caseData.case_id;
+      if (caseTitleEl) caseTitleEl.innerText = caseData.title;
+      if (ecogEl) ecogEl.innerText = `ECOG ${caseData.demographics.ecog_ps}`;
+      if (demoEl) demoEl.innerText = `${caseData.demographics.age} Yaş / ${caseData.demographics.gender}`;
+      if (smokingEl) smokingEl.innerText = caseData.demographics.smoking;
+      if (diagEl) diagEl.innerText = caseData.primary_diagnosis;
+      if (histoEl) histoEl.innerText = caseData.histopathology;
+      if (tmbEl) {
+        const tmbVal = caseData.biomarkers.tmb_mut_per_mb;
+        tmbEl.innerText = `${tmbVal} Mut/Mb (${tmbVal >= 10 ? 'TMB-High' : 'Normal'})`;
+      }
+      if (msiPdl1El) {
+        msiPdl1El.innerText = `${caseData.biomarkers.msi_status} / PD-L1: %${caseData.biomarkers.pdl1_tps_percent}`;
+      }
+
+      // Genomik Tablo
+      const tbody = document.getElementById('mtbGenomicTableBody');
+      if (tbody) {
+        tbody.innerHTML = '';
+        caseData.genomic_alterations.forEach(alt => {
+          let badgeClass = 'bg-slate-800 text-slate-300 border-slate-700';
+          if (alt.tier.includes('Tier I')) badgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+          else if (alt.tier.includes('Tier II')) badgeClass = 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40';
+          else if (alt.tier.includes('Tier III')) badgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-900/60 transition-colors';
+          tr.innerHTML = `
+            <td class="py-2.5 px-3 font-bold text-white">${alt.gene}</td>
+            <td class="py-2.5 px-3 text-slate-300">${alt.alteration}</td>
+            <td class="py-2.5 px-3 text-sky-400 font-mono">${alt.vaf_percent !== null ? `%${alt.vaf_percent.toFixed(1)}` : 'N/A (CNV)'}</td>
+            <td class="py-2.5 px-3">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeClass}">${alt.tier}</span>
+            </td>
+            <td class="py-2.5 px-3 text-slate-400 text-[11px]">${alt.implication}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Uzman Görüşleri ve Kılavuz
+      const guideEl = document.getElementById('mtbGuidelineBox');
+      const pathEl = document.getElementById('mtbPathologyBox');
+      const oncoEl = document.getElementById('mtbOncologyBox');
+      const genEl = document.getElementById('mtbGeneticsBox');
+      const trialsCont = document.getElementById('mtbTrialsContainer');
+
+      if (guideEl) guideEl.innerText = caseData.mtb_consensus.guideline_recommendation;
+      if (pathEl) pathEl.innerText = caseData.mtb_consensus.molecular_pathologist;
+      if (oncoEl) oncoEl.innerText = caseData.mtb_consensus.medical_oncologist;
+      if (genEl) genEl.innerText = caseData.mtb_consensus.clinical_geneticist;
+
+      if (trialsCont) {
+        trialsCont.innerHTML = '';
+        if (caseData.mtb_consensus.relevant_trials && caseData.mtb_consensus.relevant_trials.length > 0) {
+          caseData.mtb_consensus.relevant_trials.forEach(tr => {
+            const item = document.createElement('div');
+            item.className = 'p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs';
+            item.innerHTML = `
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-indigo-400 font-mono">${tr.nct}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700">${tr.phase}</span>
+                </div>
+                <span class="text-slate-200 block text-xs">${tr.name}</span>
+              </div>
+              <a href="https://clinicaltrials.gov/study/${tr.nct}" target="_blank" class="px-2.5 py-1.5 rounded-xl bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500/30 text-[11px] border border-indigo-500/30 transition-all font-bold">
+                İncele ↗
+              </a>
+            `;
+            trialsCont.appendChild(item);
+          });
+        } else {
+          trialsCont.innerHTML = '<div class="p-3 text-xs text-slate-500 italic">Eşleşen aktif klinik çalışma bulunamadı.</div>';
+        }
+      }
+    }
+
+    function generateCustomMtbConsensus() {
+      const organ = document.getElementById('mtbCustomOrgan')?.value || 'LUNG';
+      const geneCode = document.getElementById('mtbCustomGene')?.value || 'EGFR_L858R';
+      const vaf = parseFloat(document.getElementById('mtbCustomVaf')?.value) || 35.0;
+      const tmb = parseFloat(document.getElementById('mtbCustomTmb')?.value) || 8.0;
+      const msi = document.getElementById('mtbCustomMsi')?.value || 'MSS';
+      const pdl1 = parseFloat(document.getElementById('mtbCustomPdl1')?.value) || 20.0;
+
+      // Dinamik AMP Tier ve Kılavuz Kuralları
+      let geneName = 'EGFR';
+      let alteration = 'p.L858R';
+      let tier = 'Tier I';
+      let implication = 'FDA Onaylı 3. Kuşak TKI Duyarlılığı';
+      let guideline = 'NCCN Kategori 1 / ESMO Tier I-A: Birinci Basamak Osimertinib Monoterapisi';
+      let pathOpinion = 'Tek başına klasik aktifleyici sensitize edici mutasyondur. İlave direnç mekanizması (MET amplifikasyonu veya T790M) saptanmamıştır.';
+      let oncoOpinion = 'Standart osimertinib 80 mg/gün ile medyan PFS 18.9 aydır (FLAURA verisi). Yanıt monitörizasyonu seri ctDNA ile yapılmalıdır.';
+      let genOpinion = 'Sporadik somatik alterasyon lehinedir. Aile taraması gerektirmez.';
+      let trialName = 'FLAURA-2 (Osimertinib + Platin-Pemetreksed Kemosu)';
+      let trialNct = 'NCT04035486';
+
+      if (geneCode === 'EGFR_T790M') {
+        geneName = 'EGFR'; alteration = 'p.T790M (Exon 20 Gatekeeper)'; tier = 'Tier I';
+        implication = '1./2. Kuşak TKI Direnci, 3. Kuşak (Osimertinib) Duyarlılığı';
+        guideline = 'NCCN Kategori 1: Erlotinib/Gefitinib sonrası Osimertinib Monoterapisi (AURA3 protokolü)';
+        pathOpinion = 'Klasik kapı bekçisi direnç mutasyonudur; ATP cebini sterik olarak kapatarak 1. kuşak ilaçları etkisiz kılar.';
+        oncoOpinion = 'Osimertinib ile %71 objektif yanıt ve belirgin intrakraniyal kontrol sağlanır.';
+      } else if (geneCode === 'EGFR_EXON20_INS') {
+        geneName = 'EGFR'; alteration = 'Exon 20 İnsersiyonu'; tier = 'Tier I';
+        implication = 'Klasik TKI Direnci; Bispesifik Antikor veya Spesifik İnhibitör';
+        guideline = 'NCCN Kategori 1: Amivantamab (Bispesifik EGFR-MET) + Karboplatin-Pemetreksed (PAPILLON Protokolü)';
+        pathOpinion = 'Exon 20 insersiyonları alfa-C sarmalını iter; klasik TKI bağlanmasını engeller.';
+        oncoOpinion = 'Amivantamab + kemoterapi birinci basamakta standarttır; ikinci basamakta Mobocertinib/Sunvozertinib değerlendirilebilir.';
+        trialName = 'PAPILLON (Amivantamab + Chemotherapy in Exon20ins)'; trialNct = 'NCT04538664';
+      } else if (geneCode === 'KRAS_G12C') {
+        geneName = 'KRAS'; alteration = 'p.G12C (Exon 2)'; tier = 'Tier I';
+        if (organ === 'COLON') {
+          implication = 'Anti-EGFR Monoterapi Direnci; Kovalent G12C Blokajı + Anti-EGFR';
+          guideline = 'NCCN Kategori 1: Sotorasib + Panitumumab Kombinasyonu (CodeBreak-300)';
+          pathOpinion = 'Kolonda KRAS G12C tek başına verildiğinde hızlı feedback döngüsü ile EGFR aktive olur; ikili blokaj şarttır.';
+          oncoOpinion = 'CodeBreak-300 uyarınca Sotorasib + Panitumumab ile PFS anlamlı olarak uzamaktadır.';
+          trialName = 'CodeBreak-300 (Sotorasib + Panitumumab)'; trialNct = 'NCT05192486';
+        } else {
+          implication = 'Kovalent KRAS G12C İnhibitörü Hedeflenebilir';
+          guideline = 'NCCN Kategori 2A / FDA Onaylı: Sotorasib veya Adagrasib Monoterapisi';
+          pathOpinion = 'KRAS G12C GDP bağlı inaktif durumu kovalent olarak stabilize eder; akciğerde monoterapi etkilidir.';
+          oncoOpinion = 'İkinci basamakta platin+immünoterapi sonrası Sotorasib veya Adagrasib önerilir.';
+          trialName = 'CodeBreak-200 (Sotorasib vs Docetaxel in NSCLC)'; trialNct = 'NCT04303780';
+        }
+      } else if (geneCode === 'BRAF_V600E') {
+        geneName = 'BRAF'; alteration = 'p.V600E (Exon 15)'; tier = 'Tier I';
+        if (organ === 'MELANOMA') {
+          implication = 'BRAF+MEK İkili Blokajı veya İmmünoterapi Duyarlılığı';
+          guideline = 'NCCN Kategori 1: Dabrafenib + Trametinib VEYA Nivolumab + Ipilimumab (DREAMseq Protokolü)';
+          pathOpinion = 'MAPK yolağında monomerik liganddan bağımsız aşırı sinyal üretir.';
+          oncoOpinion = 'Yüksek tümör yükünde hızlı sitoredüksiyon için BRAF/MEKi, uzun vadeli küratif yanıt için ikili immünoterapi tercih edilir.';
+          trialName = 'DREAMseq (Sequencing Targeted vs Checkpoint Inhibition)'; trialNct = 'NCT02224781';
+        } else if (organ === 'COLON') {
+          implication = 'Agresif Biyoloji; Encorafenib + Cetuximab Duyarlılığı';
+          guideline = 'NCCN Kategori 1: Encorafenib + Setuksimab Kombinasyonu (BEACON CRC Protokolü)';
+          pathOpinion = 'Kolon BRAF V600E sağ kolon ve MSS fenotipinde agresif seyreder; tek ajan BRAF blokajı yetersizdir.';
+          oncoOpinion = 'İkinci basamakta BEACON protokolü (Encorafenib + Cetuximab) OS kazancı sağlar.';
+          trialName = 'BEACON CRC (Encorafenib + Cetuximab in BRAFm CRC)'; trialNct = 'NCT02928224';
+        } else {
+          implication = 'Agnostik BRAF V600E İnhibitörü (Dabrafenib + Trametinib)';
+          guideline = 'FDA Doku-Agnostik Onayı: Dabrafenib + Trametinib İkili Blokajı';
+          pathOpinion = 'Tümör tipi ne olursa olsun BRAF V600E taşıyan olgularda kaskad blokajı etkindir.';
+        }
+      } else if (geneCode.startsWith('BRCA')) {
+        geneName = geneCode.startsWith('BRCA1') ? 'BRCA1' : 'BRCA2';
+        alteration = 'Patojenik Çerçeve Kayması / Truncating Mutasyon'; tier = 'Tier I';
+        implication = 'Homolog Rekombinasyon Eksikliği (HRD) & PARP İnhibitörü Duyarlılığı';
+        guideline = 'NCCN Kategori 1: Olaparib / Talazoparib Tedavisi ve Platin Duyarlılığı';
+        pathOpinion = 'Çift iplikçikli DNA kırıklarının homolog onarımı bozulmuştur; sentetik letalite mekanizması geçerlidir.';
+        oncoOpinion = 'Meme, over, prostat ve pankreasta PARP inhibitörleri ve platin bazlı kemoterapiler belirgin PFS avantajı sağlar.';
+        genOpinion = 'Patojenik germline/somatik varyant. Hastanın tüm 1. derece biyolojik akrabalarına genetik danışmanlık verilmelidir.';
+        trialName = 'OlympiA / PROfound (PARP Inhibition in HRD Tumors)'; trialNct = 'NCT02032823';
+      } else if (geneCode === 'MET_AMPLIFICATION') {
+        geneName = 'MET'; alteration = 'Yüksek Kopya Kazanımı (MET Gene CN >= 6)'; tier = 'Tier I/II';
+        implication = 'MET TKI Duyarlılığı (Tepotinib, Capmatinib, Savolitinib)';
+        guideline = 'NCCN Kategori 2A / ESMO Tier I-B: MET İnhibitörü Hedefli Tedavi';
+        pathOpinion = 'MET reseptör aşırı ekspresyonu ERBB3/PI3K aksını uyararak baypas direnci oluşturur.';
+        oncoOpinion = 'Capmatinib veya Tepotinib ile %40-60 objektif yanıt oranı bildirilmektedir.';
+      } else if (geneCode === 'ALK_FUSION' || geneCode === 'ROS1_FUSION') {
+        geneName = 'ALK'; alteration = 'EML4-ALK Kimerik Gen Füzyonu'; tier = 'Tier I';
+        implication = '2. ve 3. Kuşak ALK TKI Aşırı Duyarlılığı (Alectinib / Lorlatinib)';
+        guideline = 'NCCN Kategori 1: Birinci Basamak Alectinib veya Brigatinib';
+        pathOpinion = 'Füzyon kinaz yapısal olarak aktif olup tümör proliferasyonunu yönetir.';
+        oncoOpinion = 'Alectinib ile medyan PFS 34.8 aydır (ALEX çalışması); SSS metastaz koruması mükemmeldir.';
+        trialName = 'ALEX (Alectinib vs Crizotinib in ALK+ NSCLC)'; trialNct = 'NCT02075840';
+      }
+
+      // TMB ve MSI Agnostik İmmünoterapi Katkısı
+      if (msi === 'MSI_HIGH' || tmb >= 10.0) {
+        guideline += ' + Doku-Agnostik İmmünoterapi (Pembrolizumab - KEYNOTE-158)';
+        oncoOpinion += ` Ayrıca hasta ${msi === 'MSI_HIGH' ? 'MSI-High' : 'TMB-High (' + tmb + ' mut/Mb)'} olduğundan immünoterapiye (Anti-PD-1) fevkalade adaydır.`;
+      }
+
+      // Canlı Tablo Güncelleme
+      const caseIdEl = document.getElementById('mtbCaseId');
+      const caseTitleEl = document.getElementById('mtbCaseTitle');
+      const diagEl = document.getElementById('mtbPrimaryDiagnosis');
+      const tmbEl = document.getElementById('mtbTmbVal');
+      const msiPdl1El = document.getElementById('mtbMsiPdl1Val');
+
+      if (caseIdEl) caseIdEl.innerText = 'MTB-ÖZEL-SİMÜLASYON';
+      if (caseTitleEl) caseTitleEl.innerText = `Özel Simüle Vaka: ${organ} Karsinomu (${geneName} ${alteration})`;
+      if (diagEl) diagEl.innerText = `${organ} Karsinomu (Evre IV İleri Evre)`;
+      if (tmbEl) tmbEl.innerText = `${tmb.toFixed(1)} Mut/Mb (${tmb >= 10 ? 'TMB-High' : 'Normal'})`;
+      if (msiPdl1El) msiPdl1El.innerText = `${msi} / PD-L1: %${pdl1.toFixed(1)}`;
+
+      const tbody = document.getElementById('mtbGenomicTableBody');
+      if (tbody) {
+        tbody.innerHTML = `
+          <tr class="hover:bg-slate-900/60 transition-colors">
+            <td class="py-2.5 px-3 font-bold text-white">${geneName}</td>
+            <td class="py-2.5 px-3 text-slate-300">${alteration}</td>
+            <td class="py-2.5 px-3 text-sky-400 font-mono">%${vaf.toFixed(1)}</td>
+            <td class="py-2.5 px-3">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border bg-emerald-500/20 text-emerald-300 border-emerald-500/40">${tier}</span>
+            </td>
+            <td class="py-2.5 px-3 text-slate-400 text-[11px]">${implication}</td>
+          </tr>
+        `;
+      }
+
+      const guideEl = document.getElementById('mtbGuidelineBox');
+      const pathEl = document.getElementById('mtbPathologyBox');
+      const oncoEl = document.getElementById('mtbOncologyBox');
+      const genEl = document.getElementById('mtbGeneticsBox');
+      const trialsCont = document.getElementById('mtbTrialsContainer');
+
+      if (guideEl) guideEl.innerText = guideline;
+      if (pathEl) pathEl.innerText = pathOpinion;
+      if (oncoEl) oncoEl.innerText = oncoOpinion;
+      if (genEl) genEl.innerText = genOpinion;
+
+      if (trialsCont) {
+        trialsCont.innerHTML = `
+          <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs">
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-indigo-400 font-mono">${trialNct}</span>
+                <span class="px-1.5 py-0.2 rounded text-[10px] bg-slate-800 text-slate-300 border border-slate-700">Faz 3</span>
+              </div>
+              <span class="text-slate-200 block text-xs">${trialName}</span>
+            </div>
+            <a href="https://clinicaltrials.gov/study/${trialNct}" target="_blank" class="px-2.5 py-1.5 rounded-xl bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500/30 text-[11px] border border-indigo-500/30 transition-all font-bold">
+              İncele ↗
+            </a>
+          </div>
+        `;
+      }
+    }
+
+    function printMtbConsensusReport() {
+      const caseId = document.getElementById('mtbCaseId')?.innerText || 'MTB-2026';
+      const caseTitle = document.getElementById('mtbCaseTitle')?.innerText || 'Moleküler Tümör Konseyi';
+      const diag = document.getElementById('mtbPrimaryDiagnosis')?.innerText || '';
+      const guide = document.getElementById('mtbGuidelineBox')?.innerText || '';
+      const path = document.getElementById('mtbPathologyBox')?.innerText || '';
+      const onco = document.getElementById('mtbOncologyBox')?.innerText || '';
+      const gen = document.getElementById('mtbGeneticsBox')?.innerText || '';
+
+      const reportContent = 
+`================================================================================
+T.C. HASSAS ONKOLOJİ VE MOLEKÜLER TÜMÖR KONSEYİ (MTB) RESMİ KONSENSÜS RAPORU
+Tarih: ${new Date().toLocaleDateString('tr-TR')} ${new Date().toLocaleTimeString('tr-TR')}
+Protokol ID: ${caseId}
+================================================================================
+VAKA BAŞLIĞI:
+${caseTitle}
+
+PRİMER TANI & EVRE:
+${diag}
+
+REHBER & KONSENSÜS DÜZEYİ (AMP/ASCO/CAP & NCCN & ESMO):
+${guide}
+
+1. MOLEKÜLER PATOLOJİ & GENOMİK ANALİZ GÖRÜŞÜ:
+${path}
+
+2. TIBBİ ONKOLOJİ HEDEFE YÖNELİK TEDAVİ PLANI:
+${onco}
+
+3. TIBBİ GENETİK & AİLE DANIŞMANLIĞI:
+${gen}
+
+KONSENSÜS KARARI:
+Yukarıda adı geçen hasta çok disiplinli kurul tarafından değerlendirilmiş olup;
+belirtilen genomik alterasyonlar ışığında NCCN Kategori 1/2A protokolünün
+uygulanması oy birliği ile uygun bulunmuştur.
+================================================================================`;
+
+      if (typeof window !== 'undefined' && window.print && typeof document !== 'undefined') {
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(`
+            <html>
+              <head>
+                <title>MTB Konsensüs Raporu - ${caseId}</title>
+                <style>
+                  body { font-family: monospace; padding: 25px; white-space: pre-wrap; font-size: 13px; line-height: 1.5; background: #fff; color: #111; }
+                </style>
+              </head>
+              <body>${reportContent}</body>
+            </html>
+          `);
+          printWindow.document.close();
+          printWindow.focus();
+          setTimeout(() => { printWindow.print(); }, 250);
+          return;
+        }
+      }
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        navigator.clipboard.writeText(reportContent).then(() => {
+          alert("MTB Konsensüs Raporu panoya kopyalandı!");
+        });
+      } else {
+        alert(reportContent);
+      }
+    }
+
+    // İlk yüklemede MTB varsayılan vakasını aktifleştir
+    try {
+      if (typeof document !== 'undefined') {
+        loadMtbCase('CASE_01_LUNG_MET_EGFR');
+      }
+    } catch(e) {}
+
   </script>
 </body>
 </html>

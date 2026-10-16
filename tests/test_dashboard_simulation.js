@@ -53,6 +53,7 @@ class MockElement {
     this.checked = false;
     this.style = {};
   }
+  appendChild(child) { return child; }
   querySelector() { return new MockElement('sub'); }
   querySelectorAll() { return [new MockElement('sub1'), new MockElement('sub2')]; }
 }
@@ -142,8 +143,8 @@ console.log('\n=== [3/3] VERIFYING ALL 16 TABS & MODULES ===');
 if (mockWindow.domLoaded) mockWindow.domLoaded();
 console.log('✓ DOMContentLoaded initialized');
 
-// 16 Tabs
-const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma'];
+// 17 Tabs
+const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb'];
 tabs.forEach(t => sandbox.switchTab(t));
 console.log(`✓ switchTab validated for all ${tabs.length} tabs`);
 
@@ -218,6 +219,15 @@ sandbox.renderAlphaFold('TP53');
 sandbox.renderAlignment('HBB_SICKLE');
 sandbox.renderScreening('EGFR');
 console.log('✓ Pan-cancer, Synergy, Immuno, AlphaFold, PPI, and Screening modules validated');
+
+// Molecular Tumor Board (MTB) & Virtual Case Studio
+['CASE_01_LUNG_MET_EGFR', 'CASE_02_COLON_KRAS_G12C', 'CASE_03_TNBC_BRCA1_PDL1', 'CASE_04_PROSTATE_HRD_CDK12', 'CASE_05_GBM_MGMT_METHYLATED', 'CASE_06_MELANOMA_BRAF_V600E'].forEach(c => {
+  sandbox.loadMtbCase(c);
+});
+sandbox.generateCustomMtbConsensus();
+sandbox.printMtbConsensusReport();
+sandbox.toggleChatSpeechRecognition();
+console.log('✓ Molecular Tumor Board (MTB) (6 canonical cases, custom evaluator, AMP tiering, report export, STT voice) validated');
 
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');

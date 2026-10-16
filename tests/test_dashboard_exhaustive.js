@@ -170,7 +170,7 @@ console.log('[2/4] Browser environment & DOMContentLoaded initialized successful
 console.log('\n[3/4] RUNNING EXHAUSTIVE VALIDATION ACROSS ALL 16 SECTIONS...');
 
 // 3.1 Tab Navigation
-const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma'];
+const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb'];
 allTabs.forEach(t => sandbox.switchTab(t));
 console.log(`  ✓ All ${allTabs.length} tabs cycled without errors`);
 
@@ -223,6 +223,16 @@ sandbox.renderAlphaFold('TP53');
 sandbox.renderAlignment('HBB_SICKLE');
 sandbox.renderScreening('EGFR');
 console.log('  ✓ Immuno, Synergy, Alignment, and Screening engines tested');
+
+// 3.7 Molecular Tumor Board (MTB) & Virtual Case Studio
+const mtbCases = ['CASE_01_LUNG_MET_EGFR', 'CASE_02_COLON_KRAS_G12C', 'CASE_03_TNBC_BRCA1_PDL1', 'CASE_04_PROSTATE_HRD_CDK12', 'CASE_05_GBM_MGMT_METHYLATED', 'CASE_06_MELANOMA_BRAF_V600E'];
+mtbCases.forEach(c => {
+  sandbox.loadMtbCase(c);
+});
+sandbox.generateCustomMtbConsensus();
+sandbox.printMtbConsensusReport();
+sandbox.toggleChatSpeechRecognition();
+console.log(`  ✓ Molecular Tumor Board studio verified (${mtbCases.length} canonical cases, custom synthesizer, consensus report, and STT voice)`);
 
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)

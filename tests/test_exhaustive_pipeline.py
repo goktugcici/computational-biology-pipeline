@@ -20,6 +20,7 @@ from liquid_biopsy import LiquidBiopsyEngine
 from immunotherapy_response import ImmunotherapyPredictor
 from docking_scorer import DockingScorer
 from sequence_aligner import SequenceAligner
+from molecular_tumor_board import MolecularTumorBoardEngine
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -340,6 +341,37 @@ class TestExhaustivePipeline(unittest.TestCase):
         self.assertEqual(len(alignment['mutations_detected']), 1)
         self.assertEqual(alignment['mutations_detected'][0]['ref'], 'L')
         self.assertEqual(alignment['mutations_detected'][0]['alt'], 'R')
+
+    # =========================================================================
+    # 11. MOLECULAR TUMOR BOARD (MTB) & PRECISION ONCOLOGY
+    # =========================================================================
+    def test_molecular_tumor_board_canonical_cases(self):
+        """Verify all canonical MTB cases and consensus recommendations."""
+        cases = MolecularTumorBoardEngine.list_all_cases()
+        self.assertEqual(len(cases), 6)
+        
+        c1 = MolecularTumorBoardEngine.get_case('CASE_01_LUNG_MET_EGFR')
+        self.assertIsNotNone(c1)
+        self.assertIn("Osimertinib", c1['mtb_consensus']['medical_oncologist'])
+        self.assertIn("Savolitinib", c1['mtb_consensus']['medical_oncologist'])
+
+    def test_molecular_tumor_board_custom_evaluation(self):
+        """Verify dynamic MTB consensus synthesis for custom patient profile."""
+        eval_res = MolecularTumorBoardEngine.evaluate_custom_case(
+            cancer_type="Non-Small Cell Lung Cancer",
+            alterations=[
+                {'gene': 'EGFR', 'alteration': 'p.L858R', 'vaf_percent': 35.0},
+                {'gene': 'MET', 'alteration': 'Amplification', 'vaf_percent': 0.0}
+            ],
+            tmb=14.0,
+            msi='MSS',
+            pdl1=60.0
+        )
+        self.assertEqual(len(eval_res['tier1_actionable_targets']), 1)
+        self.assertEqual(len(eval_res['tier2_investigational_targets']), 1)
+        self.assertIn("Osimertinib", eval_res['tier1_actionable_targets'][0]['therapy'])
+        self.assertIn("İmmün kontrol noktası", eval_res['mtb_consensus_recommendation'])
+        self.assertEqual(eval_res['evidence_strength'], 'Tier I (FDA / NCCN Cat 1)')
 
 if __name__ == "__main__":
     unittest.main()

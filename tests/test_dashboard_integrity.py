@@ -45,7 +45,7 @@ def test_html_integrity():
     if missing_tabs:
         print(f"  [!] ERROR: Missing tabs: {missing_tabs}")
     else:
-        print("  [OK] All 16 switchTab targets have matching tab-* and tabBtn-* elements in DOM!")
+        print(f"  [OK] All {len(tab_targets)} switchTab targets have matching tab-* and tabBtn-* elements in DOM!")
 
     # 5. Check inline handlers
     handlers = re.findall(r'''(on[a-z]+)\s*=\s*["']([^"']+)["']''', html)
