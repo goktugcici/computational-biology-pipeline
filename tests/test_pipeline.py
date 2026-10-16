@@ -242,6 +242,40 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         )
         self.assertIn("Meme", br_res['organ_probabilities'][0]['cancer_name'])
 
+        # Gynecologic test (Postmenopausal bleeding in female)
+        gyn_res = predictor.evaluate_patient(
+            age=56,
+            gender='F',
+            symptoms=['postmenopausal_bleeding']
+        )
+        self.assertEqual(gyn_res['organ_probabilities'][0]['cancer_code'], 'GYNECOLOGIC')
+        self.assertTrue(gyn_res['risk_evaluation']['meets_nice_2ww_referral'])
+
+        # Head & Neck test (Hoarseness + Oral ulceration)
+        hn_res = predictor.evaluate_patient(
+            age=62,
+            gender='M',
+            symptoms=['persistent_hoarseness', 'oral_ulceration'],
+            smoking_pack_years=35.0
+        )
+        self.assertEqual(hn_res['organ_probabilities'][0]['cancer_code'], 'HEAD_NECK')
+
+        # Hematologic test (Night sweats + Lymphadenopathy)
+        hem_res = predictor.evaluate_patient(
+            age=40,
+            gender='M',
+            symptoms=['night_sweats_fever', 'cervical_lymphadenopathy']
+        )
+        self.assertEqual(hem_res['organ_probabilities'][0]['cancer_code'], 'HEMATOLOGIC')
+
+        # CNS Brain test
+        cns_res = predictor.evaluate_patient(
+            age=50,
+            gender='M',
+            symptoms=['neurological_deficits_headache']
+        )
+        self.assertEqual(cns_res['organ_probabilities'][0]['cancer_code'], 'CNS_BRAIN')
+
     def test_pharmacogenomics_dpyd_toxicity(self):
         from pharmacogenomics import PharmacogenomicsEngine
         im_res = PharmacogenomicsEngine.evaluate_dpyd('*1', '*2A')
@@ -380,6 +414,27 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertIn("breast_lump", extracted3)
         self.assertIn("hematuria", extracted3)
 
+        # Test expanded red-flag alarm symptoms (NICE NG12)
+        text4 = "Menopoz sonrası vajinal kanama ve lekelenme başladı, karnımda da geçmeyen şişlik ve asit var."
+        extracted4 = bot.extract_symptoms_from_text(text4)
+        self.assertIn("postmenopausal_bleeding", extracted4)
+        self.assertIn("persistent_bloating_ascites", extracted4)
+
+        text5 = "3 haftadır ses kısıklığı var, boynumda sert lenf bezi şişliği fark ettim ve geceleri su gibi terliyorum."
+        extracted5 = bot.extract_symptoms_from_text(text5)
+        self.assertIn("persistent_hoarseness", extracted5)
+        self.assertIn("cervical_lymphadenopathy", extracted5)
+        self.assertIn("night_sweats_fever", extracted5)
+
+        text6 = "Ağzımda 4 haftadır geçmeyen yara var, ayrıca sabahları şiddetli baş ağrısı ve kolumda uyuşma felç hissediyorum."
+        extracted6 = bot.extract_symptoms_from_text(text6)
+        self.assertIn("oral_ulceration", extracted6)
+        self.assertIn("neurological_deficits_headache", extracted6)
+
+        text7 = "Bacağımda ve kalçamda geceleri uykudan uyandıran derin kemik ağrısı ve ele gelen sert kemik kitle var."
+        extracted7 = bot.extract_symptoms_from_text(text7)
+        self.assertIn("bone_pain_mass", extracted7)
+
     def test_diagnostic_chatbot_multiturn_flow(self):
         from diagnostic_chatbot import DiagnosticChatbot
         bot = DiagnosticChatbot()
@@ -438,5 +493,58 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertFalse(risk_eval['meets_nice_2ww_referral'])
         self.assertEqual(risk_eval['tier_code'], 'LOW')
 
+    def test_diagnostic_chatbot_offline_qa(self):
+        """Verifies 100% offline question answering for various oncological inquiries without database dependency."""
+        from diagnostic_chatbot import DiagnosticChatbot
+        bot = DiagnosticChatbot() # Completely standalone, no db_path
+
+        # 1. Lung cancer questions
+        res_lung = bot.process_message("Akciğer kanseri belirtileri nelerdir?")
+        self.assertIn("Düşük Doz", res_lung['message'])
+        self.assertIn("Toraks BT", res_lung['message'])
+
+        # 2. Colonoscopy inquiry
+        res_colo = bot.process_message("Kolonoskopi ne zaman gerekir ve acıtır mı?")
+        self.assertIn("Kolonoskopi", res_colo['message'])
+        self.assertIn("polip", res_colo['message'].lower())
+
+        # 3. Biopsy myth
+        res_biopsy = bot.process_message("Biyopsi yaptırmak kanseri yayar mı?")
+        self.assertIn("Yaymaz", res_biopsy['message'])
+        self.assertIn("biyopsi", res_biopsy['message'].lower())
+
+        # 4. NICE 2WW referral guidelines
+        res_nice = bot.process_message("NICE 2-Week-Wait kuralı nedir?")
+        self.assertIn("14", res_nice['message'])
+        self.assertIn("%3", res_nice['message'])
+
+        # 5. Hemoptysis alarm
+        res_hemo = bot.process_message("Balgamda kan görülmesi tehlikeli mi?")
+        self.assertIn("Hemoptizi", res_hemo['message'])
+        self.assertIn("Toraks BT", res_hemo['message'])
+
+    def test_diagnostic_chatbot_dynamic_evaluation_standalone(self):
+        """Verifies pure-Python dynamic risk evaluation without external database files."""
+        from diagnostic_chatbot import DiagnosticChatbot, clean_for_console
+        bot = DiagnosticChatbot()
+
+        # High risk patient (65yo male, smoker, hemoptysis, weight loss)
+        eval_high = bot.evaluate_patient_dynamically(
+            age=65,
+            gender='M',
+            symptoms=['hemoptysis', 'unexplained_weight_loss', 'chronic_cough'],
+            smoking_pack_years=35.0,
+            family_history=True
+        )
+        self.assertGreater(eval_high['risk_evaluation']['composite_risk_percent'], 60.0)
+        self.assertTrue(eval_high['risk_evaluation']['meets_nice_2ww_referral'])
+        self.assertEqual(eval_high['organ_probabilities'][0]['cancer_code'], 'LUNG')
+
+        # Clean console test for Windows
+        clean_text = clean_for_console("🏥 Test [KLINIK] 🩺")
+        self.assertNotIn("🏥", clean_text)
+        self.assertIn("[KLINIK]", clean_text)
+
 if __name__ == "__main__":
     unittest.main()
+

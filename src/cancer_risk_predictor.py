@@ -156,6 +156,86 @@ SYMPTOM_DEFINITIONS: Dict[str, Dict[str, Any]] = {
         'base_odds_ratio': 14.2,
         'nice_ppv': 0.125,
         'description': 'Mevcut veya yeni bende Asimetri, Sınır düzensizliği, Renk alacası, Çap >6mm veya Hızlı Değişim/Kaşıntı.'
+    },
+    'persistent_hoarseness': {
+        'id': 15,
+        'bit': 1 << 14,  # 16384
+        'name_tr': 'İnatçı Ses Kısıklığı (>3 Hafta)',
+        'name_en': 'Persistent Hoarseness (>3 weeks)',
+        'target_cancers': ['HEAD_NECK', 'LUNG', 'THYROID'],
+        'base_odds_ratio': 6.8,
+        'nice_ppv': 0.042,
+        'description': '3 haftadan uzun süren, solunum yolu enfeksiyonuna bağlı olmayan ses kısıklığı/disfoni. Larenks kanseri için acil kırmızı bayrak.'
+    },
+    'oral_ulceration': {
+        'id': 16,
+        'bit': 1 << 15,  # 32768
+        'name_tr': 'İyileşmeyen Ağız İçi Yarası / Kitle',
+        'name_en': 'Non-healing Oral Ulcer / Intraoral Mass',
+        'target_cancers': ['HEAD_NECK'],
+        'base_odds_ratio': 8.2,
+        'nice_ppv': 0.051,
+        'description': 'Ağız içinde, dilde veya diş etinde 3 haftadan uzun süren iyileşmeyen ülser, sertlik veya kırmızı/beyaz plak (eritroplaki/lökoplaki).'
+    },
+    'cervical_lymphadenopathy': {
+        'id': 17,
+        'bit': 1 << 16,  # 65536
+        'name_tr': 'Boyunda / Koltuk Altında Sert Ağrısız Şişlik',
+        'name_en': 'Cervical / Axillary Lymphadenopathy',
+        'target_cancers': ['HEAD_NECK', 'HEMATOLOGIC', 'THYROID'],
+        'base_odds_ratio': 9.5,
+        'nice_ppv': 0.065,
+        'description': 'Boyunda veya aksillada ele gelen >2 cm, ağrısız, hareketsiz, lastik kıvamında veya sert lenf bezi büyümesi.'
+    },
+    'night_sweats_fever': {
+        'id': 18,
+        'bit': 1 << 17,  # 131072
+        'name_tr': 'Şiddetli Gece Terlemesi & Nedensiz Ateş',
+        'name_en': 'Drenching Night Sweats & Unexplained Fever',
+        'target_cancers': ['HEMATOLOGIC'],
+        'base_odds_ratio': 7.4,
+        'nice_ppv': 0.048,
+        'description': 'Gece çamaşır ve çarşaf değiştirecek düzeyde sırılsıklam terleme ve enfeksiyonsuz açıklanamayan ateş (Lenfoma/Lösemi B semptomları).'
+    },
+    'postmenopausal_bleeding': {
+        'id': 19,
+        'bit': 1 << 18,  # 262144
+        'name_tr': 'Menopoz Sonrası Vajinal Kanama / Leke',
+        'name_en': 'Postmenopausal Bleeding',
+        'target_cancers': ['GYNECOLOGIC'],
+        'base_odds_ratio': 16.5,
+        'nice_ppv': 0.096,
+        'description': 'Menopozdan en az 1 yıl sonra meydana gelen en ufak vajinal lekelenme veya kanama. Endometriyum (rahim) kanseri için acil NICE 2WW sevk kriteri.'
+    },
+    'persistent_bloating_ascites': {
+        'id': 20,
+        'bit': 1 << 19,  # 524288
+        'name_tr': 'İnatçı Karın Şişkinliği & Asit (>12 Gün/Ay)',
+        'name_en': 'Persistent Abdominal Distension / Bloating',
+        'target_cancers': ['GYNECOLOGIC', 'GASTRIC'],
+        'base_odds_ratio': 5.6,
+        'nice_ppv': 0.035,
+        'description': 'Ayda 12 günden fazla süren kalıcı karın şişkinliği, erken doyma ve pelvik dolgunluk hissi. Over (yumurtalık) kanserinin en önemli sinsi belirtisi.'
+    },
+    'neurological_deficits_headache': {
+        'id': 21,
+        'bit': 1 << 20,  # 1048576
+        'name_tr': 'Sabah Baş Ağrısı & Nörolojik Kayıp',
+        'name_en': 'Progressive Morning Headache & Focal Deficits',
+        'target_cancers': ['CNS_BRAIN'],
+        'base_odds_ratio': 9.8,
+        'nice_ppv': 0.052,
+        'description': 'Sabah uykudan uyandıran bulantı/kusmalı ilerleyici baş ağrısı, yeni başlangıçlı nöbet veya tek taraflı kol/bacak kuvvetsizliği.'
+    },
+    'bone_pain_mass': {
+        'id': 22,
+        'bit': 1 << 21,  # 2097152
+        'name_tr': 'Gece Artan Kemik Ağrısı & Derin Kitle',
+        'name_en': 'Night Bone Pain & Deep Soft Tissue Mass',
+        'target_cancers': ['SARCOMA_BONE', 'HEMATOLOGIC'],
+        'base_odds_ratio': 6.5,
+        'nice_ppv': 0.034,
+        'description': 'Travma olmaksızın özellikle geceleri istirahatte artan derin kemik ağrısı veya ekstremitelerde giderek büyüyen derin doku şişliği.'
     }
 }
 
@@ -199,7 +279,31 @@ SYMPTOM_ALIASES = {
     'mide_agrisi': 'persistent_dyspepsia',
     'skin_mole_changes': 'skin_mole_changes',
     'ben_degisimi': 'skin_mole_changes',
-    'melanom_ben': 'skin_mole_changes'
+    'melanom_ben': 'skin_mole_changes',
+    'persistent_hoarseness': 'persistent_hoarseness',
+    'ses_kisikligi': 'persistent_hoarseness',
+    'hoarseness': 'persistent_hoarseness',
+    'oral_ulceration': 'oral_ulceration',
+    'agiz_yarasi': 'oral_ulceration',
+    'agizda_kitle': 'oral_ulceration',
+    'cervical_lymphadenopathy': 'cervical_lymphadenopathy',
+    'boyun_sisliligi': 'cervical_lymphadenopathy',
+    'lenf_bezi': 'cervical_lymphadenopathy',
+    'night_sweats_fever': 'night_sweats_fever',
+    'gece_terlemesi': 'night_sweats_fever',
+    'nedensiz_ates': 'night_sweats_fever',
+    'postmenopausal_bleeding': 'postmenopausal_bleeding',
+    'menopoz_kanama': 'postmenopausal_bleeding',
+    'vajinal_kanama': 'postmenopausal_bleeding',
+    'persistent_bloating_ascites': 'persistent_bloating_ascites',
+    'karin_siskinligi': 'persistent_bloating_ascites',
+    'asit': 'persistent_bloating_ascites',
+    'neurological_deficits_headache': 'neurological_deficits_headache',
+    'bas_agrisi_sabah': 'neurological_deficits_headache',
+    'norolojik_kayip': 'neurological_deficits_headache',
+    'bone_pain_mass': 'bone_pain_mass',
+    'kemik_agrisi': 'bone_pain_mass',
+    'derin_kitle': 'bone_pain_mass'
 }
 
 CANCER_METADATA: Dict[str, Dict[str, Any]] = {
@@ -242,6 +346,36 @@ CANCER_METADATA: Dict[str, Dict[str, Any]] = {
         'name_tr': 'Mesane & Böbrek Kanseri (Ürotelyal / RCC)',
         'recommended_investigation': 'Üriner Sistem Ultrasonografisi, Kontrastlı Batın BT (Ürografi) & Rijit/Fleksibl Sistoskopi',
         'key_risk_drivers': 'Ağrısız hematüri, Sigara maruziyeti, İleri yaş'
+    },
+    'HEAD_NECK': {
+        'name_tr': 'Baş & Boyun / Larenks / Oral Kavite Kanseri',
+        'recommended_investigation': 'KBB Muayenesi, Fleksibl Fiberoptik Nazofaringolaringoskopi (NFL) & Boyun USG / İİAB',
+        'key_risk_drivers': 'Tütün/Alkol kullanımı, >3 hafta ses kısıklığı, İyileşmeyen ağız yarası, Boyun lenfadenopatisi'
+    },
+    'HEMATOLOGIC': {
+        'name_tr': 'Hematolojik Maligniteler (Lenfoma / Lösemi / Myelom)',
+        'recommended_investigation': 'Tam Kan Sayımı (CBC), Periferik Yayma, Serum Protein Elektroforezi & Eksizyonel Lenf Nodu Biyopsisi',
+        'key_risk_drivers': 'Drenching gece terlemesi, Açıklanamayan ateş, Ağrısız mobilize lenf nodları, Hepatosplenomegali'
+    },
+    'GYNECOLOGIC': {
+        'name_tr': 'Jinekolojik Kanserler (Endometriyum & Over / Rahim & Yumurtalık)',
+        'recommended_investigation': 'Transvajinal Ultrasonografi (TVUS), Serum CA-125 Ölçümü & Endometriyal Biyopsi (Pipelle)',
+        'key_risk_drivers': 'Postmenopozal kanama, >12 gün/ay inatçı karın distansiyonu/asit, Pelvik kitle'
+    },
+    'CNS_BRAIN': {
+        'name_tr': 'Merkezi Sinir Sistemi & Beyin Tümörleri (Gliom / Glioblastoma)',
+        'recommended_investigation': 'Kontrastlı Beyin Manyetik Rezonans Görüntüleme (Kraniyal MRG) & Nöroşirürji Konsültasyonu',
+        'key_risk_drivers': 'Sabah şiddetlenen bulantılı baş ağrısı, Fokal motor kayıp, Yeni başlangıçlı nöbet'
+    },
+    'SARCOMA_BONE': {
+        'name_tr': 'Kemik & Yumuşak Doku Sarkomları',
+        'recommended_investigation': 'Direkt Grafi, Kontrastlı Ekstremite MRG & Ortopedik Onkoloji Doku Biyopsisi',
+        'key_risk_drivers': 'İstirahat ve gece kemik ağrısı, Hızla büyüyen derin fasya altı kitle (>5 cm), Patolojik kırık'
+    },
+    'THYROID': {
+        'name_tr': 'Tiroid Kanseri (Papiller / Foliküler / Medüller)',
+        'recommended_investigation': 'Tiroid ve Boyun Ultrasonografisi (TIRADS Kriterleri), Serum TSH & İnce İğne Aspirasyon Biyopsisi (İİAB)',
+        'key_risk_drivers': 'Hızla büyüyen sert tiroid nodülü, Ses kısıklığı, Boyun lenfadenopatisi'
     }
 }
 
@@ -389,6 +523,41 @@ class CancerRiskPredictor:
                     bitmask |= SYMPTOM_DEFINITIONS['skin_mole_changes']['bit']
                     active_symptoms.append('skin_mole_changes')
 
+                # Head & Neck / ENT
+                if pack_years > 20 and random.random() < 0.05:
+                    bitmask |= SYMPTOM_DEFINITIONS['persistent_hoarseness']['bit']
+                    active_symptoms.append('persistent_hoarseness')
+                if (pack_years > 15 or alcohol == 'heavy') and random.random() < 0.04:
+                    bitmask |= SYMPTOM_DEFINITIONS['oral_ulceration']['bit']
+                    active_symptoms.append('oral_ulceration')
+                if random.random() < 0.035:
+                    bitmask |= SYMPTOM_DEFINITIONS['cervical_lymphadenopathy']['bit']
+                    active_symptoms.append('cervical_lymphadenopathy')
+
+                # Hematologic B-Symptoms
+                if random.random() < 0.03:
+                    bitmask |= SYMPTOM_DEFINITIONS['night_sweats_fever']['bit']
+                    active_symptoms.append('night_sweats_fever')
+
+                # Gynecologic (females)
+                if gender == 'F':
+                    if age >= 50 and random.random() < 0.04:
+                        bitmask |= SYMPTOM_DEFINITIONS['postmenopausal_bleeding']['bit']
+                        active_symptoms.append('postmenopausal_bleeding')
+                    if age > 45 and random.random() < 0.05:
+                        bitmask |= SYMPTOM_DEFINITIONS['persistent_bloating_ascites']['bit']
+                        active_symptoms.append('persistent_bloating_ascites')
+
+                # CNS / Neurological
+                if random.random() < 0.025:
+                    bitmask |= SYMPTOM_DEFINITIONS['neurological_deficits_headache']['bit']
+                    active_symptoms.append('neurological_deficits_headache')
+
+                # Musculoskeletal / Bone & Soft Tissue
+                if random.random() < 0.03:
+                    bitmask |= SYMPTOM_DEFINITIONS['bone_pain_mass']['bit']
+                    active_symptoms.append('bone_pain_mass')
+
                 # 3. Cancer Diagnosis Simulation (SEER Baseline + Symptom PPVs)
                 # Baseline population hazard by age:
                 if age < 40:
@@ -428,6 +597,22 @@ class CancerRiskPredictor:
                     prob += 0.14
                 if bitmask & SYMPTOM_DEFINITIONS['chronic_cough']['bit'] and pack_years > 20:
                     prob += 0.12
+                if bitmask & SYMPTOM_DEFINITIONS['postmenopausal_bleeding']['bit'] and gender == 'F':
+                    prob += 0.32
+                if bitmask & SYMPTOM_DEFINITIONS['persistent_hoarseness']['bit']:
+                    prob += 0.22
+                if bitmask & SYMPTOM_DEFINITIONS['oral_ulceration']['bit']:
+                    prob += 0.24
+                if bitmask & SYMPTOM_DEFINITIONS['cervical_lymphadenopathy']['bit']:
+                    prob += 0.26
+                if bitmask & SYMPTOM_DEFINITIONS['night_sweats_fever']['bit']:
+                    prob += 0.25
+                if bitmask & SYMPTOM_DEFINITIONS['neurological_deficits_headache']['bit']:
+                    prob += 0.28
+                if bitmask & SYMPTOM_DEFINITIONS['bone_pain_mass']['bit']:
+                    prob += 0.20
+                if bitmask & SYMPTOM_DEFINITIONS['persistent_bloating_ascites']['bit'] and gender == 'F':
+                    prob += 0.22
 
                 prob = min(0.92, prob)
                 is_cancer = 1 if random.random() < prob else 0
@@ -442,7 +627,21 @@ class CancerRiskPredictor:
                     interval_days = max(10, min(180, interval_days))
 
                     # Specific organ etiology determination
-                    if (bitmask & SYMPTOM_DEFINITIONS['jaundice']['bit']) and random.random() < 0.85:
+                    if (bitmask & SYMPTOM_DEFINITIONS['postmenopausal_bleeding']['bit']) and gender == 'F' and random.random() < 0.90:
+                        primary_type = 'GYNECOLOGIC'
+                    elif (bitmask & SYMPTOM_DEFINITIONS['persistent_bloating_ascites']['bit']) and gender == 'F' and random.random() < 0.75:
+                        primary_type = 'GYNECOLOGIC'
+                    elif (bitmask & (SYMPTOM_DEFINITIONS['persistent_hoarseness']['bit'] | SYMPTOM_DEFINITIONS['oral_ulceration']['bit'])) and random.random() < 0.80:
+                        primary_type = 'HEAD_NECK'
+                    elif (bitmask & SYMPTOM_DEFINITIONS['night_sweats_fever']['bit']) and random.random() < 0.85:
+                        primary_type = 'HEMATOLOGIC'
+                    elif (bitmask & SYMPTOM_DEFINITIONS['cervical_lymphadenopathy']['bit']) and random.random() < 0.70:
+                        primary_type = random.choice(['HEMATOLOGIC', 'HEAD_NECK', 'THYROID'])
+                    elif (bitmask & SYMPTOM_DEFINITIONS['neurological_deficits_headache']['bit']) and random.random() < 0.85:
+                        primary_type = 'CNS_BRAIN'
+                    elif (bitmask & SYMPTOM_DEFINITIONS['bone_pain_mass']['bit']) and random.random() < 0.75:
+                        primary_type = 'SARCOMA_BONE'
+                    elif (bitmask & SYMPTOM_DEFINITIONS['jaundice']['bit']) and random.random() < 0.85:
                         primary_type = 'PANCREATIC'
                     elif (bitmask & SYMPTOM_DEFINITIONS['breast_lump']['bit']) and gender == 'F' and random.random() < 0.88:
                         primary_type = 'BREAST'
@@ -462,7 +661,7 @@ class CancerRiskPredictor:
                         primary_type = 'PROSTATE'
                     else:
                         # Fallback based on population incidence
-                        pool = ['LUNG', 'COLORECTAL', 'PROSTATE' if gender == 'M' else 'BREAST', 'GASTRIC', 'PANCREATIC']
+                        pool = ['LUNG', 'COLORECTAL', 'PROSTATE' if gender == 'M' else 'BREAST', 'GASTRIC', 'PANCREATIC', 'HEAD_NECK', 'HEMATOLOGIC']
                         primary_type = random.choice(pool)
 
                 records.append((
@@ -660,6 +859,8 @@ class CancerRiskPredictor:
             if c_type == 'BREAST' and gender_code == 'M':
                 factor *= 0.01
             if c_type == 'PROSTATE' and gender_code == 'F':
+                continue
+            if c_type == 'GYNECOLOGIC' and gender_code == 'M':
                 continue
 
             # Organ specific baseline probability

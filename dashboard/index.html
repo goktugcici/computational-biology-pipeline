@@ -310,7 +310,7 @@
             </div>
             <div class="text-center px-3 border-r border-slate-800">
               <div class="text-[10px] text-slate-500 uppercase font-bold">Hedef Organ</div>
-              <div class="text-lg font-bold font-mono text-sky-400">8 Malignite</div>
+              <div class="text-lg font-bold font-mono text-sky-400">14 Malignite</div>
             </div>
             <div class="text-center px-3">
               <div class="text-[10px] text-slate-500 uppercase font-bold">Acil Eşik</div>
@@ -378,17 +378,17 @@
             </div>
           </div>
 
-          <!-- 14 KLİNİK ALARM BELİRTİSİ (Kırmızı Bayraklar) -->
+          <!-- 22 KLİNİK ALARM BELİRTİSİ (Kırmızı Bayraklar) -->
           <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
-                🚩 Klinik Alarm Belirtileri (Kırmızı Bayraklar)
+                🚩 22 Klinik Alarm Belirtisi (Kırmızı Bayraklar)
               </h3>
               <button onclick="clearCrpSymptoms()" class="text-[11px] text-slate-500 hover:text-slate-300 underline">Tümünü Temizle</button>
             </div>
-            <p class="text-[11px] text-slate-400">Hasta tarafından bildirilen belirtileri seçiniz:</p>
+            <p class="text-[11px] text-slate-400">Hasta tarafından bildirilen belirtileri seçiniz (NICE NG12 Kılavuzu):</p>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs" id="crpSymptomPills">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs max-h-[520px] overflow-y-auto pr-1" id="crpSymptomPills">
               <!-- JavaScript ile doldurulur -->
             </div>
           </div>
@@ -3036,8 +3036,16 @@
       'urinary_hesitancy': { name: 'İdrar Akımında Zayıflama & Gece Sık İdrar', organ: 'prostate', weight: 2.4, nice_2ww: false, ppv: 0.022, badge: 'Klinik Belirti' },
       'jaundice': { name: 'Ağrısız Sarılık (Cilt/Gözde Sararma)', organ: 'pancreas', weight: 5.5, nice_2ww: true, ppv: 0.095, badge: '🚨 Kırmızı Bayrak' },
       'dysphagia': { name: 'İlerleyici Yutma Güçlüğü (Disfaji)', organ: 'stomach', weight: 4.7, nice_2ww: true, ppv: 0.058, badge: '🚨 Kırmızı Bayrak' },
-      'persistent_abdominal_pain': { name: 'Geçmeyen Karın / Mide Ağrısı', organ: 'stomach', weight: 2.3, nice_2ww: false, ppv: 0.021, badge: 'Klinik Belirti' },
-      'skin_mole_changes': { name: 'Cilt Beninde Şekil/Renk Değişikliği (ABCDE)', organ: 'melanoma', weight: 4.6, nice_2ww: true, ppv: 0.068, badge: '🚨 Kırmızı Bayrak' }
+      'persistent_dyspepsia': { name: 'Geçmeyen Hazımsızlık / Mide Ağrısı', organ: 'stomach', weight: 2.3, nice_2ww: false, ppv: 0.021, badge: 'Klinik Belirti' },
+      'skin_mole_changes': { name: 'Cilt Beninde Şekil/Renk Değişikliği (ABCDE)', organ: 'melanoma', weight: 4.6, nice_2ww: true, ppv: 0.068, badge: '🚨 Kırmızı Bayrak' },
+      'persistent_hoarseness': { name: 'İnatçı Ses Kısıklığı (>3 Hafta)', organ: 'head_neck', weight: 4.3, nice_2ww: true, ppv: 0.042, badge: '🚨 Kırmızı Bayrak' },
+      'oral_ulceration': { name: 'İyileşmeyen Ağız İçi Yarası / Kitle', organ: 'head_neck', weight: 4.7, nice_2ww: true, ppv: 0.051, badge: '🚨 Kırmızı Bayrak' },
+      'cervical_lymphadenopathy': { name: 'Boyun/Koltuk Altında Sert Ağrısız Şişlik', organ: 'hematologic', weight: 4.9, nice_2ww: true, ppv: 0.065, badge: '🚨 Kırmızı Bayrak' },
+      'night_sweats_fever': { name: 'Drenching Gece Terlemesi & Nedensiz Ateş', organ: 'hematologic', weight: 4.4, nice_2ww: true, ppv: 0.048, badge: '🚨 Kırmızı Bayrak' },
+      'postmenopausal_bleeding': { name: 'Menopoz Sonrası Vajinal Kanama / Leke', organ: 'gynecologic', weight: 5.6, nice_2ww: true, ppv: 0.096, badge: '🚨 Kırmızı Bayrak' },
+      'persistent_bloating_ascites': { name: 'İnatçı Karın Şişkinliği & Asit (>12 Gün/Ay)', organ: 'gynecologic', weight: 3.5, nice_2ww: true, ppv: 0.035, badge: '🚨 Kırmızı Bayrak' },
+      'neurological_deficits_headache': { name: 'Sabah Baş Ağrısı & Fokal Nörolojik Kayıp', organ: 'cns_brain', weight: 4.8, nice_2ww: true, ppv: 0.052, badge: '🚨 Kırmızı Bayrak' },
+      'bone_pain_mass': { name: 'Gece Artan Kemik Ağrısı & Derin Kitle', organ: 'sarcoma_bone', weight: 3.6, nice_2ww: true, ppv: 0.034, badge: '🚨 Kırmızı Bayrak' }
     };
 
     const CANCER_ORGAN_DATA = {
@@ -3046,9 +3054,15 @@
       'breast': { name: 'Meme Kanseri', base: 0.025, action: 'İki Yönlü Dijital Mamografi & Meme Ultrasonografisi (Üçlü Değerlendirme)' },
       'prostate': { name: 'Prostat Kanseri', base: 0.022, action: 'Serum Total/Serbest PSA Ölçümü & Multiparametrik Prostat MRG' },
       'pancreas': { name: 'Pankreas Kanseri', base: 0.009, action: 'Çok Kesitli Kontrastlı Üst Batın BT / MRCP & EUS İncelemesi' },
-      'stomach': { name: 'Mide Kanseri', base: 0.011, action: 'Üst GIS Endoskopisi (Özofagogastroduodenoskopi) & Biyopsi' },
-      'bladder': { name: 'Mesane Kanseri', base: 0.012, action: 'Üriner Sistem Ultrasonografisi & Fleksibl Sistoskopi' },
-      'melanoma': { name: 'Malign Melanom', base: 0.008, action: 'Dermatoskopik İnceleme & Eksizyonel Biyopsi (Dermatoloji)' }
+      'stomach': { name: 'Mide & Özofagus Kanseri', base: 0.011, action: 'Üst GIS Endoskopisi (Özofagogastroduodenoskopi) & Biyopsi' },
+      'bladder': { name: 'Mesane & Böbrek Kanseri', base: 0.012, action: 'Üriner Sistem Ultrasonografisi, Kontrastlı BT Ürografi & Fleksibl Sistoskopi' },
+      'melanoma': { name: 'Malign Melanom', base: 0.008, action: 'Dermatoskopik İnceleme & 2mm Güvenlik Marjlı Eksizyonel Biyopsi' },
+      'head_neck': { name: 'Baş & Boyun / Larenks Kanseri', base: 0.010, action: 'KBB Muayenesi, Fleksibl Fiberoptik Nazofaringolaringoskopi (NFL) & Boyun USG' },
+      'hematologic': { name: 'Hematolojik Maligniteler (Lenfoma/Lösemi)', base: 0.013, action: 'Tam Kan Sayımı (CBC), Periferik Yayma, Serum Protein Elektroforezi & Eksizyonel Lenf Nodu Biyopsisi' },
+      'gynecologic': { name: 'Jinekolojik Kanserler (Endometriyum & Over)', base: 0.014, action: 'Transvajinal Pelvik Ultrasonografi (TVUS), Serum CA-125 & Endometriyal Pipelle Biyopsisi' },
+      'cns_brain': { name: 'Merkezi Sinir Sistemi & Beyin Tümörleri', base: 0.007, action: 'Kontrastlı Kraniyal MRG & Acil Nöroşirürji Konsültasyonu' },
+      'sarcoma_bone': { name: 'Kemik & Yumuşak Doku Sarkomları', base: 0.005, action: 'Direkt Grafi, Kontrastlı Ekstremite MRG & Ortopedik Onkoloji Biyopsisi' },
+      'thyroid': { name: 'Tiroid Kanseri', base: 0.009, action: 'Tiroid Ultrasonografisi (TIRADS), Serum TSH & İnce İğne Aspirasyon Biyopsisi (İİAB)' }
     };
 
     let crpSelectedGender = 'M';
@@ -3163,9 +3177,10 @@
         }
       });
 
-      // Special sex filtering (breast / prostate)
+      // Special sex filtering (breast / prostate / gynecologic)
       if (crpSelectedGender === 'M') {
         organScores['breast'] = (organScores['breast'] || 0) * 0.05;
+        organScores['gynecologic'] = 0.0;
       } else {
         organScores['prostate'] = 0.0;
       }
@@ -3675,6 +3690,7 @@
 
       if (chatSession.gender === 'M') {
         organScores['breast'] = (organScores['breast'] || 0) * 0.05;
+        organScores['gynecologic'] = 0.0;
       } else {
         organScores['prostate'] = 0.0;
       }

@@ -155,14 +155,26 @@ console.log('✓ PGx gene selection & CPIC toxicity evaluation validated');
 ['BRCA1', 'MSI-H', 'MTAP', 'KRAS'].forEach(b => sandbox.selectSlBiomarker(b));
 console.log('✓ DepMap Synthetic Lethality targets validated');
 
-// 100k Cancer Risk Predictor
-sandbox.setCrpGender('M');
+// 100k Cancer Risk Predictor (22 Symptoms & 14 Cancers)
 sandbox.setCrpGender('F');
-sandbox.toggleCrpSymptom('hemoptysis');
-sandbox.toggleCrpSymptom('jaundice');
+sandbox.toggleCrpSymptom('postmenopausal_bleeding');
+sandbox.toggleCrpSymptom('persistent_bloating_ascites');
+sandbox.calculateCancerRiskLive();
+
+sandbox.setCrpGender('M');
+sandbox.clearCrpSymptoms();
+const testSymptoms = [
+  'hemoptysis', 'chronic_cough', 'unexplained_weight_loss', 'dysphagia', 
+  'rectal_bleeding', 'iron_deficiency_anemia', 'breast_lump', 'nipple_abnormality', 
+  'hematuria', 'palpable_abdominal_mass', 'jaundice', 'persistent_bone_pain', 
+  'skin_lesion_change', 'unexplained_bruising', 'persistent_hoarseness', 
+  'oral_ulceration', 'cervical_lymphadenopathy', 'night_sweats_fever', 
+  'neurological_deficits_headache', 'bone_pain_mass'
+];
+testSymptoms.forEach(s => sandbox.toggleCrpSymptom(s));
 sandbox.calculateCancerRiskLive();
 sandbox.clearCrpSymptoms();
-console.log('✓ 100k Cancer Risk Bayesian predictor validated');
+console.log('✓ 100k Cancer Risk Bayesian predictor (22 red-flag symptoms, 14 cancer categories) validated');
 
 // Chatbot
 sandbox.initChatbot();
