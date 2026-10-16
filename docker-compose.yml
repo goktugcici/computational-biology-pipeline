@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  bio-pipeline:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+    command: python src/main.py --generate_report --pan_cancer EGFR

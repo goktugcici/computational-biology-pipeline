@@ -17,11 +17,14 @@ from pathway_mapper import PathwayMapper
 from literature_miner import LiteratureMiner
 
 from live_fetcher import LiveFetcher
+from oncology_profiler import OncologyProfiler
+from report_generator import ReportGenerator
 
 class TestComputationalBiologyPipeline(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+        cls.output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "reports"))
 
     def test_structural_analyzer(self):
         cif_path = os.path.join(self.data_dir, "pdb_00004hhb.cif")
@@ -71,6 +74,23 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertIn("name", drug)
         self.assertEqual(drug["name"], "Imatinib")
         self.assertEqual(drug.get("cid"), 5291)
+
+    def test_oncology_profiler(self):
+        profiler = OncologyProfiler()
+        egfr = profiler.profile_gene("EGFR")
+        self.assertEqual(egfr["gene"], "EGFR")
+        self.assertGreater(egfr["hotspot_count"], 0)
+        self.assertIn("Osimertinib", egfr["targeted_therapies"][0]["drug"])
+
+        pan = profiler.pan_cancer_summary()
+        self.assertIn("EGFR", pan["genes_covered"])
+        self.assertIn("KRAS", pan["genes_covered"])
+
+    def test_report_generator(self):
+        rg = ReportGenerator(data_dir=self.data_dir, output_dir=self.output_dir)
+        report_path = rg.generate_html_report("test_summary.html")
+        self.assertTrue(os.path.exists(report_path))
+        self.assertGreater(os.path.getsize(report_path), 500)
 
 if __name__ == "__main__":
     unittest.main()
