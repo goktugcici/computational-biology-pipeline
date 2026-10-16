@@ -2,6 +2,7 @@
 Computational Biology & Science Pipeline - Main Runner
 Executes an end-to-end multi-omics analysis spanning structural biology,
 genomics, pharmacology, biological pathways, and literature intelligence.
+Includes both local curated dataset analysis and live dynamic API querying.
 """
 
 import sys
@@ -12,8 +13,9 @@ from variant_analyzer import VariantAnalyzer
 from pharmacology import PharmacologyAnalyzer
 from pathway_mapper import PathwayMapper
 from literature_miner import LiteratureMiner
+from live_fetcher import LiveFetcher
 
-def run_pipeline(data_dir: str = "data"):
+def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = None, live_pubmed: str = None):
     print("=" * 70)
     print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE")
     print("Multi-Omics Structural, Genomic, Pharmacological & Literature Analysis")
@@ -61,6 +63,34 @@ def run_pipeline(data_dir: str = "data"):
     print(f"  Landmark Study (PMID: {lit.get('pmid')}): {lit.get('title')}")
     print(f"  Journal: {lit.get('journal')}")
 
+    # OPTIONAL: Dynamic Live Fetcher Extension
+    if live_pdb or live_drug or live_pubmed:
+        print("\n" + "-" * 70)
+        print("LIVE SCIENTIFIC API QUERIES (Dynamic Search Engine)")
+        print("-" * 70)
+        fetcher = LiveFetcher(f"{data_dir}/cache")
+
+        if live_pdb:
+            print(f"\n[LIVE PDB] Querying: {live_pdb}")
+            pdb_info = fetcher.fetch_pdb_entry(live_pdb)
+            from_cache = " (Cached)" if pdb_info.get("_from_cache") else " (Live API)"
+            print(f"  Title: {pdb_info.get('title')}{from_cache}")
+            print(f"  Resolution: {pdb_info.get('resolution')} Å | Method: {pdb_info.get('method')}")
+
+        if live_drug:
+            print(f"\n[LIVE PUBCHEM] Querying: {live_drug}")
+            drug_info = fetcher.fetch_pubchem_drug(live_drug)
+            from_cache = " (Cached)" if drug_info.get("_from_cache") else " (Live API)"
+            print(f"  CID: {drug_info.get('cid')} | Formula: {drug_info.get('formula')}{from_cache}")
+            print(f"  Molecular Weight: {drug_info.get('molecular_weight')} g/mol | XLogP: {drug_info.get('xlogp')}")
+
+        if live_pubmed:
+            print(f"\n[LIVE PUBMED] Searching: '{live_pubmed}'")
+            pm_info = fetcher.fetch_pubmed_articles(live_pubmed, max_results=2)
+            articles = pm_info.get("articles", [])
+            for a in articles:
+                print(f"   * [PMID: {a.get('pmid')}] {a.get('title')} ({a.get('source')})")
+
     print("\n" + "=" * 70)
     print("PIPELINE EXECUTION COMPLETED SUCCESSFULLY!")
     print("=" * 70)
@@ -68,5 +98,8 @@ def run_pipeline(data_dir: str = "data"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Computational Biology Pipeline")
     parser.add_argument("--data_dir", default="data", help="Path to data directory")
+    parser.add_argument("--live_pdb", default=None, help="Fetch live PDB metadata (e.g. 1TSR, 6LU7)")
+    parser.add_argument("--live_drug", default=None, help="Fetch live PubChem drug properties (e.g. Imatinib, Aspirin)")
+    parser.add_argument("--live_pubmed", default=None, help="Search live PubMed literature (e.g. 'CAR-T lymphoma')")
     args = parser.parse_args()
-    run_pipeline(args.data_dir)
+    run_pipeline(args.data_dir, args.live_pdb, args.live_drug, args.live_pubmed)

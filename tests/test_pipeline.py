@@ -16,6 +16,8 @@ from pharmacology import PharmacologyAnalyzer
 from pathway_mapper import PathwayMapper
 from literature_miner import LiteratureMiner
 
+from live_fetcher import LiveFetcher
+
 class TestComputationalBiologyPipeline(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -63,5 +65,13 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertEqual(lit.get("pmid"), "38661449")
         self.assertIn("Exagamglogene", lit.get("title", ""))
 
+    def test_live_fetcher_cached(self):
+        fetcher = LiveFetcher(os.path.join(self.data_dir, "cache"))
+        drug = fetcher.fetch_pubchem_drug("Imatinib")
+        self.assertIn("name", drug)
+        self.assertEqual(drug["name"], "Imatinib")
+        self.assertEqual(drug.get("cid"), 5291)
+
 if __name__ == "__main__":
     unittest.main()
+
