@@ -25,6 +25,7 @@ from cancer_pathway_engine import CancerPathwayEngine, CANONICAL_PATHWAYS
 from immunotherapy_resistance import ImmunotherapyResistanceEngine, CANONICAL_ICB_SCENARIOS
 from mutational_signatures_hrd import MutationalSignaturesHrdEngine, CANONICAL_MUTATIONAL_SIGNATURES
 from spatial_transcriptomics import SpatialTranscriptomicsEngine, CANONICAL_SPATIAL_SCENARIOS
+from epigenetics_methylation import EpigenomicsEngine, CANONICAL_EPIGENETIC_SCENARIOS, analyze_epigenetics
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -114,6 +115,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'tumor_associated_macrophages_tam': 'Tümör ilişkili makrofajlar TAM M1 M2 ve CD47 beni yeme sinyali nedir?',
             'cancer_associated_fibroblasts_caf': 'Kanserle ilişkili fibroblastlar CAF ve desmoplazi stroma bariyeri nedir?',
             'single_cell_rna_sequencing_scrna': 'Tek hücre RNA dizileme scRNA-seq ve klonal heterojenite nedir?',
+            'mgmt_promoter_methylation': 'Glioblastomda MGMT metilasyonu ve Temozolomid duyarlılığı nedir?',
+            'mlh1_promoter_hypermethylation': 'MLH1 hipermetilasyonu ile Lynch sendromu ayrımı nasıl yapılır?',
+            'multicancer_early_detection_mced': 'MCED sıvı biyopsi testleri ve cfDNA metilasyonu nedir?',
+            'ezh2_inhibitors_epigenetics': 'EZH2 inhibitörü Tazemetostat ve SMARCB1 kaybı nedir?',
+            'hypomethylating_agents_dnmt_hdac': 'Hipometilleyici ajanlar Azasitidin ve HDAC inhibitörleri nasıl etki eder?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -584,6 +590,51 @@ class TestExhaustivePipeline(unittest.TestCase):
         self.assertGreater(metrics_caf['stroma_barrier_score'], 70.0)
         self.assertIn('Desmoplazi', metrics_caf['stroma_status'])
         self.assertIn('Evre 0', metrics_caf['tls_stage'])
+
+    # =========================================================================
+    # 16. EPIGENETICS & DNA METHYLATION ENGINE
+    # =========================================================================
+    def test_epigenetics_canonical_scenarios(self):
+        """Verify that all canonical epigenetic profiles are defined and retrievable."""
+        engine = EpigenomicsEngine()
+        scenarios = engine.list_scenarios()
+        self.assertEqual(len(scenarios), 5)
+        sc_ids = [s['id'] for s in scenarios]
+        self.assertIn('GBM_MGMT_METHYLATED', sc_ids)
+        self.assertIn('CRC_MLH1_SPORADIC', sc_ids)
+        self.assertIn('MCED_LIQUID_BIOPSY_CRC', sc_ids)
+        self.assertIn('ES_SMARCB1_EZH2_ONCOGENIC', sc_ids)
+        self.assertIn('LGG_IDH1_GCIMP', sc_ids)
+
+    def test_epigenetics_metrics_calculation(self):
+        """Verify silencing status, drug targetability, and Lynch/TOO deconvolution."""
+        engine = EpigenomicsEngine()
+
+        # 1. Glioblastoma MGMT Hypermethylated
+        gbm = engine.calculate_epigenetic_metrics('GBM_MGMT_METHYLATED', custom_methylation_override=70.0)
+        self.assertEqual(gbm['primary_gene'], 'MGMT (O-6-Methylguanine-DNA Methyltransferase)')
+        self.assertIn('Transcriptional', gbm['silencing_status'])
+        self.assertGreater(gbm['targetability_score'], 75.0)
+        self.assertIn('Temozolomide', gbm['predicted_therapeutic_response'])
+
+        # 2. Colorectal Sporadic MLH1 Hypermethylated
+        crc = engine.calculate_epigenetic_metrics('CRC_MLH1_SPORADIC', custom_methylation_override=85.0)
+        self.assertIn('Sporadic MSI-H', crc['lynch_syndrome_triage'])
+        self.assertIn('Anti-PD-1', crc['predicted_therapeutic_response'])
+
+        # 3. MCED Liquid Biopsy cfDNA
+        mced = engine.calculate_epigenetic_metrics('MCED_LIQUID_BIOPSY_CRC', custom_methylation_override=76.2)
+        self.assertIn('Colorectal', mced['tissue_of_origin_deconvolution'])
+        self.assertIn('Colonoscopy', mced['predicted_therapeutic_response'])
+
+        # 4. Epithelioid Sarcoma EZH2
+        es = engine.calculate_epigenetic_metrics('ES_SMARCB1_EZH2_ONCOGENIC')
+        self.assertIn('Tazemetostat', es['predicted_therapeutic_response'])
+        self.assertGreaterEqual(es['targetability_score'], 90.0)
+
+        # 5. Low-grade Glioma IDH1 G-CIMP
+        lgg = engine.calculate_epigenetic_metrics('LGG_IDH1_GCIMP')
+        self.assertIn('Vorasidenib', lgg['predicted_therapeutic_response'])
 
 if __name__ == "__main__":
     unittest.main()

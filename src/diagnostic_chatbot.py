@@ -1279,6 +1279,71 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
         )
     },
 
+    'mgmt_promoter_methylation': {
+        'patterns': [
+            r'mgmt metilasyonu', r'mgmt promoter', r'glioblastom mgmt', r'temozolomid mgmt', r'temodal duyarlılık', r'stupp protokolü'
+        ],
+        'title': 'MGMT Promotör Metilasyonu & Glioblastomda Temozolomid Duyarlılığı',
+        'answer': (
+            "🧠 **MGMT Promotör Metilasyonu ve Glioblastomda Klinik Değeri:**\n\n"
+            "• **Biyolojik Mekanizma:** MGMT (O-6-Metilguanin-DNA Metiltransferaz), alkilleyici kemoterapi ilaçlarının (Temozolomid - TMZ) DNA'da açtığı ölümcül hasarları tamir eden bir enzimdir.\n"
+            "• **Metillenmiş (Susturulmuş) MGMT:** Promotör bölgesi hipermetillenmişse enzim üretilemez. Temozolomidin yarattığı hasar onarılamaz ve kanser hücreleri ölür. Bu olgularda ortanca sağkalım **21.7 aya uzar** (Kategori 1 Stupp Protokolü kanıtı).\n"
+            "• **Metillenmemiş MGMT:** Enzim aktiftir, TMZ direncine yol açar (Sağkalım ~15.3 ay). Bu hastalarda klinik çalışmalar, lomustin (CCNU) veya TTFields kombinasyonları öne çıkar."
+        )
+    },
+    'mlh1_promoter_hypermethylation': {
+        'patterns': [
+            r'mlh1 metilasyonu', r'mlh1 hipermetilasyon', r'lynch sendromu ayrımı', r'braf v600e lynch', r'sporadik msi-h', r'cimp fenotipi'
+        ],
+        'title': 'MLH1 Promotör Hipermetilasyonu & Lynch Sendromu Triyajı',
+        'answer': (
+            "🧬 **MLH1 Hipermetilasyonu ile Sporadik - Kalıtsal (Lynch) Kanser Ayrımı:**\n\n"
+            "• **Kritik Triyaj Testi:** Kolorektal veya endometriyal kanserde immünohistokimyada (IHC) MLH1/PMS2 kaybı saptandığında, bunun kalıtsal Lynch Sendromu mu yoksa yaşa bağlı sporadik kanser mi olduğunu ayırt eder.\n"
+            "• **MLH1 Hipermetilasyonu Pozitif + BRAF V600E Mutasyonu:** Kanserin **sporadik (edinsel)** olduğunu kesinleştirir. Hastanın ailesine kalıtsal geçiş riski bulunmaz; pahalı germline genetik testler gerekmez.\n"
+            "• **Metilasyon Yoksa (Unmethylated):** Kalıtsal Lynch Sendromu şüphesi doğar; hastaya ve birinci derece akrabalarına genetik danışmanlık ve germline MLH1 dizilemesi zorunludur.\n"
+            "• **Tedavi:** Her iki grupta da MSI-H mevcuttur; Pembrolizumab veya Nivolumab+Ipilimumab gibi immünoterapilere yanıt mükemmeldir."
+        )
+    },
+    'multicancer_early_detection_mced': {
+        'patterns': [
+            r'mced nedir', r'çoklu kanser erken teşhis', r'galleri testi', r'cfdna metilasyon', r'doku kökeni analizi', r'sept9 metilasyon'
+        ],
+        'title': 'Çoklu Kanser Erken Teşhisi (MCED) & cfDNA Metilasyonu (Sıvı Biyopsi)',
+        'answer': (
+            "🩸 **Çoklu Kanser Erken Teşhisi (MCED) & Hücresiz DNA (cfDNA) Metilasyonu:**\n\n"
+            "• **Tek Kan Testiyle 50+ Kanser Taraması:** Klasik taramalar sadece meme, kolon ve serviksle sınırlıyken, MCED sıvı biyopsi testleri (Galleri gibi) kandaki hücresiz DNA parçacıklarının CpG metilasyon paternlerini okur.\n"
+            "• **Doku Kökeni (Tissue-of-Origin - TOO) Deşifresi:** Kanserli dokudan kana dökülen DNA'nın metilasyon 'barkodu', tümörün pankreas, kolon, mide, akciğer veya over kökenli olduğunu **>%90 doğrulukla** işaret eder.\n"
+            "• **SEPT9 & SHOX2 Biyobelirteçleri:** Kolorektal kanserde kanda hipermetillenmiş SEPT9 DNA'sı; akciğer kanserinde SHOX2 metilasyonu erken evrede bile yüksek hassasiyetle sinyal verir."
+        )
+    },
+    'ezh2_inhibitors_epigenetics': {
+        'patterns': [
+            r'ezh2 inhibitörü', r'tazemetostat', r'smarcb1', r'ini1 kaybı', r'epitelioid sarkom', r'h3k27me3'
+        ],
+        'title': 'EZH2 İnhibitörleri (Tazemetostat) & SMARCB1/INI1 Epigenetik Bozuklukları',
+        'answer': (
+            "🎯 **EZH2 İnhibisyonu ve Epigenetik Hedefli Tedaviler:**\n\n"
+            "• **Mekanizma:** PRC2 kompleksinin katalitik alt birimi olan EZH2, histon H3 lizin 27'yi trimetiller (H3K27me3) ve tümör baskılayıcı genleri baskılar.\n"
+            "• **SMARCB1 (INI1) Kaybı:** Epitelioid sarkom ve rabdoid tümörlerde SMARCB1 delesyonu, EZH2 enzimini kontrolsüz hiperaktif hale getirir.\n"
+            "• **Tazemetostat (Tazverik - FDA Onaylı):** EZH2'yi seçici olarak inhibe ederek tümör baskılayıcı genlerin üzerindeki epigenetik kilidi açar ve hücrelerin farklılaşarak apoptoza gitmesini sağlar.\n"
+            "• **Endikasyonlar:** İleri evre epitelioid sarkom ve EZH2 mutasyonlu nüks/dirençli foliküler lenfoma."
+        )
+    },
+    'hypomethylating_agents_dnmt_hdac': {
+        'patterns': [
+            r'hipometilleyici ajanlar', r'azasitidin', r'desitabin', r'dnmt inhibitörü', r'hdac inhibitörü', r'vorinostat', r'epigenetik tedavi'
+        ],
+        'title': 'Hipometilleyici Ajanlar (DNMTi: Azasitidin/Desitabin) & HDAC İnhibitörleri',
+        'answer': (
+            "💊 **DNA Metiltransferaz (DNMT) & Histon Deasetilaz (HDAC) İnhibitörleri:**\n\n"
+            "• **DNA Hipometilasyonu (DNMT İnhibitörleri):**\n"
+            "   - **Azasitidin (Vidaza) & Desitabin (Dacogen):** DNA metiltransferaz enzimlerini tuzağa düşürerek tümör baskılayıcı genlerin (CDKN2A vb.) promotörlerindeki hipermetilasyonu siler. Miyelodisplastik sendrom (MDS) ve AML'de standart tedavi omurgasıdır.\n"
+            "• **Histon Yeniden Şekillendirme (HDAC İnhibitörleri):**\n"
+            "   - **Vorinostat (SAHA), Romidepsin, Belinostat:** Histon deasetilazları bloke ederek kromatinin açık kalmasını sağlar; T-hücreli lenfomalarda hücre ölümünü tetikler.\n"
+            "• **Epigenetik Aşıcılık:** Bu ilaçlar kanser antijenlerini yeniden eksprese ettirerek immünoterapinin başarısını da artırır."
+        )
+    },
+
     'bot_help': {
         'patterns': [
             r'sen kimsin', r'ne yapabilirsin', r'yardım', r'komutlar', r'neler yaparsın',

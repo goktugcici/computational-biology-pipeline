@@ -272,6 +272,15 @@ spatialScenarios.forEach(sc => {
 sandbox.switchTab('spatial');
 console.log(`  ✓ Spatial Transcriptomics & TLS studio verified (${spatialScenarios.length} architectures, TLS scoring, Visium spot grid)`);
 
+// 3.12 Epigenomics & DNA Methylation Studio
+const epigeneticScenarios = ['GBM_MGMT_METHYLATED', 'CRC_MLH1_SPORADIC', 'MCED_LIQUID_BIOPSY_CRC', 'ES_SMARCB1_EZH2_ONCOGENIC', 'LGG_IDH1_GCIMP'];
+epigeneticScenarios.forEach(sc => {
+  sandbox.selectEpigeneticScenario(sc);
+  sandbox.calculateEpigeneticsLive();
+});
+sandbox.switchTab('epigenetics');
+console.log(`  ✓ Epigenomics & DNA Methylation studio verified (${epigeneticScenarios.length} canonical scenarios, MGMT/MLH1/SEPT9, Lynch triage, TOO)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
@@ -321,6 +330,11 @@ const sampleQuestions = [
   'Kanserde MAPK yolağı ve sinyal iletimi kaskadı nedir?',
   'Kanser klinik çalışma Faz 1 Faz 2 ve Faz 3 nedir?',
   'Kapsamlı genomik profil CGP ve NGS testi nedir?',
+  'Glioblastomda MGMT metilasyonu ve Temozolomid duyarlılığı nedir?',
+  'MLH1 hipermetilasyonu ile Lynch sendromu ayrımı nasıl yapılır?',
+  'MCED sıvı biyopsi testleri ve cfDNA metilasyonu nedir?',
+  'EZH2 inhibitörü Tazemetostat ve SMARCB1 kaybı nedir?',
+  'Hipometilleyici ajanlar Azasitidin ve HDAC inhibitörleri nasıl etki eder?',
   'Merhaba günaydın',
   'Çok teşekkür ederim'
 ];

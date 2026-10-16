@@ -119,6 +119,9 @@
         <button onclick="switchTab('spatial')" id="tabBtn-spatial" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🔬 Uzamsal Transkriptomik & TLS
         </button>
+        <button onclick="switchTab('epigenetics')" id="tabBtn-epigenetics" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🧪 Epigenomik & Metilasyon
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -2841,6 +2844,186 @@
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- TAB 22: EPİGENOMİK & DNA METİLASYON STÜDYOSU (EPIGENOMICS & METHYLATION) -->
+    <!-- ========================================== -->
+    <section id="tab-epigenetics" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Tanıtım Paneli -->
+      <div class="bg-gradient-to-r from-cyan-950/40 via-slate-900/80 to-blue-950/40 border border-cyan-500/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold">
+              <span>🧪 Epigenomik Profilleme & DNA Metilasyonu</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight">Epigenetik, DNA Metilasyonu & MCED Likit Biyopsi Stüdyosu</h2>
+            <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+              Kritik CpG adacığı metilasyon dinamiklerini analiz edin: Glioblastomda <em>MGMT</em> promotör metilasyonu ile Temozolomid (TMZ) duyarlılığı, 
+              kolorektal kanserde <em>MLH1</em> hipermetilasyonu ile Lynch sendromu triyajı, kanda hücresiz DNA (cfDNA) metilasyon paternleri ve Doku Kökeni (TOO) dekonvolüsyonunu değerlendirin.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-2 rounded-2xl bg-slate-900/90 border border-slate-700 text-xs text-slate-300 font-mono flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+              Bisülfit Pyrosequencing / EM-seq / EPIC 850k
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanonik Epigenetik Profil Senaryoları -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <button onclick="selectEpigeneticScenario('GBM_MGMT_METHYLATED')" id="epiBtn-GBM_MGMT_METHYLATED" class="epigenetic-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Glioblastom (GBM)</span>
+          <h4 class="text-xs font-bold text-white">MGMT Promotör Metilasyonu</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">TMZ Alkilatör Duyarlılığı</span>
+        </button>
+
+        <button onclick="selectEpigeneticScenario('CRC_MLH1_SPORADIC')" id="epiBtn-CRC_MLH1_SPORADIC" class="epigenetic-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Kolon (MSI-H)</span>
+          <h4 class="text-xs font-bold text-white">MLH1 Hipermetilasyonu</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Lynch Sendromu Dışlama</span>
+        </button>
+
+        <button onclick="selectEpigeneticScenario('MCED_LIQUID_BIOPSY_CRC')" id="epiBtn-MCED_LIQUID_BIOPSY_CRC" class="epigenetic-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">MCED Likit Biyopsi</span>
+          <h4 class="text-xs font-bold text-white">cfDNA SEPT9 Metilasyonu</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">Doku Kökeni (TOO: Kolon %92)</span>
+        </button>
+
+        <button onclick="selectEpigeneticScenario('ES_SMARCB1_EZH2_ONCOGENIC')" id="epiBtn-ES_SMARCB1_EZH2_ONCOGENIC" class="epigenetic-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Epitelioid Sarkom</span>
+          <h4 class="text-xs font-bold text-white">SMARCB1 Kaybı & EZH2</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">Tazemetostat Duyarlılığı</span>
+        </button>
+
+        <button onclick="selectEpigeneticScenario('LGG_IDH1_GCIMP')" id="epiBtn-LGG_IDH1_GCIMP" class="epigenetic-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Düşük Dereceli Gliom</span>
+          <h4 class="text-xs font-bold text-white">IDH1 R132H & G-CIMP</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">Vorasidenib / İvosidenib</span>
+        </button>
+      </div>
+
+      <!-- Ana Grid: Sol Panel (Metilasyon Sürgüsü & 8-Gen CpG Isı Haritası) | Sağ Panel (Hedeflenebilirlik, Triyaj & Tedaviler) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: Sürgü & CpG Isı Haritası (5 Kolon) -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
+          <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+            <div>
+              <h3 id="activeEpiTitle" class="text-sm font-bold text-white">Glioblastom: MGMT Metilasyonu</h3>
+              <span id="activeEpiGeneBadge" class="text-xs font-semibold text-cyan-400">MGMT (CpG Adası: Exon 1 / Intron 1)</span>
+            </div>
+            <span id="epiAssayBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-400">ddPCR / Pyroseq</span>
+          </div>
+
+          <!-- Metilasyon Düzeyi Kaydırıcısı -->
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs text-slate-400">
+              <span>CpG Metilasyon Düzeyi (%)</span>
+              <span id="epiMethVal" class="font-mono text-cyan-300 font-bold">68.5%</span>
+            </div>
+            <input type="range" id="epiMethSlider" min="0" max="100" step="0.5" value="68.5" oninput="calculateEpigeneticsLive()" class="w-full accent-cyan-500 bg-slate-950 h-2 rounded-lg">
+            <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+              <span>0% (Hipo)</span>
+              <span>25% (Eşik)</span>
+              <span>100% (Hiper)</span>
+            </div>
+          </div>
+
+          <!-- Durum Kartları -->
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+              <span class="text-[10px] text-slate-400 block">Susturulma Durumu</span>
+              <span id="epiSilencingStatus" class="font-bold text-cyan-300 block">Transkripsiyonel Susturulma</span>
+            </div>
+            <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+              <span class="text-[10px] text-slate-400 block">Epigenetik Sınıf</span>
+              <span id="epiClassBadge" class="font-bold text-emerald-400 block">Hipermetillenmiş</span>
+            </div>
+          </div>
+
+          <!-- 8-Gen CpG Isı Haritası (Heatmap Grid) -->
+          <div class="space-y-2.5 pt-2 border-t border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Panel CpG Metilasyon Isı Haritası (Beta: 0.0 - 1.0)</span>
+              <span class="text-[10px] text-slate-500">8 Hedef Onkogen / TSG</span>
+            </div>
+            <div id="cpgHeatmapContainer" class="space-y-1.5 text-xs">
+              <!-- JS ile üretilir -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: Hedeflenebilirlik Skoru, Triyaj & ESMO Kılavuzu (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- Hedeflenebilirlik Skoru Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Tahmini Terapötik Yanıt</span>
+                <h3 id="epiTargetDrugHeader" class="text-lg font-black text-white">Yüksek Alkilatör (Temozolomid) Duyarlılığı</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Epigenetik Skor</span>
+                <div class="flex items-baseline gap-2">
+                  <span id="epiTargetabilityScore" class="text-3xl font-black text-cyan-400 font-mono">78.0</span>
+                  <span id="epiTargetabilityBadge" class="text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Kuvvetli Hedeflenebilir</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- İlerleme Çubuğu -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs text-slate-400">
+                <span>Epigenetik Hedeflenebilirlik ve İlaç Duyarlılık İndeksi</span>
+                <span id="epiScoreText" class="font-bold text-cyan-300">78.0 / 100</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-slate-800">
+                <div id="barEpiTargetability" class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-2.5 rounded-full transition-all duration-300" style="width: 78%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lynch Sendromu / Klinik Triyaj Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🧬 Herediter vs Sporadik Triyaj (Lynch Sendromu Ayrımı)</span>
+            </h4>
+            <div id="epiLynchTriageBox" class="p-4 rounded-2xl bg-slate-950 border border-emerald-900/40 text-xs text-emerald-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- Doku Kökeni (Tissue of Origin - TOO) Dekonvolüsyonu -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🩸 Likit Biyopsi Doku Kökeni (TOO) Dekonvolüsyonu</span>
+            </h4>
+            <div id="epiTooBox" class="p-3.5 rounded-2xl bg-slate-950 border border-sky-900/40 text-xs text-sky-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- Hedefe Yönelik İlaçlar & NCCN/ESMO Kılavuzu -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🎯 NCCN & ESMO Klinik Onkolojik Tedavi Protokolü</span>
+            </h4>
+            <div id="epiGuidelineBox" class="p-4 rounded-2xl bg-slate-950 border border-cyan-900/40 text-xs text-cyan-200/90 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+            <div class="pt-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Önerilen Hedefe Yönelik Tedaviler:</span>
+              <div id="epiTherapyPills" class="flex flex-wrap gap-2">
+                <!-- JS ile güncellenir -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script>
@@ -5161,6 +5344,46 @@
         answer: "🔬 **Tek Hücre RNA Dizileme (scRNA-seq):**\n\n" +
           "• On binlerce hücrenin transkriptomunu tek tek okur; 10.000 hücre arasındaki %0.1'lik nadir dirençli kanser kök hücrelerini yakalar.\n" +
           "• Tedavi sürecindeki klonal evrimi ve tükenmiş (exhausted) lenfositleri moleküler haritada gösterir."
+      },
+      'mgmt_promoter_methylation': {
+        patterns: [/mgmt metilasyonu/i, /mgmt promoter/i, /glioblastom mgmt/i, /temozolomid mgmt/i, /temodal duyarlılık/i, /stupp protokolü/i],
+        title: 'MGMT Promotör Metilasyonu & Temozolomid (TMZ)',
+        answer: "🧠 **MGMT Metilasyonu & Glioblastom Tedavi Yanıtı:**\n\n" +
+          "• MGMT enzimi, alkilleyici kemoterapi ilacı Temozolomidin (TMZ) DNA'da açtığı ölümcül hasarları tamir eder.\n" +
+          "• **Metillenmiş MGMT:** Enzim üretilemez; TMZ'ye aşırı duyarlıdır ve ortanca sağkalım belirgin şekilde 21.7 aya uzar (Stupp Protokolü).\n" +
+          "• **Metillenmemiş MGMT:** Enzim aktiftir, TMZ direnci gelişir; klinik çalışmalara ve lomustin (CCNU) kombinasyonlarına yönlendirilir."
+      },
+      'mlh1_promoter_hypermethylation': {
+        patterns: [/mlh1 metilasyonu/i, /mlh1 hipermetilasyon/i, /lynch sendromu ayrımı/i, /braf v600e lynch/i, /sporadik msi-h/i, /cimp fenotipi/i],
+        title: 'MLH1 Promotör Hipermetilasyonu & Lynch Triyajı',
+        answer: "🧬 **MLH1 Hipermetilasyonu ile Sporadik - Lynch Sendromu Ayrımı:**\n\n" +
+          "• Kolon veya rahim kanserinde dMMR/MSI-H saptandığında, hastalığın kalıtsal mı yoksa yaşa bağlı sporadik mi olduğunu belirler.\n" +
+          "• **MLH1 Hipermetilasyonu + BRAF V600E Pozitif:** Kanserin sporadik (edinsel) olduğunu kanıtlar; aileye kalıtım riski yoktur ve germline test gerekmez.\n" +
+          "• **Metilasyon Yoksa:** Kalıtsal Lynch Sendromu şüphesi doğar; germline genetik test ve aile taraması zorunludur. Her iki grupta da immünoterapi (Pembrolizumab) yanıtı çok yüksektir."
+      },
+      'multicancer_early_detection_mced': {
+        patterns: [/mced nedir/i, /çoklu kanser erken teşhis/i, /galleri testi/i, /cfdna metilasyon/i, /doku kökeni analizi/i, /sept9 metilasyon/i],
+        title: 'Çoklu Kanser Erken Teşhisi (MCED) & cfDNA Metilasyonu',
+        answer: "🩸 **MCED Likit Biyopsi & Hücresiz DNA (cfDNA) Metilasyonu:**\n\n" +
+          "• Tek bir tüp kanla 50'den fazla kanser türünü tarayan yeni nesil sıvı biyopsidir (Galleri testi vb.).\n" +
+          "• Kanser hücrelerinden kana dökülen cfDNA metilasyon desenleri deşifre edilerek tümörün Doku Kökeni (TOO: Pankreas, kolon, akciğer, over vb.) %90 üzerinde doğrulukla tespit edilir.\n" +
+          "• Kanda hipermetillenmiş SEPT9 kolorektal; SHOX2 akciğer kanserinde erken uyarı sinyali verir."
+      },
+      'ezh2_inhibitors_epigenetics': {
+        patterns: [/ezh2 inhibitörü/i, /tazemetostat/i, /smarcb1/i, /ini1 kaybı/i, /epitelioid sarkom/i, /h3k27me3/i],
+        title: 'EZH2 İnhibitörleri (Tazemetostat) & SMARCB1/INI1',
+        answer: "🎯 **EZH2 İnhibisyonu ve Hedefli Epigenetik Tedaviler:**\n\n" +
+          "• Epitelioid sarkomda SMARCB1 (INI1) geni silindiğinde, EZH2 enzimi aşırı aktif hale gelerek tümör baskılayıcı genleri baskılar.\n" +
+          "• **Tazemetostat (Tazverik - FDA Onaylı):** EZH2'yi bloke ederek tümör baskılayıcı genlerin epigenetik kilidini açar ve kanser hücrelerini öldürür.\n" +
+          "• İleri evre epitelioid sarkomda ve foliküler lenfomada hedefe yönelik birinci basamak seçenektir."
+      },
+      'hypomethylating_agents_dnmt_hdac': {
+        patterns: [/hipometilleyici ajanlar/i, /azasitidin/i, /desitabin/i, /dnmt inhibitörü/i, /hdac inhibitörü/i, /vorinostat/i, /epigenetik tedavi/i],
+        title: 'Hipometilleyici Ajanlar (Azasitidin/Desitabin) & HDAC İnhibitörleri',
+        answer: "💊 **DNMT & HDAC İnhibitörleri (Epigenetik İlaçlar):**\n\n" +
+          "• **Azasitidin & Desitabin (DNMTi):** DNA üzerindeki anormal metilasyon gruplarını silerek susmuş tümör baskılayıcı genleri yeniden çalıştırır (MDS ve AML omurgası).\n" +
+          "• **Vorinostat & Romidepsin (HDACi):** Histonları asetilleyerek kromatini açık tutar ve apoptozu tetikler (T-hücreli lenfomalar).\n" +
+          "• Ayrıca kanser neoantijenlerini görünür kılarak immünoterapi duyarlılığını artırır."
       },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
@@ -7652,10 +7875,311 @@ uygulanması oy birliği ile uygun bulunmuştur.
       }
     }
 
-    // İlk yüklemede Uzamsal Transkriptomik Stüdyosunu hazırla
+    // ==========================================
+    // EPİGENOMİK & DNA METİLASYON STÜDYOSU (TAB 22)
+    // ==========================================
+    const CANONICAL_EPIGENETIC_SCENARIOS = {
+      'GBM_MGMT_METHYLATED': {
+        id: 'GBM_MGMT_METHYLATED',
+        title: 'Glioblastom: MGMT Metilasyonu',
+        geneBadge: 'MGMT (CpG Adası: Exon 1 / Intron 1, 16 CpGs)',
+        assay: 'ddPCR / Bisülfit Pyroseq',
+        methLevel: 68.5,
+        targetDrug: 'Yüksek Alkilatör (Temozolomid) Duyarlılığı',
+        lynchTriage: 'Uygulanamaz (Merkezi Sinir Sistemi Primeri). Tümör primer glioblastomdur.',
+        tooDeconvolution: 'MSS / Glial Soy (Güven Skoru: %98.6). Nöro-epitelyal orjin doğrulanmıştır.',
+        guideline: 'Kategori 1 Kılavuz (Stupp Protokolü): RT 60 Gy + eşzamanlı Temozolomid (75 mg/m2), ardından 6 siklus idame TMZ (150-200 mg/m2). Ortanca OS 21.7 ay.',
+        therapies: [
+          { drug: 'Temozolomid (TMZ)', tier: 'Standart (Tier 1A)' },
+          { drug: 'Lomustin (CCNU)', tier: 'Nüks Tedavisi (Tier 2A)' },
+          { drug: 'TTFields (Optune)', tier: 'Biyofiziksel Kategori 1' }
+        ],
+        cpgProfile: [
+          { gene: 'MGMT', beta: 0.69, status: 'Hipermetillenmiş' },
+          { gene: 'MLH1', beta: 0.04, status: 'Hipometillenmiş' },
+          { gene: 'SEPT9', beta: 0.06, status: 'Hipometillenmiş' },
+          { gene: 'GSTP1', beta: 0.08, status: 'Hipometillenmiş' },
+          { gene: 'CDKN2A', beta: 0.85, status: 'Hipermetilasyon/Del' },
+          { gene: 'RASSF1A', beta: 0.52, status: 'Hipermetillenmiş' },
+          { gene: 'BRCA1', beta: 0.03, status: 'Hipometillenmiş' },
+          { gene: 'SHOX2', beta: 0.07, status: 'Hipometillenmiş' }
+        ]
+      },
+      'CRC_MLH1_SPORADIC': {
+        id: 'CRC_MLH1_SPORADIC',
+        title: 'Kolorektal Kanser: MLH1 Hipermetilasyonu',
+        geneBadge: 'MLH1 (Deng Region C/D, c.-248 to -178)',
+        assay: 'MS-MLPA / Bisülfit PCR',
+        methLevel: 84.0,
+        targetDrug: 'Kuvvetli İmmün Kontrol Noktası Blokajı (Anti-PD-1)',
+        lynchTriage: '✅ Sporadik dMMR/CIMP Doğrulandı (Lynch Sendromu Dışlandı). MLH1 hipermetilasyonu ve BRAF V600E mutasyonu nedeniyle hastaya ve ailesine gereksiz germline test yapılması gerekmez.',
+        tooDeconvolution: 'Kolorektal Mukoza (Güven Skoru: %94.2). Sağ kolon yerleşimli medüller/müsinöz histoloji.',
+        guideline: 'NCCN Kolon Kanseri Kılavuzu: Sporadik dMMR/MSI-H doğrulanmıştır. Birinci basamakta Pembrolizumab veya Nivolumab + Ipilimumab immünoterapisi önerilir (KEYNOTE-177). 5-FU tek ajan adjuvan önerilmez.',
+        therapies: [
+          { drug: 'Pembrolizumab (Keytruda)', tier: 'FDA 1. Basamak (Tier 1A)' },
+          { drug: 'Nivolumab + Ipilimumab', tier: 'FDA Çift Blokaj (Tier 1A)' },
+          { drug: 'Encorafenib + Cetuximab', tier: 'BRAF V600E İkincil Basamak' }
+        ],
+        cpgProfile: [
+          { gene: 'MGMT', beta: 0.12, status: 'Hipometillenmiş' },
+          { gene: 'MLH1', beta: 0.84, status: 'Hipermetillenmiş' },
+          { gene: 'SEPT9', beta: 0.76, status: 'Hipermetillenmiş' },
+          { gene: 'GSTP1', beta: 0.15, status: 'Hipometillenmiş' },
+          { gene: 'CDKN2A', beta: 0.78, status: 'Hipermetillenmiş' },
+          { gene: 'RASSF1A', beta: 0.65, status: 'Hipermetillenmiş' },
+          { gene: 'BRCA1', beta: 0.05, status: 'Hipometillenmiş' },
+          { gene: 'SHOX2', beta: 0.09, status: 'Hipometillenmiş' }
+        ]
+      },
+      'MCED_LIQUID_BIOPSY_CRC': {
+        id: 'MCED_LIQUID_BIOPSY_CRC',
+        title: 'MCED Likit Biyopsi: cfDNA SEPT9 Metilasyonu',
+        geneBadge: 'SEPT9, BCAT1, IKZF1 (Dolaşımdaki cfDNA Metilom)',
+        assay: 'Enzimatik Methyl-Seq (EM-seq)',
+        methLevel: 76.2,
+        targetDrug: 'Acil Tanısal Optik Kolonoskopi & Endoskopik Müdahale',
+        lynchTriage: 'Tarama Biyobelirteci (Kolonoskopi ve histopatolojik doku tanısı sonrası değerlendirilir).',
+        tooDeconvolution: '🎯 Alt Gastrointestinal Sistem / Kolon (%92.4), Gastrik (%4.1), Pankreas (%2.0). Doku kökeni kesin olarak kolona işaret etmektedir.',
+        guideline: 'Likit Biyopsi Erken Teşhis Kılavuzu: Pozitif cfDNA epigenomik sinyal ve yüksek TOO güveni varlığında gecikmeksizin tam bağırsak temizliği eşliğinde total optik kolonoskopi planlanmalıdır.',
+        therapies: [
+          { drug: 'Tanısal Optik Kolonoskopi', tier: 'Acil İlk Adım' },
+          { drug: 'Polipektomi / ESD', tier: 'Endoskopik Rezeksiyon' },
+          { drug: 'ctDNA Takibi (Signatera)', tier: 'MRD İzleme' }
+        ],
+        cpgProfile: [
+          { gene: 'MGMT', beta: 0.09, status: 'Hipometillenmiş' },
+          { gene: 'MLH1', beta: 0.18, status: 'Düşük Metilasyon' },
+          { gene: 'SEPT9', beta: 0.76, status: 'Hipermetillenmiş' },
+          { gene: 'GSTP1', beta: 0.08, status: 'Hipometillenmiş' },
+          { gene: 'CDKN2A', beta: 0.32, status: 'Orta Metilasyon' },
+          { gene: 'RASSF1A', beta: 0.44, status: 'Orta Metilasyon' },
+          { gene: 'BRCA1', beta: 0.02, status: 'Hipometillenmiş' },
+          { gene: 'SHOX2', beta: 0.11, status: 'Hipometillenmiş' }
+        ]
+      },
+      'ES_SMARCB1_EZH2_ONCOGENIC': {
+        id: 'ES_SMARCB1_EZH2_ONCOGENIC',
+        title: 'Epitelioid Sarkom: SMARCB1 Kaybı & EZH2',
+        geneBadge: 'SMARCB1 (INI1) Delesyonu / EZH2 PRC2 Kompleksi',
+        assay: 'INI1 İHK (0% Nükleer) + NGS',
+        methLevel: 91.5,
+        targetDrug: 'Doğrudan EZH2 İnhibitörü Tazemetostat Duyarlılığı',
+        lynchTriage: 'Uygulanamaz (Mezenkimal Yumuşak Doku Sarkomu).',
+        tooDeconvolution: 'Yumuşak Doku / Epitelioid Mezenkimal Soy (Güven Skoru: %91.5).',
+        guideline: 'FDA Onaylı Hedefli Tedavi: Tazemetostat (Tazverik 800 mg günde 2 kez oral) cerrahi rezeksiyona uygun olmayan ileri/metastatik epitelioid sarkom hastalarında standart sistemik tedavidir.',
+        therapies: [
+          { drug: 'Tazemetostat (Tazverik)', tier: 'FDA Onaylı (Tier 1A)' },
+          { drug: 'Vorinostat (HDACi)', tier: 'Klinik Çalışma (Tier 2B)' },
+          { drug: 'Antrasiklin Kemoterapisi', tier: 'Alternatif (Düşük Yanıt)' }
+        ],
+        cpgProfile: [
+          { gene: 'MGMT', beta: 0.05, status: 'Hipometillenmiş' },
+          { gene: 'MLH1', beta: 0.04, status: 'Hipometillenmiş' },
+          { gene: 'SEPT9', beta: 0.10, status: 'Hipometillenmiş' },
+          { gene: 'GSTP1', beta: 0.09, status: 'Hipometillenmiş' },
+          { gene: 'CDKN2A', beta: 0.92, status: 'PRC2 Susturulmuş' },
+          { gene: 'RASSF1A', beta: 0.38, status: 'Orta Metilasyon' },
+          { gene: 'BRCA1', beta: 0.03, status: 'Hipometillenmiş' },
+          { gene: 'SHOX2', beta: 0.08, status: 'Hipometillenmiş' }
+        ]
+      },
+      'LGG_IDH1_GCIMP': {
+        id: 'LGG_IDH1_GCIMP',
+        title: 'Düşük Dereceli Gliom: IDH1 R132H & G-CIMP',
+        geneBadge: 'IDH1 p.R132H / TET2-KDM İnhibisyonu (G-CIMP)',
+        assay: 'IDH1 İHK / Targeted NGS / EPIC 850k',
+        methLevel: 82.5,
+        targetDrug: 'Beyin Geçirgen Dual IDH1/2 İnhibitörü Vorasidenib',
+        lynchTriage: 'Uygulanamaz (IDH1 Güdümlü Gliomagenez).',
+        tooDeconvolution: 'Diffüz Astrositom / Oligodendrogliom (Güven Skoru: %96.8).',
+        guideline: 'INDIGO Faz 3 Çalışması & FDA Kılavuzu: Vorasidenib (50 mg oral günlük) rezidüel veya nüks Grade 2 IDH-mutant gliomlarda progresyonsuz sağkalımı (PFS 27.7 ay vs 11.1 ay, HR 0.39) belirgin uzatır.',
+        therapies: [
+          { drug: 'Vorasidenib', tier: 'FDA Onaylı (Tier 1A)' },
+          { drug: 'İvosidenib (Tibsovo)', tier: 'Seçici IDH1 İnhibitörü' },
+          { drug: 'Temozolomid (TMZ)', tier: 'Adjuvan Kategori 1' }
+        ],
+        cpgProfile: [
+          { gene: 'MGMT', beta: 0.81, status: 'Hipermetillenmiş (G-CIMP)' },
+          { gene: 'MLH1', beta: 0.22, status: 'Düşük Metilasyon' },
+          { gene: 'SEPT9', beta: 0.35, status: 'Orta Metilasyon' },
+          { gene: 'GSTP1', beta: 0.42, status: 'Orta Metilasyon' },
+          { gene: 'CDKN2A', beta: 0.74, status: 'Hipermetillenmiş' },
+          { gene: 'RASSF1A', beta: 0.79, status: 'Hipermetillenmiş' },
+          { gene: 'BRCA1', beta: 0.15, status: 'Düşük Metilasyon' },
+          { gene: 'SHOX2', beta: 0.31, status: 'Orta Metilasyon' }
+        ]
+      }
+    };
+
+    let activeEpigeneticScenarioId = 'GBM_MGMT_METHYLATED';
+
+    function selectEpigeneticScenario(scId) {
+      activeEpigeneticScenarioId = scId;
+      const sc = CANONICAL_EPIGENETIC_SCENARIOS[scId];
+      if (!sc) return;
+
+      document.querySelectorAll('.epigenetic-scenario-btn').forEach(btn => {
+        btn.classList.remove('border-cyan-500', 'bg-cyan-950/20');
+      });
+      const activeBtn = document.getElementById(`epiBtn-${scId}`);
+      if (activeBtn) activeBtn.classList.add('border-cyan-500', 'bg-cyan-950/20');
+
+      const titleEl = document.getElementById('activeEpiTitle');
+      if (titleEl) titleEl.innerText = sc.title;
+
+      const geneBadgeEl = document.getElementById('activeEpiGeneBadge');
+      if (geneBadgeEl) geneBadgeEl.innerText = sc.geneBadge;
+
+      const assayBadgeEl = document.getElementById('epiAssayBadge');
+      if (assayBadgeEl) assayBadgeEl.innerText = sc.assay;
+
+      const slider = document.getElementById('epiMethSlider');
+      if (slider) slider.value = sc.methLevel;
+
+      calculateEpigeneticsLive();
+    }
+
+    function calculateEpigeneticsLive() {
+      const sc = CANONICAL_EPIGENETIC_SCENARIOS[activeEpigeneticScenarioId] || CANONICAL_EPIGENETIC_SCENARIOS['GBM_MGMT_METHYLATED'];
+      const slider = document.getElementById('epiMethSlider');
+      const methLevel = slider ? parseFloat(slider.value) : sc.methLevel;
+
+      const methValEl = document.getElementById('epiMethVal');
+      if (methValEl) methValEl.innerText = `${methLevel.toFixed(1)}%`;
+
+      const isSilenced = methLevel >= 25.0;
+      const silencingEl = document.getElementById('epiSilencingStatus');
+      if (silencingEl) {
+        if (isSilenced) {
+          silencingEl.innerText = 'Transkripsiyonel Susturulma (Pozitif)';
+          silencingEl.className = 'font-bold text-cyan-300 block';
+        } else {
+          silencingEl.innerText = 'Aktif İfade / Susturulmamış';
+          silencingEl.className = 'font-bold text-slate-400 block';
+        }
+      }
+
+      const classBadge = document.getElementById('epiClassBadge');
+      if (classBadge) {
+        if (methLevel >= 60.0) {
+          classBadge.innerText = 'Hipermetillenmiş (Yüksek Sapma)';
+          classBadge.className = 'font-bold text-emerald-400 block';
+        } else if (methLevel >= 25.0) {
+          classBadge.innerText = 'Orta Düzey Metilasyon';
+          classBadge.className = 'font-bold text-amber-400 block';
+        } else {
+          classBadge.innerText = 'Hipometillenmiş / Normal';
+          classBadge.className = 'font-bold text-sky-400 block';
+        }
+      }
+
+      // Calculate Targetability Score & Therapeutic Header
+      let targetScore = 50.0;
+      let targetHeader = sc.targetDrug;
+      if (activeEpigeneticScenarioId === 'GBM_MGMT_METHYLATED') {
+        targetScore = Math.min(100.0, 30.0 + (methLevel * 0.70));
+        targetHeader = isSilenced ? 'Yüksek Alkilatör (Temozolomid) Duyarlılığı' : 'Temozolomid Direnci (Klinik Çalışma / Lomustin)';
+      } else if (activeEpigeneticScenarioId === 'CRC_MLH1_SPORADIC') {
+        targetScore = Math.min(100.0, 40.0 + (methLevel * 0.60));
+        targetHeader = 'Kuvvetli İmmün Kontrol Noktası Blokajı (Anti-PD-1)';
+      } else if (activeEpigeneticScenarioId === 'MCED_LIQUID_BIOPSY_CRC') {
+        targetScore = Math.min(100.0, 20.0 + (methLevel * 0.75));
+        targetHeader = 'Acil Tanısal Optik Kolonoskopi & Endoskopik Müdahale';
+      } else if (activeEpigeneticScenarioId === 'ES_SMARCB1_EZH2_ONCOGENIC') {
+        targetScore = 95.0;
+        targetHeader = 'Doğrudan EZH2 İnhibitörü Tazemetostat Duyarlılığı';
+      } else if (activeEpigeneticScenarioId === 'LGG_IDH1_GCIMP') {
+        targetScore = 92.0;
+        targetHeader = 'Beyin Geçirgen Dual IDH1/2 İnhibitörü Vorasidenib';
+      }
+
+      const headerEl = document.getElementById('epiTargetDrugHeader');
+      if (headerEl) headerEl.innerText = targetHeader;
+
+      const scoreEl = document.getElementById('epiTargetabilityScore');
+      if (scoreEl) scoreEl.innerText = targetScore.toFixed(1);
+
+      const scoreTextEl = document.getElementById('epiScoreText');
+      if (scoreTextEl) scoreTextEl.innerText = `${targetScore.toFixed(1)} / 100`;
+
+      const barEl = document.getElementById('barEpiTargetability');
+      if (barEl) barEl.style.width = `${Math.min(100, Math.round(targetScore))}%`;
+
+      const badgeEl = document.getElementById('epiTargetabilityBadge');
+      if (badgeEl) {
+        if (targetScore >= 80) {
+          badgeEl.innerText = 'Kuvvetli Hedeflenebilir';
+          badgeEl.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+        } else if (targetScore >= 50) {
+          badgeEl.innerText = 'Orta Hedeflenebilirlik';
+          badgeEl.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        } else {
+          badgeEl.innerText = 'Düşük Hedeflenebilirlik';
+          badgeEl.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30';
+        }
+      }
+
+      const lynchEl = document.getElementById('epiLynchTriageBox');
+      if (lynchEl) lynchEl.innerText = sc.lynchTriage;
+
+      const tooEl = document.getElementById('epiTooBox');
+      if (tooEl) tooEl.innerText = sc.tooDeconvolution;
+
+      const guideEl = document.getElementById('epiGuidelineBox');
+      if (guideEl) guideEl.innerText = sc.guideline;
+
+      const pillsEl = document.getElementById('epiTherapyPills');
+      if (pillsEl) {
+        pillsEl.innerHTML = sc.therapies.map(t => `
+          <div class="p-2 px-3 rounded-xl bg-slate-950 border border-cyan-900/40 flex items-center gap-2">
+            <span class="text-xs font-bold text-white">${t.drug}</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono">${t.tier}</span>
+          </div>
+        `).join('');
+      }
+
+      // Render 8-Gene CpG Heatmap
+      const heatmapContainer = document.getElementById('cpgHeatmapContainer');
+      if (heatmapContainer) {
+        heatmapContainer.innerHTML = sc.cpgProfile.map(item => {
+          let dynamicBeta = item.beta;
+          if (item.gene === 'MGMT' && activeEpigeneticScenarioId === 'GBM_MGMT_METHYLATED') {
+            dynamicBeta = methLevel / 100.0;
+          } else if (item.gene === 'MLH1' && activeEpigeneticScenarioId === 'CRC_MLH1_SPORADIC') {
+            dynamicBeta = methLevel / 100.0;
+          } else if (item.gene === 'SEPT9' && activeEpigeneticScenarioId === 'MCED_LIQUID_BIOPSY_CRC') {
+            dynamicBeta = methLevel / 100.0;
+          }
+
+          const pct = Math.round(dynamicBeta * 100);
+          let barColor = 'bg-sky-400';
+          let statusColor = 'text-slate-400';
+          if (pct >= 60) {
+            barColor = 'bg-cyan-400';
+            statusColor = 'text-cyan-300';
+          } else if (pct >= 25) {
+            barColor = 'bg-amber-400';
+            statusColor = 'text-amber-300';
+          }
+
+          return `
+            <div class="flex items-center gap-2">
+              <span class="w-16 font-mono text-[11px] font-bold text-white">${item.gene}</span>
+              <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                <div class="${barColor} h-2 rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+              </div>
+              <span class="w-10 text-right font-mono text-[11px] ${statusColor}">${(dynamicBeta).toFixed(2)}</span>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // İlk yüklemede Uzamsal Transkriptomik & Epigenomik Stüdyolarını hazırla
     try {
       if (typeof document !== 'undefined') {
         selectSpatialScenario('NSCLC_TLS_MATURE');
+        selectEpigeneticScenario('GBM_MGMT_METHYLATED');
       }
     } catch(e) {}
   </script>

@@ -143,8 +143,8 @@ console.log('\n=== [3/3] VERIFYING ALL 16 TABS & MODULES ===');
 if (mockWindow.domLoaded) mockWindow.domLoaded();
 console.log('✓ DOMContentLoaded initialized');
 
-// 18 Tabs
-const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways'];
+// 22 Tabs
+const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics'];
 tabs.forEach(t => sandbox.switchTab(t));
 console.log(`✓ switchTab validated for all ${tabs.length} tabs`);
 
@@ -262,6 +262,14 @@ console.log('✓ COSMIC Mutational Signatures & HRD Studio (6 SBS signatures, LO
 });
 sandbox.switchTab('spatial');
 console.log('✓ Spatial Transcriptomics & Tumor Architecture Studio (4 canonical architectures, TLS scoring, spot grid) validated');
+
+// Epigenomics & DNA Methylation Studio
+['GBM_MGMT_METHYLATED', 'CRC_MLH1_SPORADIC', 'MCED_LIQUID_BIOPSY_CRC', 'ES_SMARCB1_EZH2_ONCOGENIC', 'LGG_IDH1_GCIMP'].forEach(sc => {
+  sandbox.selectEpigeneticScenario(sc);
+  sandbox.calculateEpigeneticsLive();
+});
+sandbox.switchTab('epigenetics');
+console.log('✓ Epigenomics & DNA Methylation Studio (5 canonical scenarios, MGMT/MLH1/SEPT9, Lynch triage, TOO) validated');
 
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');
