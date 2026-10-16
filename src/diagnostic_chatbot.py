@@ -1070,6 +1070,73 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
         )
     },
 
+    'immunotherapy_resistance_stk11_b2m': {
+        'patterns': [
+            r'immünoterapiye direnç', r'immünoterapi direnci', r'stk11', r'b2m kaybı',
+            r'soğuk tümör', r'immün çöl', r'keap1'
+        ],
+        'title': 'İmmünoterapi Direnç Mekanizmaları: Soğuk Tümör & B2M / STK11 Kaybı',
+        'answer': (
+            "🛡️ **İmmünoterapi (Anti-PD-1) Direnci ve Soğuk Tümör Biyolojisi:**\n\n"
+            "Bazı tümörler TMB-High veya PD-L1 pozitif olsa dahi immünoterapiye yanıt vermez (primer direnç) veya başlangıçta yanıt verip sonradan ilerler (kazanılmış direnç):\n\n"
+            "1. **B2M (Beta-2 Mikroglobulin) Kaybı:** Hücre yüzeyinde MHC-I antijen sunum kompleksi çöker. Sitotoksik CD8+ T-hücreleri tümör neoantijenlerini fiziksel olarak göremez (körleşir).\n"
+            "2. **STK11 (LKB1) ve KEAP1 Mutasyonları:** Akciğer kanserinde STING yolağını susturarak 'İmmün Çöl' (soğuk tümör) yaratır; T-hücre infiltrasyonunu önler. Tek ajan yerine ikili kontrol noktası (Anti-CTLA-4 + Anti-PD-1) veya kemoterapi şarttır.\n"
+            "3. **JAK1 / JAK2 İnaktivasyonu:** İnterferon-gama sinyal iletimi bozulur; tümör hücresi T-hücre saldırısına duyarsızlaşır.\n"
+            "4. **VEGF & TGF-β Aşırı Salınımı:** Yoğun stroma ve miyeloid baskılayıcı hücreler (MDSC) ile T-hücrelerinin tümör içine girmesi engellenir (İmmün Dışlanmış Fenotip)."
+        )
+    },
+    'tumor_infiltrating_lymphocytes_til': {
+        'patterns': [
+            r'til tedavisi', r'tümör infiltre eden lenfosit', r'amtagvi', r'lifileucel', r'hücre infüzyonu'
+        ],
+        'title': 'Tümör İnfiltre Eden Lenfosit (TIL) Tedavisi & Lifileucel',
+        'answer': (
+            "🧬 **TIL (Tumor-Infiltrating Lymphocytes) Hücresel Tedavisi:**\n\n"
+            "• **Doğal Kanser Savaşçıları:** Hastanın kendi çıkarılan tümör dokusunun içine sızmış olan özgül lenfositler (TIL) cerrahiyle alınır.\n"
+            "• **Laboratuvarda Milyarlara Katlama:** Bu hücreler IL-2 sitokini eşliğinde laboratuvarda milyarlarca adet çoğaltılır ve aktive edilir.\n"
+            "• **Onaylı İlk İlaç:** **Lifileucel (Amtagvi)**, ileri evre melanomda immünoterapi ve hedefe yönelik ilaçları tüketmiş olgularda FDA onayı alan ilk hücresel katı tümör tedavisidir."
+        )
+    },
+    'oncolytic_virus_therapy': {
+        'patterns': [
+            r'onkolitik virüs', r'imlygic', r't-vec', r'virüsle kanser tedavisi', r'kanser virüsü'
+        ],
+        'title': 'Onkolitik Virüs Tedavileri (T-VEC / Imlygic) & İmmün Uyarım',
+        'answer': (
+            "🦠 **Onkolitik Virüs İmmünoterapisi Nedir?**\n\n"
+            "• **Kansere Özel Modifiye Virüs:** Genetik olarak zayıflatılmış virüsler (örn. Herpes Simplex Virüsü - Talimogene laherparepvec / T-VEC) doğrudan tümörün içine enjekte edilir.\n"
+            "• **Çifte Darbe:**\n"
+            "   1. Yalnızca kanser hücrelerinde çoğalarak onları içeriden patlatır (lizis).\n"
+            "   2. Parçalanan kanser hücrelerinden saçılan antijenler ve virüsün ürettiği GM-CSF proteini, vücudun tüm bağışıklık sistemini tümöre karşı alarma geçirir.\n"
+            "• **Uygulama:** İlerlemiş melanom deri ve lenf bezi metastazlarında bölgesel enjeksiyon olarak kullanılır."
+        )
+    },
+    'neoantigen_mrna_vaccines': {
+        'patterns': [
+            r'mrna kanser aşısı', r'kanser aşısı', r'biontech kanser', r'moderna kanser', r'mrna-4157', r'kişiye özel aşı'
+        ],
+        'title': 'Kişiye Özel mRNA Kanser Aşıları & Neoantijen Teknolojisi',
+        'answer': (
+            "💉 **Kişiselleştirilmiş mRNA Kanser Aşıları (mRNA-4157 / V940 & BioNTech):**\n\n"
+            "• **Parmak İzi Kadar Özel:** Her hastanın ameliyatla alınan tümör DNA'sı dizilenir (NGS). Sağlıklı DNA ile karşılaştırılarak hastaya özgü en immünojenik 30-34 adet mutasyonel neoantijen saptanır.\n"
+            "• **Sentetik mRNA Üretimi:** Bu hedefler haftalar içinde sentetik bir mRNA molekülüne kodlanır ve hastaya aşı olarak uygulanır.\n"
+            "• **Klinik Başarı (KEYNOTE-942):** İleri evre melanom cerrahisi sonrası mRNA-4157 + Pembrolizumab kombinasyonunun, tek başına Pembrolizumab'a kıyasla nüks veya ölüm riskini **%44-49 oranında azalttığı** Faz 2b çalışmasında kanıtlanmıştır."
+        )
+    },
+    'radioligand_pluvicto_lutathera': {
+        'patterns': [
+            r'radyoligand', r'pluvicto', r'lutathera', r'akıllı radyasyon', r'atom tedavisi.*prostat', r'lutesyum'
+        ],
+        'title': 'Hassas Radyoligand Tedavileri: Pluvicto (Lu-177 PSMA) & Lutathera',
+        'answer': (
+            "☢️ **Radyoligand Tedavisi (Akıllı Atom / Teranostik Yaklaşım):**\n\n"
+            "Hedefe yönelik küçük moleküller veya peptitler, radyoaktif bir izotop (Lutesyum-177 veya Aktinyum-225) ile birleştirilerek damardan verilir.\n\n"
+            "1. **Pluvicto (Lutetium Lu 177 Vipivotide Tetraxetan):** Prostat kanseri hücrelerindeki PSMA reseptörünü bulur; mikro-radyasyonla DNA'larını içeriden tahrip eder (VISION çalışması).\n"
+            "2. **Lutathera (Lu-177 Dotatate):** Nöroendokrin tümörlerde (NET) somatostatin reseptörlerine kilitlenir.\n"
+            "• **Teranostik Güç:** Önce Ga-68 PET ile tümörün reseptörü görüntülenir (Teşhis), ardından aynı molekülle Lu-177 bağlanarak tedavi edilir."
+        )
+    },
+
     'bot_help': {
         'patterns': [
             r'sen kimsin', r'ne yapabilirsin', r'yardım', r'komutlar', r'neler yaparsın',

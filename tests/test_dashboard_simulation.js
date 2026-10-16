@@ -238,6 +238,14 @@ sandbox.applyCanonicalResistanceScenario();
 sandbox.resetPathwayStudio();
 console.log('✓ Cancer Signaling Pathways Studio (5 cascades, flux gauge, feedback resistance) validated');
 
+// Tumor Immune Microenvironment (TIME) & Immunotherapy Resistance Studio
+['NSCLC_STK11_KEAP1', 'MELANOMA_JAK1_B2M', 'COLON_DMMR_MSI_HIGH', 'BREAST_TNBC_VEGF_MDSC'].forEach(sc => {
+  sandbox.selectIcbScenario(sc);
+  sandbox.evaluateTumorImmuneLive();
+});
+sandbox.switchTab('timeresistance');
+console.log('✓ Tumor Immune Microenvironment (TIME) & ICB Resistance Studio (4 canonical phenotypes, STK11/B2M/JAK1 modeling) validated');
+
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');
 console.log('======================================================');

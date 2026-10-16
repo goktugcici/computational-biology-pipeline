@@ -110,6 +110,9 @@
         <button onclick="switchTab('pathways')" id="tabBtn-pathways" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           ⚡ Sinyal Yolakları
         </button>
+        <button onclick="switchTab('timeresistance')" id="tabBtn-timeresistance" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🛡️ İmmünoterapi & TIME
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -2091,6 +2094,218 @@
             </h4>
             <div id="pathwayTargetedTherapiesList" class="flex flex-wrap gap-1.5">
               <!-- JavaScript ile doldurulur -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 19: TÜMÖR İMMÜN MİKROÇEVRESİ (TIME) & İMMÜNOTERAPİ DİRENÇ STÜDYOSU -->
+    <!-- ========================================== -->
+    <section id="tab-timeresistance" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Tanıtım Paneli -->
+      <div class="bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-sky-950/40 border border-emerald-500/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold">
+              <span>🛡️ İmmünogenomik & Kontrol Noktası Direnç Modülü</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight">Tümör İmmün Mikroçevresi (TIME) & İmmünoterapi Direnci</h2>
+            <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+              Anti-PD-1/PD-L1 kontrol noktası blokajında (ICB) primer ve kazanılmış direnç mekanizmalarını modelleyin: STK11/KEAP1 sessizleşmesi (immün çöl), 
+              B2M kaybı ve JAK1 inaktivasyonu (MHC-I antijen sunum felci), ve VEGF/MDSC zengin stroma dışlaması.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-2 rounded-2xl bg-slate-900/90 border border-slate-700 text-xs text-slate-300 font-mono flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              ESMO ESCAT Tier I & NCCN v2026
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanonik Klinik Direnç Senaryoları Seçimi -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <button onclick="selectIcbScenario('NSCLC_STK11_KEAP1')" id="icbBtn-NSCLC_STK11_KEAP1" class="icb-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Akciğer (NSCLC)</span>
+          <h4 class="text-xs font-bold text-white">KRAS + STK11/KEAP1</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">İmmün Çöl (Soğuk)</span>
+        </button>
+
+        <button onclick="selectIcbScenario('MELANOMA_JAK1_B2M')" id="icbBtn-MELANOMA_JAK1_B2M" class="icb-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Malign Melanom</span>
+          <h4 class="text-xs font-bold text-white">B2M Delesyonu + JAK1</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">MHC-I / IFN Bozukluğu</span>
+        </button>
+
+        <button onclick="selectIcbScenario('COLON_DMMR_MSI_HIGH')" id="icbBtn-COLON_DMMR_MSI_HIGH" class="icb-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Kolorektal</span>
+          <h4 class="text-xs font-bold text-white">MSI-High / dMMR</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">İmmün İltihaplı (Sıcak)</span>
+        </button>
+
+        <button onclick="selectIcbScenario('BREAST_TNBC_VEGF_MDSC')" id="icbBtn-BREAST_TNBC_VEGF_MDSC" class="icb-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Üçlü Negatif Meme</span>
+          <h4 class="text-xs font-bold text-white">VEGF/TGF-β + MDSC</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">İmmün Dışlanmış</span>
+        </button>
+      </div>
+
+      <!-- Ana İnteraktif Analiz Izgarası -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: Biyobelirteç Parametreleri ve Direnç Mutasyonları (5 Kolon) -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
+          <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>🧬 İmmünogenomik Parametreler</span>
+            </h3>
+            <span id="icbActiveScenarioTitle" class="text-xs font-semibold text-emerald-400">Özel Konfigürasyon</span>
+          </div>
+
+          <!-- Kanser Türü ve Temel Biyobelirteçler -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Primer Kanser Türü</label>
+              <select id="icbCancerType" onchange="evaluateTumorImmuneLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+                <option value="Küçük Hücreli Dışı Akciğer Kanseri (NSCLC)">Küçük Hücreli Dışı Akciğer Kanseri (NSCLC)</option>
+                <option value="Malign Melanom">Malign Melanom</option>
+                <option value="Kolorektal Kanser">Kolorektal Kanser</option>
+                <option value="Meme Kanseri (TNBC)">Meme Kanseri (TNBC)</option>
+                <option value="Renal Hücreli Karsinom (RCC)">Renal Hücreli Karsinom (RCC)</option>
+                <option value="Ürotelyal Mesane Kanseri">Ürotelyal Mesane Kanseri</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">TMB (mut/Mb)</label>
+                <input type="number" id="icbTmbInput" step="0.5" value="14.2" min="0" max="100" oninput="evaluateTumorImmuneLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">MSI Durumu</label>
+                <select id="icbMsiInput" onchange="evaluateTumorImmuneLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+                  <option value="MSS">MSS (Stabil)</option>
+                  <option value="MSI-H">MSI-High (dMMR)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1">PD-L1 TPS (%)</label>
+                <input type="number" id="icbPdl1Input" step="1" value="1.0" min="0" max="100" oninput="evaluateTumorImmuneLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono">
+              </div>
+            </div>
+          </div>
+
+          <!-- Direnç Alterasyonları Switch Listesi -->
+          <div class="space-y-3 pt-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">İmmün Kaçış & Direnç Alterasyonları</span>
+            
+            <div class="space-y-2">
+              <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                <span class="text-xs text-slate-300">STK11 (LKB1) Kaybı / İnaktivasyonu</span>
+                <input type="checkbox" id="icbStk11" onchange="evaluateTumorImmuneLive()" checked class="rounded border-slate-700 text-emerald-500 focus:ring-emerald-500">
+              </label>
+
+              <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                <span class="text-xs text-slate-300">KEAP1 / NRF2 Antioksidan Direnç Mutasyonu</span>
+                <input type="checkbox" id="icbKeap1" onchange="evaluateTumorImmuneLive()" checked class="rounded border-slate-700 text-emerald-500 focus:ring-emerald-500">
+              </label>
+
+              <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                <span class="text-xs text-slate-300">B2M (Beta-2 Mikroglobulin) / HLA-A,B,C Kaybı</span>
+                <input type="checkbox" id="icbB2m" onchange="evaluateTumorImmuneLive()" class="rounded border-slate-700 text-emerald-500 focus:ring-emerald-500">
+              </label>
+
+              <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                <span class="text-xs text-slate-300">JAK1 / JAK2 İnterferon Sinyal Kaybı</span>
+                <input type="checkbox" id="icbJak" onchange="evaluateTumorImmuneLive()" class="rounded border-slate-700 text-emerald-500 focus:ring-emerald-500">
+              </label>
+
+              <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                <span class="text-xs text-slate-300">PTEN Delesyonu / PI3K Hiperaktivasyonu</span>
+                <input type="checkbox" id="icbPten" onchange="evaluateTumorImmuneLive()" class="rounded border-slate-700 text-emerald-500 focus:ring-emerald-500">
+              </label>
+
+              <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                <span class="text-xs text-slate-300">Aşırı VEGF & TGF-β / Yoğun Fibroblast & MDSC</span>
+                <input type="checkbox" id="icbVegf" onchange="evaluateTumorImmuneLive()" class="rounded border-slate-700 text-emerald-500 focus:ring-emerald-500">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: TIME Fenotipi, İmmünoterapi Yanıt Tahmini & Klinik Kılavuz (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- Skor ve TIME Durum Özeti -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Tümör İmmün Mikroçevresi Fenotipi</span>
+                <h3 id="icbTimePhenotype" class="text-lg font-black text-white">İmmün Çöl (Immune Desert / Soğuk Tümör)</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">İmmünoterapi (ICB) Duyarlılık Skoru</span>
+                <div class="flex items-baseline gap-2">
+                  <span id="icbSensitivityScore" class="text-3xl font-black text-rose-400 font-mono">15.0%</span>
+                  <span id="icbPredictLabel" class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">Dirençli</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- İmmün Parametre Çubukları -->
+            <div class="space-y-2 text-xs">
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                  <span>Antijenik İmmünojenite (TMB & MSI)</span>
+                  <span id="icbBarAntigenVal" class="text-slate-200 font-mono">Orta (14.2 mut/Mb)</span>
+                </div>
+                <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="icbBarAntigen" class="bg-gradient-to-r from-emerald-500 to-sky-500 h-2 rounded-full transition-all duration-500" style="width: 55%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                  <span>T-Hücre İnfiltrasyon Kapasitesi (İnflamasyon Derecesi)</span>
+                  <span id="icbBarInfiltrationVal" class="text-slate-200 font-mono">Baskılanmış (%12)</span>
+                </div>
+                <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="icbBarInfiltration" class="bg-gradient-to-r from-rose-500 to-amber-500 h-2 rounded-full transition-all duration-500" style="width: 15%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biyolojik Mekanizma ve Direnç Detayı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+              <span>⚠️ Biyolojik Kaçış & Direnç Mekanizması</span>
+            </h4>
+            <div id="icbMechanismBox" class="p-4 rounded-2xl bg-slate-950 border border-amber-900/40 text-xs text-amber-200/90 leading-relaxed space-y-2">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- Klinik Strateji & İlaç Rejimleri -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🎯 NCCN & ESMO Kanıta Dayalı Tedavi Stratejisi</span>
+            </h4>
+            <div id="icbClinicalStrategyBox" class="p-4 rounded-2xl bg-slate-950 border border-emerald-900/40 text-xs text-emerald-200/90 leading-relaxed space-y-2">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- Aşma (Bypass) Stratejileri Kartları -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <span>💡 Direnci Aşma (Resistance Bypass) Yolları</span>
+            </h4>
+            <div id="icbBypassCards" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <!-- JS ile güncellenir -->
             </div>
           </div>
         </div>
@@ -4308,6 +4523,43 @@
           "• Nokta mutasyonlar, kopya kazanımları (HER2/MET), gen füzyonları (ALK/RET/NTRK) ve TMB/MSI/HRD skorları aynı raporda sunulur.\n" +
           "• Hedefe yönelik akıllı ilaç ve immünoterapi şansını azami düzeye çıkarır."
       },
+      'immunotherapy_resistance_stk11_b2m': {
+        patterns: [/immünoterapiye direnç/i, /immünoterapi direnci/i, /stk11/i, /b2m kaybı/i, /soğuk tümör/i, /immün çöl/i, /keap1/i],
+        title: 'İmmünoterapi Direnci: B2M & STK11 / Soğuk Tümör',
+        answer: "🛡️ **İmmünoterapi Direnci ve Soğuk Tümör Biyolojisi:**\n\n" +
+          "• **B2M Kaybı:** MHC-I antijen sunumunu yok eder; CD8+ T hücreleri tümörü tanıyamaz (kazanılmış direnç).\n" +
+          "• **STK11/KEAP1 Mutasyonları:** Akciğer kanserinde STING yolağını susturarak soğuk tümör / immün çöl yaratır; tek ajan Anti-PD-1 yerine ikili kombinasyon gerekir.\n" +
+          "• **JAK1/2 Bozukluğu:** IFN-gamma sinyali bozulur ve T hücre yanıtı felç olur."
+      },
+      'tumor_infiltrating_lymphocytes_til': {
+        patterns: [/til tedavisi/i, /tümör infiltre eden lenfosit/i, /amtagvi/i, /lifileucel/i, /hücre infüzyonu/i],
+        title: 'TIL (Tümör İnfiltre Eden Lenfosit) & Lifileucel',
+        answer: "🧬 **TIL Hücresel Tedavisi (Lifileucel / Amtagvi):**\n\n" +
+          "• Hastanın kendi tümör dokusundan izole edilen lenfositler laboratuvarda IL-2 ile milyarlarca çoğaltılır ve hastaya geri verilir.\n" +
+          "• Dirençli metastatik melanomda FDA onayı alan ilk hücresel katı tümör tedavisidir."
+      },
+      'oncolytic_virus_therapy': {
+        patterns: [/onkolitik virüs/i, /imlygic/i, /t-vec/i, /virüsle kanser tedavisi/i, /kanser virüsü/i],
+        title: 'Onkolitik Virüs Tedavileri (T-VEC / Imlygic)',
+        answer: "🦠 **Onkolitik Virüs İmmünoterapisi (T-VEC):**\n\n" +
+          "• Genetik modifiye Herpes virüsü doğrudan tümör içine enjekte edilir.\n" +
+          "• Sadece kanser hücrelerini seçici olarak içeriden patlatır (lizis) ve açığa çıkan antijenler ile GM-CSF bağışıklığı uyarır."
+      },
+      'neoantigen_mrna_vaccines': {
+        patterns: [/mrna kanser aşısı/i, /kanser aşısı/i, /biontech kanser/i, /moderna kanser/i, /mrna-4157/i, /kişiye özel aşı/i],
+        title: 'Kişiselleştirilmiş mRNA Kanser Aşıları',
+        answer: "💉 **Kişiselleştirilmiş mRNA Kanser Aşıları (mRNA-4157 / V940 & BioNTech):**\n\n" +
+          "• Her hastanın ameliyatla alınan tümörü dizilenir ve 30+ adet en immünojenik neoantijen tespit edilir.\n" +
+          "• Hastaya özel sentetik mRNA aşısı üretilerek Pembrolizumab ile kombine edilir; nüks riskini %44-49 azaltmaktadır."
+      },
+      'radioligand_pluvicto_lutathera': {
+        patterns: [/radyoligand/i, /pluvicto/i, /lutathera/i, /akıllı radyasyon/i, /atom tedavisi.*prostat/i, /lutesyum/i],
+        title: 'Hassas Radyoligand Tedavileri (Pluvicto & Lutathera)',
+        answer: "☢️ **Radyoligand Tedavisi (Teranostik / Akıllı Atom):**\n\n" +
+          "• Hedefe yönelik molekül radyoaktif Lutesyum-177 izotopu ile birleştirilerek damardan verilir.\n" +
+          "• **Pluvicto (Lu-177 PSMA):** Prostat kanserinde PSMA reseptörünü hedef alarak mikro-radyasyonla DNA'yı tahrip eder.\n" +
+          "• **Lutathera:** Nöroendokrin tümörlerde somatostatin reseptörlerine bağlanır."
+      },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
         title: 'Bot Hakkında & Kullanım Kılavuzu',
@@ -6037,14 +6289,268 @@ uygulanması oy birliği ile uygun bulunmuştur.
       selectPathway(activePathwayKey);
     }
 
-    // İlk yüklemede Yolak Stüdyosunu hazırla
+    // ==========================================
+    // TAB 19: TÜMÖR İMMÜN MİKROÇEVRESİ (TIME) & DİRENÇ MANTIĞI
+    // ==========================================
+    const CANONICAL_ICB_SCENARIOS = {
+      'NSCLC_STK11_KEAP1': {
+        cancer_type: 'Küçük Hücreli Dışı Akciğer Kanseri (NSCLC)',
+        title: 'KRAS + STK11/KEAP1 (İmmün Çöl)',
+        tmb: 14.2,
+        msi: 'MSS',
+        pdl1: 1.0,
+        stk11: true,
+        keap1: true,
+        b2m: false,
+        jak: false,
+        pten: false,
+        vegf: false,
+        time_phenotype: 'İmmün Çöl (Immune Desert / Soğuk Tümör)',
+        mechanism: 'STK11/LKB1 inaktivasyonu STING yolağını susturur; T-hücre infiltrasyonunu ve tip-I interferon salınımını bloke eder. TMB yüksek olsa dahi Anti-PD-1 monoterapisine primer dirençlidir.',
+        clinical_strategy: 'Anti-PD-1 monoterapisi yerine Platin Bazlı Kemoterapi + Anti-CTLA-4 (Tremelimumab/Ipilimumab) + Anti-PD-1 kombinasyonu (CheckMate-9LA / POSEIDON) veya kovalent KRAS G12C inhibitörü.',
+        bypass: [
+          { title: 'İkili Kontrol Noktası Blokajı', desc: 'Anti-CTLA-4 (Ipilimumab/Tremelimumab) eklenerek T hücreleri lenf nodundan priming edilir.' },
+          { title: 'STING Agonistleri & Kemo-İmmünoterapi', desc: 'Kemoterapötik DNA hasarı ile tümör immünojenitesi uyarılır.' }
+        ]
+      },
+      'MELANOMA_JAK1_B2M': {
+        cancer_type: 'Malign Melanom',
+        title: 'B2M Delesyonu + JAK1 (MHC-I / IFN Bozukluğu)',
+        tmb: 28.5,
+        msi: 'MSS',
+        pdl1: 80.0,
+        stk11: false,
+        keap1: false,
+        b2m: true,
+        jak: true,
+        pten: false,
+        vegf: false,
+        time_phenotype: 'Kazanılmış Antijen Sunum Yetmezliği (Acquired Resistance)',
+        mechanism: 'B2M kaybı yüzeyde MHC-I antijen sunumunu tamamen ortadan kaldırır. CD8+ T-hücreleri tümör neoantijenlerini tanıyamaz. JAK1 inaktivasyonu ise IFN-gama reseptör sinyalini ve PD-L1 indüksiyonunu felç eder.',
+        clinical_strategy: 'T-hücre bağımsız veya MHC-I bağımsız yollar: NK hücre aktivatörleri, sitotoksik bispesifikler veya hedefe yönelik BRAF+MEK inhibitörleri (Dabrafenib+Trametinib) veya TIL hücresel tedavisi.',
+        bypass: [
+          { title: 'NK Hücre Terapisi / KIR Blokajı', desc: 'MHC-I kaybı NK hücreleri için "Missing Self" aktivasyon sinyaline dönüşür.' },
+          { title: 'Tümör İnfiltre Eden Lenfosit (TIL)', desc: 'Lifileucel gibi geniş spektrumlu poliklonal otolog T hücre infüzyonları.' }
+        ]
+      },
+      'COLON_DMMR_MSI_HIGH': {
+        cancer_type: 'Kolorektal Kanser',
+        title: 'MSI-High / dMMR (Sıcak Tümör)',
+        tmb: 42.0,
+        msi: 'MSI-H',
+        pdl1: 65.0,
+        stk11: false,
+        keap1: false,
+        b2m: false,
+        jak: false,
+        pten: false,
+        vegf: false,
+        time_phenotype: 'İmmün İltihaplı (Immune Inflamed / Sıcak Tümör)',
+        mechanism: 'Uyumsuzluk onarım kusuru (dMMR) binlerce mikrosatellit çerçeve kayması ve devasa neoantijen yükü üretir. Tümör mikroçevresi sitotoksik CD8+ T ve Th1 hücreleriyle doludur.',
+        clinical_strategy: 'Birinci basamakta Pembrolizumab monoterapisi (KEYNOTE-177) veya Nivolumab + Ipilimumab (CheckMate-142). Neoadjuvan kullanımda %60-70 tam patolojik yanıt (pCR) bildirilmiştir (NICHE-2).',
+        bypass: [
+          { title: 'Anti-PD-1 Monoterapisi', desc: 'Standart kemoterapiye göre genel sağkalımı ikiye katlayan kanıtlanmış tedavi.' },
+          { title: 'Neoadjuvan İmmünoterapi', desc: 'Cerrahi öncesi erken evre dMMR tümörleri tamamen yok edebilen yüksek yanıt.' }
+        ]
+      },
+      'BREAST_TNBC_VEGF_MDSC': {
+        cancer_type: 'Meme Kanseri (TNBC)',
+        title: 'VEGF/TGF-β + MDSC (İmmün Dışlanmış)',
+        tmb: 6.5,
+        msi: 'MSS',
+        pdl1: 15.0,
+        stk11: false,
+        keap1: false,
+        b2m: false,
+        jak: false,
+        pten: true,
+        vegf: true,
+        time_phenotype: 'İmmün Dışlanmış (Immune Excluded / Stroma Zengin)',
+        mechanism: 'T hücreleri stromada sıkışmıştır; tümör parankimine giremez. Aşırı VEGF ve TGF-beta ekspresyonu miyeloid kökenli baskılayıcı hücreleri (MDSC) ve Treg hücrelerini çekerek bariyer oluşturur.',
+        clinical_strategy: 'Anti-VEGF/Anti-Anjiyogenez veya Kemoterapi (Paklitaksel/Karboplatin) ile stroma gevşetildikten sonra Anti-PD-1 (Pembrolizumab - KEYNOTE-522 / KEYNOTE-355).',
+        bypass: [
+          { title: 'Anti-VEGF / Stroma Modülatörleri', desc: 'Tümör damarlanması normalize edilerek T hücre geçişi parankime açılır.' },
+          { title: 'Kemo-İmmünoterapi Kombinasyonu', desc: 'Kemoterapötik immünojenik hücre ölümü stroma bariyerini aşar.' }
+        ]
+      }
+    };
+
+    function selectIcbScenario(scId) {
+      const sc = CANONICAL_ICB_SCENARIOS[scId];
+      if (!sc) return;
+
+      document.querySelectorAll('.icb-scenario-btn').forEach(btn => {
+        btn.classList.remove('border-emerald-500', 'bg-emerald-950/20');
+      });
+      const activeBtn = document.getElementById(`icbBtn-${scId}`);
+      if (activeBtn) activeBtn.classList.add('border-emerald-500', 'bg-emerald-950/20');
+
+      const titleEl = document.getElementById('icbActiveScenarioTitle');
+      if (titleEl) titleEl.innerText = sc.title;
+
+      const cType = document.getElementById('icbCancerType');
+      if (cType) cType.value = sc.cancer_type;
+
+      const tmbInput = document.getElementById('icbTmbInput');
+      if (tmbInput) tmbInput.value = sc.tmb;
+
+      const msiInput = document.getElementById('icbMsiInput');
+      if (msiInput) msiInput.value = sc.msi;
+
+      const pdl1Input = document.getElementById('icbPdl1Input');
+      if (pdl1Input) pdl1Input.value = sc.pdl1;
+
+      const stk11Cb = document.getElementById('icbStk11');
+      if (stk11Cb) stk11Cb.checked = sc.stk11;
+
+      const keap1Cb = document.getElementById('icbKeap1');
+      if (keap1Cb) keap1Cb.checked = sc.keap1;
+
+      const b2mCb = document.getElementById('icbB2m');
+      if (b2mCb) b2mCb.checked = sc.b2m;
+
+      const jakCb = document.getElementById('icbJak');
+      if (jakCb) jakCb.checked = sc.jak;
+
+      const ptenCb = document.getElementById('icbPten');
+      if (ptenCb) ptenCb.checked = sc.pten;
+
+      const vegfCb = document.getElementById('icbVegf');
+      if (vegfCb) vegfCb.checked = sc.vegf;
+
+      evaluateTumorImmuneLive();
+    }
+
+    function evaluateTumorImmuneLive() {
+      const tmb = parseFloat(document.getElementById('icbTmbInput')?.value || 10);
+      const msi = document.getElementById('icbMsiInput')?.value || 'MSS';
+      const pdl1 = parseFloat(document.getElementById('icbPdl1Input')?.value || 0);
+
+      const stk11 = !!document.getElementById('icbStk11')?.checked;
+      const keap1 = !!document.getElementById('icbKeap1')?.checked;
+      const b2m = !!document.getElementById('icbB2m')?.checked;
+      const jak = !!document.getElementById('icbJak')?.checked;
+      const pten = !!document.getElementById('icbPten')?.checked;
+      const vegf = !!document.getElementById('icbVegf')?.checked;
+
+      let score = 30.0;
+      if (msi === 'MSI-H') score += 45.0;
+      else if (tmb >= 20.0) score += 35.0;
+      else if (tmb >= 10.0) score += 20.0;
+      else if (tmb < 5.0) score -= 10.0;
+
+      if (pdl1 >= 50.0) score += 20.0;
+      else if (pdl1 >= 1.0) score += 10.0;
+      else score -= 5.0;
+
+      // Direnç cezaları
+      if (b2m) score -= 45.0;
+      if (jak) score -= 30.0;
+      if (stk11) score -= 35.0;
+      if (keap1) score -= 20.0;
+      if (pten) score -= 15.0;
+      if (vegf) score -= 15.0;
+
+      score = Math.max(5.0, Math.min(99.0, score));
+
+      // Fenotip Belirleme
+      let phenotype = 'İmmün İltihaplı (Immune Inflamed / Sıcak Tümör)';
+      let mechanism = 'Yeterli antijenik yük ve işlevsel T hücre infiltrasyonu mevcuttur.';
+      let guidance = 'Birinci basamak Anti-PD-1 veya Anti-PD-L1 tedavisi endikedir.';
+      let bypass = [
+        { title: 'Anti-PD-1 Standart Tedavi', desc: 'Tümör antijenlerine karşı güçlü CD8+ infiltrasyonu desteklenir.' }
+      ];
+
+      if (b2m) {
+        phenotype = 'Kazanılmış Antijen Sunum Bozukluğu (MHC-I Kaybı)';
+        mechanism = 'B2M veya HLA-A/B/C kaybı nedeniyle sitotoksik T hücreleri tümör neoantijenlerini yüzeyde tanıyamaz (MHC-I çöküşü).';
+        guidance = 'T-hücre bağımsız immünoterapi (NK hücre aktivasyonu / bispesifikler) veya hedefe yönelik tirozin kinaz inhibitörleri uygulanmalıdır.';
+        bypass = [
+          { title: 'NK Hücre Uyarımı', desc: 'MHC-I kaybı NK hücrelerinin inhibisyonunu kaldırır; NK bazlı yaklaşımlar araştırılmalıdır.' },
+          { title: 'Hedefe Yönelik Tedavi', desc: 'Onkojenik sürücü mutasyonlara yönelik hedefe kilitli inhibitörler.' }
+        ];
+      } else if (stk11 || keap1) {
+        phenotype = 'İmmün Çöl (Immune Desert / Soğuk Tümör)';
+        mechanism = 'STK11/LKB1 inaktivasyonu STING yolağını susturur; tümör parankiminde T-hücre infiltrasyonu ve kemokin salınımı engellenir.';
+        guidance = 'Anti-PD-1 monoterapisinden kaçınılmalıdır! Kemoterapi + İkili Kontrol Noktası Blokajı (Anti-PD-1 + Anti-CTLA-4) veya hedefe yönelik tedavi uygulanmalıdır.';
+        bypass = [
+          { title: 'Anti-CTLA-4 Eşzamanlı Blokaj', desc: 'Lenf bezlerinde de-novo T hücresi hazırlığı (priming) sağlar.' },
+          { title: 'Sitotoksik Kemo-İmmünoterapi', desc: 'Kemoterapinin immünojenik hücre ölümü etkisiyle soğuk tümör ısıtılır.' }
+        ];
+      } else if (vegf || pten) {
+        phenotype = 'İmmün Dışlanmış (Immune Excluded)';
+        mechanism = 'T hücreleri stromada rehin kalmıştır; tümör yuvalarına giremez. Yüksek VEGF ve TGF-beta miyeloid baskılayıcı hücreleri (MDSC) çeker.';
+        guidance = 'Anti-anjiyojenik (Anti-VEGF) ajanlar veya stroma modülatörleri ile kombine immünoterapi düşünülmelidir.';
+        bypass = [
+          { title: 'Anti-VEGF / TKI Kombinasyonu', desc: 'Tümör mikro-damar yatağını normalleştirerek T hücrelerinin dokuya sızmasını sağlar.' },
+          { title: 'TGF-β ve MDSC İnhibisyonu', desc: 'Stroma yoğunluğunu kırarak immün bariyeri gevşetir.' }
+        ];
+      }
+
+      // UI Güncelleme
+      const scoreEl = document.getElementById('icbSensitivityScore');
+      if (scoreEl) scoreEl.innerText = `${score.toFixed(1)}%`;
+
+      const predLabel = document.getElementById('icbPredictLabel');
+      if (predLabel) {
+        if (score >= 60.0) {
+          predLabel.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+          predLabel.innerText = 'Duyarlı (Yüksek Yanıt)';
+        } else if (score >= 35.0) {
+          predLabel.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30';
+          predLabel.innerText = 'Orta / Kombinasyon Gerekli';
+        } else {
+          predLabel.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30';
+          predLabel.innerText = 'Dirençli (Kaçış)';
+        }
+      }
+
+      const phenoEl = document.getElementById('icbTimePhenotype');
+      if (phenoEl) phenoEl.innerText = phenotype;
+
+      const mechBox = document.getElementById('icbMechanismBox');
+      if (mechBox) mechBox.innerText = mechanism;
+
+      const guideBox = document.getElementById('icbClinicalStrategyBox');
+      if (guideBox) guideBox.innerText = guidance;
+
+      const bypassCards = document.getElementById('icbBypassCards');
+      if (bypassCards) {
+        bypassCards.innerHTML = bypass.map(bp => `
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-xs font-bold text-sky-300 block">${bp.title}</span>
+            <span class="text-[11px] text-slate-400 block leading-relaxed">${bp.desc}</span>
+          </div>
+        `).join('');
+      }
+
+      // Çubukları güncelle
+      const barAntigen = document.getElementById('icbBarAntigen');
+      const barAntigenVal = document.getElementById('icbBarAntigenVal');
+      if (barAntigen && barAntigenVal) {
+        const antPct = Math.min(100, Math.round((tmb / 40.0) * 100));
+        barAntigen.style.width = `${antPct}%`;
+        barAntigenVal.innerText = `${tmb.toFixed(1)} mut/Mb (${msi})`;
+      }
+
+      const barInf = document.getElementById('icbBarInfiltration');
+      const barInfVal = document.getElementById('icbBarInfiltrationVal');
+      if (barInf && barInfVal) {
+        let infPct = 75;
+        if (stk11 || keap1) infPct = 15;
+        else if (vegf || pten) infPct = 35;
+        else if (b2m) infPct = 25;
+        barInf.style.width = `${infPct}%`;
+        barInfVal.innerText = `%${infPct} (${infPct > 50 ? 'Yüksek' : 'Baskılanmış'})`;
+      }
+    }
+
+    // İlk yüklemede TIME Stüdyosunu hazırla
     try {
       if (typeof document !== 'undefined') {
-        selectPathway('MAPK_ERK');
+        selectIcbScenario('NSCLC_STK11_KEAP1');
       }
     } catch(e) {}
-
-
   </script>
 </body>
 </html>

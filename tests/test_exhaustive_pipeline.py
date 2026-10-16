@@ -22,6 +22,7 @@ from docking_scorer import DockingScorer
 from sequence_aligner import SequenceAligner
 from molecular_tumor_board import MolecularTumorBoardEngine
 from cancer_pathway_engine import CancerPathwayEngine, CANONICAL_PATHWAYS
+from immunotherapy_resistance import ImmunotherapyResistanceEngine, CANONICAL_ICB_SCENARIOS
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -96,6 +97,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'cancer_pathways_signaling': 'Kanserde MAPK yolağı ve sinyal iletimi kaskadı nedir?',
             'clinical_trials_phases': 'Kanser klinik çalışma Faz 1 Faz 2 ve Faz 3 nedir?',
             'comprehensive_genomic_profiling': 'Kapsamlı genomik profil CGP ve NGS testi nedir?',
+            'immunotherapy_resistance_stk11_b2m': 'İmmünoterapiye direnç mekanizmaları soğuk tümör ve STK11 B2M kaybı nedir?',
+            'tumor_infiltrating_lymphocytes_til': 'TIL tedavisi tümör infiltre eden lenfosit ve lifileucel nedir?',
+            'oncolytic_virus_therapy': 'Onkolitik virüs tedavisi imlygic t-vec kanser virüsü nasıl çalışır?',
+            'neoantigen_mrna_vaccines': 'Kişiye özel mrna kanser aşısı ve neoantijen nedir?',
+            'radioligand_pluvicto_lutathera': 'Radyoligand tedavisi Pluvicto ve Lutathera nedir?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -418,6 +424,59 @@ class TestExhaustivePipeline(unittest.TestCase):
         # 4. DDR synthetic lethality (BRCA1 loss + Olaparib)
         res_ddr = engine.simulate_pathway_flux('DDR_HRR', alterations=['BRCA1_MUT'], drugs=['Olaparib'])
         self.assertGreater(res_ddr['apoptosis_score'], 80.0)
+
+    # =========================================================================
+    # 13. IMMUNOTHERAPY RESISTANCE & IMMUNE MICROENVIRONMENT (TIME) ENGINE
+    # =========================================================================
+    def test_immunotherapy_resistance_canonical_scenarios(self):
+        """Verify that all canonical ICB scenarios are defined and retrievable."""
+        scenarios = ImmunotherapyResistanceEngine.list_scenarios()
+        self.assertEqual(len(scenarios), 4)
+        sc_ids = [s['id'] for s in scenarios]
+        self.assertIn('NSCLC_STK11_KEAP1', sc_ids)
+        self.assertIn('MELANOMA_JAK1_B2M', sc_ids)
+        self.assertIn('COLON_DMMR_MSI_HIGH', sc_ids)
+        self.assertIn('BREAST_TNBC_VEGF_MDSC', sc_ids)
+
+    def test_immunotherapy_resistance_evaluations(self):
+        """Verify algorithmic calculation of sensitivity score and resistance mechanisms."""
+        # 1. Hot tumor (MSI-High / dMMR)
+        res_hot = ImmunotherapyResistanceEngine.evaluate_tumor_immune_status(
+            cancer_type='Kolorektal',
+            tmb=42.0,
+            msi_status='MSI-H',
+            pdl1_percent=65.0
+        )
+        self.assertGreater(res_hot['icb_sensitivity_score'], 75.0)
+        self.assertIn('Hot', res_hot['tumor_phenotype'])
+        self.assertIn('YÜKSEK DUYARLILIK', res_hot['response_category'])
+
+        # 2. Cold tumor with STK11 / KEAP1
+        res_cold = ImmunotherapyResistanceEngine.evaluate_tumor_immune_status(
+            cancer_type='NSCLC',
+            tmb=14.0,
+            msi_status='MSS',
+            pdl1_percent=1.0,
+            stk11_mut=True,
+            keap1_mut=True
+        )
+        self.assertLess(res_cold['icb_sensitivity_score'], 35.0)
+        self.assertIn('Cold', res_cold['tumor_phenotype'])
+        self.assertIn('DÜŞÜK YANIT', res_cold['response_category'])
+        self.assertTrue(any('STK11' in m for m in res_cold['resistance_reasons']))
+
+        # 3. Acquired resistance via B2M loss + JAK1
+        res_b2m = ImmunotherapyResistanceEngine.evaluate_tumor_immune_status(
+            cancer_type='Melanom',
+            tmb=28.0,
+            msi_status='MSS',
+            pdl1_percent=80.0,
+            b2m_loss=True,
+            jak_mut=True
+        )
+        self.assertLess(res_b2m['icb_sensitivity_score'], 35.0)
+        self.assertTrue(any('B2M' in m for m in res_b2m['resistance_reasons']))
+        self.assertTrue(any('NK' in b for b in res_b2m['bypass_therapies']))
 
 if __name__ == "__main__":
     unittest.main()

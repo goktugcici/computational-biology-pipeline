@@ -244,6 +244,15 @@ sandbox.applyCanonicalResistanceScenario();
 sandbox.resetPathwayStudio();
 console.log(`  ✓ Cancer Signaling Pathways studio verified (${testPathways.length} cascades, flux simulation, feedback resistance)`);
 
+// 3.9 Tumor Immune Microenvironment (TIME) & ICB Resistance Studio
+const icbScenarios = ['NSCLC_STK11_KEAP1', 'MELANOMA_JAK1_B2M', 'COLON_DMMR_MSI_HIGH', 'BREAST_TNBC_VEGF_MDSC'];
+icbScenarios.forEach(sc => {
+  sandbox.selectIcbScenario(sc);
+  sandbox.evaluateTumorImmuneLive();
+});
+sandbox.switchTab('timeresistance');
+console.log(`  ✓ Tumor Immune Microenvironment (TIME) studio verified (${icbScenarios.length} phenotypes, STK11/B2M/JAK1 modeling)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
