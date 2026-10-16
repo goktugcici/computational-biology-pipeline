@@ -1,6 +1,7 @@
 """
-Unit Tests for Computational Biology Pipeline
-Tests structural, variant, pharmacology, pathway, and literature modules.
+Unit Tests for Computational Biology Pipeline (v2.0)
+Tests structural, variant, pharmacology, pathway, literature,
+sequence alignment, docking scorer, and interaction network modules.
 """
 
 import os
@@ -15,9 +16,11 @@ from variant_analyzer import VariantAnalyzer
 from pharmacology import PharmacologyAnalyzer
 from pathway_mapper import PathwayMapper
 from literature_miner import LiteratureMiner
-
 from live_fetcher import LiveFetcher
 from oncology_profiler import OncologyProfiler
+from sequence_aligner import SequenceAligner
+from docking_scorer import DockingScorer
+from interaction_network import InteractionNetwork
 from report_generator import ReportGenerator
 
 class TestComputationalBiologyPipeline(unittest.TestCase):
@@ -86,6 +89,33 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertIn("EGFR", pan["genes_covered"])
         self.assertIn("KRAS", pan["genes_covered"])
 
+    def test_sequence_aligner(self):
+        aligner = SequenceAligner()
+        res = aligner.analyze_known_variant("HBB_SICKLE")
+        self.assertGreater(res["alignment_score"], 0)
+        self.assertGreater(res["identity_percent"], 95.0)
+        self.assertEqual(len(res["mutations_detected"]), 1)
+        self.assertEqual(res["mutations_detected"][0]["ref"], "E")
+        self.assertEqual(res["mutations_detected"][0]["alt"], "V")
+
+    def test_docking_scorer(self):
+        docking = DockingScorer()
+        ranked = docking.screen_library_against_target("EGFR")
+        self.assertGreaterEqual(len(ranked), 5)
+        # Best hit for EGFR should be Osimertinib with negative delta G
+        self.assertEqual(ranked[0]["drug_id"], "OSIMERTINIB")
+        self.assertLess(ranked[0]["estimated_delta_g_kcal_mol"], -10.0)
+        self.assertTrue(ranked[0]["lipinski_pass"])
+
+    def test_interaction_network(self):
+        ppi = InteractionNetwork("EGFR")
+        metrics = ppi.compute_network_metrics()
+        self.assertEqual(metrics["gene"], "EGFR")
+        self.assertGreaterEqual(metrics["total_nodes"], 5)
+        self.assertGreaterEqual(metrics["total_edges"], 5)
+        self.assertEqual(metrics["primary_hub_protein"], "EGFR")
+        self.assertIn("EGFR", metrics["node_centrality"])
+
     def test_report_generator(self):
         rg = ReportGenerator(data_dir=self.data_dir, output_dir=self.output_dir)
         report_path = rg.generate_html_report("test_summary.html")
@@ -94,4 +124,3 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

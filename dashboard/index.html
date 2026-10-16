@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biyoinformatik & Bilimsel Araştırma Kontrol Paneli</title>
+  <title>Biyoinformatik & Bilimsel Araştırma Kontrol Paneli v2.0</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.4/3Dmol-min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -31,6 +31,9 @@
       height: 480px;
       position: relative;
     }
+    .node-hub {
+      filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.7));
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-sky-500 selection:text-white">
@@ -39,38 +42,50 @@
   <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 text-white font-bold text-lg">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-sky-500/20 text-white font-bold text-lg">
           🧬
         </div>
         <div>
           <h1 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
             Computational Biology Pipeline
-            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v1.2 Pro</span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v2.0 Enterprise</span>
           </h1>
-          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik & İlaç Keşfi Konsolu</p>
+          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, İlaç Keşfi & İnteraktom Konsolu</p>
         </div>
       </div>
 
       <!-- Tab Düğmeleri -->
-      <nav class="flex flex-wrap items-center gap-1.5 bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-xs font-medium">
-        <button onclick="switchTab('3d')" id="tabBtn-3d" class="tab-btn px-3 py-1.5 rounded-lg bg-sky-500 text-white transition-all shadow">
+      <nav class="flex flex-wrap items-center gap-1 bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-xs font-medium">
+        <button onclick="switchTab('3d')" id="tabBtn-3d" class="tab-btn px-2.5 py-1.5 rounded-lg bg-sky-500 text-white transition-all shadow">
           🔬 3B Yapı
         </button>
-        <button onclick="switchTab('oncology')" id="tabBtn-oncology" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+        <button onclick="switchTab('oncology')" id="tabBtn-oncology" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🎯 Pan-Kanser
         </button>
-        <button onclick="switchTab('variants')" id="tabBtn-variants" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+        <button onclick="switchTab('ppi')" id="tabBtn-ppi" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🕸️ Etkileşim Ağı
+        </button>
+        <button onclick="switchTab('align')" id="tabBtn-align" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🧬 Dizi Hizalama
+        </button>
+        <button onclick="switchTab('screening')" id="tabBtn-screening" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          💊 Sanal İlaç Tarama
+        </button>
+        <button onclick="switchTab('variants')" id="tabBtn-variants" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🧬 Varyantlar
         </button>
-        <button onclick="switchTab('pharma')" id="tabBtn-pharma" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+        <button onclick="switchTab('pharma')" id="tabBtn-pharma" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           💊 Farmakoloji
         </button>
-        <button onclick="switchTab('pathways')" id="tabBtn-pathways" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+        <button onclick="switchTab('pathways')" id="tabBtn-pathways" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           📊 Yolaklar
         </button>
-        <button onclick="switchTab('literature')" id="tabBtn-literature" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+        <button onclick="switchTab('literature')" id="tabBtn-literature" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           📚 Literatür
         </button>
+        <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
+          📄 Rapor ↗
+        </a>
       </nav>
     </div>
   </header>
@@ -82,7 +97,6 @@
     <!-- TAB 1: 3B MOLEKÜLER YAPI (3Dmol.js) -->
     <!-- ========================================== -->
     <section id="tab-3d" class="tab-content space-y-6">
-      
       <!-- Hızlı PDB Seçim Barı -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
         <div class="flex items-center gap-2">
@@ -100,352 +114,373 @@
         </div>
       </div>
 
+      <!-- 3Dmol Viewer Konteyneri -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Sol Panel: 3Dmol Görüntüleyici -->
-        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col justify-between">
-          <div class="flex items-center justify-between mb-3 border-b border-slate-800 pb-2.5">
-            <div>
-              <h2 class="text-sm font-bold text-white flex items-center gap-2">
-                <span id="activeStructureTitle">İnsan Deoksihemoglobini</span>
-                <span id="activePdbBadge" class="text-xs font-mono text-sky-400 bg-sky-950 px-2 py-0.5 rounded border border-sky-800">PDB: 4HHB</span>
-              </h2>
-              <p id="activeStructureSub" class="text-xs text-slate-400">Heterotetramer Kompleks (&alpha;2&beta;2) ve Hem Grupları</p>
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-2xl relative overflow-hidden flex flex-col">
+          <div class="flex items-center justify-between mb-3 px-2">
+            <div class="flex items-center gap-2">
+              <span id="activePdbBadge" class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30 font-mono text-xs font-bold">PDB: 4HHB</span>
+              <span id="activeStructureTitle" class="text-xs text-slate-300 font-medium">İnsan Deoksihemoglobini (1.74 Å)</span>
             </div>
-            <!-- Temsil Seçimi -->
-            <div class="flex items-center gap-1.5 text-xs">
-              <button onclick="setRepresentation('cartoon')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">Şerit (Cartoon)</button>
-              <button onclick="setRepresentation('surface')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">Yüzey</button>
-              <button onclick="setRepresentation('sphere')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">Atomik Küre</button>
+            <!-- Görünüm Kontrolleri -->
+            <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-lg border border-slate-800 text-xs">
+              <button onclick="setRepresentation('cartoon')" class="px-2 py-1 rounded hover:bg-slate-800 text-slate-300">Karikatür</button>
+              <button onclick="setRepresentation('surface')" class="px-2 py-1 rounded hover:bg-slate-800 text-slate-300">Yüzey</button>
+              <button onclick="setRepresentation('sphere')" class="px-2 py-1 rounded hover:bg-slate-800 text-slate-300">Küre</button>
+              <button onclick="resetCamera()" class="px-2 py-1 rounded hover:bg-slate-800 text-sky-400 ml-1">Merkeze Al</button>
             </div>
           </div>
 
-          <!-- WebGL Konteyneri -->
-          <div id="viewer3d" class="mol-container rounded-xl overflow-hidden bg-slate-950 border border-slate-800"></div>
-
-          <!-- Alt Kontroller & Bilgi -->
-          <div class="mt-3 flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-slate-800">
-            <span>🖱️ Sol Tık: Döndür | Sağ Tık: Taşı | Tekerlek: Yakınlaştır</span>
-            <button onclick="resetCamera()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-400 font-medium">Kamerayı Sıfırla</button>
-          </div>
+          <div id="viewer3d" class="mol-container rounded-2xl bg-slate-950 border border-slate-800/80"></div>
+          <p class="text-[11px] text-slate-500 text-center mt-2">Fare ile 3B döndürebilir, sağ tıkla kaydırabilir ve tekerlekle yakınlaştırabilirsiniz.</p>
         </div>
 
-        <!-- Sağ Panel: Fonksiyonel Bölgeler ve Vurgular -->
+        <!-- Yan Panel: Koordinasyon & Aktif Bölgeler -->
         <div class="space-y-4">
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-            <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
-              🎯 Fonksiyonel Kalıntı Vurguları (4HHB)
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
+              Kritik Koordinasyon Noktaları
             </h3>
-            <p class="text-xs text-slate-400 mb-4">
-              Molekül üzerindeki kritik amino asit kalıntılarını doğrudan 3B ekranda renklendirmek ve odaklanmak için tıklayın:
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Hemoglobin tetramerinde oksijen taşınması, hem halkasındaki Fe2+ iyonuna bağlanan koordinasyon histidinleri tarafından kontrol edilir.
             </p>
 
-            <div class="space-y-2.5">
-              <button onclick="highlightResidue('proximal')" class="w-full text-left p-3 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-sky-500/30 transition-all group">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-sky-400 flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span> Proksimal Histidin (His87)
-                  </span>
-                  <span class="text-[10px] text-slate-500 font-mono">Zincir A</span>
+            <div class="space-y-2 pt-2">
+              <button onclick="highlightResidue('proximal')" class="w-full p-3 rounded-xl bg-slate-950 hover:bg-sky-950/40 border border-slate-800 hover:border-sky-700/50 text-left transition-all group">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-white group-hover:text-sky-300">Proksimal Histidin (His87)</span>
+                  <span class="font-mono text-sky-400 text-[11px]">Chain A : 87</span>
                 </div>
-                <p class="text-[11px] text-slate-400 leading-relaxed">
-                  Hem grubundaki Fe demir iyonuna doğrudan kovalent bağla tutunur.
-                </p>
+                <p class="text-[11px] text-slate-400 mt-1">Fe2+ iyonuna doğrudan kovalent koordine olur.</p>
               </button>
 
-              <button onclick="highlightResidue('distal')" class="w-full text-left p-3 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-amber-500/30 transition-all group">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Distal Histidin (His58)
-                  </span>
-                  <span class="text-[10px] text-slate-500 font-mono">Zincir A</span>
+              <button onclick="highlightResidue('distal')" class="w-full p-3 rounded-xl bg-slate-950 hover:bg-amber-950/40 border border-slate-800 hover:border-amber-700/50 text-left transition-all group">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-white group-hover:text-amber-300">Distal Histidin (His58)</span>
+                  <span class="font-mono text-amber-400 text-[11px]">Chain A : 58</span>
                 </div>
-                <p class="text-[11px] text-slate-400 leading-relaxed">
-                  Oksijen bağlanmasını hidrojen bağıyla stabilize eder, CO zehirlenmesini engeller.
-                </p>
+                <p class="text-[11px] text-slate-400 mt-1">CO zehirlenmesini sterik engelleme ile azaltır.</p>
               </button>
 
-              <button onclick="highlightResidue('sickle')" class="w-full text-left p-3 rounded-xl bg-slate-950 hover:bg-slate-800/80 border border-rose-500/30 transition-all group">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-rose-400 flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span> Orak Hücre Noktası (Glu6)
-                  </span>
-                  <span class="text-[10px] text-slate-500 font-mono">Zincir B & D</span>
+              <button onclick="highlightResidue('sickle')" class="w-full p-3 rounded-xl bg-slate-950 hover:bg-rose-950/40 border border-slate-800 hover:border-rose-700/50 text-left transition-all group">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-white group-hover:text-rose-300">Orak Hücre Mutasyonu (Glu6)</span>
+                  <span class="font-mono text-rose-400 text-[11px]">Chain B : 6</span>
                 </div>
-                <p class="text-[11px] text-slate-400 leading-relaxed">
-                  HbS varyantında Valin'e (E6V) dönüşerek eritrosit polimerleşmesini tetikler.
-                </p>
+                <p class="text-[11px] text-slate-400 mt-1">HbS polimerleşmesini tetikleyen hidrofobik bölge.</p>
               </button>
             </div>
-          </div>
-
-          <!-- Rapor Linki -->
-          <div class="bg-gradient-to-br from-indigo-950/60 to-slate-900 border border-indigo-800/50 rounded-2xl p-4 text-xs space-y-2">
-            <h4 class="font-bold text-indigo-200">📑 Yönetici Özeti & Rapor</h4>
-            <p class="text-slate-400 text-[11px]">Boru hattı tarafından üretilen yayın formatındaki görsel araştırma raporunu inceleyin.</p>
-            <a href="../reports/executive_summary.html" target="_blank" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-colors">
-              Raporu Yeni Sekmede Aç ↗
-            </a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB: PAN-KANSER ONKOLOJİ (YENİ MODÜL) -->
+    <!-- TAB 2: PAN-KANSER ONKOLOJİ -->
     <!-- ========================================== -->
     <section id="tab-oncology" class="tab-content hidden space-y-6">
-      <div class="border-b border-slate-800 pb-4">
-        <h2 class="text-lg font-bold text-white flex items-center gap-2">
-          🎯 Pan-Kanser Hassas Onkoloji Paneli
-        </h2>
-        <p class="text-xs text-slate-400 mt-1">
-          Yüksek etkili onkogenler, sıcak nokta (hotspot) mutasyonları ve FDA onaylı hedefe yönelik akıllı ilaçlar.
-        </p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <button onclick="selectOncogene('EGFR')" id="oncoBtn-EGFR" class="onco-btn p-3 rounded-2xl bg-sky-500 text-white font-bold text-xs flex flex-col items-center gap-1 shadow-lg shadow-sky-500/20">
+          <span class="text-base font-mono">EGFR</span>
+          <span class="text-[10px] font-normal opacity-90">Akciğer / Glioblastoma</span>
+        </button>
+        <button onclick="selectOncogene('KRAS')" id="oncoBtn-KRAS" class="onco-btn p-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-bold text-xs flex flex-col items-center gap-1 transition-all">
+          <span class="text-base font-mono">KRAS</span>
+          <span class="text-[10px] font-normal opacity-70">Pankreas / Kolorektal</span>
+        </button>
+        <button onclick="selectOncogene('BRAF')" id="oncoBtn-BRAF" class="onco-btn p-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-bold text-xs flex flex-col items-center gap-1 transition-all">
+          <span class="text-base font-mono">BRAF</span>
+          <span class="text-[10px] font-normal opacity-70">Melanom / Tiroid</span>
+        </button>
+        <button onclick="selectOncogene('TP53')" id="oncoBtn-TP53" class="onco-btn p-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white font-bold text-xs flex flex-col items-center gap-1 transition-all">
+          <span class="text-base font-mono">TP53</span>
+          <span class="text-[10px] font-normal opacity-70">Tümör Baskılayıcı</span>
+        </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- EGFR Kartı -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-            <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Reseptör Tirozin Kinaz</span>
-              <h3 class="text-base font-bold text-white mt-1">EGFR (Epidermal Growth Factor Receptor)</h3>
-            </div>
-            <button onclick="loadPdb('2J6M', 'EGFR Kinaz Alanı')" class="text-xs text-sky-400 hover:underline font-mono">3D: 2J6M ↗</button>
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 id="oncoGeneTitle" class="text-xl font-bold text-white tracking-tight">EGFR - Epidermal Growth Factor Receptor</h2>
+            <p id="oncoGeneDesc" class="text-xs text-slate-400 mt-1">Reseptör tirozin kinaz süperailesi üyesi; hücre proliferasyonu ve sağkalımını yönetir.</p>
           </div>
-          <div class="text-xs text-slate-400">
-            <span class="font-semibold text-slate-300">İlişkili Kanserler:</span> Küçük Hücreli Dışı Akciğer Kanseri (NSCLC), Glioblastom
-          </div>
-          <div class="space-y-1.5 text-xs">
-            <span class="font-semibold text-slate-300">Kritik Sıcak Nokta Mutasyonları:</span>
-            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1 font-mono text-[11px]">
-              <div class="text-emerald-400 font-bold">• p.L858R (Ekzon 21): 1. ve 3. nesil TKI'lara aşırı duyarlı</div>
-              <div class="text-amber-400 font-bold">• p.T790M (Ekzon 20): Kazanılmış direnç mutasyonu (Osimertinib hedefi)</div>
-              <div class="text-sky-400 font-bold">• Ekzon 19 Delesyonu: Yüksek TKI yanıt oranı</div>
-            </div>
-          </div>
-          <div class="text-xs space-y-1">
-            <span class="font-semibold text-slate-300">Hedefe Yönelik Tedaviler:</span>
-            <div class="flex flex-wrap gap-1.5 mt-1 font-medium text-[11px]">
-              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">Osimertinib (Tagrisso - 3. Nesil)</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300">Gefitinib</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300">Afatinib</span>
-            </div>
-          </div>
+          <span id="oncoCancerTypes" class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-medium">Akciğer (NSCLC), Glioblastoma</span>
         </div>
 
-        <!-- KRAS Kartı -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-            <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400 bg-rose-950 px-2 py-0.5 rounded border border-rose-800">GTPaz Onkogen</span>
-              <h3 class="text-base font-bold text-white mt-1">KRAS (GTPaz Sinyal İletimi)</h3>
-            </div>
-            <button onclick="loadPdb('6OIM', 'KRAS G12C İnhibitör Kompleksi')" class="text-xs text-sky-400 hover:underline font-mono">3D: 6OIM ↗</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Kataloglanan Sıcak Nokta Mutasyonları</h3>
+            <div id="oncoHotspotsContainer" class="space-y-2 text-xs"></div>
           </div>
-          <div class="text-xs text-slate-400">
-            <span class="font-semibold text-slate-300">İlişkili Kanserler:</span> Pankreas Duktal Adenokarsinomu (%90), Kolorektal Kanser (%45), NSCLC (%30)
-          </div>
-          <div class="space-y-1.5 text-xs">
-            <span class="font-semibold text-slate-300">Kritik Sıcak Nokta Mutasyonları:</span>
-            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1 font-mono text-[11px]">
-              <div class="text-rose-400 font-bold">• p.G12C (Ekzon 2): Switch-II kovalent bağlanabilir cep (FDA hedefi)</div>
-              <div class="text-amber-400 font-bold">• p.G12D (Ekzon 2): En yaygın pankreas/kolon mutasyonu</div>
-              <div class="text-sky-400 font-bold">• p.G12V (Ekzon 2): Sürekli GTPaz inaktivasyonu & MAPK hiperaktivasyonu</div>
-            </div>
-          </div>
-          <div class="text-xs space-y-1">
-            <span class="font-semibold text-slate-300">Hedefe Yönelik Tedaviler:</span>
-            <div class="flex flex-wrap gap-1.5 mt-1 font-medium text-[11px]">
-              <span class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800">Sotorasib (Lumakras - G12C)</span>
-              <span class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800">Adagrasib (Krazati - G12C)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- BRAF Kartı -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-            <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-950 px-2 py-0.5 rounded border border-amber-800">Serin/Treonin Kinaz</span>
-              <h3 class="text-base font-bold text-white mt-1">BRAF (MAPK Kaskadı)</h3>
-            </div>
-            <button onclick="loadPdb('4MNE', 'BRAF V600E Kompleksi')" class="text-xs text-sky-400 hover:underline font-mono">3D: 4MNE ↗</button>
-          </div>
-          <div class="text-xs text-slate-400">
-            <span class="font-semibold text-slate-300">İlişkili Kanserler:</span> Kutanöz Melanom (%50), Tiroid Kanserleri, Kolon Kanseri
-          </div>
-          <div class="space-y-1.5 text-xs">
-            <span class="font-semibold text-slate-300">Kritik Sıcak Nokta Mutasyonları:</span>
-            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1 font-mono text-[11px]">
-              <div class="text-amber-400 font-bold">• p.V600E (Ekzon 15): Kinaz aktivasyon segmentinde 500x hiperaktivite</div>
-              <div class="text-sky-400 font-bold">• p.V600K (Ekzon 15): Agresif melanom varyantı</div>
-            </div>
-          </div>
-          <div class="text-xs space-y-1">
-            <span class="font-semibold text-slate-300">Kombinasyon Tedavileri:</span>
-            <div class="flex flex-wrap gap-1.5 mt-1 font-medium text-[11px]">
-              <span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">Dabrafenib + Trametinib (BRAF + MEK)</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300">Vemurafenib</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- TP53 Kartı -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-            <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400 bg-indigo-950 px-2 py-0.5 rounded border border-indigo-800">Tümör Baskılayıcı</span>
-              <h3 class="text-base font-bold text-white mt-1">TP53 (Genomun Gardiyanı)</h3>
-            </div>
-            <button onclick="loadPdb('1TSR', 'TP53 DNA Kompleksi')" class="text-xs text-sky-400 hover:underline font-mono">3D: 1TSR ↗</button>
-          </div>
-          <div class="text-xs text-slate-400">
-            <span class="font-semibold text-slate-300">İlişkili Kanserler:</span> Tüm İnsan Kanserlerinin >%50'si, Li-Fraumeni Sendromu
-          </div>
-          <div class="space-y-1.5 text-xs">
-            <span class="font-semibold text-slate-300">Kritik Sıcak Nokta Mutasyonları:</span>
-            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1 font-mono text-[11px]">
-              <div class="text-indigo-400 font-bold">• p.R175H: Çinko koordinasyon bozulması ve yapısal çöküş</div>
-              <div class="text-rose-400 font-bold">• p.R248Q: DNA minör oluk temas kaybı</div>
-              <div class="text-amber-400 font-bold">• p.R273H: DNA fosfat omurgası temas kaybı</div>
-            </div>
-          </div>
-          <div class="text-xs space-y-1">
-            <span class="font-semibold text-slate-300">Hedefleme Yaklaşımları:</span>
-            <div class="flex flex-wrap gap-1.5 mt-1 font-medium text-[11px]">
-              <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">Sentetik Ölümcüllük (WEE1 / ATR İnhibitörleri)</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300">Şaperon Katlanma Kurtarıcıları</span>
-            </div>
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">FDA Onaylı Hedefe Yönelik Akıllı İlaçlar</h3>
+            <div id="oncoDrugsContainer" class="space-y-2 text-xs"></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 3: GENOMİK VARYANTLAR (ClinVar / dbSNP) -->
+    <!-- TAB 3: ETKİLEŞİM AĞI (PPI INTERACTOME) -->
+    <!-- ========================================== -->
+    <section id="tab-ppi" class="tab-content hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-medium">İnteraktom Ağı Seçimi:</span>
+          <button onclick="renderPpiNetwork('EGFR')" id="ppiBtn-EGFR" class="px-3 py-1 rounded-lg bg-sky-500 text-white text-xs font-bold transition-all">EGFR Kinaz Ağı</button>
+          <button onclick="renderPpiNetwork('KRAS')" id="ppiBtn-KRAS" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">KRAS Sinyalozomu</button>
+          <button onclick="renderPpiNetwork('TP53')" id="ppiBtn-TP53" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">TP53 Savunma Ağı</button>
+          <button onclick="renderPpiNetwork('HBB')" id="ppiBtn-HBB" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">HBB Globin Kompleksi</button>
+        </div>
+        <div class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+          STRING DB Yüksek Güvenilirlik Skoru &ge; 0.90
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- SVG Ağı -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col">
+          <div class="flex justify-between items-center mb-3">
+            <h3 id="ppiNetworkTitle" class="text-sm font-bold text-white">EGFR İnteraktom Topolojisi</h3>
+            <span id="ppiMetricsSummary" class="text-xs font-mono text-sky-400">8 Düğüm | 8 Bağ | Yoğunluk: 0.286</span>
+          </div>
+          <div class="bg-slate-950 rounded-2xl border border-slate-800 p-2 flex items-center justify-center relative overflow-hidden" style="height: 440px;">
+            <svg id="ppiSvg" width="100%" height="100%" viewBox="0 0 600 420"></svg>
+          </div>
+          <p class="text-[11px] text-slate-500 text-center mt-2">Düğümlere tıklayarak merkezilik (degree centrality) ve sinyal rolünü inceleyebilirsiniz.</p>
+        </div>
+
+        <!-- Düğüm Detay Kartı & Merkezilik Sıralaması -->
+        <div class="space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <h3 class="text-sm font-bold text-white">Düğüm Detayı & Biyolojik Fonksiyon</h3>
+            <div id="ppiNodeDetailBox" class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-2">
+              <div class="flex justify-between items-center">
+                <span id="ppiSelectedNodeId" class="text-base font-bold text-sky-400 font-mono">EGFR</span>
+                <span id="ppiSelectedNodeBadge" class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-bold">Birincil Hub</span>
+              </div>
+              <p id="ppiSelectedNodeType" class="text-slate-300 font-medium">Receptor Tyrosine Kinase</p>
+              <p id="ppiSelectedNodeRole" class="text-slate-400 text-[11px]">Sinyal iletim kaskadını başlatan ana membran reseptörü.</p>
+              <div class="border-t border-slate-800 pt-2 flex justify-between text-[11px] text-slate-400 font-mono">
+                <span>Merkezilik Skoru:</span>
+                <span id="ppiSelectedCentrality" class="text-emerald-400 font-bold">1.000</span>
+              </div>
+            </div>
+
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 pt-2">Hub Düğüm Dereceleri (Degree Centrality)</h4>
+            <div id="ppiHubList" class="space-y-2 text-xs"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: DİZİ HİZALAMA (SEQUENCE ALIGNMENT) -->
+    <!-- ========================================== -->
+    <section id="tab-align" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-medium">Hedef Mutasyon Hizalaması:</span>
+          <button onclick="renderAlignment('HBB_SICKLE')" id="alignBtn-HBB_SICKLE" class="px-3 py-1 rounded-lg bg-sky-500 text-white text-xs font-bold transition-all">HBB (Glu7Val - HbS)</button>
+          <button onclick="renderAlignment('EGFR_L858R')" id="alignBtn-EGFR_L858R" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">EGFR (p.L858R)</button>
+          <button onclick="renderAlignment('KRAS_G12C')" id="alignBtn-KRAS_G12C" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">KRAS (p.G12C)</button>
+          <button onclick="renderAlignment('BRAF_V600E')" id="alignBtn-BRAF_V600E" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">BRAF (p.V600E)</button>
+        </div>
+        <span class="text-xs font-mono text-sky-400">Needleman-Wunsch & BLOSUM62 Matrisi</span>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h3 id="alignTitle" class="text-lg font-bold text-white">HBB Yabanıl Tip vs Orak Hücreli Anemi (HbS)</h3>
+            <p id="alignSubtitle" class="text-xs text-slate-400 mt-0.5">Küresel dinamik programlama hizalaması ve amino asit ikame skoru.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span id="alignIdentityBadge" class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold">%99.32 Özdeşlik</span>
+            <span id="alignScoreBadge" class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono font-bold">Skor: 768</span>
+          </div>
+        </div>
+
+        <!-- Görsel Dizi Hizalama Pencereleri -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span>Dizi Karşılaştırma Şeridi (İlk 60 Kalıntı)</span>
+            <span class="text-[11px] text-slate-500">Mavi: Referans | Yeşil: Eşleşme | Kırmızı: Patojenik Mutasyon</span>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 font-mono text-xs overflow-x-auto space-y-1.5 select-all">
+            <div class="flex items-center gap-3"><span class="text-sky-400 font-bold w-20">Yabanıl (WT):</span><span id="alignSeq1" class="tracking-widest text-slate-300"></span></div>
+            <div class="flex items-center gap-3"><span class="text-slate-500 font-bold w-20">HİZALAMA:   </span><span id="alignTrack" class="tracking-widest text-emerald-400 font-extrabold"></span></div>
+            <div class="flex items-center gap-3"><span class="text-rose-400 font-bold w-20">Mutant (MUT):</span><span id="alignSeq2" class="tracking-widest text-slate-300"></span></div>
+          </div>
+        </div>
+
+        <!-- Tespit Edilen Mutasyon Analiz Kartı -->
+        <div id="alignMutationCard" class="bg-slate-950 p-4 rounded-2xl border border-rose-900/40 text-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-rose-400 font-bold text-sm flex items-center gap-2">
+              🚨 Tespit Edilen Kritik Mutasyon: <span id="alignMutDesc" class="font-mono">p.Glu7Val</span>
+            </span>
+            <span id="alignBlosumScore" class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-mono text-[11px]">BLOSUM62: -2</span>
+          </div>
+          <p id="alignConsequence" class="text-slate-300 leading-relaxed">
+            Hidrofilik glutamik asidin yerini hidrofobik valin amino asidinin alması, deoksihemoglobin molekülleri arasında patolojik fibrillerin oluşmasına ve eritrositlerin oraklaşmasına neden olur.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: SANAL İLAÇ TARAMA (DRUG SCREENING) -->
+    <!-- ========================================== -->
+    <section id="tab-screening" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-medium">Hedef Bağlanma Cebi:</span>
+          <button onclick="renderScreening('EGFR')" id="screenBtn-EGFR" class="px-3 py-1 rounded-lg bg-sky-500 text-white text-xs font-bold transition-all">EGFR Kinaz Cebi</button>
+          <button onclick="renderScreening('KRAS')" id="screenBtn-KRAS" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">KRAS Switch-II Cebi</button>
+          <button onclick="renderScreening('BRAF')" id="screenBtn-BRAF" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">BRAF V600E Cebi</button>
+          <button onclick="renderScreening('HBB')" id="screenBtn-HBB" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white text-xs font-medium transition-all">Hemoglobin Arayüzü</button>
+        </div>
+        <span class="text-xs font-mono text-emerald-400">Lipinski Rule-of-5 & QED Uyumluluğu</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Aday Tarama Sıralama Tablosu -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 id="screeningPocketTitle" class="text-sm font-bold text-white">EGFR ATP-Bağlanma Kinaz Cebi İlaç Taraması</h3>
+              <p class="text-xs text-slate-400">Tahmini serbest bağlanma enerjisi (&Delta;G kcal/mol) ve cep uyumluluğu sıralaması.</p>
+            </div>
+          </div>
+          <div class="overflow-x-auto text-xs">
+            <table class="w-full text-left">
+              <thead class="bg-slate-950/80 text-slate-400 uppercase tracking-wider text-[11px]">
+                <tr>
+                  <th class="p-3">Sıra</th>
+                  <th class="p-3">Molekül Adı</th>
+                  <th class="p-3">Tahmini &Delta;G</th>
+                  <th class="p-3">Cep Uyumu</th>
+                  <th class="p-3">İlaç Benzerliği (QED)</th>
+                  <th class="p-3">Lipinski</th>
+                </tr>
+              </thead>
+              <tbody id="screeningTableBody" class="divide-y divide-slate-800/60 font-mono"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Radar Grafiği & Lipinski Detayı -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4 flex flex-col">
+          <h3 class="text-sm font-bold text-white">Moleküler Profil & Lipinski Radar Grafiği</h3>
+          <p class="text-xs text-slate-400">Lider aday molekülün oral biyoyararlanım kriterleri:</p>
+          <div class="h-60 relative flex items-center justify-center">
+            <canvas id="screeningRadarChart"></canvas>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-300 space-y-1">
+            <p><strong>Lipinski 5'ler Kuralı:</strong> MW &le; 500 Da, LogP &le; 5, H-Donör &le; 5, H-Akseptör &le; 10</p>
+            <p class="text-emerald-400">✓ Osimertinib oral kullanılabilir ve kan-beyin bariyerini geçer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 6: VARYANTLAR (ClinVar) -->
     <!-- ========================================== -->
     <section id="tab-variants" class="tab-content hidden space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="text-xs text-slate-400 uppercase font-semibold">Taranan Varyant</span>
-          <p class="text-2xl font-bold text-white font-mono mt-1">10</p>
-          <span class="text-xs text-sky-400">HBB & BRCA2 Kıyaslamalı</span>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl flex flex-col items-center justify-center">
+          <h3 class="text-sm font-bold text-white mb-2">ClinVar Patojenite Dağılımı</h3>
+          <div class="h-56 w-full relative">
+            <canvas id="clinvarDonut"></canvas>
+          </div>
         </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="text-xs text-slate-400 uppercase font-semibold">Patojenik Mutasyonlar</span>
-          <p class="text-2xl font-bold text-rose-400 font-mono mt-1">6</p>
-          <span class="text-xs text-rose-300">Orak Hücreli Anemi (HbS)</span>
-        </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="text-xs text-slate-400 uppercase font-semibold">Zararsız (Benign) Kontrol</span>
-          <p class="text-2xl font-bold text-emerald-400 font-mono mt-1">1</p>
-          <span class="text-xs text-emerald-300">BRCA2 Eşanlamlı Varyant</span>
-        </div>
-      </div>
 
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-        <div class="p-4 border-b border-slate-800">
-          <h3 class="text-sm font-bold text-white">ClinVar & dbSNP Doğrulanmış Varyant Listesi</h3>
-        </div>
-        <div class="overflow-x-auto text-xs">
-          <table class="w-full text-left">
-            <thead class="bg-slate-950/80 text-slate-400 border-b border-slate-800 uppercase tracking-wider text-[11px]">
-              <tr>
-                <th class="p-3.5">ClinVar ID</th>
-                <th class="p-3.5">Gen</th>
-                <th class="p-3.5">HGVS İsimlendirmesi</th>
-                <th class="p-3.5">Genomik Koordinat</th>
-                <th class="p-3.5">Klinik Önem</th>
-                <th class="p-3.5">Değerlendirme</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/60 font-mono">
-              <tr class="hover:bg-slate-800/30 transition-colors">
-                <td class="p-3.5 text-sky-400 font-bold">15333</td>
-                <td class="p-3.5 text-white">HBB</td>
-                <td class="p-3.5 text-slate-300 font-sans">c.20A>T (p.Glu7Val / Glu6Val)</td>
-                <td class="p-3.5 text-slate-400">chr11:5227002:T>A</td>
-                <td class="p-3.5"><span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 font-bold">Pathogenic</span></td>
-                <td class="p-3.5 text-slate-400 font-sans">criteria provided</td>
-              </tr>
-              <tr class="hover:bg-slate-800/30 transition-colors">
-                <td class="p-3.5 text-sky-400 font-bold">51234</td>
-                <td class="p-3.5 text-white">BRCA2</td>
-                <td class="p-3.5 text-slate-300 font-sans">c.198A>G (p.Gln66=)</td>
-                <td class="p-3.5 text-slate-400">chr13:32316482:T>C</td>
-                <td class="p-3.5"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold">Benign</span></td>
-                <td class="p-3.5 text-emerald-400 font-sans">reviewed by expert panel ★★★</td>
-              </tr>
-              <tr class="hover:bg-slate-800/30 transition-colors">
-                <td class="p-3.5 text-sky-400 font-bold">446735</td>
-                <td class="p-3.5 text-white">HBB</td>
-                <td class="p-3.5 text-slate-300 font-sans">c.[20A>T;70G>A]</td>
-                <td class="p-3.5 text-slate-400">chr11:5227002</td>
-                <td class="p-3.5"><span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 font-bold">Pathogenic</span></td>
-                <td class="p-3.5 text-slate-400 font-sans">criteria provided</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="md:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+          <h3 class="text-sm font-bold text-white">İncelenen Patojenik HBB & BRCA2 Varyantları</h3>
+          <div class="space-y-2 text-xs">
+            <div class="p-3 rounded-xl bg-slate-950 border border-rose-900/40 flex items-center justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-bold">Patojenik</span>
+                <h4 class="font-bold text-white mt-1">NM_000518.5(HBB):c.20A>T (p.Glu7Val)</h4>
+                <p class="text-slate-400 text-[11px]">Orak Hücreli Anemi (rs334) - Valin ikamesi polimerleşmeye yol açar.</p>
+              </div>
+              <span class="font-mono text-slate-500 text-[11px]">Var ID: 15333</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950 border border-rose-900/40 flex items-center justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-bold">Patojenik</span>
+                <h4 class="font-bold text-white mt-1">NM_000059.4(BRCA2):c.5946del (p.Ser1982fs)</h4>
+                <p class="text-slate-400 text-[11px]">Herediter Meme ve Over Kanseri - Çerçeve kayması mutasyonu.</p>
+              </div>
+              <span class="font-mono text-slate-500 text-[11px]">Var ID: 9325</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 4: FARMAKOLOJİ & İLAÇ KEŞFİ -->
+    <!-- TAB 7: FARMAKOLOJİ (Voxelotor & Metformin) -->
     <!-- ========================================== -->
     <section id="tab-pharma" class="tab-content hidden space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-sky-400 bg-sky-950 px-2 py-0.5 rounded border border-sky-800">FDA Onaylı İlaç</span>
-              <h3 class="text-lg font-bold text-white mt-1">Voxelotor (Oxbryta)</h3>
-            </div>
-            <span class="text-xs text-slate-400 font-mono">PubChem CID: 71602803</span>
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-amber-400 text-xs font-bold uppercase font-mono">PubChem CID: 71602803</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">FDA Onaylı</span>
           </div>
-          <div class="grid grid-cols-2 gap-3 text-xs">
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/60">
-              <span class="text-slate-400">Moleküler Formül</span>
-              <p class="font-mono text-white font-bold mt-0.5">C19H19N3O3</p>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/60">
-              <span class="text-slate-400">Molekül Ağırlığı</span>
-              <p class="font-mono text-white font-bold mt-0.5">337.4 g/mol</p>
-            </div>
-          </div>
-          <p class="text-xs text-slate-400 leading-relaxed bg-slate-950 p-3 rounded-xl border border-slate-800">
-            Hemoglobin &alpha;-zincirinin N-terminal valin kalıntısına kovalent/geri-dönüşümlü bağlanarak oksijen afinitesini artırır ve HbS polimerleşmesini durdurur.
+          <h3 class="text-lg font-bold text-white">Voxelotor (Oxbryta)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Hemoglobin alfa zincirinin N-terminal valin kalıntısına kovalent ve tersinir olarak bağlanır. Hemoglobinin oksijene ilgisini artırarak HbS polimerleşmesini doğrudan inhibe eder.
           </p>
+          <div class="grid grid-cols-3 gap-2 pt-2 text-center text-xs font-mono">
+            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px]">Mol. Ağırlık</span>
+              <p class="text-amber-400 font-bold">337.4 g/mol</p>
+            </div>
+            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px]">XLogP</span>
+              <p class="text-amber-400 font-bold">2.4</p>
+            </div>
+            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px]">H-Bağı Akseptör</span>
+              <p class="text-amber-400 font-bold">5</p>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">ChEMBL Veri Tabanı</span>
-              <h3 class="text-lg font-bold text-white mt-1">Metformin</h3>
-            </div>
-            <span class="text-xs text-slate-400 font-mono">CHEMBL1431</span>
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-sky-400 text-xs font-bold uppercase font-mono">ChEMBL ID: CHEMBL1431</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">Altın Standart</span>
           </div>
-          <div class="grid grid-cols-2 gap-3 text-xs">
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/60">
-              <span class="text-slate-400">Moleküler Formül</span>
-              <p class="font-mono text-white font-bold mt-0.5">C4H11N5</p>
-            </div>
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/60">
-              <span class="text-slate-400">Geliştirme Fazı</span>
-              <p class="font-mono text-emerald-400 font-bold mt-0.5">Faz 4 (Onaylı)</p>
-            </div>
-          </div>
-          <p class="text-xs text-slate-400 leading-relaxed bg-slate-950 p-3 rounded-xl border border-slate-800">
-            AMPK aktivasyonu ve mitokondriyal Kompleks I inhibisyonu üzerinden glukoz metabolizmasını regüle eder.
+          <h3 class="text-lg font-bold text-white">Metformin</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            AMPK (AMP ile aktifleştirilen protein kinaz) aktivatörü olarak hepatik glukoz üretimini azaltır. Mitokondriyal Kompleks I'i hafifçe inhibe ederek hücresel enerji dengesini optimize eder.
           </p>
+          <div class="grid grid-cols-3 gap-2 pt-2 text-center text-xs font-mono">
+            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px]">Mol. Ağırlık</span>
+              <p class="text-sky-400 font-bold">129.16 g/mol</p>
+            </div>
+            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px]">XLogP</span>
+              <p class="text-sky-400 font-bold">-1.4</p>
+            </div>
+            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px]">Tip</span>
+              <p class="text-sky-400 font-bold">Küçük Molekül</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 5: BİYOLOJİK YOLAKLAR (Reactome) -->
+    <!-- TAB 8: YOLAKLAR (Reactome) -->
     <!-- ========================================== -->
     <section id="tab-pathways" class="tab-content hidden space-y-4">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
@@ -471,7 +506,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 6: LİTERATÜR & CRISPR (PubMed) -->
+    <!-- TAB 9: LİTERATÜR & CRISPR (PubMed) -->
     <!-- ========================================== -->
     <section id="tab-literature" class="tab-content hidden space-y-4">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
@@ -491,6 +526,7 @@
   </main>
 
   <script>
+    // Tab Değiştirme
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -498,7 +534,9 @@
         btn.classList.add('text-slate-400');
       });
 
-      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+      const targetSection = document.getElementById(`tab-${tabId}`);
+      if (targetSection) targetSection.classList.remove('hidden');
+
       const activeBtn = document.getElementById(`tabBtn-${tabId}`);
       if (activeBtn) {
         activeBtn.classList.add('bg-sky-500', 'text-white', 'shadow');
@@ -511,15 +549,23 @@
       }
     }
 
+    // 3D Viewer Mantığı
     let viewer = null;
     let currentStyle = 'cartoon';
     let currentPdb = '4HHB';
 
     window.addEventListener('DOMContentLoaded', () => {
       const element = document.getElementById('viewer3d');
-      const config = { backgroundColor: '#020617' };
-      viewer = $3Dmol.createViewer(element, config);
-      loadPdb('4HHB', 'İnsan Deoksihemoglobini');
+      if (element) {
+        const config = { backgroundColor: '#020617' };
+        viewer = $3Dmol.createViewer(element, config);
+        loadPdb('4HHB', 'İnsan Deoksihemoglobini');
+      }
+      initCharts();
+      selectOncogene('EGFR');
+      renderPpiNetwork('EGFR');
+      renderAlignment('HBB_SICKLE');
+      renderScreening('EGFR');
     });
 
     function loadPdb(pdbId, title = "") {
@@ -527,6 +573,7 @@
       document.getElementById('activePdbBadge').innerText = `PDB: ${currentPdb}`;
       if (title) document.getElementById('activeStructureTitle').innerText = title;
 
+      if (!viewer) return;
       viewer.clear();
       $3Dmol.download(`pdb:${currentPdb}`, viewer, {}, function() {
         applyStyle();
@@ -537,9 +584,7 @@
 
     function loadCustomPdb() {
       const input = document.getElementById('customPdbInput').value.trim();
-      if (input) {
-        loadPdb(input, `PDB Yapısı: ${input.toUpperCase()}`);
-      }
+      if (input) loadPdb(input, `PDB Yapısı: ${input.toUpperCase()}`);
     }
 
     function applyStyle() {
@@ -560,8 +605,10 @@
 
     function setRepresentation(style) {
       currentStyle = style;
-      viewer.removeAllSurfaces();
-      applyStyle();
+      if (viewer) {
+        viewer.removeAllSurfaces();
+        applyStyle();
+      }
     }
 
     function resetCamera() {
@@ -590,6 +637,523 @@
         viewer.zoomTo({ chain: 'B', resi: 6 });
       }
       viewer.render();
+    }
+
+    // ONKOLOJİ VERİ SETİ
+    const ONCOLOGY_DATA = {
+      'EGFR': {
+        name: 'EGFR - Epidermal Growth Factor Receptor',
+        desc: 'Reseptör tirozin kinaz süperailesi üyesi; hücre proliferasyonu ve sağkalımını yönetir.',
+        cancers: 'Küçük Hücreli Dışı Akciğer Kanseri (NSCLC), Glioblastoma',
+        hotspots: [
+          { variant: 'p.L858R', type: 'Aktive Edici Nokta Mutasyonu', response: '1. ve 3. nesil TKI ilaçlarına (Osimertinib, Gefitinib) yüksek duyarlı.' },
+          { variant: 'p.T790M', type: 'Kazanılmış Direnç Mutasyonu', response: '1. nesil ilaçlara dirençli; 3. nesil Osimertinib tedavisine duyarlı.' },
+          { variant: 'Exon 19 del', type: 'Çerçeve İçi Delesyon', response: 'EGFR TKI inhibitörlerine dramatik klinik yanıt gösterir.' }
+        ],
+        drugs: [
+          { name: 'Osimertinib (Tagrisso)', desc: '3. Nesil MSS Geçici İnhibitör (1. Basamak Standart)' },
+          { name: 'Gefitinib (Iressa)', desc: '1. Nesil Reversibl EGFR Kinaz İnhibitörü' },
+          { name: 'Afatinib (Gilotrif)', desc: '2. Nesil İrreversibl Pan-ErbB Blokeri' }
+        ]
+      },
+      'KRAS': {
+        name: 'KRAS - Kirsten Rat Sarcoma Viral Oncogene',
+        desc: 'Membrana bağlı küçük GTPaz anahtarı; MAPK ve PI3K kaskadlarını uyarır.',
+        cancers: 'Pankreas Duktal Adenokarsinomu (%90), Kolorektal Kanser (%45), NSCLC',
+        hotspots: [
+          { variant: 'p.G12C', type: 'Kodon 12 Sistein İkamesi', response: 'Sotorasib ve Adagrasib allosterik Switch-II inhibitörlerine doğrudan hedeflenebilir.' },
+          { variant: 'p.G12D', type: 'Kodon 12 Aspartat İkamesi', response: 'Pankreas kanserinde en yaygın; yeni nesil pan-KRAS inhibitörleri klinik aşamada.' }
+        ],
+        drugs: [
+          { name: 'Sotorasib (Lumakras)', desc: 'İlk FDA Onaylı KRAS G12C Kovalent İnhibitörü' },
+          { name: 'Adagrasib (Krazati)', desc: 'Optimize Edilmiş KRAS G12C İnhibitörü' }
+        ]
+      },
+      'BRAF': {
+        name: 'BRAF - B-Raf Proto-Oncogene, Ser/Thr Kinase',
+        desc: 'MAPK/ERK yolunun kritik serin/treonin kinazı.',
+        cancers: 'Melanom (%50), Tiroid Papiller Karsinomu, Kolorektal',
+        hotspots: [
+          { variant: 'p.V600E', type: 'Aktivasyon Halkası Missense', response: 'Kinaz aktivitesini 500 kat artırır; Dabrafenib + Trametinib kombinasyonuna duyarlı.' }
+        ],
+        drugs: [
+          { name: 'Dabrafenib (Tafinlar)', desc: 'Spesifik BRAF V600E/K İnhibitörü' },
+          { name: 'Vemurafenib (Zelboraf)', desc: 'İlk Onaylanan BRAF İnhibitörü' }
+        ]
+      },
+      'TP53': {
+        name: 'TP53 - Tumor Protein P53 (Genomun Koruyucusu)',
+        desc: 'DNA hasarı ve hücresel strese yanıt veren ana transkripsiyon faktörü ve tümör baskılayıcı.',
+        cancers: 'Tüm İnsan Kanserlerinin %50\'sinden fazlasında mutasyona uğrar.',
+        hotspots: [
+          { variant: 'p.R175H', type: 'DNA Bağlanma Bölgesi Yapısal Defekt', response: 'Çinko koordinasyonunu bozar; dominant-negatif etki gösterir.' },
+          { variant: 'p.R248Q', type: 'Temas Kalıntısı Mutasyonu', response: 'DNA minör oluk temasını ortadan kaldırır.' }
+        ],
+        drugs: [
+          { name: 'Eprenetapopt (APR-246)', desc: 'Mutant p53 Yapısal Düzelticisi (Klinik Araştırma)' }
+        ]
+      }
+    };
+
+    function selectOncogene(gene) {
+      document.querySelectorAll('.onco-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-500', 'text-white', 'shadow-lg');
+        btn.classList.add('bg-slate-900', 'text-slate-300');
+      });
+      const activeBtn = document.getElementById(`oncoBtn-${gene}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-500', 'text-white', 'shadow-lg');
+        activeBtn.classList.remove('bg-slate-900', 'text-slate-300');
+      }
+
+      const data = ONCOLOGY_DATA[gene];
+      if (!data) return;
+
+      document.getElementById('oncoGeneTitle').innerText = data.name;
+      document.getElementById('oncoGeneDesc').innerText = data.desc;
+      document.getElementById('oncoCancerTypes').innerText = data.cancers;
+
+      // Hotspots
+      let hHtml = '';
+      data.hotspots.forEach(h => {
+        hHtml += `
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sky-400 font-mono">${h.variant}</span>
+              <span class="text-[10px] text-slate-400 font-mono">${h.type}</span>
+            </div>
+            <p class="text-slate-300 text-[11px] mt-1">${h.response}</p>
+          </div>
+        `;
+      });
+      document.getElementById('oncoHotspotsContainer').innerHTML = hHtml;
+
+      // Drugs
+      let dHtml = '';
+      data.drugs.forEach(d => {
+        dHtml += `
+          <div class="p-3 rounded-xl bg-slate-950 border border-emerald-900/40">
+            <span class="font-bold text-emerald-400 font-mono">${d.name}</span>
+            <p class="text-slate-300 text-[11px] mt-0.5">${d.desc}</p>
+          </div>
+        `;
+      });
+      document.getElementById('oncoDrugsContainer').innerHTML = dHtml;
+    }
+
+    // PPI İNTERAKTOM AĞI (SVG GÖRSELLEŞTİRME)
+    const PPI_DATA = {
+      'EGFR': {
+        title: 'EGFR Reseptör Tirozin Kinaz İnteraktom Ağı',
+        metrics: '8 Düğüm | 8 Bağ | Yoğunluk: 0.286',
+        primaryHub: 'EGFR',
+        nodes: [
+          { id: 'EGFR', x: 300, y: 210, role: 'Membran Reseptörü', type: 'Master Hub Kinase', score: 1.0, isHub: true },
+          { id: 'ERBB2', x: 170, y: 120, role: 'Heterodimer Ortağı', type: 'Receptor Kinase', score: 0.99 },
+          { id: 'GRB2', x: 430, y: 120, role: 'Sinyal Adaptörü', type: 'SH2/SH3 Protein', score: 0.98, isHub: true },
+          { id: 'SOS1', x: 520, y: 210, role: 'GEF Değişim Faktörü', type: 'Activator', score: 0.95 },
+          { id: 'SHC1', x: 420, y: 310, role: 'Fosfotirozin Adaptörü', type: 'Adaptor', score: 0.96 },
+          { id: 'PIK3CA', x: 180, y: 310, role: 'Lipid Kinaz (Sağkalım)', type: 'Kinase', score: 0.94 },
+          { id: 'STAT3', x: 90, y: 210, role: 'Transkripsiyon Faktörü', type: 'TF', score: 0.91 },
+          { id: 'CBL', x: 300, y: 70, role: 'E3 Ubikitin Ligaz', type: 'Downregulator', score: 0.93 }
+        ],
+        edges: [
+          { s: 'EGFR', t: 'ERBB2', w: 0.999 },
+          { s: 'EGFR', t: 'GRB2', w: 0.998 },
+          { s: 'GRB2', t: 'SOS1', w: 0.997 },
+          { s: 'EGFR', t: 'SHC1', w: 0.995 },
+          { s: 'SHC1', t: 'GRB2', w: 0.991 },
+          { s: 'EGFR', t: 'PIK3CA', w: 0.978 },
+          { s: 'EGFR', t: 'STAT3', w: 0.965 },
+          { s: 'EGFR', t: 'CBL', w: 0.972 }
+        ]
+      },
+      'KRAS': {
+        title: 'KRAS GTPaz Sinyalozom Ağı',
+        metrics: '8 Düğüm | 8 Bağ | Yoğunluk: 0.286',
+        primaryHub: 'KRAS',
+        nodes: [
+          { id: 'KRAS', x: 300, y: 210, role: 'GTPaz Moleküler Anahtar', type: 'Master Hub', score: 1.0, isHub: true },
+          { id: 'RAF1', x: 420, y: 130, role: 'Birincil Efektör', type: 'Ser/Thr Kinase', score: 0.99 },
+          { id: 'BRAF', x: 440, y: 280, role: 'MAPK Kaskad Kinazı', type: 'Kinase', score: 0.98 },
+          { id: 'PIK3CA', x: 170, y: 130, role: 'PI3K/AKT Efektörü', type: 'Lipid Kinase', score: 0.97 },
+          { id: 'RALGDS', x: 160, y: 280, role: 'Ral GEF Efektörü', type: 'GEF', score: 0.92 },
+          { id: 'SOS1', x: 300, y: 70, role: 'Guanin Nükleotit Değişimi', type: 'Activator', score: 0.96 },
+          { id: 'NF1', x: 300, y: 350, role: 'GTPaz Aktive Edici (GAP)', type: 'Tumor Suppressor', score: 0.95 },
+          { id: 'MAP2K1', x: 530, y: 210, role: 'MEK1 Kinaz', type: 'Cascade Kinase', score: 0.94 }
+        ],
+        edges: [
+          { s: 'KRAS', t: 'RAF1', w: 0.999 },
+          { s: 'KRAS', t: 'BRAF', w: 0.995 },
+          { s: 'KRAS', t: 'PIK3CA', w: 0.991 },
+          { s: 'KRAS', t: 'RALGDS', w: 0.965 },
+          { s: 'SOS1', t: 'KRAS', w: 0.998 },
+          { s: 'NF1', t: 'KRAS', w: 0.994 },
+          { s: 'RAF1', t: 'MAP2K1', w: 0.997 },
+          { s: 'BRAF', t: 'MAP2K1', w: 0.998 }
+        ]
+      },
+      'TP53': {
+        title: 'p53 Genom Koruyucu Savunma Ağı',
+        metrics: '7 Düğüm | 8 Bağ | Yoğunluk: 0.381',
+        primaryHub: 'TP53',
+        nodes: [
+          { id: 'TP53', x: 300, y: 210, role: 'Tümör Baskılayıcı TF', type: 'Master Hub', score: 1.0, isHub: true },
+          { id: 'MDM2', x: 170, y: 130, role: 'E3 Ubikitin Ligaz', type: 'Negative Regulator', score: 0.99, isHub: true },
+          { id: 'CDKN1A', x: 430, y: 130, role: 'p21 Hücre Döngüsü Durdurucu', type: 'CDK Inhibitor', score: 0.99 },
+          { id: 'ATM', x: 160, y: 290, role: 'DNA Hasar Sensörü', type: 'PIKK Kinase', score: 0.98 },
+          { id: 'CHEK2', x: 300, y: 350, role: 'Kontrol Noktası Kinazı', type: 'Kinase', score: 0.96 },
+          { id: 'BAX', x: 440, y: 290, role: 'Apoptoz İndükleyici', type: 'Bcl-2 Family', score: 0.97 },
+          { id: 'EP300', x: 300, y: 70, role: 'Histon Asetiltransferaz', type: 'Co-activator', score: 0.95 }
+        ],
+        edges: [
+          { s: 'TP53', t: 'MDM2', w: 0.999 },
+          { s: 'MDM2', t: 'TP53', w: 0.999 },
+          { s: 'TP53', t: 'CDKN1A', w: 0.998 },
+          { s: 'ATM', t: 'TP53', w: 0.995 },
+          { s: 'ATM', t: 'CHEK2', w: 0.994 },
+          { s: 'CHEK2', t: 'TP53', w: 0.989 },
+          { s: 'TP53', t: 'BAX', w: 0.992 },
+          { s: 'EP300', t: 'TP53', w: 0.985 }
+        ]
+      },
+      'HBB': {
+        title: 'HBB Hemoglobin Subunit Beta Eritroid Ağı',
+        metrics: '6 Düğüm | 6 Bağ | Yoğunluk: 0.400',
+        primaryHub: 'HBB',
+        nodes: [
+          { id: 'HBB', x: 300, y: 210, role: 'Beta Globin Zinciri', type: 'Target Subunit', score: 1.0, isHub: true },
+          { id: 'HBA1', x: 180, y: 130, role: 'Alfa Globin 1', type: 'Tetramer Partner', score: 0.99 },
+          { id: 'HBA2', x: 420, y: 130, role: 'Alfa Globin 2', type: 'Tetramer Partner', score: 0.99 },
+          { id: 'AHSP', x: 300, y: 70, role: 'Alfa Globin Şaperonu', type: 'Stabilizer', score: 0.97 },
+          { id: 'BPGM', x: 180, y: 300, role: '2,3-DPG Enzimi', type: 'Allosteric Regulator', score: 0.92 },
+          { id: 'ALAS2', x: 420, y: 300, role: 'Hem Biyosentezi', type: 'Enzyme', score: 0.90 }
+        ],
+        edges: [
+          { s: 'HBB', t: 'HBA1', w: 0.999 },
+          { s: 'HBB', t: 'HBA2', w: 0.999 },
+          { s: 'HBA1', t: 'AHSP', w: 0.996 },
+          { s: 'HBA2', t: 'AHSP', w: 0.996 },
+          { s: 'BPGM', t: 'HBB', w: 0.965 },
+          { s: 'ALAS2', t: 'HBB', w: 0.942 }
+        ]
+      }
+    };
+
+    function renderPpiNetwork(gene) {
+      ['EGFR', 'KRAS', 'TP53', 'HBB'].forEach(g => {
+        const btn = document.getElementById(`ppiBtn-${g}`);
+        if (btn) {
+          if (g === gene) {
+            btn.classList.add('bg-sky-500', 'text-white', 'font-bold');
+            btn.classList.remove('bg-slate-800', 'text-slate-300');
+          } else {
+            btn.classList.remove('bg-sky-500', 'text-white', 'font-bold');
+            btn.classList.add('bg-slate-800', 'text-slate-300');
+          }
+        }
+      });
+
+      const net = PPI_DATA[gene] || PPI_DATA['EGFR'];
+      document.getElementById('ppiNetworkTitle').innerText = net.title;
+      document.getElementById('ppiMetricsSummary').innerText = net.metrics;
+
+      // Draw SVG
+      const svg = document.getElementById('ppiSvg');
+      let svgHtml = '';
+
+      // Draw edges
+      net.edges.forEach(e => {
+        const sourceNode = net.nodes.find(n => n.id === e.s);
+        const targetNode = net.nodes.find(n => n.id === e.t);
+        if (sourceNode && targetNode) {
+          svgHtml += `
+            <line x1="${sourceNode.x}" y1="${sourceNode.y}" x2="${targetNode.x}" y2="${targetNode.y}" 
+                  stroke="#334155" stroke-width="2" stroke-dasharray="${e.w < 0.98 ? '4 3' : 'none'}"/>
+          `;
+        }
+      });
+
+      // Draw nodes
+      net.nodes.forEach(n => {
+        const r = n.isHub ? 26 : 18;
+        const fill = n.isHub ? '#0ea5e9' : '#1e293b';
+        const stroke = n.isHub ? '#38bdf8' : '#475569';
+        const textColor = n.isHub ? '#ffffff' : '#e2e8f0';
+
+        svgHtml += `
+          <g onclick="selectPpiNode('${gene}', '${n.id}')" class="cursor-pointer group" style="transition: transform 0.2s;">
+            <circle cx="${n.x}" cy="${n.y}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${n.isHub ? 3 : 2}" class="${n.isHub ? 'node-hub' : ''} group-hover:stroke-sky-400 group-hover:scale-105"/>
+            <text x="${n.x}" y="${n.y + 4}" text-anchor="middle" font-family="monospace" font-size="${n.isHub ? 11 : 9}" font-weight="bold" fill="${textColor}" pointer-events="none">${n.id}</text>
+          </g>
+        `;
+      });
+
+      svg.innerHTML = svgHtml;
+      selectPpiNode(gene, net.primaryHub);
+
+      // Hub list
+      let hubHtml = '';
+      net.nodes.forEach(n => {
+        hubHtml += `
+          <div onclick="selectPpiNode('${gene}', '${n.id}')" class="p-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 flex items-center justify-between cursor-pointer transition-colors">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full ${n.isHub ? 'bg-sky-400' : 'bg-slate-500'}"></span>
+              <span class="font-bold text-white font-mono">${n.id}</span>
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono">${n.type}</span>
+          </div>
+        `;
+      });
+      document.getElementById('ppiHubList').innerHTML = hubHtml;
+    }
+
+    function selectPpiNode(gene, nodeId) {
+      const net = PPI_DATA[gene] || PPI_DATA['EGFR'];
+      const node = net.nodes.find(n => n.id === nodeId);
+      if (!node) return;
+
+      document.getElementById('ppiSelectedNodeId').innerText = node.id;
+      document.getElementById('ppiSelectedNodeBadge').innerText = node.isHub ? 'Master Hub' : 'Partner';
+      document.getElementById('ppiSelectedNodeType').innerText = node.type;
+      document.getElementById('ppiSelectedNodeRole').innerText = node.role;
+      document.getElementById('ppiSelectedCentrality').innerText = node.isHub ? '1.000' : (node.score * 0.75).toFixed(3);
+    }
+
+    // DİZİ HİZALAMA MANTIĞI
+    const ALIGN_DATA = {
+      'HBB_SICKLE': {
+        title: 'HBB Yabanıl Tip vs Orak Hücreli Anemi (HbS)',
+        subtitle: 'İnsan beta globin zinciri küresel Needleman-Wunsch hizalaması.',
+        identity: '%99.32 Özdeşlik',
+        score: 'Skor: 768',
+        seq1: 'VHLTPEEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLD',
+        track:'|||||:||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||',
+        seq2: 'VHLTPVEKSAVTALWGKVNVDEVGGEALGRLLVVYPWTQRFFESFGDLSTPDAVMGNPKVKAHGKKVLGAFSDGLAHLD',
+        mutDesc: 'p.Glu7Val (c.20A>T)',
+        blosum: 'BLOSUM62: -2',
+        consequence: '6. pozisyondaki negatif yüklü glutamik asit yerine hidrofobik valin yerleşir. Deoksi-HbS polimerize olarak eritrositi oraklaştırır ve vazo-oklüzyona yol açar.'
+      },
+      'EGFR_L858R': {
+        title: 'EGFR Kinaz Alanı Yabanıl Tip vs Ekzon 21 L858R',
+        subtitle: 'Akciğer kanserinde 1. ve 3. nesil TKI duyarlılık hizalaması.',
+        identity: '%99.24 Özdeşlik',
+        score: 'Skor: 697',
+        seq1: 'KITDFGRAKLLGAEEKEYHAEGGKVPIKWMALESILHRIYTHQSDVWSYGVTVWELMTFGSKPYDGIPASEISSILEKG',
+        track:'||||||||||:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||',
+        seq2: 'KITDFGRAKLRGAEEKEYHAEGGKVPIKWMALESILHRIYTHQSDVWSYGVTVWELMTFGSKPYDGIPASEISSILEKG',
+        mutDesc: 'p.Leu858Arg (Exon 21)',
+        blosum: 'BLOSUM62: -2',
+        consequence: 'Lösinin pozitif yüklü arjinin ile değişmesi kinazın inaktif konformasyonunu bozar, konstitütif aktivasyona ve osimertinib duyarlılığına yol açar.'
+      },
+      'KRAS_G12C': {
+        title: 'KRAS Küçük GTPaz Yabanıl Tip vs Kodon 12 G12C',
+        subtitle: 'Pankreas ve Akciğer kanserlerinde Sotorasib hedefi.',
+        identity: '%99.41 Özdeşlik',
+        score: 'Skor: 842',
+        seq1: 'MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFL',
+        track:'|||||||||||:||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||',
+        seq2: 'MTEYKLVVVGACGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFL',
+        mutDesc: 'p.Gly12Cys (Exon 2 Codon 12)',
+        blosum: 'BLOSUM62: -3',
+        consequence: 'Glisin yerine nükleofilik sistein gelmesi, GTP hidrolizini bloke ederek KRAS\'ı sürekli aktif (GTP-bağlı) tutar. C12 tiyol grubu Sotorasib ile kovalent hedeflenir.'
+      },
+      'BRAF_V600E': {
+        title: 'BRAF Ser/Thr Kinaz Yabanıl Tip vs Aktivasyon Halkası V600E',
+        subtitle: 'Metastatik melanomda Dabrafenib duyarlılık mutasyonu.',
+        identity: '%99.42 Özdeşlik',
+        score: 'Skor: 885',
+        seq1: 'LDFGLATVKSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGR',
+        track:'|||||||:||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||',
+        seq2: 'LDFGLATVEISRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGR',
+        mutDesc: 'p.Val600Glu (Exon 15)',
+        blosum: 'BLOSUM62: -2',
+        consequence: 'Valin yerine negatif yüklü glutamat gelmesi, fosforilasyonu taklit ederek (fosfomimetik etki) kinazı dimerizasyondan bağımsız konstitütif aktif hale getirir.'
+      }
+    };
+
+    function renderAlignment(key) {
+      ['HBB_SICKLE', 'EGFR_L858R', 'KRAS_G12C', 'BRAF_V600E'].forEach(k => {
+        const btn = document.getElementById(`alignBtn-${k}`);
+        if (btn) {
+          if (k === key) {
+            btn.classList.add('bg-sky-500', 'text-white', 'font-bold');
+            btn.classList.remove('bg-slate-800', 'text-slate-300');
+          } else {
+            btn.classList.remove('bg-sky-500', 'text-white', 'font-bold');
+            btn.classList.add('bg-slate-800', 'text-slate-300');
+          }
+        }
+      });
+
+      const d = ALIGN_DATA[key];
+      if (!d) return;
+
+      document.getElementById('alignTitle').innerText = d.title;
+      document.getElementById('alignSubtitle').innerText = d.subtitle;
+      document.getElementById('alignIdentityBadge').innerText = d.identity;
+      document.getElementById('alignScoreBadge').innerText = d.score;
+      document.getElementById('alignSeq1').innerText = d.seq1;
+      document.getElementById('alignTrack').innerText = d.track;
+      document.getElementById('alignSeq2').innerText = d.seq2;
+      document.getElementById('alignMutDesc').innerText = d.mutDesc;
+      document.getElementById('alignBlosumScore').innerText = d.blosum;
+      document.getElementById('alignConsequence').innerText = d.consequence;
+    }
+
+    // SANAL İLAÇ TARAMA MANTIĞI
+    const SCREENING_DATA = {
+      'EGFR': {
+        pocket: 'EGFR ATP-Bağlanma Kinaz Cebi (C797 / L858)',
+        radarDrug: 'Osimertinib',
+        radarData: [499.6/5, 75.3, 3.7*20, 7*10, 1*20],
+        drugs: [
+          { rank: 1, name: 'Osimertinib (Tagrisso)', deltaG: '-12.52 kcal/mol', fit: '97.3%', qed: '82.4', pass: true },
+          { rank: 2, name: 'Gefitinib (Iressa)', deltaG: '-12.29 kcal/mol', fit: '94.0%', qed: '86.1', pass: true },
+          { rank: 3, name: 'Imatinib (Gleevec)', deltaG: '-10.94 kcal/mol', fit: '94.7%', qed: '81.9', pass: true },
+          { rank: 4, name: 'Dabrafenib (Tafinlar)', deltaG: '-10.61 kcal/mol', fit: '89.9%', qed: '72.5', pass: true },
+          { rank: 5, name: 'Sotorasib (Lumakras)', deltaG: '-10.38 kcal/mol', fit: '86.4%', qed: '70.8', pass: true }
+        ]
+      },
+      'KRAS': {
+        pocket: 'KRAS Switch-II Allosterik Cebi (Cys12 / P-loop)',
+        radarDrug: 'Sotorasib',
+        radarData: [560.6/5, 91.5, 2.8*20, 7*10, 0*20],
+        drugs: [
+          { rank: 1, name: 'Sotorasib (Lumakras)', deltaG: '-12.63 kcal/mol', fit: '98.9%', qed: '70.8', pass: true },
+          { rank: 2, name: 'Adagrasib (Krazati)', deltaG: '-12.38 kcal/mol', fit: '95.3%', qed: '68.4', pass: true },
+          { rank: 3, name: 'Osimertinib (Tagrisso)', deltaG: '-10.72 kcal/mol', fit: '91.5%', qed: '82.4', pass: true },
+          { rank: 4, name: 'Dabrafenib (Tafinlar)', deltaG: '-10.45 kcal/mol', fit: '87.5%', qed: '72.5', pass: true },
+          { rank: 5, name: 'Voxelotor (Oxbryta)', deltaG: '-8.94 kcal/mol', fit: '65.3%', qed: '89.2', pass: true }
+        ]
+      },
+      'BRAF': {
+        pocket: 'BRAF V600E Aktivasyon Halkası Cebi',
+        radarDrug: 'Dabrafenib',
+        radarData: [519.6/5, 105.0, 4.3*20, 6*10, 2*20],
+        drugs: [
+          { rank: 1, name: 'Dabrafenib (Tafinlar)', deltaG: '-12.87 kcal/mol', fit: '99.5%', qed: '72.5', pass: true },
+          { rank: 2, name: 'Gefitinib (Iressa)', deltaG: '-10.85 kcal/mol', fit: '93.4%', qed: '86.1', pass: true },
+          { rank: 3, name: 'Osimertinib (Tagrisso)', deltaG: '-10.74 kcal/mol', fit: '91.8%', qed: '82.4', pass: true },
+          { rank: 4, name: 'Imatinib (Gleevec)', deltaG: '-10.51 kcal/mol', fit: '88.4%', qed: '81.9', pass: true },
+          { rank: 5, name: 'Aspirin', deltaG: '-7.10 kcal/mol', fit: '38.2%', qed: '85.4', pass: true }
+        ]
+      },
+      'HBB': {
+        pocket: 'Hemoglobin Alfa Cebi & N-Terminal Arayüzü',
+        radarDrug: 'Voxelotor',
+        radarData: [337.4/5, 62.1, 2.4*20, 5*10, 1*20],
+        drugs: [
+          { rank: 1, name: 'Voxelotor (Oxbryta)', deltaG: '-12.94 kcal/mol', fit: '99.2%', qed: '89.2', pass: true },
+          { rank: 2, name: 'Aspirin', deltaG: '-9.45 kcal/mol', fit: '72.8%', qed: '85.4', pass: true },
+          { rank: 3, name: 'Metformin', deltaG: '-8.12 kcal/mol', fit: '53.1%', qed: '80.0', pass: true },
+          { rank: 4, name: 'Gefitinib (Iressa)', deltaG: '-7.85 kcal/mol', fit: '49.2%', qed: '86.1', pass: true },
+          { rank: 5, name: 'Osimertinib (Tagrisso)', deltaG: '-7.62 kcal/mol', fit: '45.8%', qed: '82.4', pass: true }
+        ]
+      }
+    };
+
+    let screeningRadarChart = null;
+
+    function renderScreening(target) {
+      ['EGFR', 'KRAS', 'BRAF', 'HBB'].forEach(t => {
+        const btn = document.getElementById(`screenBtn-${t}`);
+        if (btn) {
+          if (t === target) {
+            btn.classList.add('bg-sky-500', 'text-white', 'font-bold');
+            btn.classList.remove('bg-slate-800', 'text-slate-300');
+          } else {
+            btn.classList.remove('bg-sky-500', 'text-white', 'font-bold');
+            btn.classList.add('bg-slate-800', 'text-slate-300');
+          }
+        }
+      });
+
+      const d = SCREENING_DATA[target];
+      if (!d) return;
+
+      document.getElementById('screeningPocketTitle').innerText = d.pocket;
+
+      let tHtml = '';
+      d.drugs.forEach(drug => {
+        tHtml += `
+          <tr class="hover:bg-slate-900/50 transition-colors">
+            <td class="p-3 font-bold text-white">#${drug.rank}</td>
+            <td class="p-3 font-semibold text-sky-300">${drug.name}</td>
+            <td class="p-3 font-bold text-emerald-400">${drug.deltaG}</td>
+            <td class="p-3 text-slate-300">${drug.fit}</td>
+            <td class="p-3 text-amber-300">${drug.qed} / 100</td>
+            <td class="p-3"><span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px]">Uygun</span></td>
+          </tr>
+        `;
+      });
+      document.getElementById('screeningTableBody').innerHTML = tHtml;
+
+      // Update Radar Chart
+      if (screeningRadarChart) {
+        screeningRadarChart.data.datasets[0].label = d.radarDrug;
+        screeningRadarChart.data.datasets[0].data = d.radarData;
+        screeningRadarChart.update();
+      }
+    }
+
+    // Chart.js Grafikleri
+    function initCharts() {
+      // Donut Chart (ClinVar)
+      const cCtx = document.getElementById('clinvarDonut');
+      if (cCtx) {
+        new Chart(cCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Patojenik', 'Benign (Kontrol)', 'VUS / Diğer'],
+            datasets: [{
+              data: [6, 1, 3],
+              backgroundColor: ['#f43f5e', '#10b981', '#64748b'],
+              borderColor: '#020617',
+              borderWidth: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 } } }
+            }
+          }
+        });
+      }
+
+      // Radar Chart (Screening)
+      const rCtx = document.getElementById('screeningRadarChart');
+      if (rCtx) {
+        screeningRadarChart = new Chart(rCtx, {
+          type: 'radar',
+          data: {
+            labels: ['MW / 5', 'TPSA', 'LogP * 20', 'H-Akseptör * 10', 'H-Donör * 20'],
+            datasets: [{
+              label: 'Osimertinib',
+              data: [499.6/5, 75.3, 3.7*20, 7*10, 1*20],
+              borderColor: '#0ea5e9',
+              backgroundColor: 'rgba(14, 165, 233, 0.25)',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                grid: { color: '#1e293b' },
+                pointLabels: { color: '#94a3b8', font: { size: 9 } },
+                ticks: { display: false }
+              }
+            },
+            plugins: {
+              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 } } }
+            }
+          }
+        });
+      }
     }
   </script>
 </body>

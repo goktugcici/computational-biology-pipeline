@@ -1,0 +1,343 @@
+{
+  "structural_biology": {
+    "file": "data/pdb_00004hhb.cif",
+    "ligand_count": 45
+  },
+  "genomic_variants": {
+    "total_variants": 9,
+    "pathogenic_count": 6,
+    "benign_count": 0,
+    "vus_other_count": 3,
+    "pathogenic_samples": [
+      {
+        "variant_id": "15333",
+        "title": "NM_000518.5(HBB):c.20A>T (p.Glu7Val)",
+        "clinical_significance": "Pathogenic",
+        "review_status": "criteria provided, multiple submitters, no conflicts"
+      },
+      {
+        "variant_id": "446735",
+        "title": "NM_000518.4(HBB):c.[20A>T;70G>A]",
+        "clinical_significance": "Pathogenic",
+        "review_status": "no assertion criteria provided"
+      },
+      {
+        "variant_id": "446736",
+        "title": "NM_000518.4(HBB):c.[20A>T;364G>A]",
+        "clinical_significance": "Pathogenic",
+        "review_status": "no assertion criteria provided"
+      }
+    ]
+  },
+  "pharmacology": {
+    "voxelotor": {
+      "CID": 71602803,
+      "MolecularFormula": "C19H19N3O3",
+      "MolecularWeight": "337.4",
+      "XLogP": 2.7,
+      "ExactMass": "337.14264148",
+      "TPSA": 77.2,
+      "HBondDonorCount": 1,
+      "HBondAcceptorCount": 5,
+      "RotatableBondCount": 6
+    },
+    "chembl": {
+      "chembl_id": "CHEMBL1431",
+      "name": "METFORMIN",
+      "type": "Small molecule",
+      "max_phase": "4.0",
+      "formula": "C4H11N5",
+      "mw": "129.17"
+    }
+  },
+  "pathways_count": 41,
+  "literature": {
+    "pmid": "38661449",
+    "title": "Exagamglogene Autotemcel for Severe Sickle Cell Disease."
+  },
+  "sequence_alignment": {
+    "aligned_seq1": "KITDFGRAKLLGAEEKEYHAEGGKVPIKWMALESILHRIYTHQSDVWSYGVTVWELMTFGSKPYDGIPASEISSILEKGERLPQPPICTIDVYMIMVKCWMIDADSRPKFRELIIEFSKMARDPQRYLVIQG",
+    "aligned_seq2": "KITDFGRAKLRGAEEKEYHAEGGKVPIKWMALESILHRIYTHQSDVWSYGVTVWELMTFGSKPYDGIPASEISSILEKGERLPQPPICTIDVYMIMVKCWMIDADSRPKFRELIIEFSKMARDPQRYLVIQG",
+    "match_track": "||||||||||.|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||",
+    "alignment_score": 697,
+    "total_positions": 132,
+    "identical_residues": 131,
+    "identity_percent": 99.24,
+    "similarity_percent": 99.24,
+    "mutations_detected": [
+      {
+        "position": 11,
+        "ref": "L",
+        "alt": "R",
+        "type": "Substitution",
+        "blosum62_score": -2,
+        "description": "p.L11R"
+      }
+    ],
+    "metadata": {
+      "variant_key": "EGFR_L858R",
+      "gene": "EGFR",
+      "condition": "Non-Small Cell Lung Cancer (TKI Sensitivity)",
+      "expected_mutation": "p.L858R (Exon 21)"
+    }
+  },
+  "drug_screening": [
+    {
+      "target_gene": "EGFR",
+      "target_pocket": "EGFR ATP-Binding Kinase Cleft (C797 / L858)",
+      "drug_id": "OSIMERTINIB",
+      "drug_name": "Osimertinib (Tagrisso)",
+      "estimated_delta_g_kcal_mol": -12.52,
+      "contact_fitness_score": 97.3,
+      "drug_likeness_score": 80.0,
+      "lipinski_pass": true,
+      "screen_rank": 1
+    },
+    {
+      "target_gene": "EGFR",
+      "target_pocket": "EGFR ATP-Binding Kinase Cleft (C797 / L858)",
+      "drug_id": "GEFITINIB",
+      "drug_name": "Gefitinib (Iressa)",
+      "estimated_delta_g_kcal_mol": -12.29,
+      "contact_fitness_score": 94.0,
+      "drug_likeness_score": 83.4,
+      "lipinski_pass": true,
+      "screen_rank": 2
+    },
+    {
+      "target_gene": "EGFR",
+      "target_pocket": "EGFR ATP-Binding Kinase Cleft (C797 / L858)",
+      "drug_id": "IMATINIB",
+      "drug_name": "Imatinib (Gleevec)",
+      "estimated_delta_g_kcal_mol": -10.94,
+      "contact_fitness_score": 94.7,
+      "drug_likeness_score": 82.6,
+      "lipinski_pass": true,
+      "screen_rank": 3
+    },
+    {
+      "target_gene": "EGFR",
+      "target_pocket": "EGFR ATP-Binding Kinase Cleft (C797 / L858)",
+      "drug_id": "DABRAFENIB",
+      "drug_name": "Dabrafenib (Tafinlar)",
+      "estimated_delta_g_kcal_mol": -10.61,
+      "contact_fitness_score": 89.9,
+      "drug_likeness_score": 78.1,
+      "lipinski_pass": true,
+      "screen_rank": 4
+    },
+    {
+      "target_gene": "EGFR",
+      "target_pocket": "EGFR ATP-Binding Kinase Cleft (C797 / L858)",
+      "drug_id": "ADAGRASIB",
+      "drug_name": "Adagrasib (Krazati)",
+      "estimated_delta_g_kcal_mol": -10.46,
+      "contact_fitness_score": 87.6,
+      "drug_likeness_score": 71.9,
+      "lipinski_pass": true,
+      "screen_rank": 5
+    }
+  ],
+  "ppi_network": {
+    "gene": "EGFR",
+    "network_name": "Epidermal Growth Factor Receptor Interactome",
+    "total_nodes": 8,
+    "total_edges": 8,
+    "network_density": 0.286,
+    "primary_hub_protein": "EGFR",
+    "node_centrality": {
+      "EGFR": {
+        "degree": 6,
+        "centrality": 0.857,
+        "weighted_connectivity": 5.907
+      },
+      "ERBB2": {
+        "degree": 1,
+        "centrality": 0.143,
+        "weighted_connectivity": 0.999
+      },
+      "GRB2": {
+        "degree": 3,
+        "centrality": 0.429,
+        "weighted_connectivity": 2.986
+      },
+      "SOS1": {
+        "degree": 1,
+        "centrality": 0.143,
+        "weighted_connectivity": 0.997
+      },
+      "SHC1": {
+        "degree": 2,
+        "centrality": 0.286,
+        "weighted_connectivity": 1.986
+      },
+      "PIK3CA": {
+        "degree": 1,
+        "centrality": 0.143,
+        "weighted_connectivity": 0.978
+      },
+      "STAT3": {
+        "degree": 1,
+        "centrality": 0.143,
+        "weighted_connectivity": 0.965
+      },
+      "CBL": {
+        "degree": 1,
+        "centrality": 0.143,
+        "weighted_connectivity": 0.972
+      }
+    },
+    "top_ranked_hubs": [
+      "EGFR",
+      "GRB2",
+      "SHC1"
+    ],
+    "raw_nodes": [
+      {
+        "id": "EGFR",
+        "role": "Hub Target",
+        "type": "Receptor Kinase",
+        "score": 1.0
+      },
+      {
+        "id": "ERBB2",
+        "role": "Heterodimerization Partner",
+        "type": "Receptor Kinase",
+        "score": 0.99
+      },
+      {
+        "id": "GRB2",
+        "role": "Adaptor Protein",
+        "type": "SH2/SH3 Adaptor",
+        "score": 0.98
+      },
+      {
+        "id": "SOS1",
+        "role": "GEF Activator",
+        "type": "Exchange Factor",
+        "score": 0.95
+      },
+      {
+        "id": "SHC1",
+        "role": "Phosphotyrosine Adaptor",
+        "type": "Adaptor",
+        "score": 0.96
+      },
+      {
+        "id": "PIK3CA",
+        "role": "Lipid Kinase",
+        "type": "Survival Signaling",
+        "score": 0.94
+      },
+      {
+        "id": "STAT3",
+        "role": "Transcription Factor",
+        "type": "Transcriptional Regulation",
+        "score": 0.91
+      },
+      {
+        "id": "CBL",
+        "role": "E3 Ubiquitin Ligase",
+        "type": "Receptor Downregulation",
+        "score": 0.93
+      }
+    ],
+    "raw_edges": [
+      {
+        "source": "EGFR",
+        "target": "ERBB2",
+        "combined_score": 0.999,
+        "evidence": "Biochemical Assay"
+      },
+      {
+        "source": "EGFR",
+        "target": "GRB2",
+        "combined_score": 0.998,
+        "evidence": "Phosphorylation Contact"
+      },
+      {
+        "source": "GRB2",
+        "target": "SOS1",
+        "combined_score": 0.997,
+        "evidence": "Complex Assembly"
+      },
+      {
+        "source": "EGFR",
+        "target": "SHC1",
+        "combined_score": 0.995,
+        "evidence": "Direct Phosphorylation"
+      },
+      {
+        "source": "SHC1",
+        "target": "GRB2",
+        "combined_score": 0.991,
+        "evidence": "Signal Transduction"
+      },
+      {
+        "source": "EGFR",
+        "target": "PIK3CA",
+        "combined_score": 0.978,
+        "evidence": "Downstream Cascade"
+      },
+      {
+        "source": "EGFR",
+        "target": "STAT3",
+        "combined_score": 0.965,
+        "evidence": "Transcriptional Activation"
+      },
+      {
+        "source": "EGFR",
+        "target": "CBL",
+        "combined_score": 0.972,
+        "evidence": "Ubiquitination"
+      }
+    ]
+  },
+  "pan_cancer_profile": {
+    "gene": "EGFR",
+    "full_name": "Epidermal Growth Factor Receptor",
+    "cancer_types": [
+      "Non-Small Cell Lung Cancer (NSCLC)",
+      "Glioblastoma"
+    ],
+    "hotspot_count": 3,
+    "hotspots": [
+      {
+        "variant": "p.L858R",
+        "exon": 21,
+        "type": "Activating Missense",
+        "response": "Sensitive to 1st/3rd gen TKIs"
+      },
+      {
+        "variant": "p.T790M",
+        "exon": 20,
+        "type": "Acquired Resistance",
+        "response": "Sensitive to Osimertinib (3rd gen)"
+      },
+      {
+        "variant": "Exon 19 del",
+        "exon": 19,
+        "type": "In-frame Deletion",
+        "response": "Highly sensitive to EGFR TKIs"
+      }
+    ],
+    "targeted_therapies": [
+      {
+        "drug": "Osimertinib (Tagrisso)",
+        "generation": "3rd Gen TKI",
+        "line": "1st line metastatic NSCLC"
+      },
+      {
+        "drug": "Gefitinib (Iressa)",
+        "generation": "1st Gen TKI",
+        "line": "Standard TKI"
+      },
+      {
+        "drug": "Afatinib (Gilotrif)",
+        "generation": "2nd Gen TKI",
+        "line": "Irreversible ErbB Family Blocker"
+      }
+    ],
+    "recommended_pdb": "2J6M"
+  }
+}

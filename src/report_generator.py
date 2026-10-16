@@ -1,13 +1,18 @@
 """
-Publication-Grade Scientific Report Generator
+Publication-Grade Scientific Report Generator (v2.0)
 Builds a standalone, responsive, interactive HTML scientific report
-with embedded visual charts, executive metrics, and multi-omics findings.
+with embedded visual charts, executive metrics, sequence alignment tracks,
+in silico drug screening rankings, and PPI interactome network topology.
 """
 
 import os
 import json
 from datetime import datetime
-from typing import Dict, Any
+from typing import Dict, Any, Optional
+
+from sequence_aligner import SequenceAligner
+from docking_scorer import DockingScorer
+from interaction_network import InteractionNetwork
 
 class ReportGenerator:
     def __init__(self, data_dir: str = "data", output_dir: str = "reports"):
@@ -15,10 +20,10 @@ class ReportGenerator:
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
 
-    def generate_html_report(self, output_filename: str = "executive_summary.html") -> str:
+    def generate_html_report(self, output_filename: str = "executive_summary.html", target_gene: str = "EGFR") -> str:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Load data safely
+        # 1. ClinVar counts
         clinvar_path = os.path.join(self.data_dir, "summary_all.json")
         pathogenic_count = 6
         benign_count = 1
@@ -34,11 +39,39 @@ class ReportGenerator:
             except Exception:
                 pass
 
+        # 2. Sequence Alignment Metrics
+        aligner = SequenceAligner()
+        hbb_align = aligner.analyze_known_variant("HBB_SICKLE")
+        egfr_align = aligner.analyze_known_variant("EGFR_L858R")
+
+        # 3. In Silico Drug Screening Ranking
+        docking = DockingScorer()
+        ranked_drugs = docking.screen_library_against_target(target_gene)
+
+        # 4. PPI Network Analysis
+        ppi = InteractionNetwork(target_gene)
+        ppi_metrics = ppi.compute_network_metrics()
+
+        # Build drug table rows
+        drug_rows_html = ""
+        for d in ranked_drugs[:5]:
+            status_badge = '<span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Passed</span>' if d['lipinski_pass'] else '<span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Review</span>'
+            drug_rows_html += f"""
+            <tr class="hover:bg-slate-900/50 transition-colors">
+              <td class="p-3 font-bold text-white font-mono">#{d['screen_rank']}</td>
+              <td class="p-3 font-semibold text-sky-300">{d['drug_name']}</td>
+              <td class="p-3 font-mono font-bold text-emerald-400">{d['estimated_delta_g_kcal_mol']} kcal/mol</td>
+              <td class="p-3 font-mono text-slate-300">{d['contact_fitness_score']}%</td>
+              <td class="p-3 font-mono text-amber-300">{d['drug_likeness_score']} / 100</td>
+              <td class="p-3">{status_badge}</td>
+            </tr>
+            """
+
         html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Executive Multi-Omics Scientific Investigation Report</title>
+  <title>Executive Multi-Omics Scientific Investigation Report v2.0</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -58,7 +91,7 @@ class ReportGenerator:
       <div>
         <div class="flex items-center gap-2 mb-2">
           <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-sky-500/10 text-sky-400 border border-sky-500/30">
-            Computational Biology Suite
+            Computational Biology Suite v2.0
           </span>
           <span class="text-xs text-slate-500 font-mono">Generated: {timestamp}</span>
         </div>
@@ -66,7 +99,7 @@ class ReportGenerator:
           Multi-Omics Structural & Precision Medicine Analysis
         </h1>
         <p class="text-sm text-slate-400 mt-1">
-          Atomic Coordinates, Clinical Pathogenicity, Targeted Pharmacology & CRISPR-Cas9 Therapeutics
+          Atomic Coordinates, Sequence Alignments, Interactome Topology & In Silico Drug Screening
         </p>
       </div>
       <button onclick="window.print()" class="no-print px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-2 transition-all">
@@ -77,24 +110,24 @@ class ReportGenerator:
     <!-- Key Metrics Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-        <span class="text-xs text-slate-400 uppercase font-medium">Primary Structure</span>
-        <p class="text-2xl font-mono font-bold text-sky-400 mt-1">4HHB</p>
-        <span class="text-[11px] text-slate-500">1.74 &Aring; X-Ray Resolution</span>
+        <span class="text-xs text-slate-400 uppercase font-medium">3D Structure</span>
+        <p class="text-2xl font-mono font-bold text-sky-400 mt-1">4HHB / 2J6M</p>
+        <span class="text-[11px] text-slate-500">Atomic Crystallography</span>
       </div>
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
         <span class="text-xs text-slate-400 uppercase font-medium">Driver Mutation</span>
         <p class="text-2xl font-mono font-bold text-rose-400 mt-1">HBB rs334</p>
-        <span class="text-[11px] text-rose-400/80">Pathogenic (c.20A>T)</span>
+        <span class="text-[11px] text-rose-400/80">p.Glu7Val (HbS Pathogenic)</span>
       </div>
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-        <span class="text-xs text-slate-400 uppercase font-medium">Targeted Molecule</span>
-        <p class="text-2xl font-mono font-bold text-amber-400 mt-1">Voxelotor</p>
-        <span class="text-[11px] text-slate-500">Allosteric Oxy-Hb Stabilizer</span>
+        <span class="text-xs text-slate-400 uppercase font-medium">Lead In Silico Hit</span>
+        <p class="text-2xl font-mono font-bold text-emerald-400 mt-1">{ranked_drugs[0]['drug_name'].split()[0]}</p>
+        <span class="text-[11px] text-emerald-400/80">&Delta;G: {ranked_drugs[0]['estimated_delta_g_kcal_mol']} kcal/mol</span>
       </div>
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-        <span class="text-xs text-slate-400 uppercase font-medium">Gene Therapy</span>
-        <p class="text-2xl font-mono font-bold text-emerald-400 mt-1">Casgevy</p>
-        <span class="text-[11px] text-emerald-400/80">CRISPR-Cas9 BCL11A</span>
+        <span class="text-xs text-slate-400 uppercase font-medium">Primary Interactome Hub</span>
+        <p class="text-2xl font-mono font-bold text-purple-400 mt-1">{ppi_metrics['primary_hub_protein']}</p>
+        <span class="text-[11px] text-purple-400/80">{ppi_metrics['total_nodes']} Nodes | {ppi_metrics['total_edges']} Edges</span>
       </div>
     </div>
 
@@ -111,54 +144,58 @@ class ReportGenerator:
 
       <!-- Chart 2: Chemical Property Profile -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-        <h3 class="text-sm font-bold text-white mb-1">Pharmacological Chemical Attributes</h3>
-        <p class="text-xs text-slate-400 mb-4">Voxelotor vs Metformin normalized property landscape</p>
+        <h3 class="text-sm font-bold text-white mb-1">In Silico Drug Screening Affinity Comparison</h3>
+        <p class="text-xs text-slate-400 mb-4">Binding free energy (&Delta;G in kcal/mol) against {target_gene}</p>
         <div class="h-56 relative flex items-center justify-center">
-          <canvas id="pharmaRadar"></canvas>
+          <canvas id="dockingChart"></canvas>
         </div>
       </div>
     </div>
 
-    <!-- Executive Clinical Findings Table -->
+    <!-- Sequence Alignment Track Section -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-sm font-bold text-white">Needleman-Wunsch Pairwise Sequence Alignment</h3>
+          <p class="text-xs text-slate-400">BLOSUM62 matrix scoring & pathogenic substitution pinpointing</p>
+        </div>
+        <span class="px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono">
+          Identity: {hbb_align['identity_percent']}% | Score: {hbb_align['alignment_score']}
+        </span>
+      </div>
+      
+      <div class="bg-slate-950 p-4 rounded-xl font-mono text-xs overflow-x-auto space-y-1 text-slate-300 border border-slate-800/80">
+        <div class="flex items-center gap-2"><span class="text-sky-400 w-16">WT (HBB):</span> <span class="tracking-widest">{hbb_align['aligned_seq1'][:50]}...</span></div>
+        <div class="flex items-center gap-2"><span class="text-slate-500 w-16">MATCH:   </span> <span class="tracking-widest text-emerald-400 font-bold">{hbb_align['match_track'][:50]}...</span></div>
+        <div class="flex items-center gap-2"><span class="text-rose-400 w-16">MUT (HbS):</span> <span class="tracking-widest">{hbb_align['aligned_seq2'][:50]}...</span></div>
+      </div>
+      <p class="text-xs text-rose-400">
+        <strong>Detected Mutation:</strong> {hbb_align['mutations_detected'][0]['description']} ({hbb_align['mutations_detected'][0]['type']}, BLOSUM62 score: {hbb_align['mutations_detected'][0]['blosum62_score']}) -> Drives pathological deoxy-hemoglobin polymer fibers.
+      </p>
+    </div>
+
+    <!-- In Silico Drug Screening Ranking Table -->
     <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-      <div class="p-5 border-b border-slate-800">
-        <h3 class="text-base font-bold text-white">Synthesized Multi-Omics Findings</h3>
+      <div class="p-5 border-b border-slate-800 flex justify-between items-center">
+        <div>
+          <h3 class="text-base font-bold text-white">In Silico Drug Screening & Lipinski Compliance</h3>
+          <p class="text-xs text-slate-400">Target Binding Pocket: {ranked_drugs[0]['target_pocket']}</p>
+        </div>
       </div>
       <div class="overflow-x-auto text-xs">
         <table class="w-full text-left">
           <thead class="bg-slate-950/80 text-slate-400 uppercase tracking-wider text-[11px]">
             <tr>
-              <th class="p-3.5">Tier</th>
-              <th class="p-3.5">Entity / Target</th>
-              <th class="p-3.5">Molecular / Genomic Coordinate</th>
-              <th class="p-3.5">Clinical & Mechanistic Finding</th>
+              <th class="p-3">Rank</th>
+              <th class="p-3">Candidate Molecule</th>
+              <th class="p-3">Estimated &Delta;G</th>
+              <th class="p-3">Pocket Fitness</th>
+              <th class="p-3">Drug-Likeness (QED)</th>
+              <th class="p-3">Lipinski Ro5</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-800/60">
-            <tr>
-              <td class="p-3.5 font-bold text-sky-400 font-mono">Structural</td>
-              <td class="p-3.5 font-bold text-white">Proximal His87 & Distal His58</td>
-              <td class="p-3.5 font-mono text-slate-400">PDB: 4HHB (Chain A)</td>
-              <td class="p-3.5 text-slate-300">Covalent coordination with Fe2+ and steric inhibition of CO binding.</td>
-            </tr>
-            <tr>
-              <td class="p-3.5 font-bold text-rose-400 font-mono">Genomic</td>
-              <td class="p-3.5 font-bold text-white">HBB rs334 (HbS)</td>
-              <td class="p-3.5 font-mono text-slate-400">chr11:5227002:T>A</td>
-              <td class="p-3.5 text-slate-300">Hydrophobic valine substitution (E6V) inducing pathological deoxygenated polymerization.</td>
-            </tr>
-            <tr>
-              <td class="p-3.5 font-bold text-amber-400 font-mono">Therapeutic</td>
-              <td class="p-3.5 font-bold text-white">Voxelotor (Oxbryta)</td>
-              <td class="p-3.5 font-mono text-slate-400">CID: 71602803</td>
-              <td class="p-3.5 text-slate-300">Covalent reversible alpha-chain N-terminal valine binding; elevates O2 affinity.</td>
-            </tr>
-            <tr>
-              <td class="p-3.5 font-bold text-emerald-400 font-mono">Genetic</td>
-              <td class="p-3.5 font-bold text-white">Exa-cel (Casgevy)</td>
-              <td class="p-3.5 font-mono text-slate-400">BCL11A Enhancer</td>
-              <td class="p-3.5 text-slate-300">CRISPR-Cas9 gene editing reactivates protective fetal hemoglobin (HbF).</td>
-            </tr>
+            {drug_rows_html}
           </tbody>
         </table>
       </div>
@@ -168,9 +205,9 @@ class ReportGenerator:
     <footer class="text-xs text-slate-500 border-t border-slate-800 pt-6 space-y-2">
       <p class="font-bold text-slate-400">Primary References & Data Sources:</p>
       <ul class="list-disc list-inside space-y-1 font-mono">
-        <li>RCSB Protein Data Bank (PDB): 4HHB (Fermi et al., 1984)</li>
+        <li>RCSB Protein Data Bank (PDB): 4HHB, 2J6M, 6OIM</li>
         <li>NCBI ClinVar: Variation ID 15333 (Pathogenic consensus) & dbSNP: rs334</li>
-        <li>PubChem: CID 71602803 (Voxelotor) & ChEMBL: CHEMBL1431 (Metformin)</li>
+        <li>STRING Database: High-confidence interactome physical & functional associations</li>
         <li>The New England Journal of Medicine (NEJM): Exa-cel Trial (PMID: 38661449)</li>
       </ul>
     </footer>
@@ -199,40 +236,33 @@ class ReportGenerator:
       }}
     }});
 
-    // Chart 2: Radar Chart
-    new Chart(document.getElementById('pharmaRadar'), {{
-      type: 'radar',
+    // Chart 2: Docking Bar Chart
+    new Chart(document.getElementById('dockingChart'), {{
+      type: 'bar',
       data: {{
-        labels: ['MW / 5', 'TPSA', 'LogP * 20', 'H-Acceptors * 15', 'Rotatable * 12'],
-        datasets: [
-          {{
-            label: 'Voxelotor',
-            data: [67.4, 77.2, 54.0, 75.0, 72.0],
-            borderColor: '#f59e0b',
-            backgroundColor: 'rgba(245, 158, 11, 0.25)',
-            borderWidth: 2
-          }},
-          {{
-            label: 'Metformin',
-            data: [25.8, 88.0, -28.0, 45.0, 24.0],
-            borderColor: '#0ea5e9',
-            backgroundColor: 'rgba(14, 165, 233, 0.25)',
-            borderWidth: 2
-          }}
-        ]
+        labels: {json.dumps([d['drug_name'].split('(')[0].strip() for d in ranked_drugs[:5]])},
+        datasets: [{{
+          label: 'Estimated Free Energy ΔG (kcal/mol)',
+          data: {json.dumps([d['estimated_delta_g_kcal_mol'] for d in ranked_drugs[:5]])},
+          backgroundColor: ['#10b981', '#0ea5e9', '#6366f1', '#f59e0b', '#ec4899'],
+          borderRadius: 8
+        }}]
       }},
       options: {{
         responsive: true,
         maintainAspectRatio: false,
         scales: {{
-          r: {{
+          y: {{
             grid: {{ color: '#1e293b' }},
-            pointLabels: {{ color: '#94a3b8', font: {{ size: 10 }} }},
-            ticks: {{ display: false }}
+            ticks: {{ color: '#94a3b8' }}
+          }},
+          x: {{
+            grid: {{ display: false }},
+            ticks: {{ color: '#94a3b8', font: {{ size: 10 }} }}
           }}
         }},
         plugins: {{
-          legend: {{ position: 'bottom', labels: {{ color: '#94a3b8', font: {{ size: 11 }} }} }}
+          legend: {{ display: false }}
         }}
       }}
     }});
@@ -246,7 +276,8 @@ class ReportGenerator:
 
         return target_path
 
+
 if __name__ == "__main__":
     rg = ReportGenerator()
-    out = rg.generate_html_report()
+    out = rg.generate_html_report(target_gene="EGFR")
     print(f"Scientific Report Generated: {out}")
