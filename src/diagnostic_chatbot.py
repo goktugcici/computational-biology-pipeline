@@ -237,7 +237,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     'colorectal_cancer': {
         'patterns': [
             r'kolon.*kanser', r'kolorektal', r'bağırsak.*kanser', r'rektum.*kanser',
-            r'dışkı.*kan', r'büyük abdest.*kan', r'kolonoskopi', r'makat.*kan', r'rektal kanama'
+            r'kolon.*belirti', r'kolon.*tedavi'
         ],
         'title': 'Kolorektal (Bağırsak) Kanseri & Erken Tanı',
         'answer': (
@@ -295,10 +295,10 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'stomach_cancer': {
         'patterns': [
-            r'mide.*kanser', r'gastrik.*kanser', r'mide.*belirti', r'yutma güç',
-            r'disfaji', r'erken doyma', r'mide.*ağrı', r'endoskopi'
+            r'mide.*kanser', r'gastrik.*kanser', r'mide.*belirti',
+            r'erken doyma', r'mide.*ağrı', r'gastroskopi'
         ],
-        'title': 'Mide Kanseri & Disfaji (Yutma Güçlüğü)',
+        'title': 'Mide Kanseri & Erken Tanı',
         'answer': (
             "🍽️ **Mide Kanseri ve Erken Teşhis Rehberi:**\n\n"
             "• **Kritik Alarm Bulguları:**\n"
@@ -312,8 +312,8 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'bladder_cancer': {
         'patterns': [
-            r'mesane.*kanser', r'idrar.*kan', r'hematüri', r'böbrek.*kanser',
-            r'idrarda.*kırmızı', r'mesane.*belirti', r'sistoskopi'
+            r'mesane.*kanser', r'böbrek.*kanser',
+            r'mesane.*belirti', r'sistoskopi'
         ],
         'title': 'Mesane Kanseri & Ağrısız Hematüri',
         'answer': (
@@ -382,7 +382,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'colonoscopy_info': {
         'patterns': [
-            r'kolonoskopi.*nedir', r'kolonoskopi.*acı', r'kolonoskopi.*nasıl',
+            r'kolonoskopi', r'kolonoskopi.*nedir', r'kolonoskopi.*acı', r'kolonoskopi.*nasıl',
             r'kolonoskopi.*zor mu', r'kolonoskopi.*hazırlık'
         ],
         'title': 'Kolonoskopi İşlemi, Konforu ve Önemi',
@@ -477,7 +477,8 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'weight_loss_alarm': {
         'patterns': [
-            r'nedensiz kilo', r'açıklanamayan kilo', r'hızlı zayıflama', r'istemsiz kilo', r'kilo verdim.*neden'
+            r'nedensiz.*kilo', r'açıklanamayan.*kilo', r'hızlı zayıflama', r'istemsiz.*kilo',
+            r'kilo verdim.*neden', r'kilo kaybı'
         ],
         'title': 'Açıklanamayan Hızlı Kilo Kaybı ve Kanser Riski',
         'answer': (
@@ -523,6 +524,30 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
             "• **İlk Değerlendirme:** Memede saptanan kitlelerin yaklaşık %80'i iyi huyludur (fibroadenom, basit kist vb.). Ancak hekim ve görüntüleme onayı olmaksızın iyi huylu olduğu varsayılamaz.\n"
             "• **Şüpheli Bulgular:** Sert, sınırları düzensiz, çevre dokuya yapışık ve ağrısız kitleler malignite açısından daha yüksek risk taşır.\n"
             "• **İzlenecek Yol:** 40 yaş altı için Meme USG, 40 yaş üzeri için Dijital Mamografi + Meme USG, şüpheli durumlarda Tru-Cut iğne biyopsisi."
+        )
+    },
+    'dysphagia_alarm': {
+        'patterns': [
+            r'yutma güç', r'disfaji', r'lokma.*takıl', r'boğaz.*takıl', r'yutamıyorum'
+        ],
+        'title': 'Yutma Güçlüğü (Disfaji) & Üst GİS Kırmızı Bayrağı',
+        'answer': (
+            "🍽️ **Yutma Güçlüğü (Disfaji) ve Acil Klinik Yaklaşım:**\n\n"
+            "• **Neden Kritik Bir Kırmızı Bayraktır?** Katı veya sıvı gıdaları yutarken boğazda/göğüste lokmanın takılması hissi, yemek borusu (özofagus) veya mide-yemek borusu bileşkesi lezyonlarının birincil alarmıdır.\n"
+            "• **NICE NG12 Kılavuzu:** Açıklanamayan disfaji semptomu doğrudan **NICE 2-Week-Wait Acil Sevk** gerektirir.\n"
+            "• **Önerilen İlk Tetkik:** Vakit kaybetmeden Gastroenteroloji uzmanı tarafından Üst GİS Endoskopisi (Gastroskopi) yapılmalıdır."
+        )
+    },
+    'jaundice_alarm': {
+        'patterns': [
+            r'sarılık', r'göz.*sarar', r'cilt.*sarar', r'tenim sarar', r'çay rengi idrar', r'beyaz dışkı'
+        ],
+        'title': 'Ağrısız Sarılık (İkter) & Pankreas/Safra Alarmları',
+        'answer': (
+            "🟡 **Ağrısız Sarılık ve Klinik Değerlendirme:**\n\n"
+            "• **Kritik Alarm Kuralı:** Ağrısız, sancısız ilerleyici sarılık (göz aklarında sararma, çay rengi idrar, açık renkli dışkı) aksi kanıtlanana kadar pankreas başı ve safra yolu obstrüksiyonu şüphesidir.\n"
+            "• **NICE NG12 Kuralı:** 40 yaş ve üzeri açıklanamayan ağrısız sarılık hastaları 2 hafta içinde doğrudan ileri tetkik için sevk edilmelidir.\n"
+            "• **Önerilen İnceleme:** Dinamik Batın BT, MRCP ve Serum Total/Direkt Bilirubin, CA 19-9 testleri."
         )
     },
     'head_neck_cancer': {
@@ -704,7 +729,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'chemotherapy_basics': {
         'patterns': [
-            r'kemoterapi nedir', r'kemoterapi nasıl', r'kemoterapötik', r'damardan ilaç.*kanser'
+            r'kemoterapi.*nedir', r'kemoterapi.*nasıl', r'\bkemoterapi\b', r'kemoterapötik', r'damardan ilaç.*kanser'
         ],
         'title': 'Kemoterapi Nedir & Nasıl Çalışır?',
         'answer': (

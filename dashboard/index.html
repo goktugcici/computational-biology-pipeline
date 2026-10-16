@@ -3347,7 +3347,7 @@
           "• **Tarama Takvimi:** 40-69 yaş arası kadınlara 2 yılda bir Dijital Mamografi (KETEM/Hastaneler) önerilir. Kitlelerin %80'i iyi huyludur ancak hekim muayenesi şarttır."
       },
       'colorectal_cancer': {
-        patterns: [/kolon.*kanser/i, /kolorektal/i, /bağırsak.*kanser/i, /rektum.*kanser/i, /dışkı.*kan/i, /büyük abdest.*kan/i, /kolonoskopi/i, /makat.*kan/i],
+        patterns: [/kolon.*kanser/i, /kolorektal/i, /bağırsak.*kanser/i, /rektum.*kanser/i, /kolon.*belirti/i],
         title: 'Kolorektal (Kalın Bağırsak) Kanseri & Erken Tanı',
         answer: "🎗️ **Kolorektal Kanser ve Erken Teşhis Rehberi:**\n\n" +
           "• **Kırmızı Bayraklar:** Dışkıda kan görülmesi, 6 haftayı geçen dışkılama değişikliği (ishal/kabızlık) ve açıklanamayan demir eksikliği anemisi.\n" +
@@ -3374,14 +3374,14 @@
           "• **Tanı:** Dinamik 3 Fazlı Batın BT, MRCP ve Endoskopik Ultrasonografi (EUS)."
       },
       'stomach_cancer': {
-        patterns: [/mide.*kanser/i, /gastrik.*kanser/i, /mide.*belirti/i, /yutma güç/i, /disfaji/i, /erken doyma/i],
+        patterns: [/mide.*kanser/i, /gastrik.*kanser/i, /mide.*belirti/i, /erken doyma/i, /gastroskopi/i],
         title: 'Mide & Özofagus Kanseri',
         answer: "🍽️ **Mide ve Yemek Borusu Kanserleri:**\n\n" +
           "• **Kırmızı Bayraklar:** Katı gıdalara karşı ilerleyici yutma güçlüğü (disfaji), birkaç lokmada erken doyma hissi, tedaviye dirençli mide ağrısı ve kilo kaybı.\n" +
           "• **Tanı:** Üst GIS Endoskopisi (ÖGD) ve patolojik biyopsi altın standarttır."
       },
       'bladder_cancer': {
-        patterns: [/mesane.*kanser/i, /idrar.*kan/i, /hematüri/i, /böbrek.*kanser/i, /sistoskopi/i],
+        patterns: [/mesane.*kanser/i, /mesane.*tümör/i, /böbrek.*kanser/i, /mesane.*belirti/i, /sistoskopi/i],
         title: 'Mesane & Böbrek Kanseri (Ağrısız Hematüri)',
         answer: "💧 **Mesane ve Böbrek Kanseri:**\n\n" +
           "• **En Önemli Kırmızı Bayrak:** Ağrısız, sancısız gözle görülür kanlı idrar (Makroskopik Hematüri). Enfeksiyon olmaksızın idrarda kan görülmesi aksi kanıtlanana kadar ürolojik tümör şüphesidir!\n" +
@@ -3482,12 +3482,28 @@
           "• Ameliyat sonrası moleküler kalıntı hastalığı (MRD) tespit ederek nüksü radyolojik BT/MR'dan **3-6 ay önce** yakalar!"
       },
       'colonoscopy_info': {
-        patterns: [/kolonoskopi.*nedir/i, /kolonoskopi.*acı/i, /kolonoskopi.*nasıl/i, /kolonoskopi.*zor mu/i],
+        patterns: [/kolonoskopi/i, /kolonoskopi.*nedir/i, /kolonoskopi.*acı/i, /kolonoskopi.*nasıl/i, /kolonoskopi.*zor mu/i],
         title: 'Kolonoskopi İşlemi ve Konforu',
         answer: "🔍 **Kolonoskopi Hakkında Gerçekler:**\n\n" +
           "• Günümüzde sedasyon (hafif anestezi) altında yapılır; hasta hiçbir ağrı veya rahatsızlık hissetmez.\n" +
           "• İşlem ortalama 15-20 dakika sürer.\n" +
           "• Kolonoskopi sadece teşhis koymaz; kansere dönüşebilecek polipleri anında kesip alarak kanseri oluşmadan engeller!"
+      },
+      'dysphagia_alarm': {
+        patterns: [/yutma güç/i, /disfaji/i, /lokma.*takıl/i, /boğaz.*takıl/i, /yutamıyorum/i],
+        title: 'Yutma Güçlüğü (Disfaji) & Üst GİS Kırmızı Bayrağı',
+        answer: "🍽️ **Yutma Güçlüğü (Disfaji) ve Acil Klinik Yaklaşım:**\n\n" +
+          "• **Neden Kritik Bir Kırmızı Bayraktır?** Katı veya sıvı gıdaları yutarken boğazda/göğüste takılma hissi, yemek borusu (özofagus) veya mide-yemek borusu bileşkesi lezyonlarının birincil alarmıdır.\n" +
+          "• **NICE NG12 Kılavuzu:** Açıklanamayan disfaji semptomu doğrudan **NICE 2-Week-Wait Acil Sevk** gerektirir.\n" +
+          "• **Önerilen İlk Tetkik:** Vakit kaybetmeden Gastroenteroloji uzmanı tarafından Üst GİS Endoskopisi (Gastroskopi) yapılmalıdır."
+      },
+      'jaundice_alarm': {
+        patterns: [/sarılık/i, /göz.*sarar/i, /cilt.*sarar/i, /tenim sarar/i, /çay rengi idrar/i, /beyaz dışkı/i],
+        title: 'Ağrısız Sarılık (İkter) & Pankreas/Safra Alarmları',
+        answer: "🟡 **Ağrısız Sarılık ve Klinik Değerlendirme:**\n\n" +
+          "• **Kritik Alarm Kuralı:** Ağrısız, sancısız ilerleyici sarılık (göz aklarında sararma, çay rengi idrar, açık renkli dışkı) aksi kanıtlanana kadar pankreas başı ve safra yolu obstrüksiyonu şüphesidir.\n" +
+          "• **NICE NG12 Kuralı:** 40 yaş ve üzeri açıklanamayan ağrısız sarılık hastaları 2 hafta içinde doğrudan ileri tetkik için sevk edilmelidir.\n" +
+          "• **Önerilen İnceleme:** Dinamik Batın BT, MRCP ve Serum Total/Direkt Bilirubin, CA 19-9 testleri."
       },
       'biopsy_myths': {
         patterns: [/biyopsi.*kanser.*yayar/i, /biyopsi.*zararlı/i, /biyopsi.*bıçak değerse/i, /bıçak vurulmaz/i],
@@ -3548,7 +3564,7 @@
           "• Trastuzumab Deruxtecan (Enhertu), antikora bağlı kemoterapi roketi gibi hücreyi içeriden yok eder."
       },
       'chemotherapy_basics': {
-        patterns: [/kemoterapi nedir/i, /kemoterapi nasıl/i, /kemoterapötik/i],
+        patterns: [/kemoterapi.*nedir/i, /kemoterapi.*nasıl/i, /\bkemoterapi\b/i, /kemoterapötik/i],
         title: 'Kemoterapi Nedir & Nasıl Çalışır?',
         answer: "💉 **Kemoterapi (Sitotoksik Tedavi) Esasları:**\n\n" +
           "• Hızlı bölünen kanser hücrelerinin DNA sentezini veya bölünmesini durdurarak hücre ölümüne yol açar.\n" +
