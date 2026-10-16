@@ -138,158 +138,76 @@
       "screen_rank": 5
     }
   ],
-  "ppi_network": {
-    "gene": "EGFR",
-    "network_name": "Epidermal Growth Factor Receptor Interactome",
-    "total_nodes": 8,
-    "total_edges": 8,
-    "network_density": 0.286,
-    "primary_hub_protein": "EGFR",
-    "node_centrality": {
-      "EGFR": {
-        "degree": 6,
-        "centrality": 0.857,
-        "weighted_connectivity": 5.907
-      },
-      "ERBB2": {
-        "degree": 1,
-        "centrality": 0.143,
-        "weighted_connectivity": 0.999
-      },
-      "GRB2": {
-        "degree": 3,
-        "centrality": 0.429,
-        "weighted_connectivity": 2.986
-      },
-      "SOS1": {
-        "degree": 1,
-        "centrality": 0.143,
-        "weighted_connectivity": 0.997
-      },
-      "SHC1": {
-        "degree": 2,
-        "centrality": 0.286,
-        "weighted_connectivity": 1.986
-      },
-      "PIK3CA": {
-        "degree": 1,
-        "centrality": 0.143,
-        "weighted_connectivity": 0.978
-      },
-      "STAT3": {
-        "degree": 1,
-        "centrality": 0.143,
-        "weighted_connectivity": 0.965
-      },
-      "CBL": {
-        "degree": 1,
-        "centrality": 0.143,
-        "weighted_connectivity": 0.972
-      }
-    },
-    "top_ranked_hubs": [
-      "EGFR",
-      "GRB2",
-      "SHC1"
-    ],
-    "raw_nodes": [
+  "drug_synergy": {
+    "drug_a": "Dabrafenib",
+    "drug_b": "Trametinib",
+    "pair_key": "DABRAFENIB+TRAMETINIB",
+    "combination_index": 0.42,
+    "bliss_score": 28.5,
+    "synergy_level": "Strong Synergy (Yüksek Sinerji)",
+    "color": "#10b981",
+    "mechanistic_class": "Vertical Pathway Inhibition (MAPK Kaskadı)",
+    "rationale": "BRAF blokajının yol açtığı geri bildirim MEK aktivasyonunu Trametinib eşzamanlı engelleyerek direnci kırar.",
+    "clinical_trial": "COMBI-d / COMBI-v Phase 3",
+    "indication": "BRAF V600E/K Melanoma, Anaplastic Thyroid, NSCLC",
+    "is_curated_trial": true
+  },
+  "immunotherapy": {
+    "tmb_mut_per_mb": 16.2,
+    "is_tmb_high": true,
+    "msi_status": "MSI-H",
+    "is_msi_high": true,
+    "pdl1_tps_percent": 65.0,
+    "response_probability_percent": 89.2,
+    "classification": "Exceptional Response Likely (Yüksek Yanıt Beklentisi)",
+    "badge_color": "#10b981",
+    "recommended_regimen": "Pembrolizumab (Keytruda) veya Nivolumab Monoterapisi",
+    "biomarker_breakdown": {
+      "tmb_contribution": 41.2,
+      "msi_contribution": 35.0,
+      "pdl1_contribution": 13.0
+    }
+  },
+  "alphafold_quality": {
+    "gene": "TP53",
+    "uniprot_id": "P04637",
+    "protein_name": "Cellular Tumor Antigen p53",
+    "total_length_aa": 393,
+    "mean_plddt": 62.4,
+    "overall_band": "Low",
+    "overall_band_desc": "Esnek halka bölgesi veya menteşe",
+    "badge_color": "#eab308",
+    "disorder_fraction_percent": 35.1,
+    "structured_domains": [
       {
-        "id": "EGFR",
-        "role": "Hub Target",
-        "type": "Receptor Kinase",
-        "score": 1.0
+        "name": "DNA-Binding Core Domain",
+        "start": 102,
+        "end": 292,
+        "mean_plddt": 92.5,
+        "confidence": "Very High (>90)"
       },
       {
-        "id": "ERBB2",
-        "role": "Heterodimerization Partner",
-        "type": "Receptor Kinase",
-        "score": 0.99
-      },
-      {
-        "id": "GRB2",
-        "role": "Adaptor Protein",
-        "type": "SH2/SH3 Adaptor",
-        "score": 0.98
-      },
-      {
-        "id": "SOS1",
-        "role": "GEF Activator",
-        "type": "Exchange Factor",
-        "score": 0.95
-      },
-      {
-        "id": "SHC1",
-        "role": "Phosphotyrosine Adaptor",
-        "type": "Adaptor",
-        "score": 0.96
-      },
-      {
-        "id": "PIK3CA",
-        "role": "Lipid Kinase",
-        "type": "Survival Signaling",
-        "score": 0.94
-      },
-      {
-        "id": "STAT3",
-        "role": "Transcription Factor",
-        "type": "Transcriptional Regulation",
-        "score": 0.91
-      },
-      {
-        "id": "CBL",
-        "role": "E3 Ubiquitin Ligase",
-        "type": "Receptor Downregulation",
-        "score": 0.93
+        "name": "Tetramerization Domain",
+        "start": 325,
+        "end": 356,
+        "mean_plddt": 84.1,
+        "confidence": "Confident (70-90)"
       }
     ],
-    "raw_edges": [
+    "disordered_regions": [
       {
-        "source": "EGFR",
-        "target": "ERBB2",
-        "combined_score": 0.999,
-        "evidence": "Biochemical Assay"
+        "name": "N-Terminal Transactivation Domain (TAD)",
+        "start": 1,
+        "end": 101,
+        "mean_plddt": 38.2,
+        "idr": true
       },
       {
-        "source": "EGFR",
-        "target": "GRB2",
-        "combined_score": 0.998,
-        "evidence": "Phosphorylation Contact"
-      },
-      {
-        "source": "GRB2",
-        "target": "SOS1",
-        "combined_score": 0.997,
-        "evidence": "Complex Assembly"
-      },
-      {
-        "source": "EGFR",
-        "target": "SHC1",
-        "combined_score": 0.995,
-        "evidence": "Direct Phosphorylation"
-      },
-      {
-        "source": "SHC1",
-        "target": "GRB2",
-        "combined_score": 0.991,
-        "evidence": "Signal Transduction"
-      },
-      {
-        "source": "EGFR",
-        "target": "PIK3CA",
-        "combined_score": 0.978,
-        "evidence": "Downstream Cascade"
-      },
-      {
-        "source": "EGFR",
-        "target": "STAT3",
-        "combined_score": 0.965,
-        "evidence": "Transcriptional Activation"
-      },
-      {
-        "source": "EGFR",
-        "target": "CBL",
-        "combined_score": 0.972,
-        "evidence": "Ubiquitination"
+        "name": "C-Terminal Regulatory Domain (CTD)",
+        "start": 357,
+        "end": 393,
+        "mean_plddt": 32.7,
+        "idr": true
       }
     ]
   },

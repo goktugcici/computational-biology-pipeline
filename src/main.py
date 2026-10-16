@@ -1,8 +1,10 @@
 """
-Computational Biology & Science Pipeline - Main Runner (v2.0)
+Computational Biology & Science Pipeline - Main Runner (v3.0 Ultimate)
 Executes an end-to-end multi-omics analysis spanning structural biology,
 genomics, pharmacology, biological pathways, literature intelligence,
-pairwise sequence alignments, in silico drug screening, and PPI interactomes.
+pairwise sequence alignments, in silico drug screening, PPI interactomes,
+drug combination synergy prediction, immunotherapy response (TMB/MSI),
+and AlphaFold structural confidence metrics (pLDDT).
 """
 
 import sys
@@ -18,28 +20,33 @@ from oncology_profiler import OncologyProfiler
 from sequence_aligner import SequenceAligner, KNOWN_VARIANTS
 from docking_scorer import DockingScorer
 from interaction_network import InteractionNetwork
+from synergy_predictor import SynergyPredictor
+from immunotherapy_response import ImmunotherapyPredictor
+from alphafold_quality import AlphaFoldQualityAnalyzer
 from report_generator import ReportGenerator
 
 def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = None, 
                  live_pubmed: str = None, pan_cancer: str = None, align_variant: str = None,
                  screen_drugs_target: str = None, ppi_gene: str = None,
+                 synergy_pair: list = None, tmb_val: float = None, msi_status: str = "MSS",
+                 pdl1_val: float = 0.0, alphafold_gene: str = None,
                  export_json_path: str = None, generate_report: bool = False):
     print("=" * 70)
-    print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE v2.0")
-    print("Multi-Omics Structural, Genomic, Pharmacological & Network Analysis")
+    print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE v3.0 ULTIMATE")
+    print("Multi-Omics Structural, Genomic, Pharmacological, Synergy & Immunotherapy")
     print("=" * 70)
 
     pipeline_summary = {}
 
     # 1. Structural Biology
-    print("\n[1/7] 3D STRUCTURAL BIOLOGY (Hemoglobin 4HHB)")
+    print("\n[1/10] 3D STRUCTURAL BIOLOGY (Hemoglobin 4HHB)")
     struct = StructureAnalyzer(f"{data_dir}/pdb_00004hhb.cif")
     print(f"  Loaded file: {struct.file_path}")
     print(f"  Detected ligands/co-factors: {struct.ligands[:10]}...")
     pipeline_summary['structural_biology'] = {'file': struct.file_path, 'ligand_count': len(struct.ligands)}
 
     # 2. Genomic Variant Analysis
-    print("\n[2/7] GENOMIC VARIANT ANALYSIS (HBB rs334 & ClinVar Pathogenicity)")
+    print("\n[2/10] GENOMIC VARIANT ANALYSIS (HBB rs334 & ClinVar Pathogenicity)")
     var_analyzer = VariantAnalyzer(data_dir)
     res = var_analyzer.analyze_pathogenicity()
     print(f"  Total variants screened: {res['total_variants']}")
@@ -50,7 +57,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['genomic_variants'] = res
 
     # 3. Pharmacology & Cheminformatics
-    print("\n[3/7] PHARMACOLOGY & DRUG DISCOVERY (Voxelotor & Metformin)")
+    print("\n[3/10] PHARMACOLOGY & DRUG DISCOVERY (Voxelotor & Metformin)")
     pharm = PharmacologyAnalyzer(data_dir)
     vox = pharm.get_compound_profile("voxelotor")
     props = vox.get("properties", {})
@@ -62,7 +69,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['pharmacology'] = {'voxelotor': props, 'chembl': met}
 
     # 4. Biological Pathways
-    print("\n[4/7] BIOLOGICAL PATHWAYS (Reactome HBB Mapping)")
+    print("\n[4/10] BIOLOGICAL PATHWAYS (Reactome HBB Mapping)")
     pm = PathwayMapper(data_dir)
     pathways = pm.get_gene_pathways("hbb")
     print(f"  Mapped Pathways: {len(pathways)} cellular events identified")
@@ -71,7 +78,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['pathways_count'] = len(pathways)
 
     # 5. Scientific Literature Intelligence
-    print("\n[5/7] SCIENTIFIC LITERATURE & CRISPR BREAKTHROUGH (PubMed)")
+    print("\n[5/10] SCIENTIFIC LITERATURE & CRISPR BREAKTHROUGH (PubMed)")
     lm = LiteratureMiner(data_dir)
     lit = lm.get_abstract_summary()
     print(f"  Landmark Study (PMID: {lit.get('pmid')}): {lit.get('title')}")
@@ -79,7 +86,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['literature'] = {'pmid': lit.get('pmid'), 'title': lit.get('title')}
 
     # 6. Pairwise Sequence Alignment & Mutation Consequence
-    print("\n[6/7] SEQUENCE ALIGNMENT & BLOSUM62 CONSERVATION")
+    print("\n[6/10] SEQUENCE ALIGNMENT & BLOSUM62 CONSERVATION")
     aligner = SequenceAligner()
     chosen_variant = align_variant if align_variant else 'HBB_SICKLE'
     if chosen_variant in KNOWN_VARIANTS:
@@ -90,11 +97,9 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
             mut = al_res['mutations_detected'][0]
             print(f"  Detected Mutation: {mut['description']} ({mut['type']}, BLOSUM62: {mut['blosum62_score']})")
         pipeline_summary['sequence_alignment'] = al_res
-    else:
-        print(f"  Unknown variant key '{chosen_variant}'. Available: {list(KNOWN_VARIANTS.keys())}")
 
     # 7. In Silico Drug Screening & Lipinski Scoring
-    print("\n[7/7] IN SILICO DRUG SCREENING & LIPINSKI PROFILING")
+    print("\n[7/10] IN SILICO DRUG SCREENING & LIPINSKI PROFILING")
     docking = DockingScorer()
     screen_target = screen_drugs_target if screen_drugs_target else (pan_cancer if pan_cancer else 'EGFR')
     ranked_drugs = docking.screen_library_against_target(screen_target)
@@ -102,6 +107,36 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     print(f"  Top In Silico Hit: #{ranked_drugs[0]['screen_rank']} {ranked_drugs[0]['drug_name']}")
     print(f"  Estimated dG: {ranked_drugs[0]['estimated_delta_g_kcal_mol']} kcal/mol (Fitness: {ranked_drugs[0]['contact_fitness_score']}%)")
     pipeline_summary['drug_screening'] = ranked_drugs[:5]
+
+    # 8. Drug Combination Synergy Prediction
+    print("\n[8/10] COMBINATION THERAPY & DRUG SYNERGY PREDICTION")
+    synergy = SynergyPredictor()
+    d_a = synergy_pair[0] if synergy_pair and len(synergy_pair) >= 1 else "Dabrafenib"
+    d_b = synergy_pair[1] if synergy_pair and len(synergy_pair) >= 2 else "Trametinib"
+    syn_res = synergy.evaluate_combination(d_a, d_b)
+    print(f"  Evaluated Regimen: {syn_res['drug_a']} + {syn_res['drug_b']}")
+    print(f"  Combination Index (CI): {syn_res['combination_index']} -> {syn_res['synergy_level']}")
+    print(f"  Bliss Excess Score: +{syn_res['bliss_score']} | Class: {syn_res['mechanistic_class']}")
+    pipeline_summary['drug_synergy'] = syn_res
+
+    # 9. Immunotherapy Efficacy & TMB/MSI
+    print("\n[9/10] IMMUNOTHERAPY RESPONSE PREDICTION (TMB & MSI-H)")
+    immuno = ImmunotherapyPredictor()
+    cur_tmb = tmb_val if tmb_val is not None else 14.5
+    imm_res = immuno.evaluate_response(cur_tmb, msi_status, pdl1_val)
+    print(f"  Biomarkers: TMB={imm_res['tmb_mut_per_mb']} mut/Mb | MSI={imm_res['msi_status']} | PD-L1={imm_res['pdl1_tps_percent']}%")
+    print(f"  Prediction: {imm_res['response_probability_percent']}% Efficacy -> {imm_res['classification']}")
+    print(f"  Actionable Regimen: {imm_res['recommended_regimen']}")
+    pipeline_summary['immunotherapy'] = imm_res
+
+    # 10. AlphaFold Structure Confidence & IDR Prediction
+    print("\n[10/10] ALPHAFOLD STRUCTURAL CONFIDENCE (pLDDT Analysis)")
+    af_analyzer = AlphaFoldQualityAnalyzer()
+    target_gene = alphafold_gene if alphafold_gene else "TP53"
+    af_res = af_analyzer.analyze_protein(target_gene)
+    print(f"  Target: {af_res['gene']} ({af_res['protein_name']}) - UniProt: {af_res['uniprot_id']}")
+    print(f"  Mean pLDDT: {af_res['mean_plddt']} ({af_res['overall_band']}) | Disordered Fraction: {af_res['disorder_fraction_percent']}%")
+    pipeline_summary['alphafold_quality'] = af_res
 
     # OPTIONAL: PPI Network Analysis
     if ppi_gene:
@@ -183,7 +218,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     print("=" * 70)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run Computational Biology Pipeline v2.0")
+    parser = argparse.ArgumentParser(description="Run Computational Biology Pipeline v3.0 Ultimate")
     parser.add_argument("--data_dir", default="data", help="Path to data directory")
     parser.add_argument("--live_pdb", default=None, help="Fetch live PDB metadata (e.g. 1TSR, 6LU7)")
     parser.add_argument("--live_drug", default=None, help="Fetch live PubChem drug properties (e.g. Imatinib, Aspirin)")
@@ -192,6 +227,11 @@ if __name__ == "__main__":
     parser.add_argument("--align", default=None, help="Pairwise sequence alignment (e.g. HBB_SICKLE, EGFR_L858R, KRAS_G12C)")
     parser.add_argument("--screen_drugs", default=None, help="Screen candidate drugs against target pocket (e.g. EGFR, KRAS, BRAF, HBB)")
     parser.add_argument("--ppi", default=None, help="Analyze PPI interactome network (e.g. EGFR, KRAS, TP53, HBB)")
+    parser.add_argument("--synergy", nargs=2, default=None, help="Evaluate combination therapy synergy (e.g. --synergy Dabrafenib Trametinib)")
+    parser.add_argument("--tmb", type=float, default=None, help="Tumor Mutational Burden (mut/Mb, e.g. 15.5)")
+    parser.add_argument("--msi", default="MSS", help="Microsatellite Instability status (MSS or MSI-H)")
+    parser.add_argument("--pdl1", type=float, default=0.0, help="PD-L1 Tumor Proportion Score (TPS %)")
+    parser.add_argument("--alphafold_conf", default=None, help="Analyze AlphaFold pLDDT confidence (e.g. TP53, EGFR, HBB)")
     parser.add_argument("--export_json", default=None, help="Export complete pipeline results to JSON file")
     parser.add_argument("--generate_report", action="store_true", help="Generate publication-grade HTML report")
     args = parser.parse_args()
@@ -205,6 +245,11 @@ if __name__ == "__main__":
         align_variant=args.align,
         screen_drugs_target=args.screen_drugs,
         ppi_gene=args.ppi,
+        synergy_pair=args.synergy,
+        tmb_val=args.tmb,
+        msi_status=args.msi,
+        pdl1_val=args.pdl1,
+        alphafold_gene=args.alphafold_conf,
         export_json_path=args.export_json,
         generate_report=args.generate_report
     )

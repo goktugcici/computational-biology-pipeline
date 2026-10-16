@@ -4,29 +4,29 @@
 [![Pages Deployment](https://github.com/goktugcici/computational-biology-pipeline/actions/workflows/deploy-pages.yml/badge.svg)](https://goktugcici.github.io/computational-biology-pipeline/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version: 2.0 Enterprise](https://img.shields.io/badge/Release-v2.0_Enterprise-emerald.svg)](https://github.com/goktugcici/computational-biology-pipeline/releases)
-[![Tests Passing](https://img.shields.io/badge/Tests-11%2F11%20Passed-brightgreen.svg)](https://github.com/goktugcici/computational-biology-pipeline/actions)
+[![Version: 3.0 Ultimate](https://img.shields.io/badge/Release-v3.0_Ultimate-rose.svg)](https://github.com/goktugcici/computational-biology-pipeline/releases)
+[![Tests Passing](https://img.shields.io/badge/Tests-14%2F14%20Passed-brightgreen.svg)](https://github.com/goktugcici/computational-biology-pipeline/actions)
 
-A production-grade, modular, and reproducible computational biology platform integrating **3D Structural Biology**, **Genomic Variant Annotation**, **Pan-Cancer Precision Oncology**, **Needleman-Wunsch Sequence Alignment**, **In Silico Drug Screening (Lipinski Ro5 & Binding Scoring)**, **Protein-Protein Interaction (PPI) Interactome Networks**, **Biological Pathways**, **Literature Intelligence**, and an **Interactive WebGL Dashboard**.
+A state-of-the-art, production-grade computational biology and precision oncology platform integrating **3D Structural Crystallography**, **Genomic Pathogenicity Annotation**, **Pan-Cancer Targeted Oncology**, **Needleman-Wunsch Sequence Alignment**, **In Silico Drug Screening (Lipinski Ro5 & Binding Free Energy)**, **Protein-Protein Interaction (PPI) Interactome Networks**, **Drug Combination Synergy Modeling (Bliss / Loewe CI)**, **Immunotherapy Biomarker Response Prediction (TMB & MSI-H)**, **AlphaFold Structural Quality (pLDDT & Disordered Regions)**, and an **Interactive WebGL Dashboard**.
 
 ---
 
-## 🏛️ Multi-Omics Architecture (v2.0)
+## 🏛️ Comprehensive Architecture (v3.0 Ultimate)
 
 ```
                             +-----------------------------------------------+
-                            |   Computational Biology Platform v2.0         |
+                            |   Computational Biology Platform v3.0         |
                             +-----------------------+-----------------------+
                                                     |
        +--------------------+-----------------------+-----------------------+--------------------+
        |                    |                       |                       |                    |
        v                    v                       v                       v                    v
 +--------------+    +---------------+       +---------------+       +---------------+    +---------------+
-| 3D Structure |    | Genomic State |       | Needleman-    |       | In Silico     |    | PPI Network   |
-| (PDB/Mol*)   |    | (ClinVar/SNP) |       | Wunsch Align  |       | Drug Screen   |    | (STRING DB)   |
+| 3D Structure |    | Genomic State |       | Needleman-    |       | In Silico     |    | Drug Synergy  |
+| & AlphaFold  |    | (ClinVar/SNP) |       | Wunsch Align  |       | Drug Screen   |    | (Loewe / Bliss|
 +--------------+    +---------------+       +---------------+       +---------------+    +---------------+
-| 4HHB / 2J6M  |    | HBB rs334     |       | BLOSUM62      |       | Lipinski Ro5  |    | Hub Centrality|
-| Active Sites |    | Pathogenicity |       | Mutation Diff |       | Estimated ΔG  |    | Signalosomes  |
+| PDB & pLDDT  |    | HBB rs334     |       | BLOSUM62      |       | Lipinski Ro5  |    | Combination CI|
+| Disordered   |    | Pathogenicity |       | Mutation Diff |       | Estimated ΔG  |    | Bypass Break  |
 +--------------+    +---------------+       +---------------+       +---------------+    +---------------+
        |                    |                       |                       |                    |
        +--------------------+-----------------------+-----------------------+--------------------+
@@ -36,14 +36,14 @@ A production-grade, modular, and reproducible computational biology platform int
        |                                                                                         |
        v                                                                                         v
 +---------------------------------------+                       +---------------------------------------+
-|  Interactive WebGL Dashboard v2.0     |                       |   Executive Publication Report v2.0   |
-|  (3Dmol.js, SVG Interactome, Radars)  |                       |   (HTML / Printable PDF / JSON)       |
+|  Interactive WebGL Dashboard v3.0     |                       |   Executive Publication Report v3.0   |
+|  (3Dmol.js, TMB Sliders, Synergy Chart|                       |   (HTML / Printable PDF / JSON)       |
 +---------------------------------------+                       +---------------------------------------+
 ```
 
 ---
 
-## 🌟 Core Modules
+## 🌟 10 Integrated Multi-Omics Modules
 
 ### 1. 🔬 3D Structural Biology (`src/structural_biology.py`)
 - Analyzes macromolecular complexes and PDB/mmCIF coordinates (`4HHB` - Human Deoxyhemoglobin).
@@ -70,43 +70,45 @@ A production-grade, modular, and reproducible computational biology platform int
   - **BRAF V600E Pocket**: Rank #1 *Dabrafenib* ($\Delta G = -12.87\ \text{kcal/mol}$, $99.5\%$ fitness).
   - **Hemoglobin Tetramer Cleft**: Rank #1 *Voxelotor* ($\Delta G = -12.94\ \text{kcal/mol}$, $99.2\%$ fitness).
 
-### 4. 🕸️ Protein-Protein Interaction (PPI) Interactome (`src/interaction_network.py`)
+### 4. 💥 Combination Therapy & Drug Synergy Predictor (`src/synergy_predictor.py`)
+- Models multi-agent pharmacology combinations using **Bliss Independence** and **Loewe Additivity (CI)**:
+  - **Dabrafenib + Trametinib** (BRAF + MEK): $\text{CI} = 0.42$, Bliss $= +28.5$ (Strong Synergy, COMBI-d/v Phase 3).
+  - **Osimertinib + Savolitinib** (EGFR + MET): $\text{CI} = 0.51$, Bliss $= +24.0$ (Bypasses acquired resistance).
+  - **Sotorasib + Panitumumab** (KRAS G12C + EGFR mAb): $\text{CI} = 0.48$, Bliss $= +26.2$ (CodeBreaK 300 Phase 3).
+  - **Pembrolizumab + Lenvatinib** (PD-1 + VEGFR/FGFR): $\text{CI} = 0.58$, Bliss $= +19.8$ (CLEAR Phase 3).
+
+### 5. 🛡️ Immunotherapy Biomarker & TMB Response Predictor (`src/immunotherapy_response.py`)
+- Evaluates molecular response biomarkers to Immune Checkpoint Blockade (ICB, anti-PD-1 / anti-CTLA-4):
+  - **Tumor Mutational Burden (TMB)**: Cutoff $\ge 10\ \text{mut/Mb}$ (FDA Keynote-158 TMB-High).
+  - **Microsatellite Instability (MSI)**: Mismatch Repair deficiency (dMMR / MSI-H) tissue-agnostic scoring.
+  - **PD-L1 TPS (%)**: Tumor Proportion Score weighting.
+  - Generates actionable clinical regimen recommendations.
+
+### 6. 📐 AlphaFold Quality & Disorder (IDR) Analyzer (`src/alphafold_quality.py`)
+- Evaluates AlphaFold per-residue predicted Local Distance Difference Test (**pLDDT**):
+  - Very High ($>90$), Confident ($70-90$), Low ($50-70$), and Very Low ($<50$).
+  - Identifies **Intrinsically Disordered Regions (IDRs)** and structured domain boundaries (e.g. TP53 core DNA-binding vs disordered N/C-termini).
+
+### 7. 🕸️ Protein-Protein Interaction (PPI) Interactome (`src/interaction_network.py`)
 - Models high-confidence interactome topologies based on **STRING DB** standards.
 - Computes degree centrality, edge weight connectivity, and network density.
 - Identifies critical bottleneck hub proteins (e.g., $EGFR$, $KRAS$, $TP53$).
 
-### 5. 🎯 Pan-Cancer Precision Oncology (`src/oncology_profiler.py`)
+### 8. 🎯 Pan-Cancer Precision Oncology (`src/oncology_profiler.py`)
 - Curated knowledgebase for high-impact oncology targets:
   - **EGFR**: Hotspots `p.L858R`, `p.T790M`, `Exon 19 del` $\rightarrow$ Targeted by *Osimertinib*, *Gefitinib*.
   - **KRAS**: Hotspots `p.G12C`, `p.G12D`, `p.G12V` $\rightarrow$ Targeted by *Sotorasib*, *Adagrasib*.
   - **BRAF**: Hotspots `p.V600E`, `p.V600K` $\rightarrow$ Targeted by *Dabrafenib + Trametinib*.
   - **TP53**: Hotspots `p.R175H`, `p.R248Q`, `p.R273H` $\rightarrow$ Structural & contact mutants.
 
-### 6. ⚡ Dynamic Live Search Engine (`src/live_fetcher.py`)
+### 9. ⚡ Dynamic Live Search Engine (`src/live_fetcher.py`)
 - Real-time querying against live public APIs with an automatic local caching layer in `data/cache/`:
   - **RCSB PDB REST API**: Structural metadata and resolution.
   - **PubChem PUG-REST**: Real-time molecular weights, formulas, and lipophilicity.
   - **PubMed E-utilities**: Instant article search and abstract resolution.
 
-### 7. 🧬 Genomic Variant & Clinical Significance (`src/variant_analyzer.py`)
-- Integrates with **ClinVar** and **dbSNP** (`rs334`, `chr11:5227002:T>A`).
-- Screens clinical interpretations:
-  - `HBB:c.20A>T (p.Glu7Val / Glu6Val)` classified as **Pathogenic**.
-  - Negative control comparison against `BRCA2:c.198A>G (rs28897700)` classified as **Benign**.
-
-### 8. 📊 Biological Pathway Mapping (`src/pathway_mapper.py`)
-- Maps human genes to curated **Reactome** pathways:
-  - `R-HSA-1247673`: *Erythrocytes take up oxygen and release carbon dioxide*
-  - `R-HSA-1480926`: *O2/CO2 exchange in erythrocytes*
-  - `R-HSA-9927020`: *Heme assimilation*
-
-### 9. 📚 Scientific Literature Mining (`src/literature_miner.py`)
-- Searches **PubMed / PMC** for clinical trial breakthroughs:
-  - Landmark Phase 3 trial on **Exagamglogene Autotemcel (Casgevy)** (*NEJM*, PMID: `38661449`).
-  - Demonstrates CRISPR-Cas9 editing of the *BCL11A* erythroid enhancer to reactivate fetal hemoglobin (HbF).
-
 ### 10. 📑 Publication Report Generator (`src/report_generator.py`)
-- Generates a standalone, responsive, interactive HTML scientific report (`reports/executive_summary.html`) with embedded visual charts, executive metrics, sequence alignment tracks, and multi-omics findings.
+- Generates a standalone, responsive, interactive HTML scientific report (`reports/executive_summary.html`) with embedded visual charts, executive metrics, sequence alignment tracks, synergy scores, and multi-omics findings.
 
 ---
 
@@ -122,8 +124,8 @@ pip install -r requirements.txt
 ### 2. Running the Pipeline
 
 ```bash
-# 1. Run full pipeline with Pan-Cancer profiling and HTML report generation:
-python src/main.py --pan_cancer EGFR --generate_report
+# 1. Run full pipeline with Pan-Cancer profiling, Drug Synergy, TMB and HTML report:
+python src/main.py --pan_cancer EGFR --synergy Dabrafenib Trametinib --tmb 16.2 --msi MSI-H --generate_report
 
 # 2. Run Sequence Alignment for Sickle Cell or EGFR:
 python src/main.py --align EGFR_L858R
@@ -134,11 +136,11 @@ python src/main.py --screen_drugs KRAS
 # 4. Analyze Protein-Protein Interaction (PPI) Interactome:
 python src/main.py --ppi TP53
 
-# 5. Export comprehensive analysis to JSON:
-python src/main.py --export_json reports/pipeline_output.json
+# 5. Evaluate AlphaFold pLDDT Structural Confidence:
+python src/main.py --alphafold_conf TP53
 
-# 6. Live API querying (PDB, PubChem, PubMed):
-python src/main.py --live_pdb 1TSR --live_drug imatinib --live_pubmed "immunotherapy NSCLC"
+# 6. Export comprehensive analysis to JSON:
+python src/main.py --export_json reports/pipeline_output.json
 ```
 
 ### 3. Launching the Interactive Web Dashboard
@@ -153,7 +155,7 @@ Open **[http://localhost:8000/dashboard/index.html](http://localhost:8000/dashbo
 
 ## 🧪 Automated Testing
 
-Run the test suite covering all 11 multi-omics test cases:
+Run the test suite covering all 14 multi-omics test cases:
 ```bash
 python tests/test_pipeline.py
 # or
@@ -161,9 +163,9 @@ pytest tests/
 ```
 Output:
 ```
-...........
+..............
 ----------------------------------------------------------------------
-Ran 11 tests in 0.127s
+Ran 14 tests in 0.197s
 
 OK
 ```
