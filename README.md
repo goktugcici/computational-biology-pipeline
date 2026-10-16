@@ -5,7 +5,7 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version: 3.5 Anamnesis Bot](https://img.shields.io/badge/Release-v3.5_Anamnesis_Chatbot-purple.svg)](https://github.com/goktugcici/computational-biology-pipeline/releases)
-[![Tests Passing](https://img.shields.io/badge/Tests-33%2F33%20Passed-brightgreen.svg)](https://github.com/goktugcici/computational-biology-pipeline/actions)
+[![Tests Passing](https://img.shields.io/badge/Tests-35%2F35%20Passed-brightgreen.svg)](https://github.com/goktugcici/computational-biology-pipeline/actions)
 
 A state-of-the-art, production-grade computational biology, translational research, and precision oncology platform integrating **Interactive Early Diagnosis Question Bot (Soru Botu & Conversational Anamnesis)**, **Kaplan-Meier Clinical Survival Analysis & Log-Rank Modeler**, **Liquid Biopsy & ctDNA Minimal Residual Disease (MRD) Tracking**, **Pharmacogenomics (PGx) Clinical Toxicity Modeling (CPIC Level A)**, **Synthetic Lethality & CRISPR DepMap Dependency Mapping**, **Early Cancer Detection & 100,000+ Patient Statistical Risk Engine**, **Unified Relational Multi-Omics Knowledgebase (SQLite 3 - 12 Tables)**, **3D Structural Crystallography**, **Genomic Pathogenicity Annotation**, **Pan-Cancer Targeted Oncology**, **Needleman-Wunsch Sequence Alignment**, **In Silico Drug Screening (Lipinski Ro5 & Binding Free Energy)**, **Protein-Protein Interaction (PPI) Interactome Networks**, **Drug Combination Synergy Modeling (Bliss / Loewe CI)**, **Immunotherapy Biomarker Response Prediction (TMB & MSI-H)**, **AlphaFold Structural Quality (pLDDT & Disordered Regions)**, and an **Interactive WebGL Dashboard**.
 
@@ -147,15 +147,21 @@ Models CRISPR knockout essentiality scores from the **Broad Institute Cancer Dep
 
 ---
 
-## 🤖 Conversational Anamnesis & Diagnostic Question Bot (`src/diagnostic_chatbot.py`)
+## 🤖 Conversational Anamnesis & Clinical Question Bot (`src/diagnostic_chatbot.py`)
 
-An intelligent clinical triage and guided anamnesis chatbot that simulates an oncologist/physician consultation:
+An intelligent clinical oncology question-answering assistant and guided anamnesis chatbot:
+- **100% Offline & Zero Database Dependency**: Operates completely locally without requiring external APIs, internet access, or pre-existing database files (`data/cancer_epidemiology_100k.db`). It does NOT load or depend on static offline patient files.
+- **Direct Oncological Question Answering (Soru Botu)**: Directly answers medical questions from an embedded evidence-based clinical knowledge base:
+  - *Cancer Types & Screening*: Lung (Low-Dose CT), Colorectal (Colonoscopy & FIT), Breast (Mammography & USG), Prostate (PSA & mpMRI), Pancreas, Gastric, Bladder, Melanoma (ABCDE rule).
+  - *Clinical Alarm Red Flags*: Hemoptysis, unexplained weight loss, rectal bleeding, painless gross hematuria, palpable breast lumps, progressive dysphagia.
+  - *Clinical Guidelines & Myths*: NICE NG12 2-Week-Wait (2WW) referral rules, biopsy myths vs facts, liquid biopsy (ctDNA), pack-years calculation, family genetic history (BRCA, Lynch).
+- **Pure-Python Dynamic Bayesian Risk Engine**: Evaluates cancer risk and NICE 2WW referral criteria dynamically in memory strictly based on the user's answers to the questions asked in the active session.
 - **Turkish Natural Language Processing (NLP)**: Automatically parses free-text Turkish complaints (e.g. *"2 aydır öksürüyorum ve balgamda kan gördüm"*, *"katı gıdaları yutmakta zorlanıyorum"*, *"büyük abdestimde kan var"*) and maps them to 14 standardized NICE NG12 clinical alarm codes using comprehensive regex synonym patterns.
 - **Multi-Turn State Machine**: Systematically guides patients through:
   $$\text{SYMPTOMS} \longrightarrow \text{DEMOGRAPHICS} \longrightarrow \text{SMOKING} \longrightarrow \text{FAMILY HISTORY} \longrightarrow \text{DURATION} \longrightarrow \text{EVALUATION}$$
-- **Cohort Evidence & NICE Triaging**: Queries the 100,000+ patient database (`data/cancer_epidemiology_100k.db`) and computes composite probability, organ likelihoods, NICE 2-Week-Wait urgency status, and prioritized diagnostic investigations.
+- **Windows Console Encoding Safety**: Features `clean_for_console` and `safe_print` with fallback error replacements, preventing `cp1254`/`cp857` Unicode encoding crashes on Windows PowerShell and CMD terminals.
 - **Dual Interfaces**:
-  - **Terminal Interactive CLI**: Run `python src/main.py --chat_bot` for a live console anamnesis chat.
+  - **Standalone Terminal Interactive CLI**: Run directly via `python src/diagnostic_chatbot.py` (or `python src/main.py --chat_bot`).
   - **In-Browser Web Chatbot**: Dedicated `🤖 Teşhis Soru Botu` tab in the web dashboard with instant typing indicators, interactive quick replies, and live consultation summary cards.
 
 ---
@@ -250,7 +256,7 @@ Open **[http://localhost:8000/dashboard/index.html](http://localhost:8000/dashbo
 
 ## 🧪 Automated Testing
 
-Covering all 33 unit tests across Diagnostic Chatbot NLP & multi-turn flows, Kaplan-Meier estimators, Log-Rank tests, ctDNA MRD response, resistance mutations, pharmacogenomics CPIC rules, synthetic lethality DepMap scores, epidemiology cohort generation, NICE guidelines, multi-organ Bayesian risk models, SQLite queries, structural biology, and sequence alignments:
+Covering all 35 unit tests across Diagnostic Chatbot offline Q&A, dynamic Bayesian risk engine, NLP & multi-turn flows, Kaplan-Meier estimators, Log-Rank tests, ctDNA MRD response, resistance mutations, pharmacogenomics CPIC rules, synthetic lethality DepMap scores, epidemiology cohort generation, NICE guidelines, multi-organ Bayesian risk models, SQLite queries, structural biology, and sequence alignments:
 ```bash
 python -m unittest tests/test_pipeline.py
 # or
@@ -258,9 +264,9 @@ pytest tests/
 ```
 Output:
 ```
-.................................
+...................................
 ----------------------------------------------------------------------
-Ran 33 tests in 1.079s
+Ran 35 tests in 2.142s
 
 OK
 ```

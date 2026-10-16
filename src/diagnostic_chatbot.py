@@ -859,8 +859,11 @@ class DiagnosticChatbot:
         Supports both direct question-answering and guided clinical anamnesis.
         Supports flexible parameter order: process_message(user_message, session_id) or process_message(session_id, user_message).
         """
-        if user_message in self.sessions and session_id != "default":
-            session_id, user_message = user_message, session_id
+        if session_id != "default":
+            if user_message in self.sessions:
+                session_id, user_message = user_message, session_id
+            elif session_id not in self.sessions and (len(session_id) > len(user_message) or ' ' in session_id):
+                session_id, user_message = user_message, session_id
 
         if session_id not in self.sessions:
             self.start_session(session_id)
