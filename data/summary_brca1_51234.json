@@ -1,0 +1,23 @@
+[
+  {
+    "variant_id": "51234",
+    "clinical_significance": "Benign",
+    "review_status": "reviewed by expert panel",
+    "last_evaluated": "2017/06/29 00:00",
+    "phenotypes": [
+      "Breast-ovarian cancer, familial, susceptibility to, 2"
+    ],
+    "title": "NM_000059.4(BRCA2):c.198A>G (p.Gln66=)",
+    "genes": [
+      {
+        "gene_id": "675",
+        "symbol": "BRCA2",
+        "strand": "+"
+      }
+    ],
+    "variation_type": "single nucleotide variant",
+    "molecular_consequences": [
+      "synonymous variant"
+    ]
+  }
+]

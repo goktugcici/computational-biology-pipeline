@@ -1,0 +1,549 @@
+{
+  "molecules": [
+    {
+      "atc_classifications": [
+        "A10BA02"
+      ],
+      "availability_type": 1,
+      "biotherapeutic": null,
+      "black_box_warning": 1,
+      "chemical_probe": 0,
+      "chirality": 2,
+      "cross_references": [],
+      "dosed_ingredient": false,
+      "first_approval": 1995,
+      "first_in_class": 0,
+      "helm_notation": null,
+      "inorganic_flag": 0,
+      "max_phase": "4.0",
+      "molecule_chembl_id": "CHEMBL1431",
+      "molecule_hierarchy": {
+        "active_chembl_id": "CHEMBL1431",
+        "molecule_chembl_id": "CHEMBL1431",
+        "parent_chembl_id": "CHEMBL1431"
+      },
+      "molecule_properties": {
+        "alogp": "-1.03",
+        "aromatic_rings": 0,
+        "full_molformula": "C4H11N5",
+        "full_mwt": "129.17",
+        "hba": 2,
+        "hbd": 4,
+        "heavy_atoms": 9,
+        "mw_freebase": "129.17",
+        "np_likeness_score": "0.07",
+        "num_ro5_violations": 0,
+        "psa": "88.99",
+        "qed_weighted": "0.25",
+        "ro3_pass": "N",
+        "rtb": 0
+      },
+      "molecule_structures": {
+        "canonical_smiles": "CN(C)C(=N)NC(=N)N",
+        "molfile": "\n     RDKit          2D\n\n  9  8  0  0  0  0  0  0  0  0999 V2000\n   -1.2000   -0.5792    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    0.0625   -1.2792    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    1.3000   -0.5417    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -2.4458   -1.3167    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n   -1.2000    0.8458    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    2.5250   -1.2250    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    1.3000    0.8708    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    0.0250    1.5833    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -2.4833    1.5250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n  2  1  1  0\n  3  2  1  0\n  4  1  2  0\n  5  1  1  0\n  6  3  2  0\n  7  3  1  0\n  8  5  1  0\n  9  5  1  0\nM  END\n> <chembl_id>\nCHEMBL1431\n\n> <chembl_pref_name>\nMETFORMIN",
+        "standard_inchi": "InChI=1S/C4H11N5/c1-9(2)4(7)8-3(5)6/h1-2H3,(H5,5,6,7,8)",
+        "standard_inchi_key": "XZWYZXLIPXDOLR-UHFFFAOYSA-N"
+      },
+      "molecule_synonyms": [
+        {
+          "molecule_synonym": "LA-6023",
+          "syn_type": "RESEARCH_CODE",
+          "synonyms": "LA-6023"
+        },
+        {
+          "molecule_synonym": "Metformin",
+          "syn_type": "ATC",
+          "synonyms": "METFORMIN"
+        },
+        {
+          "molecule_synonym": "Metformin",
+          "syn_type": "BAN",
+          "synonyms": "METFORMIN"
+        },
+        {
+          "molecule_synonym": "Metformin",
+          "syn_type": "INN",
+          "synonyms": "METFORMIN"
+        },
+        {
+          "molecule_synonym": "Metformin",
+          "syn_type": "MERCK_INDEX",
+          "synonyms": "METFORMIN"
+        },
+        {
+          "molecule_synonym": "Metformin",
+          "syn_type": "OTHER",
+          "synonyms": "METFORMIN"
+        },
+        {
+          "molecule_synonym": "Metformin",
+          "syn_type": "USAN",
+          "synonyms": "METFORMIN"
+        },
+        {
+          "molecule_synonym": "Metformina",
+          "syn_type": "INN_SPANISH",
+          "synonyms": "METFORMINA"
+        },
+        {
+          "molecule_synonym": "Metformine",
+          "syn_type": "INN_FRENCH",
+          "synonyms": "METFORMINE"
+        },
+        {
+          "molecule_synonym": "Metformin extended release",
+          "syn_type": "OTHER",
+          "synonyms": "METFORMIN EXTENDED RELEASE"
+        }
+      ],
+      "molecule_type": "Small molecule",
+      "natural_product": 1,
+      "oral": true,
+      "orphan": 0,
+      "parenteral": false,
+      "polymer_flag": 0,
+      "pref_name": "METFORMIN",
+      "prodrug": 0,
+      "score": 36.0,
+      "structure_type": "MOL",
+      "therapeutic_flag": true,
+      "topical": false,
+      "usan_stem": "-formin",
+      "usan_stem_definition": "hypoglycemics (phenformin type)",
+      "usan_substem": "-formin",
+      "usan_year": 1969,
+      "veterinary": 0,
+      "withdrawn_flag": false
+    },
+    {
+      "atc_classifications": [],
+      "availability_type": 1,
+      "biotherapeutic": null,
+      "black_box_warning": 1,
+      "chemical_probe": 0,
+      "chirality": 2,
+      "cross_references": [
+        {
+          "xref_id": "metformin%20hydrochloride",
+          "xref_name": "metformin hydrochloride",
+          "xref_src": "DailyMed"
+        }
+      ],
+      "dosed_ingredient": true,
+      "first_approval": 1995,
+      "first_in_class": 0,
+      "helm_notation": null,
+      "inorganic_flag": 0,
+      "max_phase": "4.0",
+      "molecule_chembl_id": "CHEMBL1703",
+      "molecule_hierarchy": {
+        "active_chembl_id": "CHEMBL1431",
+        "molecule_chembl_id": "CHEMBL1703",
+        "parent_chembl_id": "CHEMBL1431"
+      },
+      "molecule_properties": {
+        "alogp": "-1.03",
+        "aromatic_rings": 0,
+        "full_molformula": "C4H12ClN5",
+        "full_mwt": "165.63",
+        "hba": 2,
+        "hbd": 4,
+        "heavy_atoms": 9,
+        "mw_freebase": "129.17",
+        "np_likeness_score": "0.07",
+        "num_ro5_violations": 0,
+        "psa": "88.99",
+        "qed_weighted": "0.25",
+        "ro3_pass": "N",
+        "rtb": 0
+      },
+      "molecule_structures": {
+        "canonical_smiles": "CN(C)C(=N)NC(=N)N.Cl",
+        "molfile": "\n     RDKit          2D\n\n 10  8  0  0  0  0  0  0  0  0999 V2000\n    6.1167   -6.5625    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0\n    5.3542   -6.0167    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    4.7500   -5.6750    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    4.1250   -6.0167    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    5.3542   -6.7375    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    5.9750   -5.6625    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    4.0917   -6.7250    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    3.5167   -5.6417    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    6.5917   -6.0250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    5.9750   -4.9625    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n  3  2  1  0\n  4  3  1  0\n  5  2  2  0\n  6  2  1  0\n  7  4  2  0\n  8  4  1  0\n  9  6  1  0\n 10  6  1  0\nM  END\n> <chembl_id>\nCHEMBL1703\n\n> <chembl_pref_name>\nMETFORMIN HYDROCHLORIDE",
+        "standard_inchi": "InChI=1S/C4H11N5.ClH/c1-9(2)4(7)8-3(5)6;/h1-2H3,(H5,5,6,7,8);1H",
+        "standard_inchi_key": "OETHQSJEHLVLGH-UHFFFAOYSA-N"
+      },
+      "molecule_synonyms": [
+        {
+          "molecule_synonym": "Apophage",
+          "syn_type": "OTHER",
+          "synonyms": "APOPHAGE"
+        },
+        {
+          "molecule_synonym": "Benofomin",
+          "syn_type": "OTHER",
+          "synonyms": "BENOFOMIN"
+        },
+        {
+          "molecule_synonym": "Bolamyn sr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "BOLAMYN SR"
+        },
+        {
+          "molecule_synonym": "Diabefagos",
+          "syn_type": "OTHER",
+          "synonyms": "DIABEFAGOS"
+        },
+        {
+          "molecule_synonym": "Diabex",
+          "syn_type": "OTHER",
+          "synonyms": "DIABEX"
+        },
+        {
+          "molecule_synonym": "Diagemet xl",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "DIAGEMET XL"
+        },
+        {
+          "molecule_synonym": "EX-404",
+          "syn_type": "RESEARCH_CODE",
+          "synonyms": "EX-404"
+        },
+        {
+          "molecule_synonym": "EX404",
+          "syn_type": "RESEARCH_CODE",
+          "synonyms": "EX404"
+        },
+        {
+          "molecule_synonym": "Fortamet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "FORTAMET"
+        },
+        {
+          "molecule_synonym": "Glucamet 500",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "GLUCAMET 500"
+        },
+        {
+          "molecule_synonym": "Glucamet 850",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "GLUCAMET 850"
+        },
+        {
+          "molecule_synonym": "Glucaminol",
+          "syn_type": "OTHER",
+          "synonyms": "GLUCAMINOL"
+        },
+        {
+          "molecule_synonym": "Glucient sr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "GLUCIENT SR"
+        },
+        {
+          "molecule_synonym": "Glucophage",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "GLUCOPHAGE"
+        },
+        {
+          "molecule_synonym": "Glucophage sr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "GLUCOPHAGE SR"
+        },
+        {
+          "molecule_synonym": "Glucophage xr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "GLUCOPHAGE XR"
+        },
+        {
+          "molecule_synonym": "Glumetza",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "GLUMETZA"
+        },
+        {
+          "molecule_synonym": "Glyformin",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "GLYFORMIN"
+        },
+        {
+          "molecule_synonym": "LA-6023",
+          "syn_type": "RESEARCH_CODE",
+          "synonyms": "LA-6023"
+        },
+        {
+          "molecule_synonym": "Ledermetin",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "LEDERMETIN"
+        },
+        {
+          "molecule_synonym": "Metabet sr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METABET SR"
+        },
+        {
+          "molecule_synonym": "Metformin hcl",
+          "syn_type": "OTHER",
+          "synonyms": "METFORMIN HCL"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride",
+          "syn_type": "BNF",
+          "synonyms": "METFORMIN HYDROCHLORIDE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride",
+          "syn_type": "FDA",
+          "synonyms": "METFORMIN HYDROCHLORIDE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride",
+          "syn_type": "JAN",
+          "synonyms": "METFORMIN HYDROCHLORIDE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride",
+          "syn_type": "MERCK_INDEX",
+          "synonyms": "METFORMIN HYDROCHLORIDE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride",
+          "syn_type": "OTHER",
+          "synonyms": "METFORMIN HYDROCHLORIDE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride",
+          "syn_type": "USAN",
+          "synonyms": "METFORMIN HYDROCHLORIDE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride",
+          "syn_type": "USP",
+          "synonyms": "METFORMIN HYDROCHLORIDE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of actoplus met",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF ACTOPLUS MET"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of avandamet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF AVANDAMET"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of glucovance",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF GLUCOVANCE"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of invokamet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF INVOKAMET"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of janumet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF JANUMET"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of jentadueto",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF JENTADUETO"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of kazano",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF KAZANO"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of kombiglyze xr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF KOMBIGLYZE XR"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of metaglip",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF METAGLIP"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of prandimet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF PRANDIMET"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of qternmet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF QTERNMET"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of qternmet xr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF QTERNMET XR"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of segluromet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF SEGLUROMET"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of synjardy",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF SYNJARDY"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of trijardy xr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF TRIJARDY XR"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of xigduo",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF XIGDUO"
+        },
+        {
+          "molecule_synonym": "Metformin hydrochloride component of zituvimet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METFORMIN HYDROCHLORIDE COMPONENT OF ZITUVIMET"
+        },
+        {
+          "molecule_synonym": "Metsol",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "METSOL"
+        },
+        {
+          "molecule_synonym": "Milform",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "MILFORM"
+        },
+        {
+          "molecule_synonym": "Neodipa",
+          "syn_type": "OTHER",
+          "synonyms": "NEODIPA"
+        },
+        {
+          "molecule_synonym": "NSC-91485",
+          "syn_type": "RESEARCH_CODE",
+          "synonyms": "NSC-91485"
+        },
+        {
+          "molecule_synonym": "Orabet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "ORABET"
+        },
+        {
+          "molecule_synonym": "Riomet",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "RIOMET"
+        },
+        {
+          "molecule_synonym": "Riomet er",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "RIOMET ER"
+        },
+        {
+          "molecule_synonym": "Siamformet",
+          "syn_type": "OTHER",
+          "synonyms": "SIAMFORMET"
+        },
+        {
+          "molecule_synonym": "Sukkarto sr",
+          "syn_type": "TRADE_NAME",
+          "synonyms": "SUKKARTO SR"
+        },
+        {
+          "molecule_synonym": "Walaphage",
+          "syn_type": "OTHER",
+          "synonyms": "WALAPHAGE"
+        }
+      ],
+      "molecule_type": "Small molecule",
+      "natural_product": 0,
+      "oral": true,
+      "orphan": 0,
+      "parenteral": false,
+      "polymer_flag": 0,
+      "pref_name": "METFORMIN HYDROCHLORIDE",
+      "prodrug": 0,
+      "score": 33.0,
+      "structure_type": "MOL",
+      "therapeutic_flag": true,
+      "topical": false,
+      "usan_stem": "-formin",
+      "usan_stem_definition": "hypoglycemics (phenformin type)",
+      "usan_substem": "-formin",
+      "usan_year": 1995,
+      "veterinary": 0,
+      "withdrawn_flag": false
+    },
+    {
+      "atc_classifications": [],
+      "availability_type": null,
+      "biotherapeutic": null,
+      "black_box_warning": 0,
+      "chemical_probe": 0,
+      "chirality": 1,
+      "cross_references": [],
+      "dosed_ingredient": false,
+      "first_approval": null,
+      "first_in_class": 0,
+      "helm_notation": null,
+      "inorganic_flag": 0,
+      "max_phase": "3.0",
+      "molecule_chembl_id": "CHEMBL2108299",
+      "molecule_hierarchy": {
+        "active_chembl_id": "CHEMBL2108299",
+        "molecule_chembl_id": "CHEMBL2108299",
+        "parent_chembl_id": "CHEMBL2108299"
+      },
+      "molecule_properties": null,
+      "molecule_structures": null,
+      "molecule_synonyms": [
+        {
+          "molecule_synonym": "DMMET-01",
+          "syn_type": "RESEARCH_CODE",
+          "synonyms": "DMMET-01"
+        },
+        {
+          "molecule_synonym": "Glicinato de metformina",
+          "syn_type": "INN_SPANISH",
+          "synonyms": "GLICINATO DE METFORMINA"
+        },
+        {
+          "molecule_synonym": "Glycinate de metformine",
+          "syn_type": "INN_FRENCH",
+          "synonyms": "GLYCINATE DE METFORMINE"
+        },
+        {
+          "molecule_synonym": "Metformin glycinate",
+          "syn_type": "INN",
+          "synonyms": "METFORMIN GLYCINATE"
+        },
+        {
+          "molecule_synonym": "Metformin glycinate",
+          "syn_type": "OTHER",
+          "synonyms": "METFORMIN GLYCINATE"
+        }
+      ],
+      "molecule_type": "Unknown",
+      "natural_product": 0,
+      "oral": false,
+      "orphan": 0,
+      "parenteral": false,
+      "polymer_flag": 0,
+      "pref_name": "METFORMIN GLYCINATE",
+      "prodrug": 0,
+      "score": 31.0,
+      "structure_type": "NONE",
+      "therapeutic_flag": false,
+      "topical": false,
+      "usan_stem": "-formin",
+      "usan_stem_definition": "hypoglycemics (phenformin type)",
+      "usan_substem": "-formin",
+      "usan_year": null,
+      "veterinary": 0,
+      "withdrawn_flag": false
+    }
+  ],
+  "page_meta": {
+    "limit": 3,
+    "next": "/chembl/api/data/molecule/search.json?limit=3&offset=3&q=metformin",
+    "offset": 0,
+    "previous": null,
+    "total_count": 32
+  },
+  "_license_notice": "Data from the ChEMBL Database. Please review the licensing terms at https://www.ebi.ac.uk/chembl/"
+}

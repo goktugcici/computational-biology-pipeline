@@ -1,0 +1,1159 @@
+{
+  "summary": {
+    "token": "MjAyNjEwMDkxMDExNTNfNzc5Ng%3D%3D",
+    "projection": false,
+    "interactors": false,
+    "type": "OVERREPRESENTATION",
+    "sampleName": "",
+    "text": true,
+    "includeDisease": true
+  },
+  "expression": {
+    "columnNames": []
+  },
+  "identifiersNotFound": 0,
+  "pathwaysFound": 41,
+  "pathways": [
+    {
+      "stId": "R-HSA-983231",
+      "dbId": 983231,
+      "name": "Factors involved in megakaryocyte development and platelet production",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 194,
+        "found": 2,
+        "ratio": 0.011937726909113286,
+        "pValue": 0.00042412549649173403,
+        "fdr": 0.011027262908785085,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 43,
+        "found": 1,
+        "ratio": 0.002672633476288147
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-1247673",
+      "dbId": 1247673,
+      "name": "Erythrocytes take up oxygen and release carbon dioxide",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 16,
+        "found": 1,
+        "ratio": 0.0009845547966278998,
+        "pValue": 0.002950757299817197,
+        "fdr": 0.01769582682339932,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 6,
+        "found": 1,
+        "ratio": 0.00037292560134253216
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-9927020",
+      "dbId": 9927020,
+      "name": "Heme assimilation",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 21,
+        "found": 1,
+        "ratio": 0.0012922281705741185,
+        "pValue": 0.0038716771086199087,
+        "fdr": 0.01769582682339932,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 5,
+        "found": 2,
+        "ratio": 0.00031077133445211015
+      },
+      "inDisease": true
+    },
+    {
+      "stId": "R-HSA-9613829",
+      "dbId": 9613829,
+      "name": "Chaperone Mediated Autophagy",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 23,
+        "found": 1,
+        "ratio": 0.001415297520152606,
+        "pValue": 0.004239886194181919,
+        "fdr": 0.01769582682339932,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 19,
+        "found": 9,
+        "ratio": 0.0011809310709180185
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-1237044",
+      "dbId": 1237044,
+      "name": "Erythrocytes take up carbon dioxide and release oxygen",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 24,
+        "found": 1,
+        "ratio": 0.0014768321949418497,
+        "pValue": 0.00442395670584983,
+        "fdr": 0.01769582682339932,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 8,
+        "found": 2,
+        "ratio": 0.0004972341351233762
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-1480926",
+      "dbId": 1480926,
+      "name": "O2/CO2 exchange in erythrocytes",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 24,
+        "found": 1,
+        "ratio": 0.0014768321949418497,
+        "pValue": 0.00442395670584983,
+        "fdr": 0.01769582682339932,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 14,
+        "found": 3,
+        "ratio": 0.0008701597364659083
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-1247673",
+      "dbId": 10564597,
+      "name": "Erythrocytes take up oxygen and release carbon dioxide",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 16,
+        "found": 1,
+        "ratio": 0.0015418714464681506,
+        "pValue": 0.004618485902327163,
+        "fdr": 0.019903781039569246,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 6,
+        "found": 1,
+        "ratio": 0.00073117231294175
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-9615710",
+      "dbId": 9615710,
+      "name": "Late endosomal microautophagy",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 35,
+        "found": 1,
+        "ratio": 0.0021537136176235307,
+        "pValue": 0.00644723539579295,
+        "fdr": 0.01934170618737885,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 3,
+        "found": 3,
+        "ratio": 0.00018646280067126608
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-1237044",
+      "dbId": 10564591,
+      "name": "Erythrocytes take up carbon dioxide and release oxygen",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 23,
+        "found": 1,
+        "ratio": 0.0022164402042979666,
+        "pValue": 0.006634593679856415,
+        "fdr": 0.019903781039569246,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 8,
+        "found": 2,
+        "ratio": 0.0009748964172556666
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-1480926",
+      "dbId": 10564593,
+      "name": "O2/CO2 exchange in erythrocytes",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 23,
+        "found": 1,
+        "ratio": 0.0022164402042979666,
+        "pValue": 0.006634593679856415,
+        "fdr": 0.019903781039569246,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 14,
+        "found": 3,
+        "ratio": 0.0017060687301974165
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-9707616",
+      "dbId": 10564471,
+      "name": "Heme signaling",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 23,
+        "found": 1,
+        "ratio": 0.0022164402042979666,
+        "pValue": 0.006634593679856415,
+        "fdr": 0.019903781039569246,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 14,
+        "found": 2,
+        "ratio": 0.0017060687301974165
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-109582",
+      "dbId": 109582,
+      "name": "Hemostasis",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 821,
+        "found": 2,
+        "ratio": 0.05051996800196911,
+        "pValue": 0.007398920589549385,
+        "fdr": 0.022196761768648154,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 366,
+        "found": 1,
+        "ratio": 0.022748461681894462
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-9707616",
+      "dbId": 9707616,
+      "name": "Heme signaling",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 70,
+        "found": 1,
+        "ratio": 0.004307427235247061,
+        "pValue": 0.012866699837280948,
+        "fdr": 0.025733399674561896,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 25,
+        "found": 2,
+        "ratio": 0.0015538566722605508
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-9638482",
+      "dbId": 9638482,
+      "name": "Metal ion assimilation from the host",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 79,
+        "found": 1,
+        "ratio": 0.004861239308350256,
+        "pValue": 0.014512937861305919,
+        "fdr": 0.029025875722611838,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 25,
+        "found": 2,
+        "ratio": 0.0015538566722605508
+      },
+      "inDisease": true
+    },
+    {
+      "stId": "R-HSA-9707564",
+      "dbId": 9707564,
+      "name": "Cytoprotection by HMOX1",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 91,
+        "found": 1,
+        "ratio": 0.00559965540582118,
+        "pValue": 0.016705073379054358,
+        "fdr": 0.03177840600679771,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 22,
+        "found": 3,
+        "ratio": 0.0013673938715892846
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-9707564",
+      "dbId": 10563281,
+      "name": "Cytoprotection by HMOX1",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 63,
+        "found": 1,
+        "ratio": 0.006071118820468344,
+        "pValue": 0.018103004782442422,
+        "fdr": 0.04638711536754925,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 13,
+        "found": 3,
+        "ratio": 0.001584206678040458
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-2168880",
+      "dbId": 2168880,
+      "name": "Scavenging of heme from plasma",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 106,
+        "found": 1,
+        "ratio": 0.006522675527659836,
+        "pValue": 0.01944066820402346,
+        "fdr": 0.03177840600679771,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 12,
+        "found": 5,
+        "ratio": 0.0007458512026850643
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-2168880",
+      "dbId": 10564871,
+      "name": "Scavenging of heme from plasma",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 94,
+        "found": 1,
+        "ratio": 0.009058494748000386,
+        "pValue": 0.026930058569510473,
+        "fdr": 0.04638711536754925,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 10,
+        "found": 5,
+        "ratio": 0.0012186205215695832
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-2173782",
+      "dbId": 2173782,
+      "name": "Binding and Uptake of Ligands by Scavenger Receptors",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 172,
+        "found": 1,
+        "ratio": 0.010583964063749923,
+        "pValue": 0.031417016924121466,
+        "fdr": 0.03177840600679771,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 35,
+        "found": 5,
+        "ratio": 0.002175399341164771
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-9612973",
+      "dbId": 9612973,
+      "name": "Autophagy",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 174,
+        "found": 1,
+        "ratio": 0.010707033413328411,
+        "pValue": 0.03177840600679771,
+        "fdr": 0.03177840600679771,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 117,
+        "found": 11,
+        "ratio": 0.007272049226179377
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-2173782",
+      "dbId": 10564873,
+      "name": "Binding and Uptake of Ligands by Scavenger Receptors",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 137,
+        "found": 1,
+        "ratio": 0.013202274260383541,
+        "pValue": 0.039086223801217734,
+        "fdr": 0.04638711536754925,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 21,
+        "found": 5,
+        "ratio": 0.002559103095296125
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-9640148",
+      "dbId": 9640148,
+      "name": "Infection with Enterobacteria",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 229,
+        "found": 1,
+        "ratio": 0.014091440526736816,
+        "pValue": 0.04168141361082667,
+        "fdr": 0.04168141361082667,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 82,
+        "found": 2,
+        "ratio": 0.005096649885014606
+      },
+      "inDisease": true
+    },
+    {
+      "stId": "R-SSC-9711123",
+      "dbId": 10562647,
+      "name": "Cellular response to chemical stress",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 163,
+        "found": 1,
+        "ratio": 0.015707815360894287,
+        "pValue": 0.04638711536754925,
+        "fdr": 0.04638711536754925,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 67,
+        "found": 3,
+        "ratio": 0.008164757494516207
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-9711123",
+      "dbId": 9711123,
+      "name": "Cellular response to chemical stress",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 288,
+        "found": 1,
+        "ratio": 0.017721986339302196,
+        "pValue": 0.052229318541455294,
+        "fdr": 0.052229318541455294,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 173,
+        "found": 3,
+        "ratio": 0.010752688172043012
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-9824439",
+      "dbId": 9824439,
+      "name": "Bacterial Infection Pathways",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 414,
+        "found": 1,
+        "ratio": 0.025475355362746907,
+        "pValue": 0.0744956182415879,
+        "fdr": 0.0744956182415879,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 234,
+        "found": 2,
+        "ratio": 0.014544098452358755
+      },
+      "inDisease": true
+    },
+    {
+      "stId": "R-HSA-6798695",
+      "dbId": 6798695,
+      "name": "Neutrophil degranulation",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 478,
+        "found": 1,
+        "ratio": 0.029413574549258508,
+        "pValue": 0.0856706959446284,
+        "fdr": 0.0856706959446284,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 10,
+        "found": 2,
+        "ratio": 0.0006215426689042203
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-6798695",
+      "dbId": 10565357,
+      "name": "Neutrophil degranulation",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": true,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 477,
+        "found": 1,
+        "ratio": 0.04596704249783174,
+        "pValue": 0.1316593474411386,
+        "fdr": 0.1316593474411386,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 10,
+        "found": 2,
+        "ratio": 0.0012186205215695832
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-2262752",
+      "dbId": 10562491,
+      "name": "Cellular responses to stress",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 520,
+        "found": 1,
+        "ratio": 0.0501108220102149,
+        "pValue": 0.14292501559169168,
+        "fdr": 0.14292501559169168,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 222,
+        "found": 4,
+        "ratio": 0.027053375578844747
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-5653656",
+      "dbId": 5653656,
+      "name": "Vesicle-mediated transport",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 833,
+        "found": 1,
+        "ratio": 0.05125838409944004,
+        "pValue": 0.1460275638798797,
+        "fdr": 0.1460275638798797,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 254,
+        "found": 5,
+        "ratio": 0.015787183790167195
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-8953897",
+      "dbId": 10562493,
+      "name": "Cellular responses to stimuli",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 571,
+        "found": 1,
+        "ratio": 0.05502553724583213,
+        "pValue": 0.15615978934804653,
+        "fdr": 0.15615978934804653,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 251,
+        "found": 4,
+        "ratio": 0.03058737509139654
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-382551",
+      "dbId": 382551,
+      "name": "Transport of small molecules",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 999,
+        "found": 1,
+        "ratio": 0.0614731401144545,
+        "pValue": 0.1733148832124518,
+        "fdr": 0.1733148832124518,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 463,
+        "found": 3,
+        "ratio": 0.0287774255702654
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-2262752",
+      "dbId": 2262752,
+      "name": "Cellular responses to stress",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 1039,
+        "found": 1,
+        "ratio": 0.06393452710602425,
+        "pValue": 0.1798020503411043,
+        "fdr": 0.1798020503411043,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 521,
+        "found": 4,
+        "ratio": 0.032382373049909874
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-5653656",
+      "dbId": 10563631,
+      "name": "Vesicle-mediated transport",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 667,
+        "found": 1,
+        "ratio": 0.06427676592464103,
+        "pValue": 0.18070134948869232,
+        "fdr": 0.18070134948869232,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 163,
+        "found": 5,
+        "ratio": 0.019863514501584207
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-8953897",
+      "dbId": 8953897,
+      "name": "Cellular responses to stimuli",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 1166,
+        "found": 1,
+        "ratio": 0.0717494308042582,
+        "pValue": 0.2001737146442485,
+        "fdr": 0.2001737146442485,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 613,
+        "found": 4,
+        "ratio": 0.038100565603828705
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-382551",
+      "dbId": 10562809,
+      "name": "Transport of small molecules",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 829,
+        "found": 1,
+        "ratio": 0.07988821432013106,
+        "pValue": 0.22102811931121435,
+        "fdr": 0.22102811931121435,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 407,
+        "found": 3,
+        "ratio": 0.049597855227882036
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-168249",
+      "dbId": 168249,
+      "name": "Innate Immune System",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 1387,
+        "found": 1,
+        "ratio": 0.08534859393268107,
+        "pValue": 0.23481434614205832,
+        "fdr": 0.23481434614205832,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 782,
+        "found": 2,
+        "ratio": 0.04860463670831003
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-SSC-168249",
+      "dbId": 10563203,
+      "name": "Innate Immune System",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 1065,
+        "found": 1,
+        "ratio": 0.10263081815553628,
+        "pValue": 0.2773742190751306,
+        "fdr": 0.2773742190751306,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 456,
+        "found": 2,
+        "ratio": 0.055569095783573
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-5663205",
+      "dbId": 5663205,
+      "name": "Infectious disease",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 1965,
+        "found": 1,
+        "ratio": 0.12091563596086395,
+        "pValue": 0.3206529928844166,
+        "fdr": 0.3206529928844166,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 1227,
+        "found": 2,
+        "ratio": 0.07626328547454783
+      },
+      "inDisease": true
+    },
+    {
+      "stId": "R-SSC-168256",
+      "dbId": 10563205,
+      "name": "Immune System",
+      "species": {
+        "dbId": 49633,
+        "taxId": "9823",
+        "name": "Sus scrofa"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 1872,
+        "found": 1,
+        "ratio": 0.18039895923677363,
+        "pValue": 0.44943638908147887,
+        "fdr": 0.44943638908147887,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 1163,
+        "found": 2,
+        "ratio": 0.14172556665854252
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-168256",
+      "dbId": 168256,
+      "name": "Immune System",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 3033,
+        "found": 1,
+        "ratio": 0.18663466863577627,
+        "pValue": 0.4619074593057747,
+        "fdr": 0.4619074593057747,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 1895,
+        "found": 2,
+        "ratio": 0.11778233575734974
+      },
+      "inDisease": false
+    },
+    {
+      "stId": "R-HSA-1643685",
+      "dbId": 1643685,
+      "name": "Disease",
+      "species": {
+        "dbId": 48887,
+        "taxId": "9606",
+        "name": "Homo sapiens"
+      },
+      "llp": false,
+      "entities": {
+        "resource": "TOTAL",
+        "total": 3093,
+        "found": 1,
+        "ratio": 0.19032674912313088,
+        "pValue": 0.46920188089501946,
+        "fdr": 0.46920188089501946,
+        "exp": []
+      },
+      "reactions": {
+        "resource": "TOTAL",
+        "total": 2176,
+        "found": 2,
+        "ratio": 0.13524768475355833
+      },
+      "inDisease": true
+    }
+  ],
+  "resourceSummary": [
+    {
+      "resource": "TOTAL",
+      "pathways": 41,
+      "filtered": 41
+    },
+    {
+      "resource": "UNIPROT",
+      "pathways": 41,
+      "filtered": 41
+    },
+    {
+      "resource": "ENSEMBL",
+      "pathways": 2,
+      "filtered": 2
+    }
+  ],
+  "speciesSummary": [
+    {
+      "dbId": 48887,
+      "taxId": "9606",
+      "name": "Homo sapiens",
+      "pathways": 26,
+      "filtered": 26
+    },
+    {
+      "dbId": 49633,
+      "taxId": "9823",
+      "name": "Sus scrofa",
+      "pathways": 15,
+      "filtered": 15
+    }
+  ],
+  "warnings": []
+}

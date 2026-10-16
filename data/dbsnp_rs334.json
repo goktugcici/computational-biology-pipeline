@@ -1,0 +1,55 @@
+{
+  "rsid": "334",
+  "assembly": "GCF_000001405.40",
+  "placements": [
+    {
+      "seq_id": "NC_000011.10",
+      "alleles": [
+        {
+          "allele": {
+            "spdi": {
+              "seq_id": "NC_000011.10",
+              "position": 5227001,
+              "deleted_sequence": "T",
+              "inserted_sequence": "T"
+            }
+          },
+          "hgvs": "NC_000011.10:g.5227002="
+        },
+        {
+          "allele": {
+            "spdi": {
+              "seq_id": "NC_000011.10",
+              "position": 5227001,
+              "deleted_sequence": "T",
+              "inserted_sequence": "A"
+            }
+          },
+          "hgvs": "NC_000011.10:g.5227002T>A"
+        },
+        {
+          "allele": {
+            "spdi": {
+              "seq_id": "NC_000011.10",
+              "position": 5227001,
+              "deleted_sequence": "T",
+              "inserted_sequence": "C"
+            }
+          },
+          "hgvs": "NC_000011.10:g.5227002T>C"
+        },
+        {
+          "allele": {
+            "spdi": {
+              "seq_id": "NC_000011.10",
+              "position": 5227001,
+              "deleted_sequence": "T",
+              "inserted_sequence": "G"
+            }
+          },
+          "hgvs": "NC_000011.10:g.5227002T>G"
+        }
+      ]
+    }
+  ]
+}

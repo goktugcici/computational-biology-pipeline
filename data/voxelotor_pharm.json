@@ -1,0 +1,605 @@
+{
+  "Record": {
+    "RecordType": "CID",
+    "RecordNumber": 71602803,
+    "RecordTitle": "Voxelotor",
+    "Section": [
+      {
+        "TOCHeading": "Pharmacology and Biochemistry",
+        "Description": "Pharmacology and biochemistry information related to this compound, including the pharmacodynamics, pharmacokinetics, metabolism, mechanism of action, biological half-life, biochemical reactions, and many others.",
+        "Section": [
+          {
+            "TOCHeading": "Pharmacodynamics",
+            "Description": "Pharmacodynamic information for this compound as a drug (i.e., what does this drug do to the body).  Pharmacodynamics is the study of the biochemical, physiologic, and molecular effects of drugs on the body.",
+            "URL": "https://www.ncbi.nlm.nih.gov/books/NBK507791/",
+            "Information": [
+              {
+                "ReferenceNumber": 9,
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Voxelotor increases hemoglobin (Hb) oxygen affinity in a dose-dependent manner. It has led to up to a 40% increase in hemoglobin in clinical trials. Voxelotor may inhibit red blood cell sickling, attenuate red blood cell deformability, and reduce whole blood viscosity.",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/Voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        },
+                        {
+                          "Start": 36,
+                          "Length": 6,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/element/Oxygen",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "Element-Oxygen"
+                        },
+                        {
+                          "Start": 149,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/Voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "TOCHeading": "MeSH Pharmacological Classification",
+            "Description": "Pharmacological action classes from the Medical Subject Headings (MeSH) thesaurus.",
+            "URL": "https://meshb.nlm.nih.gov/record/ui?ui=D020228",
+            "Information": [
+              {
+                "ReferenceNumber": 72,
+                "Name": "Hematologic Agents",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Drugs that act on blood and blood-forming organs and those that affect the hemostatic system."
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "TOCHeading": "FDA Pharmacological Classification",
+            "Description": "Pharmacologic Class is a group of active moieties that share scientifically documented properties and is defined on the basis of any combination of three attributes of the active moiety: mechanism of action (MOA), physiologic effect (PE) and chemical structure (CS).  An FDA \"Established Pharmacologic Class\" (EPC) text phrase is a pharmacologic class associated with an approved indication of an active moiety that the FDA has determined to be scientifically valid and clinically meaningful.",
+            "URL": "https://www.fda.gov/industry/structured-product-labeling-resources/pharmacologic-class",
+            "DisplayControls": {
+              "CreateTable": {
+                "FromInformationIn": "ThisSection",
+                "NumberOfColumns": 2,
+                "ColumnContents": [
+                  "Name",
+                  "Value"
+                ]
+              }
+            },
+            "Information": [
+              {
+                "ReferenceNumber": 25,
+                "Name": "FDA UNII",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "3ZO554A4Q8"
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 25,
+                "Name": "Active Moiety",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "VOXELOTOR"
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 25,
+                "Name": "Pharmacological Classes",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Established Pharmacologic Class [EPC] - Hemoglobin S Polymerization Inhibitor"
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 25,
+                "Name": "Pharmacological Classes",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Mechanisms of Action [MoA] - Hemoglobin S Polymerization Inhibitors"
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 25,
+                "Name": "Pharmacological Classes",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Mechanisms of Action [MoA] - Cytochrome P450 3A4 Inhibitors"
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 25,
+                "Name": "FDA Pharmacology Summary",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Voxelotor is a Hemoglobin S Polymerization Inhibitor. The mechanism of action of voxelotor is as a Hemoglobin S Polymerization Inhibitor and Cytochrome P450 3A4 Inhibitor.",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/Voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        },
+                        {
+                          "Start": 81,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 34,
+                "Name": "Non-Proprietary Name",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "VOXELOTOR"
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 34,
+                "Name": "Pharmacological Classes",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Hemoglobin S Polymerization Inhibitor [EPC]; Hemoglobin S Polymerization Inhibitors [MoA]; Cytochrome P450 3A4 Inhibitors [MoA]"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "TOCHeading": "ATC Code",
+            "Description": "The Anatomical Therapeutic Chemical (ATC) Classification System is used for the classification of drugs. This pharmaceutical coding system divides drugs into different groups according to the organ or system on which they act and/or their therapeutic and chemical characteristics. Each bottom-level ATC code stands for a pharmaceutically used substance, or a combination of substances, in a single indication (or use). This means that one drug can have more than one code: acetylsalicylic acid (aspirin), for example, has A01AD05 as a drug for local oral treatment, B01AC06 as a platelet inhibitor, and N02BA01 as an analgesic and antipyretic. On the other hand, several different brands share the same code if they have the same active substance and indications.",
+            "URL": "https://www.whocc.no/atc/structure_and_principles/",
+            "Information": [
+              {
+                "ReferenceNumber": 42,
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "B - Blood and blood forming organs",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 1,
+                          "URL": "https://atcddd.fhi.no/atc_ddd_index/?code=B"
+                        }
+                      ]
+                    },
+                    {
+                      "String": "B06 - Other hematological agents",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 3,
+                          "URL": "https://atcddd.fhi.no/atc_ddd_index/?code=B06"
+                        }
+                      ]
+                    },
+                    {
+                      "String": "B06A - Other hematological agents",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 4,
+                          "URL": "https://atcddd.fhi.no/atc_ddd_index/?code=B06A"
+                        }
+                      ]
+                    },
+                    {
+                      "String": "B06AX - Other hematological agents",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 5,
+                          "URL": "https://atcddd.fhi.no/atc_ddd_index/?code=B06AX"
+                        }
+                      ]
+                    },
+                    {
+                      "String": "B06AX03 - Voxelotor",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 7,
+                          "URL": "https://atcddd.fhi.no/atc_ddd_index/?code=B06AX03"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 43,
+                "Name": "ATCvet Code",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "QB - Blood and blood forming organs",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 2,
+                          "URL": "https://atcddd.fhi.no/atcvet/atcvet_index/?code=QB"
+                        }
+                      ]
+                    },
+                    {
+                      "String": "QB06 - Other hematological agents",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 4,
+                          "URL": "https://atcddd.fhi.no/atcvet/atcvet_index/?code=QB06"
+                        }
+                      ]
+                    },
+                    {
+                      "String": "QB06A - Other hematological agents",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 5,
+                          "URL": "https://atcddd.fhi.no/atcvet/atcvet_index/?code=QB06A"
+                        }
+                      ]
+                    },
+                    {
+                      "String": "QB06AX - Other hematological agents",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 6,
+                          "URL": "https://atcddd.fhi.no/atcvet/atcvet_index/?code=QB06AX"
+                        }
+                      ]
+                    },
+                    {
+                      "String": "QB06AX03 - Voxelotor",
+                      "Markup": [
+                        {
+                          "Start": 0,
+                          "Length": 8,
+                          "URL": "https://atcddd.fhi.no/atcvet/atcvet_index/?code=QB06AX03"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "TOCHeading": "Absorption, Distribution and Excretion",
+            "Information": [
+              {
+                "ReferenceNumber": 9,
+                "Name": "Absorption",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Voxelotor is rapidly absorbed after oral administration, with a plasma Tmax of 2 hours. Tmax in the red blood cells ranges from 17-24 hours. The Cmax in whole blood and red blood cells occur 6 and 18 hours after an oral dose, respectively. Consumption of a high-fat meal with voxelotor significantly increased exposure to the drug during clinical trials. After a daily dose of either 300, 600, or 900 mg for a period of 15 days, when steady-state concentrations were reached, the average RBC Cmax for the respective doses were measured to be 4950, 9610 and 14 000 \u03bcg*h mL\u22121, respectively.",
+                      "Markup": [
+                        {
+                          "Start": 72,
+                          "Length": 3,
+                          "Type": "Subscript"
+                        },
+                        {
+                          "Start": 89,
+                          "Length": 3,
+                          "Type": "Subscript"
+                        },
+                        {
+                          "Start": 146,
+                          "Length": 3,
+                          "Type": "Subscript"
+                        },
+                        {
+                          "Start": 0,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/Voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        },
+                        {
+                          "Start": 276,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 9,
+                "Name": "Route of Elimination",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "About 62.6% of the oral dose is found in the feces, of which 33.3% is an unchanged drug. About 35.5% of the dose is recovered in urine, with only 0.08% as the unchanged drug."
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 9,
+                "Name": "Volume of Distribution",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "The apparent volume of distribution of voxelotor in the central compartment is 338L and 72.2L in the plasma.",
+                      "Markup": [
+                        {
+                          "Start": 39,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "ReferenceNumber": 9,
+                "Name": "Clearance",
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "The apparent oral clearance of voxelotor is approximately 6.7 L/h.",
+                      "Markup": [
+                        {
+                          "Start": 31,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "TOCHeading": "Protein Binding",
+            "Description": "In this section, \"protein binding\" refers to the degree to which medications attach to plasma proteins (i.e., proteins within the blood, such as human serum albumin, lipoprotein, glycoprotein and globulins). A drug's efficiency may be affected by the degree to which it binds to plasma proteins. The less bound a drug is, the more efficiently it can traverse cell membranes or diffuse.",
+            "Information": [
+              {
+                "ReferenceNumber": 9,
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "The protein binding of voxeletor is 99.8% _in vitro_."
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "TOCHeading": "Metabolism/Metabolites",
+            "Description": "Metabolites are substances made or used when the body breaks down food, drugs or chemicals, or its own tissue (for example, fat or muscle tissue). This process is called metabolism and makes energy and the materials needed for growth, reproduction, and maintaining health. Metabolism also helps get rid of toxic substances.",
+            "Information": [
+              {
+                "ReferenceNumber": 9,
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Voxeletor is heavily metabolized via two phases. Phase I metabolism consists of oxidation and reduction, while phase II metabolism consists of glucuronidation. Voseletor is oxidized mainly by CYP3A4 and by CYP2C19, CYP2B6, and CYP2C9, to a lesser extent."
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "TOCHeading": "Biological Half-Life",
+            "Description": "The time required for a biological system (e.g., human body) to eliminate, by natural processes, half of the amount of a chemical (e.g., alcohol, medication, or radioactive material) that has entered it.",
+            "Information": [
+              {
+                "ReferenceNumber": 9,
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "The plasma elimination half-life of voxelotor in sickle cell disease patients is about 35.5 hours. The mean half-life in the red blood cell is 60 days. In one study, the average plasma half-life of voxelotor was 50 hours in patients with sickle cell disease, compared with 61\u201385 hours in healthy subjects.",
+                      "Markup": [
+                        {
+                          "Start": 36,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        },
+                        {
+                          "Start": 198,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "TOCHeading": "Mechanism of Action",
+            "Description": "In medicine, the term \"mechanism of action\" (also called MOA) is used to describe how a drug or other substance produces an effect in the body. For example, a drug's mechanism of action could be how it affects a specific target in a cell, such as an enzyme, or a cell function, such as cell growth. Knowing the mechanism of action of a drug may help provide information about the safety of the drug and how it affects the body. It may also help identify the right dose of a drug and which patients are most likely to respond to treatment.",
+            "Information": [
+              {
+                "ReferenceNumber": 9,
+                "Value": {
+                  "StringWithMarkup": [
+                    {
+                      "String": "Sickle cell disease is characterized by deoxygenated sickle hemoglobin (HbS) polymerization. The genetic mutation causing this disease leads to the formation of abnormal, sickle-shaped red blood cells that aggregate and block blood vessels throughout the body, causing vaso-occlusive crises. Sickle-shaped red blood cells cannot effectively bind oxygen, thus incapable of allowing normal blood flow to organs.   Voxelotor increases Hb oxygen affinity. It binds reversibly to hemoglobin (Hb) by forming a covalent bond with the N\u2010terminal valine of the \u03b1\u2010chain of the protein, resulting in an allosteric modification of Hb. Voxelotor stabilizes the oxygenated Hb state and prevents HbS polymerization by increasing hemoglobin\u2019s affinity for oxygen.",
+                      "Markup": [
+                        {
+                          "Start": 346,
+                          "Length": 6,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/element/Oxygen",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "Element-Oxygen"
+                        },
+                        {
+                          "Start": 412,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/Voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        },
+                        {
+                          "Start": 435,
+                          "Length": 6,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/element/Oxygen",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "Element-Oxygen"
+                        },
+                        {
+                          "Start": 538,
+                          "Length": 6,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/valine",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-6287"
+                        },
+                        {
+                          "Start": 623,
+                          "Length": 9,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/compound/Voxelotor",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "CID-71602803"
+                        },
+                        {
+                          "Start": 740,
+                          "Length": 6,
+                          "URL": "https://pubchem.ncbi.nlm.nih.gov/element/Oxygen",
+                          "Type": "PubChem Internal Link",
+                          "Extra": "Element-Oxygen"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Reference": [
+      {
+        "ReferenceNumber": 9,
+        "SourceName": "DrugBank",
+        "SourceID": "DB14975",
+        "Name": "Voxelotor",
+        "Description": "The DrugBank database is a unique bioinformatics and cheminformatics resource that combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information.",
+        "URL": "https://go.drugbank.com/drugs/DB14975",
+        "LicenseNote": "Creative Common's Attribution-NonCommercial 4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/legalcode)",
+        "LicenseURL": "https://www.drugbank.ca/legal/terms_of_use",
+        "ANID": 8176851
+      },
+      {
+        "ReferenceNumber": 25,
+        "SourceName": "FDA Pharm Classes",
+        "SourceID": "3ZO554A4Q8",
+        "Name": "VOXELOTOR",
+        "Description": "FDA Pharmacologic class is a group of active moieties that share scientifically documented properties and is defined on the basis of any combination of attributes of the active moiety. Read more at https://www.fda.gov/industry/structured-product-labeling-resources/pharmacologic-class",
+        "URL": "https://dailymed.nlm.nih.gov/dailymed/browse-drug-classes.cfm",
+        "LicenseNote": "Unless otherwise noted, the contents of the FDA website (www.fda.gov), both text and graphics, are not copyrighted. They are in the public domain and may be republished, reprinted and otherwise used freely by anyone without the need to obtain permission from FDA. Credit to the U.S. Food and Drug Administration as the source is appreciated but not required.",
+        "LicenseURL": "https://www.fda.gov/about-fda/about-website/website-policies#linking",
+        "ANID": 30571927
+      },
+      {
+        "ReferenceNumber": 34,
+        "SourceName": "National Drug Code (NDC) Directory",
+        "SourceID": "dbb1365d432595eb62c055da3e49d359",
+        "Name": "VOXELOTOR",
+        "Description": "The National Drug Code (NDC) is a unique, three-segment number that serves as FDA's identifier for drugs. The NDC Directory contains information on active and certified finished and unfinished drugs submitted to FDA.",
+        "URL": "https://www.fda.gov/drugs/drug-approvals-and-databases/national-drug-code-directory",
+        "LicenseNote": "Unless otherwise noted, the contents of the FDA website (www.fda.gov), both text and graphics, are not copyrighted. They are in the public domain and may be republished, reprinted and otherwise used freely by anyone without the need to obtain permission from FDA. Credit to the U.S. Food and Drug Administration as the source is appreciated but not required.",
+        "LicenseURL": "https://www.fda.gov/about-fda/about-website/website-policies#linking",
+        "ANID": 31090243
+      },
+      {
+        "ReferenceNumber": 42,
+        "SourceName": "WHO Anatomical Therapeutic Chemical (ATC) Classification",
+        "SourceID": "B06AX03",
+        "Name": "Voxelotor",
+        "Description": "The WHO Anatomical Therapeutic Chemical (ATC) Classification System is a classification of active ingredients of drugs according to the organ or system on which they act and their therapeutic, pharmacological and chemical properties.",
+        "URL": "https://atcddd.fhi.no/atc_ddd_index/?code=B06AX03",
+        "LicenseNote": "Use of all or parts of the material requires reference to the WHO Collaborating Centre for Drug Statistics Methodology. Copying and distribution for commercial purposes is not allowed. Changing or manipulating the material is not allowed.",
+        "LicenseURL": "https://www.whocc.no/copyright_disclaimer/",
+        "ANID": 24384295
+      },
+      {
+        "ReferenceNumber": 43,
+        "SourceName": "WHO ATCvet - Classification of Veterinary Medicines",
+        "SourceID": "QB06AX03",
+        "Name": "Voxelotor",
+        "Description": "The ATCvet system for the classification of veterinary medicines is based on the same overall principles as the ATC system for substances used in human medicine.",
+        "URL": "https://atcddd.fhi.no/atcvet/atcvet_index/?code=QB06AX03",
+        "LicenseNote": "Use of all or parts of the material requires reference to the WHO Collaborating Centre for Drug Statistics Methodology. Copying and distribution for commercial purposes is not allowed. Changing or manipulating the material is not allowed.",
+        "LicenseURL": "https://atcddd.fhi.no/copyright_disclaimer/",
+        "ANID": 53276001
+      },
+      {
+        "ReferenceNumber": 72,
+        "SourceName": "Medical Subject Headings (MeSH)",
+        "SourceID": "M0010043",
+        "Name": "Hematologic Agents",
+        "Description": "MeSH (Medical Subject Headings) is the U.S. National Library of Medicine's controlled vocabulary thesaurus used for indexing articles for PubMed.",
+        "URL": "https://id.nlm.nih.gov/mesh/M0010043.html",
+        "LicenseNote": "Works produced by the U.S. government are not subject to copyright protection in the United States. Any such works found on National Library of Medicine (NLM) Web sites may be freely used or reproduced without permission in the U.S.",
+        "LicenseURL": "https://www.nlm.nih.gov/copyright.html"
+      }
+    ]
+  }
+}

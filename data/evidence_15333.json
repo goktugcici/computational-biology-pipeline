@@ -1,0 +1,847 @@
+{
+  "variant_id": "15333",
+  "allele_info": {
+    "chromosome": "11",
+    "position_start": "5225464",
+    "position_stop": "5227071",
+    "reference_allele": null,
+    "alternate_allele": null,
+    "cytogenetic_band": "11p15.4",
+    "dbsnp_rsid": "rs334"
+  },
+  "conditions": [
+    {
+      "name": "Hereditary persistence of fetal hemoglobin",
+      "medgen_cui": "C0019025",
+      "omim_id": "141749",
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "METHEMOGLOBINEMIA, BETA TYPE",
+      "medgen_cui": "C1840779",
+      "omim_id": "617971",
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Malaria, susceptibility to",
+      "medgen_cui": "C1970028",
+      "omim_id": "611162",
+      "orphanet_id": "673",
+      "hpo_terms": []
+    },
+    {
+      "name": "Dominant beta-thalassemia",
+      "medgen_cui": "C1858990",
+      "omim_id": "603902",
+      "orphanet_id": "848",
+      "hpo_terms": []
+    },
+    {
+      "name": "Heinz body anemia",
+      "medgen_cui": "C0700299",
+      "omim_id": "140700",
+      "orphanet_id": "178330",
+      "hpo_terms": [
+        "HP:0005511",
+        "HP:0005511"
+      ]
+    },
+    {
+      "name": "Hb SS disease",
+      "medgen_cui": "C0002895",
+      "omim_id": "603903",
+      "orphanet_id": "275752",
+      "hpo_terms": []
+    },
+    {
+      "name": "Beta-thalassemia HBB/LCRB",
+      "medgen_cui": "CN322236",
+      "omim_id": "613985",
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Erythrocytosis, familial, 6",
+      "medgen_cui": "C4693822",
+      "omim_id": "617980",
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "alpha Thalassemia",
+      "medgen_cui": "C0002312",
+      "omim_id": "604131",
+      "orphanet_id": "846",
+      "hpo_terms": []
+    },
+    {
+      "name": "beta Thalassemia",
+      "medgen_cui": "C0005283",
+      "omim_id": null,
+      "orphanet_id": "848",
+      "hpo_terms": []
+    },
+    {
+      "name": "Fetal hemoglobin quantitative trait locus 1",
+      "medgen_cui": "C1841621",
+      "omim_id": "141749",
+      "orphanet_id": "251380",
+      "hpo_terms": []
+    },
+    {
+      "name": "HBB-related disorder",
+      "medgen_cui": "CN239378",
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Inborn genetic diseases",
+      "medgen_cui": "C0950123",
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "not provided",
+      "medgen_cui": "C3661900",
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Sickle cell-hemoglobin C disease",
+      "medgen_cui": "C0019034",
+      "omim_id": null,
+      "orphanet_id": "251365",
+      "hpo_terms": []
+    },
+    {
+      "name": "HEMOGLOBIN S",
+      "medgen_cui": "C3888302",
+      "omim_id": "141900.0243",
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Malaria, resistance to",
+      "medgen_cui": "C2720293",
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "See cases",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Unknown",
+      "medgen_cui": null,
+      "omim_id": "141749",
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "MALARIA, RESISTANCE TO",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Beta-thalassemia",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Sickle cell disease and related diseases",
+      "medgen_cui": "CN202572",
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Not Provided",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Not provided",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "SICKLE CELL DISEASE",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Beta thalassemia",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "HBB-related disorders",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "HBB-related condition",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    },
+    {
+      "name": "Sickle cell anemia",
+      "medgen_cui": null,
+      "omim_id": null,
+      "orphanet_id": null,
+      "hpo_terms": []
+    }
+  ],
+  "functional_consequences": [],
+  "structural_variant_details": null,
+  "citation_references": [
+    "11501714",
+    "11741197",
+    "11830454",
+    "11880644",
+    "12124399",
+    "1301203",
+    "13066514",
+    "13115700",
+    "13369537",
+    "13464827",
+    "1376298",
+    "13852872",
+    "14084634",
+    "15395398",
+    "15543018",
+    "15658184",
+    "16001361",
+    "17287491",
+    "1802884",
+    "18048408",
+    "18192399",
+    "18473247",
+    "19061217",
+    "19460936",
+    "19465909",
+    "19758965",
+    "1986365",
+    "20301551",
+    "20301599",
+    "20305663",
+    "20628988",
+    "20861612",
+    "20954261",
+    "20981092",
+    "21045822",
+    "21131035",
+    "21302591",
+    "21329186",
+    "21529713",
+    "22010933",
+    "22028795",
+    "22075726",
+    "22244832",
+    "22625666",
+    "22957039",
+    "2296310",
+    "22975760",
+    "23065522",
+    "23144702",
+    "23591685",
+    "24123366",
+    "24493127",
+    "25023084",
+    "25023085",
+    "25087612",
+    "25203083",
+    "2579336",
+    "2582106",
+    "26041415",
+    "26275168",
+    "26372199",
+    "27117572",
+    "27254408",
+    "27884173",
+    "28356267",
+    "28361595",
+    "2888754",
+    "2891298",
+    "2893541",
+    "2898142",
+    "2898460",
+    "29542687",
+    "30002798",
+    "30033078",
+    "30315176",
+    "3048433",
+    "31553106",
+    "32527859",
+    "3267215",
+    "3354556",
+    "34334128",
+    "34749363",
+    "36073655",
+    "3690667",
+    "37240547",
+    "3752087",
+    "3821796",
+    "4232783",
+    "6129204",
+    "6268660",
+    "6272289",
+    "6280057",
+    "6285354",
+    "6583683",
+    "6584911",
+    "7384810",
+    "7993409",
+    "81926",
+    "8199597",
+    "8294201",
+    "8462981",
+    "909565",
+    "9859938"
+  ],
+  "submissions": [
+    {
+      "submitter_name": "Biochemical Molecular Genetic Laboratory, King Abdulaziz Medical City",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": "2018-07-19"
+    },
+    {
+      "submitter_name": "Institute for Genomic Medicine (IGM) Clinical Laboratory, Nationwide Children's Hospital",
+      "classification": "Pathogenic",
+      "curator_notes": "[ACMG/AMP: PS3, PM3, PM5, PS4_Moderate, PP5] This alteration is supported by well-established in vitro or in vivo functional studies to have a damaging effect on protein function or splicing [PS3], is detected in trans with a known pathogenic variant [PM3], is a novel missense change at an amino residue where a different missense change has been deemed to be pathogenic [PM5], has previously been observed in multiple unrelated patients with the same phenotype [PS4_Moderate], was reported as a pathogenic/likely pathogenic alteration by a reputable source (ClinVar or other correspondence from a clinical testing laboratory) [PP5].",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2018-05-09"
+    },
+    {
+      "submitter_name": "Fulgent Genetics, Fulgent Genetics",
+      "classification": "Pathogenic",
+      "curator_notes": "This variant has been detected in individual(s) who were sent for testing of Renasight - kidney gene panel.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2021-06-30"
+    },
+    {
+      "submitter_name": "Clinical Genetics DNA and cytogenetics Diagnostics Lab, Erasmus MC, Erasmus Medical Center",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Genetic Services Laboratory, University of Chicago",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": "2022-01-07"
+    },
+    {
+      "submitter_name": "Lifecell International Pvt. Ltd",
+      "classification": "Pathogenic",
+      "curator_notes": "A Heterozygous Missense variant c.20A>T in Exon 1 of the HBB gene that results in the amino acid substitution p.Glu7Val was identified. The observed variant has a minor allele frequency of 0.00348% in gnomAD exomes and genomes, respectively. The severity of the impact of this variant on the protein is medium, based on the effect of the protein and REVEL score. Rare Exome Variant Ensemble Learner (REVEL) is an ensembl method for predicting the pathogenicity of missense variants based on a combination of scores from 13 individual tools: MutPred, FATHMM v2.3, VEST 3.0, PolyPhen-2, SIFT, PROVEAN, MutationAssessor, MutationTaster, LRT, GERP++, SiPhy, phyloP, and phastCons. The REVEL score for an individual missense variant can range from 0 to 1, with higher scores reflecting greater likelihood that the variant is disease-causing. ClinVar has also classified this variant as Pathogenic, Likely Benign, and Conflicting Interpretations (Variant ID: 15333). This variant has previously been reported for sickle cell anemia by Jaripour ME, et, al., 2018. Experimental studies have shown that this missense change affects HBB function by Eshbach ML, et, al, 2017. Based on the above evidence this variant has been classified as Pathogenic according to the ACMG guidelines.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Illumina Laboratory Services, Illumina",
+      "classification": "Pathogenic",
+      "curator_notes": "The HBB c.20A>T (p.Glu7Val) missense variant, also referred to as p.Glu6Val, has been reported in a homozygous state in more than 1000 individuals with sickle cell anemia (PMID: 25023084; 25023085; 26275168). The highest frequency of this allele in the Genome Aggregation Database is 0.04490 in the African/African-American population (version 2.1.1). This frequency is high, however, carriers are hypothesized to confer protection against Plasmodium falciparum malaria infection (PMID: 21045822). In mice expressing the sickle trait variant, erythrocytes were shown to sickle with deoxygenation, similar to that seen in humans with sickle cell anemia (PMID: 2296310), and in mice with 100% expression of the sickle cell variant, chronic hemolytic anemia with circulating sickled erythrocytes, as well as chronic tissue damage, was observed (PMID: 12124399). Based on the available evidence, the c.20A>T (p.Glu7Val) variant is classified as pathogenic for sickle cell disease.",
+      "assertion_criteria": "ICSLVariantClassificationCriteria RUGD 01 April 2020",
+      "date_last_evaluated": "2023-05-06"
+    },
+    {
+      "submitter_name": "Genomics And Bioinformatics Analysis Resource, Columbia University",
+      "classification": "Pathogenic",
+      "curator_notes": "Homozygous",
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Laboratory for Molecular Medicine, Mass General Brigham Personalized Medicine",
+      "classification": "Pathogenic",
+      "curator_notes": "The p.Glu7Val variant (also known as p.Glu6Val or hemoglobin S variant) in HBB is a well-established variant which, in the homozygous state, causes sickle cell anemia and which accounts for 60-70% of sickle cell disease in the US (Bender 2003 PMID: 20301551, Serjeant 1968 PMID: 4232783). Co-inheritance with a second HBB variant associated with abnormal hemoglobin (such as Hb C, Hb D, Hb O, Hb E and \u03b2-thalassemia pathogenic variants) also results in sickle cell disease. This variant has also been reported by other clinical laboratories in ClinVar (Variation ID 15333) and has been identified in 1799/41432 (4.3%) of African/African American chromosomes, including 9 homozygotes, by gnomAD (http://gnomad.broadinstitute.org, v.3.1.2). In vitro functional studies support an impact on protein function as this variant is shown to affect hemoglobin polymerization, resulting in abnormally shaped red blood cells (He 2017 PMID: 12124399, Adachi 1991 PMID: 1802884). Transgenic mouse models have also shown that this variant causes sickle cell disease, as mouse red blood cells with the variant had a sickle shape upon deoxygenation (Greaves 1990 PMID: 2296310). In summary, this variant meets criteria to be classified as pathogenic autosomal recessive sickle cell disease. ACMG/AMP Criteria applied: PM3_Very Strong, PS3.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2024-04-11"
+    },
+    {
+      "submitter_name": "OMIM",
+      "classification": "not provided",
+      "curator_notes": null,
+      "assertion_criteria": "no classification provided",
+      "date_last_evaluated": "2023-09-15"
+    },
+    {
+      "submitter_name": "OMIM",
+      "classification": "protective",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": "2011-12-02"
+    },
+    {
+      "submitter_name": "Victorian Clinical Genetics Services, Murdoch Childrens Research Institute",
+      "classification": "Pathogenic",
+      "curator_notes": "A heterozygous missense variant, NM_000518.5(HBB):c.20A>T, has been identified in exon 1 of 3 of the HBB gene. The variant is predicted to result in a major amino acid change from glutamic acid to valine at position 7 of the protein (NP_000509.1(HBB):p.(Glu7Val)). The glutamic acid at this position has low conservation (100 vertebrates, UCSC), and is located within the Hb-beta like functional domain. In silico predictions of pathogenicity for this variant are conflicting (Polyphen, SIFT, CADD, Mutation Taster). The variant is present in the gnomAD database at a frequency of 0.4% (1228 heterozygous, 4 homozygous). An alternative residue change has been reported in the gnomAD database at a frequency of 0.1%. The variant is the cause of hemoglobin S which results in sickle cell anemia and has been previously described as pathogenic and segregated with disease in multiple families (ClinVar; Kwiatkowski, D.P. 2005). Even though often fatal when homozygous or compound heterozygous, it is seen in high frequency (~10%) in populations in Sub-Saharan African and Middle East where it has been positively selected because it confers protection against malaria in heterozygous individuals, which are asymptomatic (Kwiatkowski, D.P. 2005). Additionally, functional studies showed that erythrocytes from transgenic mice expressing human HBB sickle readily on deoxygenation (Greaves, D.R. et al., 1990). A different variant in the same codon resulting in a change to lysine has been reported to cause a mild hemolytic anemia (ClinVar; Kwiatkowski, D.P. 2005). Based on the information available at the time of curation, this variant has been classified as PATHOGENIC.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2019-08-28"
+    },
+    {
+      "submitter_name": "Genomic Research Center, Shahid Beheshti University of Medical Sciences",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2024-04-22"
+    },
+    {
+      "submitter_name": "Department of Pathology and Laboratory Medicine, Sinai Health System",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2023-05-29"
+    },
+    {
+      "submitter_name": "Revvity Omics, Revvity",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2024-10-10"
+    },
+    {
+      "submitter_name": "ARUP Laboratories, Molecular Genetics and Genomics, ARUP Laboratories",
+      "classification": "Pathogenic",
+      "curator_notes": "The Hb S variant (HBB: c.20A>T; p.Glu7Val, also known as Glu6Val when numbered from the mature protein, HbVar ID: 226, rs334) is a common pathogenic beta globin variant. Heterozygosity for Hb S is consistent with sickle cell trait. Homozygosity for Hb S results in sickle cell anemia. Hb S in combination with a different pathogenic HBB variant on the opposite chromosome results in various forms of sickle cell disease (see HbVar link and references therein). References: Link to HbVar database: https://globin.bx.psu.edu/hbvar/menu.html",
+      "assertion_criteria": "ARUP Molecular Germline Variant Investigation Process 2024",
+      "date_last_evaluated": "2025-07-31"
+    },
+    {
+      "submitter_name": "Variantyx, Inc.",
+      "classification": "Pathogenic",
+      "curator_notes": "This is a nonsynonymous variant in the HBB gene (OMIM: 141900). Pathogenic variants in this gene have been associated with autosomal recessive sickle cell anemia. This variant has been identified in the homozygous or compound heterozygous state in at least eleven unrelated patients (PM3_VeryStrong). Functional studies have shown that this variant alters HBB protein function (PMID: 1802884) (PS3). This variant lies within a known hotspot for pathogenic variants or a well-established critical functional domain of the HBB protein (PMID: 22028795) (PM1). Computational algorithms produce conflicting evidence regarding the predicted functional impact of this variant (REVEL score: 0.535). This variant has a 4.9487% maximum allele frequency in non-founder control populations (https://gnomad.broadinstitute.org/). Based on the current evidence, this variant is classified as pathogenic for autosomal recessive sickle cell anemia.While heterozygosity for the p.Glu7Val variant is insufficient to cause sickle cell anemia, it is associated with sickle cell trait (PMID: 20301551).",
+      "assertion_criteria": "Variantyx Assertion Criteria 2022",
+      "date_last_evaluated": "2025-03-27"
+    },
+    {
+      "submitter_name": "Department of Molecular Genetics, Istishari Arab Hospital",
+      "classification": "Pathogenic",
+      "curator_notes": "The HBB variant c.20A>T, p.Glu7Val creates an amino acid change from Glu to Val at position 7. The variant is observed in the gnomAD v4.1.0 dataset (total allele frequency: <0.265%). This variant is the most prevalent genotype associated with sickle cell disease (PMID: The HBB variant c.20A>T, p.Glu7Val creates an amino acid change from Glu to Val at position 7. The variant is observed in the gnomAD v4.1.0 dataset (total allele frequency: <0.265%). This variant is the most prevalent genotype associated with sickle cell disease (PMID: 25203083 12124399\u201a 1802884\u201a 19460936\u201a 2296310\u201a 23591685\u201a 25023084\u201a 25023085\u201a 28356267\u201a 29542687\u201a 3267215). It is classified as pathogenic according to the recommendations of ACMG/AMP/ClinGen SVI guidelines. ). Different missense changes at the same codon (p.Glu7Ala, p.Glu7Gln, p.Glu7Lys, p.Glu7Met) have been reported as pathogenic/likely pathogenic with strong evidence (PMID: 19460936, 6129204, 8294201). It is classified as pathogenic according to the recommendations of ACMG/AMP/ClinGen SVI guidelines.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2026-02-26"
+    },
+    {
+      "submitter_name": "3billion",
+      "classification": "Pathogenic",
+      "curator_notes": "The variant is observed in the gnomAD v4.1.0 dataset (total allele frequency: 0.265%). Predicted Consequence/Location: Missense variant Functional studies provide strong evidence of the variant having a damaging effect on the gene or gene product (PMID: 12124399, 1802884, 2296310, 28356267). The same nucleotide change resulting in the same amino acid change has been previously reported as pathogenic/likely pathogenic with strong evidence (ClinVar ID: VCV000015333 /PMID: 3267215 /3billion dataset). The variant has been observed in multiple (>3) similarly affected unrelated individuals (PMID: 25023084, 25023085, 25203083). The variant has been reported to be in trans with a pathogenic variant as either compound heterozygous or homozygous in at least one similarly affected unrelated individual (PMID: 23591685, 29542687). Different missense changes at the same codon (p.Glu7Ala, p.Glu7Gln, p.Glu7Lys, p.Glu7Met) have been reported as pathogenic/likely pathogenic with strong evidence (ClinVar ID: VCV000015126, VCV000036301 /PMID: 19460936, 6129204, 8294201 /3billion dataset). Therefore, this variant is classified as Pathogenic according to the recommendation of ACMG/AMP guideline.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2026-01-22"
+    },
+    {
+      "submitter_name": "GenomeConnect - Invitae Patient Insights Network",
+      "classification": "not provided",
+      "curator_notes": "Variant classified as Pathogenic and reported on 06-01-2022 by Invitae. GenomeConnect-Invitae Patient Insights Network assertions are reported exactly as they appear on the patient-provided report from the testing laboratory. Registry team members make no attempt to reinterpret the clinical significance of the variant. Phenotypic details are available under supporting information.; Pathogenic",
+      "assertion_criteria": "no classification provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Center for Pediatric Genomic Medicine, Children's Mercy Hospital and Clinics",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2014-09-15"
+    },
+    {
+      "submitter_name": "Division of Human Genetics, Children's Hospital of Philadelphia",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": "2016-02-23"
+    },
+    {
+      "submitter_name": "HudsonAlpha Institute for Biotechnology, HudsonAlpha Institute for Biotechnology",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2018-04-16"
+    },
+    {
+      "submitter_name": "Gharavi Laboratory, Columbia University",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2018-09-16"
+    },
+    {
+      "submitter_name": "Mendelics",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "Mendelics Assertion Criteria 2017",
+      "date_last_evaluated": "2019-05-28"
+    },
+    {
+      "submitter_name": "Reproductive Health Research and Development, BGI Genomics",
+      "classification": "Pathogenic",
+      "curator_notes": "NM_000518.4:c.20A>T is also known as p.Glu6Lys or HbS in the literature. NM_000518.4:c.20A>T in the HBB gene has an allele frequency of 0.045 in African subpopulation in the gnomAD database. The c.20A>T (p.Glu7Val) variant in HBB is the most prevalent genotype associated with sickle cell disease (PMID: 25203083). Kondani et al reported that among 247 children, 19 (7.7%) were homozygous sickle cell anemia patients (Hb SS) (PMID: 25023084). Experimental studies have shown that this missense change affects hemoglobin polymerization and can result in abnormally-shaped red blood cells (PMID: 12124399; 28356267; 1802884). Taken together, we interprete this variant as Pathogenic/Likely pathogenic. ACMG/AMP Criteria applied: PS4; PS3; PM3; PP4.",
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": "2020-01-06"
+    },
+    {
+      "submitter_name": "Women's Health and Genetics/Laboratory Corporation of America, LabCorp",
+      "classification": "Pathogenic",
+      "curator_notes": "Variant summary: HBB c.20A>T (p.Glu7Val) results in a non-conservative amino acid change located in the Globin domain (IPR000971) of the encoded protein sequence. Four of five in-silico tools predict a benign effect of the variant on protein function. The variant allele was found at a frequency of 0.0035 in 251180 control chromosomes in the gnomAD database, including 3 homozygotes. c.20A>T has been reported in the literature in multiple individuals affected with Sickle Cell Disease, an inherited monogenic disease characterized by intravascular sickling, haemolysis, anemia and leukocytosis as well as the association between sickled red blood cells and other blood components (example, Domingos_2014). These data indicate that the variant is very likely to be associated with disease. At least one publication reports experimental evidence evaluating an impact on protein function. The most pronounced variant effect results in decreased solubility of deoxygenated Hb S, and polymerization which leads to the formation of an extensive network of fibers in red blood cells (example, Adachi_1991). Eleven clinical diagnostic laboratories have submitted clinical-significance assessments for this variant to ClinVar after 2014 without evidence for independent evaluation. All laboratories classified the variant as pathogenic. Based on the evidence outlined above, the variant was classified as pathogenic.",
+      "assertion_criteria": "LabCorp Variant Classification Summary - May 2015",
+      "date_last_evaluated": "2019-10-14"
+    },
+    {
+      "submitter_name": "Myriad Genetics, Inc.",
+      "classification": "Pathogenic",
+      "curator_notes": "SCV000678040 was merged into SCV001194011 to remove duplication.; NM_000518.4(HBB):c.20A>T(E7V, aka Hb S) is classified as pathogenic and is associated with hemoglobin S (sickle cell disease). Sources cited for classification include the following: PMID 19061217, 2582106, 22028795, 22625666, 22010933, 2888754, 20954261, 6583683, 1376298. Classification of NM_000518.4(HBB):c.20A>T(E7V, aka Hb S) is based on the following criteria: This is a well-established pathogenic variant in the literature that has been observed more frequently in patients with clinical diagnoses than in healthy populations. Please note: this variant was assessed in the context of healthy population screening.\u00e2\u20ac\u0161\u00c3\u201e\u00c3\u00b6\u00e2\u02c6\u0161\u00c3\u2018\u00e2\u02c6\u0161\u00c2\u00a3",
+      "assertion_criteria": "Myriad Women's Health Autosomal Recessive and X-Linked Classification Criteria (2019)",
+      "date_last_evaluated": "2019-10-18"
+    },
+    {
+      "submitter_name": "Clinical Genetics and Genomics, Karolinska University Hospital",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2016-03-02"
+    },
+    {
+      "submitter_name": "Diagnostic Laboratory, Department of Genetics, University Medical Center Groningen",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Genome Diagnostics Laboratory, University Medical Center Utrecht",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Joint Genome Diagnostic Labs from Nijmegen and Maastricht, Radboudumc and MUMC+",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Dubai Health Genomic Medicine Center, Dubai Health",
+      "classification": "Pathogenic",
+      "curator_notes": "The p.Glu7Val variant (also known as Glu6Val and hemoglobin S variant) in HBB has been identified in 1121/24964 (4.5% 4 homozygotes) of African chromosomes by the Genome Aggregation Database. In the homozygous state the p.Glu7Val variant in HBB causes sickle cell anemia. Co-inheritance with a second HBB variant associated with abnormal hemoglobin (such as Hb C Hb D Hb O Hb E and \u03b2-thalassemia pathogenic variants) results in sickle cell disease (PMID: 20301551). In summary this variant meets our criteria to be classified as pathogenic for sickle cell disease.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2021-03-10"
+    },
+    {
+      "submitter_name": "CENTOGENE GmbH and LLC - Guiding Precision Medicine",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2021-09-22"
+    },
+    {
+      "submitter_name": "Baylor Genetics",
+      "classification": "Pathogenic",
+      "curator_notes": "This variant was determined to be pathogenic according to ACMG Guidelines, 2015 [PMID:25741868].",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2022-01-11"
+    },
+    {
+      "submitter_name": "Laboratorio de Genetica e Diagnostico Molecular, Hospital Israelita Albert Einstein",
+      "classification": "Pathogenic",
+      "curator_notes": "ACMG classification criteria: PS3, PS4, PM3, BS1",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2022-01-06"
+    },
+    {
+      "submitter_name": "GeneReviews",
+      "classification": "not provided",
+      "curator_notes": null,
+      "assertion_criteria": "no classification provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "H3Africa Consortium",
+      "classification": "Pathogenic",
+      "curator_notes": "While the frequency of the alternate allele in gnoMAD v2.0.2 is 0.53, its frequency in African populations is >5%, as there is a high prevalence of sickle cell disease in African ancestry individuals.",
+      "assertion_criteria": "Choudhury A et al. (Nature 2020)",
+      "date_last_evaluated": "2022-10-12"
+    },
+    {
+      "submitter_name": "Greenwood Genetic Center Diagnostic Laboratories, Greenwood Genetic Center",
+      "classification": "Pathogenic",
+      "curator_notes": "PS3, PS4, PM3, PP1",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2022-08-10"
+    },
+    {
+      "submitter_name": "GeneDx",
+      "classification": "Pathogenic",
+      "curator_notes": "Functional studies using transgenic mouse models showed mouse erythrocytes with this variant sickled upon deoxygenation (Greaves et al., 1990) and kinetic studies indicate this variant drastically decreases the molecular stability of the protein (Adachi et al., 1987); Commonly referred to as p.(E6V) due to the use of alternate nomenclature; This variant is associated with the following publications: (PMID: 20825310, 1802884, 30315176, 3267215, 24123366, 20954261, 22975760, 23065522, 22625666, 19465909, 20305663, 20981092, 22010933, 22028795, 22957039, 23144702, 2296310, 27884173, 27254408, 17393956, 28356267, 26372199, 19758965, 12124399, 22244832, 20861612, 30655275, 30290004, 21329186, 15543018, 30033078, 31553106, 31130284, 31980526, 27650483, 32817264, 32371413, 25023084, 2888754, 31589614, 25087612)",
+      "assertion_criteria": "GeneDx Variant Classification Process June 2021",
+      "date_last_evaluated": "2021-05-25"
+    },
+    {
+      "submitter_name": "Baylor Genetics",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2021-04-29"
+    },
+    {
+      "submitter_name": "Johns Hopkins Genomics, Johns Hopkins University",
+      "classification": "Pathogenic",
+      "curator_notes": "This HBB variant (rs334) reaches polymorphic frequency (>1%) within the African/African American subpopulation in a large population dataset (gnomAD: 1121/24964 total alleles; 4.49%; 4 homozygotes) and has been reported in ClinVar. It is the most common pathogenic HBB variant in individuals of African ancestry. Also known as p.Glu6Val and HbS, it has been reported in a homozygous or compound heterozygous state in individuals with beta-hemoglobinopathies. One bioinformatic tool queried predicts that this substitution would damaging, while another predicts it would be tolerated. Experimental studies have shown that this variant affects the physical and kinetic properties of the hemoglobin protein. Bioinformatic analysis predicts that this missense variant would not affect normal exon 1 splicing, although this has not been confirmed experimentally to our knowledge. We consider c.20A>T (p.Glu7Val) to be pathogenic.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2023-02-17"
+    },
+    {
+      "submitter_name": "Genomic Medicine Center of Excellence, King Faisal Specialist Hospital and Research Centre",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2024-03-25"
+    },
+    {
+      "submitter_name": "Ambry Genetics",
+      "classification": "Pathogenic",
+      "curator_notes": "The c.20A>T (p.E7V) alteration is located in exon 1 of the HBB gene. This alteration results from a A to T substitution at nucleotide position 20, causing the glutamic acid (E) at amino acid position 7 to be replaced by a valine (V). Based on data from gnomAD, the T allele has an overall frequency of 0.44% (1236/282580) total alleles studied. The highest observed frequency was 4.49% (1121/24964) of African/African American alleles. This alteration results in the hemoglobin S (HbS) variant and is associated with sickle cell disease (Ingram, 1956). This amino acid position is not well conserved in available vertebrate species. The p.E7V alteration is known to significantly decrease the solubility of the hemoglobin protein, allowing for the polymerization that ultimately results in red cell sickling (Adachi, 1987). The in silico prediction for this alteration is inconclusive. Based on the available evidence, this alteration is classified as pathogenic.",
+      "assertion_criteria": "Ambry Variant Classification Scheme 2023",
+      "date_last_evaluated": "2023-10-13"
+    },
+    {
+      "submitter_name": "Mayo Clinic Laboratories, Mayo Clinic",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2023-02-24"
+    },
+    {
+      "submitter_name": "OMIM",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": "2011-12-02"
+    },
+    {
+      "submitter_name": "Neuberg Centre For Genomic Medicine, NCGM",
+      "classification": "Pathogenic",
+      "curator_notes": "The missense c.20A>T (p.Glu7Val) variant in HBB gene has been reported previously in homozygous and compound heterozygous state in multiple individuals affected with HBB-related sickle cell anemia (Akinbami et al. 2016; Meher et al. 2016). Experimental studies have shown that this mutation (Glu7Val) in hemoglobin (Hb) causes red blood cells to assume a rigid curved shape that blocks their passage through the vasculature resulting in ischemia, severe pain, and necrosis (Eshbach et al. 2017). The p.Glu7Val variant has 0.4% allele frequency in gnomAD exomes database. This variant has been reported to the ClinVar database as Pathogenic (multiple submissions). The amino acid change p.Glu7Val in HBB is predicted as conserved by GERP++ and PhyloP across 100 vertebrates. The amino acid Glutamic acid at position 7 is changed to a Valine changing protein sequence and it might alter its composition and physico-chemical properties. For these reasons, this variant has been classified as Pathogenic.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Fulgent Genetics, Fulgent Genetics",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2024-04-04"
+    },
+    {
+      "submitter_name": "Center for Genomic Medicine, Rigshospitalet, Copenhagen University Hospital",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2025-03-04"
+    },
+    {
+      "submitter_name": "Eurofins Ntd Llc (ga)",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "EGL Classification Definitions 2015",
+      "date_last_evaluated": "2014-12-19"
+    },
+    {
+      "submitter_name": "Dasa",
+      "classification": "Pathogenic",
+      "curator_notes": "Well-established in vitro or in vivo functional studies supportive of a damaging effect on the gene or gene product (PMID: 13464827; 11880644; 11830454; 12124399; 28356267; 1802884) - PS3.The c.20A>T;p.(Glu7Val) missense variant has been observed in affected individual(s) and ClinVar contains an entry for this variant (ClinVar ID: 15333; PMID: 20301551; PMID: 30002798; PMID: 15658184;PMID: 7384810; PMID: 6268660; PMID: 26372199; PMID: 26275168; PMID: 28356267; PMID: 22625666; PMID: 32527859) - PS4. The p.(Glu7Val) was detected in trans with a pathogenic variant (PMID: 15658184; PMID: 20861612; PMID: 21131035) - PM3_very strong. Pathogenic missense variant in this residue have been reported (ClinVar ID: 15126 PMID: 20301551; 27117572; 26372199) - PM5. The variant co-segregated with disease in multiple affected family members (PMID: 21302591; 34334128; 14084634; 26041415) - PP1_strong.and allele frequency is greater than expected for disorder - BS1. In summary, the currently available evidence indicates that the variant is pathogenic.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2022-03-05"
+    },
+    {
+      "submitter_name": "MGZ Medical Genetics Center",
+      "classification": "Pathogenic",
+      "curator_notes": "ACMG criteria applied: PM3_VSTR, PP1_VSTR, PS4, PM1, PM5, PP4",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2022-07-22"
+    },
+    {
+      "submitter_name": "GenomeConnect - Brain Gene Registry",
+      "classification": "not provided",
+      "curator_notes": "Variant classified as Pathogenic and reported on 02-03-2017 by Baylor Medical Genetics Laboratories. Assertions are reported exactly as they appear on the patient provided laboratory report. GenomeConnect does not attempt to reinterpret the variant. The IDDRC-CTSA National Brain Gene Registry (BGR) is a study funded by the U.S. National Center for Advancing Translational Sciences (NCATS) and includes 13 Intellectual and Developmental Disability Research Center (IDDRC) institutions. The study is led by Principal Investigator Dr. Philip Payne\u202ffrom Washington University. The BGR is a data commons of gene variants paired with subject clinical information. This database helps scientists learn more about genetic changes and their impact on the brain and behavior. Participation in the Brain Gene Registry requires participation in GenomeConnect. More information about the Brain Gene Registry can be found on the study website - https://braingeneregistry.wustl.edu/.; Pathogenic",
+      "assertion_criteria": "no classification provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "MOLECULAR BIOLOGY AND HUMAN GENETICS DIVISION, THE UNIVERSITY OF BURDWAN",
+      "classification": "Pathogenic",
+      "curator_notes": "The variant HBB:c.20A>T [NP_000509.1:p.Glu7Val ] , produce sickle hemoglobin (HbS), it is a beta+ mutation. Homozygous of this variant is responsible for sickle cell anaemia . In combination with other beta mutation it may cause wide variety of sickle beta phenotype. The frequency of this allele in different state of India varies from 2 % to 20% (Ref: PMID: 30523337] . The frequency of this variant among hemoglobinopathy patient in West Bengal is less than 3.8 % as per multicentric project - A Genetic Diagnostic Algorithm Based Study for Thalassemia in Northern and Eastern Indian Populations, Funded by Dept. of Biotechnology , Govt of India [Project No. BT/PR26461/MED/12/821/2018].",
+      "assertion_criteria": "no assertion criteria provided",
+      "date_last_evaluated": "2024-05-07"
+    },
+    {
+      "submitter_name": "Genetics and Genomic Medicine Centre, NeuroGen Healthcare, NeuroGen Healthcare",
+      "classification": "Pathogenic",
+      "curator_notes": "Neurodevelopmental disorder",
+      "assertion_criteria": "Submitter's publication",
+      "date_last_evaluated": "2020-01-11"
+    },
+    {
+      "submitter_name": "Neuberg Centre For Genomic Medicine, NCGM",
+      "classification": "Pathogenic",
+      "curator_notes": "The missense c.20A>T (p.Glu7Val) variant in the HBB gene has been reported previously in homozygous and compound heterozygous states in multiple individuals affected with HBB-related sickle cell anemia (Kutlar et al. 2010; Meher et al., 2016). It is the most common pathogenic HBB variant in individuals of African ancestry. Experimental studies have shown that this missense change affects HBB function (Eshbach ML et al., 2017). The variant usually occurs as an asymptomatic trait, as a mild-tointermediate microcytic condition in combination with b-thalassemia (b-thal), as a severe sickle cell disease, and more rarely, in cultures with traditions of high consanguinity, in the homozygous state, again, a rather asymptomatic condition (Das et al., 2015).",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2024-02-01"
+    },
+    {
+      "submitter_name": "Daryl Scott Lab, Baylor College of Medicine",
+      "classification": "Pathogenic",
+      "curator_notes": "PS3, PS4, PM3, PM5, PP5",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2025-08-25"
+    },
+    {
+      "submitter_name": "Institute for Medical Genetics and Human Genetics, Charit\u00e9 - Universit\u00e4tsmedizin Berlin",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Labcorp Genetics (formerly Invitae), Labcorp",
+      "classification": "Pathogenic",
+      "curator_notes": "This sequence change replaces glutamic acid, which is acidic and polar, with valine, which is neutral and non-polar, at codon 7 of the HBB protein (p.Glu7Val). This variant is present in population databases (rs334, gnomAD 5%), and has an allele count higher than expected for a pathogenic variant. This missense change has been observed in individuals with sickle cell disease (PMID: 19758965, 20301551, 20861612, 26372199). This variant is also known as p.Glu6Val and HbS. ClinVar contains an entry for this variant (Variation ID: 15333). Invitae Evidence Modeling of protein sequence and biophysical properties (such as structural, functional, and spatial information, amino acid conservation, physicochemical variation, residue mobility, and thermodynamic stability) has been performed for this missense variant. However, the output from this modeling did not meet the statistical confidence thresholds required to predict the impact of this variant on HBB protein function. Experimental studies have shown that this missense change affects HBB function (PMID: 1802884, 12124399, 28356267). For these reasons, this variant has been classified as Pathogenic.",
+      "assertion_criteria": "Invitae Variant Classification Sherloc (09022015)",
+      "date_last_evaluated": "2026-02-04"
+    },
+    {
+      "submitter_name": "GenomeConnect, ClinGen",
+      "classification": "not provided",
+      "curator_notes": "Variant identified in multiple registry participants. Variant interpreted as consistent with alpha thalassemia trait and reported on 02-28-2020 by Lab or GTR ID 500068. Variant interpreted as Pathogenic and reported on 07-21-2020 by Myriad Genetics Laboratories, Inc. Variant interpreted as Pathogenic and reported on 05-26-2021 by Lab or GTR ID 20290. GenomeConnect assertions are reported exactly as they appear on the patient-provided report from the testing laboratory. GenomeConnect staff make no attempt to reinterpret the clinical significance of the variant.; Pathogenic",
+      "assertion_criteria": "no classification provided",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "OLLIN Analises Genomicas, OLLIN",
+      "classification": "Pathogenic",
+      "curator_notes": "PS1, PS4, PS3,PM3_VS, PM5",
+      "assertion_criteria": "ACMG Guidelines 2015 PMID 25741868",
+      "date_last_evaluated": "2026-02-13"
+    },
+    {
+      "submitter_name": "Natera, Inc.",
+      "classification": "Pathogenic",
+      "curator_notes": "The c.20A>T variant in HBB is a missense variant predicted to cause substitution of glutamic acid to valine at amino acid 7. This variant has been observed in one or more individuals affected with the associated recessive disease, as either homozygous or compound heterozygous with a second variant (PMID: 18473247, 28361595). Additionally, this variant has been observed to segregate in affected family members (PMID: 18473247). Given the available evidence, this variant is classified as Pathogenic.",
+      "assertion_criteria": "Natera Variant Classification Schema (03/2026)",
+      "date_last_evaluated": "2025-12-09"
+    },
+    {
+      "submitter_name": "CeGaT Center for Human Genetics Tuebingen",
+      "classification": "Pathogenic",
+      "curator_notes": "HBB: PM3:Very Strong, PS3:Moderate, PM2:Supporting, PP4, BP4",
+      "assertion_criteria": "CeGaT Center For Human Genetics Tuebingen Variant Classification Criteria Version 2",
+      "date_last_evaluated": "2026-07-01"
+    },
+    {
+      "submitter_name": "Clinical Genomics Laboratory, Washington University in St. Louis",
+      "classification": "Pathogenic",
+      "curator_notes": "The HBB c.20A>T (p.Glu7Val), also known as p.Glu6Val or HbS (HbVar ID 226), variant has been reported in many individuals affected by sickle cell disease (SCD) and is the most prevalent genotype associated with this phenotype in the homozygous state (Hb S/S) (Yawn BP et al., PMID: 25203083). This variant has been reported in the ClinVar database as a germline pathogenic variant by 64 submitters. The highest population minor allele frequency in the population database Genome Aggregation Database (v.4.1.0) is 4.94% in the African population. Computational predictors are uncertain about the impact of this variant on HBB function. Functional studies show recapitulation of the human phenotype in mouse models, including the erythrocytes of these mice sickling readily upon deoxygenation. Irreversibly sickled cells in the mouse with high levels of HbS indicate that this variant impacts protein function (Greaves DR et al., PMID: 2296310). Another variant in the same codon, c.19G>A (p.Glu7Lys), also known as Hb C, has been reported in several individuals with SCD and is also classified as pathogenic (ClinVar Variation ID: 15126; Bender MA et al., PMID: 20301551). Based on available information and the ACMG/AMP guidelines for variant interpretation (Richards S et al., PMID: 25741868), this variant is classified as pathogenic.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2025-10-24"
+    },
+    {
+      "submitter_name": "Blueprint Genetics",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2024-11-27"
+    },
+    {
+      "submitter_name": "PreventionGenetics, part of Exact Sciences",
+      "classification": "Pathogenic",
+      "curator_notes": "The HBB c.20A>T variant is predicted to result in the amino acid substitution p.Glu7Val. This variant, also referred to as p.Glu6Val using legacy nomenclature, has previously been reported to be causative for sickle cell anemia when present in the homozygous state (reported as Hb S in Figure 4, Engelke et al. 1988. PubMed ID: 3267215; Bender et al. 2017. PubMed ID: 20301551). Individuals heterozygous for this variant have sickle cell trait and are usually asymptomatic but can be at risk for complications, including exertional rhabdomyolysis, pulmonary emboli, and sudden death with extreme exertion (Key and Derebail. 2010. PubMed ID: 21239829; Bender et al. 2023. PubMed ID: 20301551). This variant is reported in\u00a04.5% of alleles in individuals of African descent in gnomAD. We interpret this variant as pathogenic.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2026-03-19"
+    },
+    {
+      "submitter_name": "AiLife Diagnostics, AiLife Diagnostics",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2021-11-22"
+    },
+    {
+      "submitter_name": "Genetics and Molecular Pathology, SA Pathology",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2019-09-06"
+    },
+    {
+      "submitter_name": "Genetics and Molecular Pathology, SA Pathology",
+      "classification": "Pathogenic",
+      "curator_notes": "PS4, PS3, PP1, PP5, PP4.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2020-02-06"
+    },
+    {
+      "submitter_name": "Rady Children's Institute for Genomic Medicine, Rady Children's Hospital San Diego",
+      "classification": "Pathogenic",
+      "curator_notes": "The c.20A>T (p.Glu7Val) variant in HBB, also known as p.Glu6Val, is referred to as the hemoglobin S allele (HbS) and causes autosomal recessive sickle cell disease (MIM: #603903) when it is homozygous or compound heterozygous with a different pathogenic variant. Individuals who are heterozygous for the HbS allele have sickle cell trait (SCT). The c.20A>T (p.Glu7Val) variant is the most prevalent genotype associated with sickle cell disease (PMID: 25203083). This variant affects a highly conserved amino acid and is predicted by multiple in silico tools to have a deleterious effect on protein function. It is present at a frequency of 0.4% (1236/282580 heterozygotes and 4/282580 homozygotes) in the gnomAD population database. The c.20A>T (p.Glu7Val) variant is an established disease-causing mutation. Based on the available evidence, c.20A>T(p.Glu7Val) is classified as Pathogenic.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": null
+    },
+    {
+      "submitter_name": "Clinical Genetics Laboratory, Skane University Hospital Lund",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2023-05-17"
+    },
+    {
+      "submitter_name": "New York Genome Center",
+      "classification": "Pathogenic",
+      "curator_notes": "The c.20A>T (p.Glu7Val) variant in HBB (also known as p.Glu6Val) is the most prevalent genotype associated with sickle cell disease [PMID: 25203083]. This variant is an established disease-associated mutation and has been reported as pathogenic by multiple clinical diagnostic laboratories in ClinVar (variant ID: 15333). This variant is identified in gnomAD in 1826 heterozygous individuals, 9 homozygous individuals, with an allele frequency of 1.27e-2. Based on the available evidence, the c.20A>T (p.Glu7Val) variant is classified as pathogenic.; Hemoglobin SC disease",
+      "assertion_criteria": "NYGC Assertion Criteria 2020",
+      "date_last_evaluated": "2021-02-10"
+    },
+    {
+      "submitter_name": "Genomics Facility, Ludwig-Maximilians-Universit\u00e4t M\u00fcnchen",
+      "classification": "Pathogenic",
+      "curator_notes": null,
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2021-12-28"
+    },
+    {
+      "submitter_name": "Rady Children's Institute for Genomic Medicine, Rady Children's Hospital San Diego",
+      "classification": "Pathogenic",
+      "curator_notes": "This variant is also referred to as p.Glu6Val or the hemoglobin S allele (HbS) in the literature. Missense variation is an established mechanism of disease for HBB-related disorders (PMID: 20301599, 20301551). The c.20A>T (p.Glu7Val) variant affects a weakly conserved amino acid and in silico tools used to predict the effect of this variant on protein function yield discordant results. This is a known Pathogenic variant that causes sickle cell disease when present in homozygosity, but can result in HbS/beta-thalassemia when in compound heterozygosity with other HBB variants (PMID: 20301551, 25203083, 21302591, 34334128, 14084634, 26041415). Different amino acid changes at the same residue (p.Glu7Lys, p.Glu7Gln, p.Glu7Ala) have been previously reported in individuals with HBB-related disorders (PMID: 19460936, 38708170, 6129204, 27117572). Functional analyses demonstrated that this variant reduces protein stability and causes hemoglobin polymerization that results in sickle-shaped red blood cells (PMID: 2888754, 12124399, 28356267, 1802884). The c.20A>T (p.Glu7Val) variant is present in the latest version of the gnomAD population database at an allele frequency of 0.27% (4272/1610650), including 40 homozygous individuals. Based on the available evidence, c.20A>T (p.Glu7Val) is classified as Pathogenic.",
+      "assertion_criteria": "ACMG Guidelines, 2015",
+      "date_last_evaluated": "2025-12-26"
+    }
+  ]
+}
