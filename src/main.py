@@ -24,6 +24,7 @@ from synergy_predictor import SynergyPredictor
 from immunotherapy_response import ImmunotherapyPredictor
 from alphafold_quality import AlphaFoldQualityAnalyzer
 from database import BioKnowledgebase
+from cancer_risk_predictor import CancerRiskPredictor
 from report_generator import ReportGenerator
 
 def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = None, 
@@ -32,11 +33,15 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
                  synergy_pair: list = None, tmb_val: float = None, msi_status: str = "MSS",
                  pdl1_val: float = 0.0, alphafold_gene: str = None,
                  db_query_gene: str = None, show_db_stats: bool = False,
+                 predict_cancer_risk: bool = False, patient_age: int = 50,
+                 patient_gender: str = "M", patient_symptoms: str = None,
+                 smoking_pack_years: float = 0.0, family_history: bool = False,
+                 build_cohort_size: int = None,
                  export_db_json_path: str = None, export_json_path: str = None,
                  generate_report: bool = False):
     print("=" * 70)
-    print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE v3.1 DATABASE EDITION")
-    print("Multi-Omics Structural, Genomic, Pharmacological, Synergy & Knowledgebase")
+    print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE v3.2 EARLY DETECTION EDITION")
+    print("Multi-Omics Structural, Genomic, Pharmacological, Synergy & 100k Cancer Risk")
     print("=" * 70)
 
     pipeline_summary = {}
@@ -145,12 +150,62 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['alphafold_quality'] = af_res
 
     # 11. Relational Database Engine
-    print("\n[11/11] UNIFIED RELATIONAL BIO-KNOWLEDGEBASE (SQLite 3)")
+    print("\n[11/12] UNIFIED RELATIONAL BIO-KNOWLEDGEBASE (SQLite 3)")
     db_stats = kb.get_database_stats()
     print(f"  Database File: {kb.db_path}")
     print(f"  Entities: {db_stats['genes_count']} Genes, {db_stats['variants_count']} Variants, {db_stats['structures_count']} Structures, {db_stats['compounds_count']} Compounds, {db_stats['pathways_count']} Pathways")
     print(f"  Avg Crystal Resolution: {db_stats['avg_structure_resolution_angstrom']} A | Avg Drug QED: {db_stats['avg_qed_score']}")
     pipeline_summary['database_stats'] = db_stats
+
+    # 12. Early Cancer Detection & 100k Population Epidemiology Engine
+    print("\n[12/12] EARLY CANCER DETECTION & POPULATION EPIDEMIOLOGY (100k Cohort)")
+    risk_pred = CancerRiskPredictor()
+    cohort_count = risk_pred.get_cohort_count()
+    print(f"  Cohort Database: {risk_pred.db_path} ({cohort_count:,} Records)")
+    pipeline_summary['cohort_database'] = {'path': risk_pred.db_path, 'records': cohort_count}
+
+    # OPTIONAL: Build / Rebuild Cohort
+    if build_cohort_size:
+        print("\n" + "-" * 70)
+        print(f"GENERATING EPIDEMIOLOGICAL COHORT ({build_cohort_size:,} Records)")
+        print("-" * 70)
+        risk_pred.generate_and_seed_cohort(total_records=build_cohort_size)
+        print(f"  Cohort successfully generated with {build_cohort_size:,} population records!")
+
+    # OPTIONAL: Cancer Risk Evaluation
+    if predict_cancer_risk or patient_symptoms:
+        print("\n" + "-" * 70)
+        print("INDIVIDUAL EARLY CANCER RISK EVALUATION (NICE NG12 Guidelines)")
+        print("-" * 70)
+        symptoms_list = [s.strip() for s in patient_symptoms.split(",")] if patient_symptoms else []
+        eval_result = risk_pred.evaluate_patient(
+            age=patient_age,
+            gender=patient_gender,
+            symptoms=symptoms_list,
+            smoking_pack_years=smoking_pack_years,
+            family_history=family_history
+        )
+        p_info = eval_result['patient_profile']
+        r_eval = eval_result['risk_evaluation']
+        c_evid = eval_result['cohort_empirical_evidence']
+
+        print(f"  Patient Profile: {p_info['age']} y/o {p_info['gender']} | Smoking: {p_info['smoking_pack_years']} pack-years | Family Hx: {p_info['family_history']}")
+        print(f"  Active Symptoms: {', '.join(p_info['active_symptoms']) if p_info['active_symptoms'] else 'None (Asymptomatic)'}")
+        print(f"\n  [PREDICTION RESULT]")
+        print(f"  Composite Cancer Risk: {r_eval['composite_risk_percent']}% -> {r_eval['risk_tier']}")
+        print(f"  NICE 2-Week-Wait (2WW) Urgent Referral: {'REQUIRED (YES)' if r_eval['meets_nice_2ww_referral'] else 'Not required'}")
+        if r_eval['urgent_reasons']:
+            print(f"    * Referral Triggers: {', '.join(r_eval['urgent_reasons'])}")
+        print(f"  Clinical Action: {r_eval['clinical_action']}")
+        print(f"  Primary Recommended Test: {r_eval['primary_diagnostic_recommendation']}")
+        print(f"\n  [100,000-PATIENT COHORT EVIDENCE]")
+        print(f"  Matched Cohort Subgroup: {c_evid['matched_cohort_patients']:,} patients (Age {c_evid['age_bracket']})")
+        print(f"  Observed Cohort Cancer Rate: %{c_evid['cohort_incidence_percent']} ({c_evid['cohort_diagnosed_cancers']} cases)")
+        print(f"\n  Top Suspected Cancer Types:")
+        for org in eval_result['organ_probabilities']:
+            print(f"    -> {org['cancer_name']}: %{org['probability_percent']} | Recommended: {org['recommended_test']}")
+
+        pipeline_summary['cancer_risk_evaluation'] = eval_result
 
     # OPTIONAL: Database Query
     if db_query_gene or show_db_stats:
@@ -276,6 +331,13 @@ if __name__ == "__main__":
     parser.add_argument("--db_query", default=None, help="Query relational knowledgebase for a gene (e.g. EGFR, KRAS, HBB)")
     parser.add_argument("--db_stats", action="store_true", help="Display global relational database statistics")
     parser.add_argument("--export_db", default=None, help="Export entire SQLite knowledgebase to JSON file")
+    parser.add_argument("--predict_cancer", action="store_true", help="Run early cancer detection statistical risk engine")
+    parser.add_argument("--patient_age", type=int, default=50, help="Patient age in years (e.g. 58)")
+    parser.add_argument("--patient_gender", default="M", help="Patient biological sex (M or F)")
+    parser.add_argument("--patient_symptoms", default=None, help="Comma-separated clinical symptoms (e.g. 'hemoptysis,weight_loss,chronic_cough')")
+    parser.add_argument("--smoking_pack_years", type=float, default=0.0, help="Smoking history in pack-years (e.g. 25.0)")
+    parser.add_argument("--family_history", action="store_true", help="First-degree family history of malignant neoplasm")
+    parser.add_argument("--build_cohort", type=int, default=None, help="Generate / seed epidemiological population cohort size (e.g. 100000)")
     parser.add_argument("--export_json", default=None, help="Export complete pipeline results to JSON file")
     parser.add_argument("--generate_report", action="store_true", help="Generate publication-grade HTML report")
     args = parser.parse_args()
@@ -296,6 +358,13 @@ if __name__ == "__main__":
         alphafold_gene=args.alphafold_conf,
         db_query_gene=args.db_query,
         show_db_stats=args.db_stats,
+        predict_cancer_risk=args.predict_cancer,
+        patient_age=args.patient_age,
+        patient_gender=args.patient_gender,
+        patient_symptoms=args.patient_symptoms,
+        smoking_pack_years=args.smoking_pack_years,
+        family_history=args.family_history,
+        build_cohort_size=args.build_cohort,
         export_db_json_path=args.export_db,
         export_json_path=args.export_json,
         generate_report=args.generate_report

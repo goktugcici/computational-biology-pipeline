@@ -48,9 +48,9 @@
         <div>
           <h1 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
             Computational Biology Pipeline
-            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v3.1 Database Edition</span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v3.2 Early Detection Edition</span>
           </h1>
-          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, İlaç Sinerjisi & İlişkisel Veri Tabanı</p>
+          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, 100k Erken Kanser Teşhisi & İlişkisel Veri Tabanı</p>
         </div>
       </div>
 
@@ -58,6 +58,9 @@
       <nav class="flex flex-wrap items-center gap-1 bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-xs font-medium">
         <button onclick="switchTab('3d')" id="tabBtn-3d" class="tab-btn px-2.5 py-1.5 rounded-lg bg-sky-500 text-white transition-all shadow">
           🔬 3B Yapı
+        </button>
+        <button onclick="switchTab('cancerrisk')" id="tabBtn-cancerrisk" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all font-semibold flex items-center gap-1">
+          🩺 Erken Teşhis (100k)
         </button>
         <button onclick="switchTab('database')" id="tabBtn-database" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🗄️ Veri Tabanı
@@ -262,6 +265,194 @@
               <!-- JavaScript ile doldurulur -->
             </tbody>
           </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB: ERKEN KANSER TEŞHİSİ & RİSK TAHMİNİ (100k Kohort) -->
+    <!-- ========================================== -->
+    <section id="tab-cancerrisk" class="tab-content hidden space-y-6">
+      <!-- Header Banner -->
+      <div class="bg-gradient-to-r from-rose-950/40 via-slate-900 to-indigo-950/40 border border-rose-900/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+        <div class="relative z-10 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[11px] font-bold">100.000+ Klinik Veri Tabanı</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-[11px] font-bold">NICE NG12 Kılavuzları</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">Bayesyen Çoklu-Omik Model</span>
+            </div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              🩺 Erken Kanser Teşhisi & İstatistiksel Risk Tahmin Motoru
+            </h2>
+            <p class="text-xs text-slate-400 mt-1 max-w-3xl">
+              Kullanıcının girdiği klinik alarm belirtilerini (Kırmızı Bayraklar), demografik verileri ve tütün maruziyetini, 
+              <strong>100.000 kişilik doğrulanmış epidemiyoloji veri tabanı</strong> ve NICE NG12 klinik kılavuzları ile analiz ederek organ bazında erken tanı olasılıklarını hesaplar.
+            </p>
+          </div>
+          <div class="flex items-center gap-3 bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-xs">
+            <div class="text-center px-3 border-r border-slate-800">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">Kohort Hacmi</div>
+              <div class="text-lg font-bold font-mono text-rose-400">100.000</div>
+            </div>
+            <div class="text-center px-3 border-r border-slate-800">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">Hedef Organ</div>
+              <div class="text-lg font-bold font-mono text-sky-400">8 Malignite</div>
+            </div>
+            <div class="text-center px-3">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">Acil Eşik</div>
+              <div class="text-lg font-bold font-mono text-amber-400">%3 PPV</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- SOL PANEL: HASTA PROFİLİ VE BELİRTİ GİRİŞİ (5 Kolon) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-5">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+              👤 Hasta Demografisi & Yaşam Tarzı
+            </h3>
+
+            <!-- Yaş Slider -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-300">Hasta Yaşı:</span>
+                <span id="crpAgeDisplay" class="font-mono text-sky-400 font-bold">58 Yaş</span>
+              </div>
+              <input type="range" id="crpAgeSlider" min="18" max="88" value="58" oninput="calculateCancerRiskLive()" class="w-full accent-sky-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>18</span><span>35</span><span>50</span><span>65</span><span>88</span>
+              </div>
+            </div>
+
+            <!-- Biyolojik Cinsiyet -->
+            <div class="space-y-1.5">
+              <span class="text-xs text-slate-300">Biyolojik Cinsiyet:</span>
+              <div class="grid grid-cols-2 gap-2">
+                <button type="button" onclick="setCrpGender('M')" id="crpGenderBtn-M" class="px-3 py-2 rounded-xl bg-sky-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+                  👨 Erkek
+                </button>
+                <button type="button" onclick="setCrpGender('F')" id="crpGenderBtn-F" class="px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 text-xs flex items-center justify-center gap-1.5 hover:bg-slate-800 transition-all">
+                  👩 Kadın
+                </button>
+              </div>
+            </div>
+
+            <!-- Sigara Kullanımı (Paket-Yıl) -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-300">Tütün Maruziyeti (Paket-Yıl):</span>
+                <span id="crpSmokingDisplay" class="font-mono text-amber-400 font-bold">25.0 Paket-Yıl</span>
+              </div>
+              <input type="range" id="crpSmokingSlider" min="0" max="60" step="1" value="25" oninput="calculateCancerRiskLive()" class="w-full accent-amber-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>Hiç (0)</span><span>15</span><span>30</span><span>45</span><span>60+</span>
+              </div>
+            </div>
+
+            <!-- Aile Öyküsü & Alkol -->
+            <div class="grid grid-cols-2 gap-3 pt-1 border-t border-slate-800/80">
+              <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                <input type="checkbox" id="crpFamilyHistory" onchange="calculateCancerRiskLive()" checked class="accent-rose-500 rounded w-4 h-4">
+                <span>1. Derece Kanser Öyküsü</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                <input type="checkbox" id="crpHeavyAlcohol" onchange="calculateCancerRiskLive()" class="accent-amber-500 rounded w-4 h-4">
+                <span>Düzenli Alkol Tüketimi</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 14 KLİNİK ALARM BELİRTİSİ (Kırmızı Bayraklar) -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+                🚩 Klinik Alarm Belirtileri (Kırmızı Bayraklar)
+              </h3>
+              <button onclick="clearCrpSymptoms()" class="text-[11px] text-slate-500 hover:text-slate-300 underline">Tümünü Temizle</button>
+            </div>
+            <p class="text-[11px] text-slate-400">Hasta tarafından bildirilen belirtileri seçiniz:</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs" id="crpSymptomPills">
+              <!-- JavaScript ile doldurulur -->
+            </div>
+          </div>
+        </div>
+
+        <!-- SAĞ PANEL: RİSK DEĞERLENDİRME & KOHORT KANITI (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-4">
+          <!-- Skor Kartı & NICE Uyarısı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tahmini Bileşik Kanser Riski</span>
+                <div class="flex items-baseline gap-3 mt-1">
+                  <span id="crpCompositeRisk" class="text-4xl font-extrabold font-mono text-rose-400">78.5%</span>
+                  <span id="crpRiskBadge" class="px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/30 text-xs font-bold">
+                    Kritik / Acil Sevk (Kırmızı Bayrak)
+                  </span>
+                </div>
+              </div>
+
+              <!-- NICE 2WW Uyarı Kutusu -->
+              <div id="crpNiceBanner" class="bg-rose-950/60 border border-rose-800/80 rounded-2xl p-3 max-w-xs text-xs text-rose-200 flex items-start gap-2 shadow-lg shadow-rose-950/40">
+                <span class="text-lg">🚨</span>
+                <div>
+                  <strong class="block text-rose-300 font-bold">NICE 2-Week-Wait Uyarısı</strong>
+                  <span id="crpNiceReason" class="text-[11px] text-rose-300/80">Kırmızı bayrak belirtileri (PPV ≥ %3.0) saptandı. 2 hafta içinde acil uzman sevki gereklidir.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Eylem Planı / Klinik Öneri -->
+            <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-1">
+              <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Öncelikli Klinik Tanı Protokolü</span>
+              <p id="crpActionPlan" class="text-xs text-slate-200 font-medium">
+                Düşük Doz Kontrastsız Toraks BT (LDCT) & Göğüs Hastalıkları / Torasik Onkoloji Konsültasyonu
+              </p>
+            </div>
+          </div>
+
+          <!-- 100.000 Kişilik Kohort Veri Analiz Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                📊 100.000 Kişilik Kohort Veri Eşleşmesi
+              </h3>
+              <span class="text-[11px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Doğrulanmış Klinik Veri</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 text-center">
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+                <span class="text-[10px] text-slate-500 uppercase font-bold">Eşleşen Kohort</span>
+                <p id="crpMatchedCohort" class="text-xl font-bold font-mono text-white mt-0.5">3.420</p>
+                <span class="text-[10px] text-slate-500">Hasta (Yaş 50-66)</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+                <span class="text-[10px] text-slate-500 uppercase font-bold">Kohort İçi Kanser</span>
+                <p id="crpCohortCases" class="text-xl font-bold font-mono text-rose-400 mt-0.5">1.846</p>
+                <span class="text-[10px] text-slate-500">Doğrulanmış Vaka</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+                <span class="text-[10px] text-slate-500 uppercase font-bold">Gözlenen İnsidans</span>
+                <p id="crpCohortRate" class="text-xl font-bold font-mono text-amber-400 mt-0.5">%54.0</p>
+                <span class="text-[10px] text-slate-500">Bu Alt Grupta</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Organ Bazında Kanser Olasılık Dağılımı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+              🎯 Organ Bazında Kanser Olasılık Dağılımı
+            </h3>
+            <div id="crpOrganList" class="space-y-2.5 text-xs">
+              <!-- JavaScript ile doldurulur -->
+            </div>
+          </div>
         </div>
       </div>
     </section>

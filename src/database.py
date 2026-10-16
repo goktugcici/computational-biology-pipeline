@@ -450,6 +450,31 @@ class BioKnowledgebase:
 
             return stats
 
+    def get_epidemiology_stats(self) -> Dict[str, Any]:
+        """Returns statistics on the 100,000+ cancer epidemiology cohort if available."""
+        from cancer_risk_predictor import DEFAULT_COHORT_DB_PATH
+        if not os.path.exists(DEFAULT_COHORT_DB_PATH):
+            return {'total_records': 0, 'status': 'not_generated'}
+        try:
+            conn = sqlite3.connect(DEFAULT_COHORT_DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*), SUM(cancer_diagnosed) FROM cancer_cohort;")
+            row = cursor.fetchone()
+            total_records = row[0] if row else 0
+            cancer_cases = row[1] if row else 0
+            cursor.execute("SELECT primary_cancer_type, COUNT(*) FROM cancer_cohort WHERE cancer_diagnosed = 1 GROUP BY primary_cancer_type ORDER BY COUNT(*) DESC;")
+            breakdown = {r[0]: r[1] for r in cursor.fetchall()}
+            conn.close()
+            return {
+                'total_records': total_records,
+                'total_cancer_cases': cancer_cases,
+                'overall_cancer_prevalence_percent': round((cancer_cases / total_records) * 100, 2) if total_records > 0 else 0.0,
+                'cancer_distribution': breakdown,
+                'status': 'active'
+            }
+        except Exception as e:
+            return {'total_records': 0, 'error': str(e)}
+
     def export_full_json(self, target_file: str) -> str:
         """Exports the complete contents of all relational tables into a JSON document."""
         full_kb = {

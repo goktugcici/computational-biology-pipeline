@@ -189,5 +189,58 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertTrue(os.path.exists(report_path))
         self.assertGreater(os.path.getsize(report_path), 500)
 
+    def test_cancer_cohort_initialization(self):
+        from cancer_risk_predictor import CancerRiskPredictor
+        predictor = CancerRiskPredictor()
+        self.assertGreaterEqual(predictor.get_cohort_count(), 100000)
+
+    def test_cancer_risk_high_risk_smoker(self):
+        from cancer_risk_predictor import CancerRiskPredictor
+        predictor = CancerRiskPredictor()
+        eval_res = predictor.evaluate_patient(
+            age=65,
+            gender='M',
+            symptoms=['hemoptysis', 'chronic_cough', 'unexplained_weight_loss'],
+            smoking_pack_years=35.0,
+            family_history=True
+        )
+        self.assertGreaterEqual(eval_res['risk_evaluation']['composite_risk_percent'], 75.0)
+        self.assertTrue(eval_res['risk_evaluation']['meets_nice_2ww_referral'])
+        self.assertEqual(eval_res['risk_evaluation']['tier_code'], 'CRITICAL')
+        self.assertIn("Akciğer", eval_res['organ_probabilities'][0]['cancer_name'])
+
+    def test_cancer_risk_asymptomatic_low_risk(self):
+        from cancer_risk_predictor import CancerRiskPredictor
+        predictor = CancerRiskPredictor()
+        eval_res = predictor.evaluate_patient(
+            age=25,
+            gender='F',
+            symptoms=[],
+            smoking_pack_years=0.0
+        )
+        self.assertLess(eval_res['risk_evaluation']['composite_risk_percent'], 3.0)
+        self.assertFalse(eval_res['risk_evaluation']['meets_nice_2ww_referral'])
+        self.assertEqual(eval_res['risk_evaluation']['tier_code'], 'LOW')
+
+    def test_cancer_risk_organ_specificity(self):
+        from cancer_risk_predictor import CancerRiskPredictor
+        predictor = CancerRiskPredictor()
+
+        # Colorectal test
+        col_res = predictor.evaluate_patient(
+            age=60,
+            gender='M',
+            symptoms=['rectal_bleeding', 'iron_deficiency_anemia']
+        )
+        self.assertIn("Kolorektal", col_res['organ_probabilities'][0]['cancer_name'])
+
+        # Breast test
+        br_res = predictor.evaluate_patient(
+            age=45,
+            gender='F',
+            symptoms=['breast_lump', 'nipple_abnormality']
+        )
+        self.assertIn("Meme", br_res['organ_probabilities'][0]['cancer_name'])
+
 if __name__ == "__main__":
     unittest.main()
