@@ -27,6 +27,8 @@ from database import BioKnowledgebase
 from cancer_risk_predictor import CancerRiskPredictor
 from pharmacogenomics import PharmacogenomicsEngine
 from synthetic_lethality import SyntheticLethalityEngine
+from survival_analysis import SurvivalAnalysisModeler, BENCHMARK_CLINICAL_COHORTS
+from liquid_biopsy import LiquidBiopsyEngine, ACQUIRED_RESISTANCE_MUTATIONS
 from report_generator import ReportGenerator
 
 def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = None, 
@@ -42,11 +44,15 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
                  pgx_check: bool = False, dpyd_alleles: list = None,
                  ugt1a1_diplotype: str = None, cyp2d6_diplotype: str = None,
                  synthetic_lethal_target: str = None,
+                 survival_trial: str = "FLAURA_EGFR",
+                 ctdna_baseline_vaf: float = 4.8,
+                 ctdna_followup_vaf: float = 0.02,
+                 ctdna_mutations: list = None,
                  export_db_json_path: str = None, export_json_path: str = None,
                  generate_report: bool = False):
     print("=" * 70)
-    print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE v3.3 PRECISION MEDICINE")
-    print("Multi-Omics Structural, Genomic, PGx, Synthetic Lethality & 100k Cancer Risk")
+    print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE v3.4 CLINICAL ONCOLOGY")
+    print("Multi-Omics Structural, Genomic, Kaplan-Meier Survival & ctDNA MRD Tracking")
     print("=" * 70)
 
     pipeline_summary = {}
@@ -55,14 +61,14 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     kb = BioKnowledgebase(f"{data_dir}/bio_knowledgebase.db")
 
     # 1. Structural Biology
-    print("\n[1/11] 3D STRUCTURAL BIOLOGY (Hemoglobin 4HHB)")
+    print("\n[1/16] 3D STRUCTURAL BIOLOGY (Hemoglobin 4HHB)")
     struct = StructureAnalyzer(f"{data_dir}/pdb_00004hhb.cif")
     print(f"  Loaded file: {struct.file_path}")
     print(f"  Detected ligands/co-factors: {struct.ligands[:10]}...")
     pipeline_summary['structural_biology'] = {'file': struct.file_path, 'ligand_count': len(struct.ligands)}
 
     # 2. Genomic Variant Analysis
-    print("\n[2/11] GENOMIC VARIANT ANALYSIS (HBB rs334 & ClinVar Pathogenicity)")
+    print("\n[2/16] GENOMIC VARIANT ANALYSIS (HBB rs334 & ClinVar Pathogenicity)")
     var_analyzer = VariantAnalyzer(data_dir)
     res = var_analyzer.analyze_pathogenicity()
     print(f"  Total variants screened: {res['total_variants']}")
@@ -73,7 +79,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['genomic_variants'] = res
 
     # 3. Pharmacology & Cheminformatics
-    print("\n[3/11] PHARMACOLOGY & DRUG DISCOVERY (Voxelotor & Metformin)")
+    print("\n[3/16] PHARMACOLOGY & DRUG DISCOVERY (Voxelotor & Metformin)")
     pharm = PharmacologyAnalyzer(data_dir)
     vox = pharm.get_compound_profile("voxelotor")
     props = vox.get("properties", {})
@@ -85,7 +91,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['pharmacology'] = {'voxelotor': props, 'chembl': met}
 
     # 4. Biological Pathways
-    print("\n[4/11] BIOLOGICAL PATHWAYS (Reactome HBB Mapping)")
+    print("\n[4/16] BIOLOGICAL PATHWAYS (Reactome HBB Mapping)")
     pm = PathwayMapper(data_dir)
     pathways = pm.get_gene_pathways("hbb")
     print(f"  Mapped Pathways: {len(pathways)} cellular events identified")
@@ -94,7 +100,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['pathways_count'] = len(pathways)
 
     # 5. Scientific Literature Intelligence
-    print("\n[5/11] SCIENTIFIC LITERATURE & CRISPR BREAKTHROUGH (PubMed)")
+    print("\n[5/16] SCIENTIFIC LITERATURE & CRISPR BREAKTHROUGH (PubMed)")
     lm = LiteratureMiner(data_dir)
     lit = lm.get_abstract_summary()
     print(f"  Landmark Study (PMID: {lit.get('pmid')}): {lit.get('title')}")
@@ -102,7 +108,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['literature'] = {'pmid': lit.get('pmid'), 'title': lit.get('title')}
 
     # 6. Pairwise Sequence Alignment & Mutation Consequence
-    print("\n[6/11] SEQUENCE ALIGNMENT & BLOSUM62 CONSERVATION")
+    print("\n[6/16] SEQUENCE ALIGNMENT & BLOSUM62 CONSERVATION")
     aligner = SequenceAligner()
     chosen_variant = align_variant if align_variant else 'HBB_SICKLE'
     if chosen_variant in KNOWN_VARIANTS:
@@ -115,7 +121,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
         pipeline_summary['sequence_alignment'] = al_res
 
     # 7. In Silico Drug Screening & Lipinski Scoring
-    print("\n[7/11] IN SILICO DRUG SCREENING & LIPINSKI PROFILING")
+    print("\n[7/16] IN SILICO DRUG SCREENING & LIPINSKI PROFILING")
     docking = DockingScorer()
     screen_target = screen_drugs_target if screen_drugs_target else (pan_cancer if pan_cancer else 'EGFR')
     ranked_drugs = docking.screen_library_against_target(screen_target)
@@ -125,7 +131,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['drug_screening'] = ranked_drugs[:5]
 
     # 8. Drug Combination Synergy Prediction
-    print("\n[8/11] COMBINATION THERAPY & DRUG SYNERGY PREDICTION")
+    print("\n[8/16] COMBINATION THERAPY & DRUG SYNERGY PREDICTION")
     synergy = SynergyPredictor()
     d_a = synergy_pair[0] if synergy_pair and len(synergy_pair) >= 1 else "Dabrafenib"
     d_b = synergy_pair[1] if synergy_pair and len(synergy_pair) >= 2 else "Trametinib"
@@ -136,7 +142,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['drug_synergy'] = syn_res
 
     # 9. Immunotherapy Efficacy & TMB/MSI
-    print("\n[9/11] IMMUNOTHERAPY RESPONSE PREDICTION (TMB & MSI-H)")
+    print("\n[9/16] IMMUNOTHERAPY RESPONSE PREDICTION (TMB & MSI-H)")
     immuno = ImmunotherapyPredictor()
     cur_tmb = tmb_val if tmb_val is not None else 14.5
     imm_res = immuno.evaluate_response(cur_tmb, msi_status, pdl1_val)
@@ -146,7 +152,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['immunotherapy'] = imm_res
 
     # 10. AlphaFold Structure Confidence & IDR Prediction
-    print("\n[10/11] ALPHAFOLD STRUCTURAL CONFIDENCE (pLDDT Analysis)")
+    print("\n[10/16] ALPHAFOLD STRUCTURAL CONFIDENCE (pLDDT Analysis)")
     af_analyzer = AlphaFoldQualityAnalyzer()
     target_gene = alphafold_gene if alphafold_gene else "TP53"
     af_res = af_analyzer.analyze_protein(target_gene)
@@ -155,22 +161,22 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['alphafold_quality'] = af_res
 
     # 11. Relational Database Engine
-    print("\n[11/14] UNIFIED RELATIONAL BIO-KNOWLEDGEBASE (SQLite 3)")
+    print("\n[11/16] UNIFIED RELATIONAL BIO-KNOWLEDGEBASE (SQLite 3)")
     db_stats = kb.get_database_stats()
     print(f"  Database File: {kb.db_path}")
     print(f"  Entities: {db_stats['genes_count']} Genes, {db_stats['variants_count']} Variants, {db_stats['structures_count']} Structures, {db_stats['compounds_count']} Compounds, {db_stats['pathways_count']} Pathways")
-    print(f"  Avg Crystal Resolution: {db_stats['avg_structure_resolution_angstrom']} A | Avg Drug QED: {db_stats['avg_qed_score']}")
+    print(f"  Clinical Benchmarks: {db_stats['clinical_survival_benchmarks_count']} Trials | ctDNA Clones: {db_stats['liquid_biopsy_clones_count']}")
     pipeline_summary['database_stats'] = db_stats
 
     # 12. Early Cancer Detection & 100k Population Epidemiology Engine
-    print("\n[12/14] EARLY CANCER DETECTION & POPULATION EPIDEMIOLOGY (100k Cohort)")
+    print("\n[12/16] EARLY CANCER DETECTION & POPULATION EPIDEMIOLOGY (100k Cohort)")
     risk_pred = CancerRiskPredictor()
     cohort_count = risk_pred.get_cohort_count()
     print(f"  Cohort Database: {risk_pred.db_path} ({cohort_count:,} Records)")
     pipeline_summary['cohort_database'] = {'path': risk_pred.db_path, 'records': cohort_count}
 
     # 13. Pharmacogenomics (PGx) Safety Engine
-    print("\n[13/14] PHARMACOGENOMICS (PGx) CLINICAL TOXICITY (CPIC Level A)")
+    print("\n[13/16] PHARMACOGENOMICS (PGx) CLINICAL TOXICITY (CPIC Level A)")
     dpyd_a1 = dpyd_alleles[0] if dpyd_alleles else "*1"
     dpyd_a2 = dpyd_alleles[1] if dpyd_alleles else "*1"
     pgx_profile = PharmacogenomicsEngine.profile_all_oncology_pgx(
@@ -184,7 +190,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['pharmacogenomics'] = pgx_profile
 
     # 14. Synthetic Lethality & DepMap Essentiality
-    print("\n[14/14] SYNTHETIC LETHALITY & CRISPR DEPMAP DEPENDENCY")
+    print("\n[14/16] SYNTHETIC LETHALITY & CRISPR DEPMAP DEPENDENCY")
     sl_query = synthetic_lethal_target if synthetic_lethal_target else "BRCA1"
     sl_res = SyntheticLethalityEngine.query_vulnerabilities(sl_query)
     print(f"  Biomarker: {sl_res.get('biomarker_gene', sl_query)} -> Target: {sl_res.get('synthetic_lethal_target', 'N/A')}")
@@ -192,6 +198,42 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     if sl_res.get('clinical_therapies'):
         print(f"  Primary Targeted Drug: {sl_res['clinical_therapies'][0]['drug']} ({sl_res['clinical_therapies'][0]['fda_status']})")
     pipeline_summary['synthetic_lethality'] = sl_res
+
+    # 15. Clinical Survival Analysis & Log-Rank Modeler
+    print("\n[15/16] CLINICAL SURVIVAL ANALYSIS & LOG-RANK HYPOTHESIS MODELER (Kaplan-Meier)")
+    surv_modeler = SurvivalAnalysisModeler()
+    chosen_trial = survival_trial if survival_trial else "FLAURA_EGFR"
+    surv_res = surv_modeler.evaluate_clinical_trial_cohort(chosen_trial)
+    if "error" in surv_res:
+        print(f"  Trial: {chosen_trial} (Custom / Not in Preset Benchmarks)")
+    else:
+        print(f"  Benchmark Trial: {surv_res['trial_name']} ({surv_res['target_gene']})")
+        print(f"  Indication: {surv_res['indication']} | Endpoint: {surv_res['endpoint']}")
+        print(f"  Experimental Arm: {surv_res['experimental_arm']} (Median: {surv_res['experimental_median_months']} mo)")
+        print(f"  Control Arm: {surv_res['control_arm']} (Median: {surv_res['control_median_months']} mo)")
+        print(f"  Hazard Ratio (HR): {surv_res['hazard_ratio']} (95% CI: [{surv_res['hr_ci_95'][0]}, {surv_res['hr_ci_95'][1]}])")
+        print(f"  Log-Rank p-value: {surv_res['p_value']} | Significant: {surv_res['statistically_significant']}")
+        print(f"  Clinical Conclusion: {surv_res['clinical_conclusion']}")
+    pipeline_summary['survival_analysis'] = surv_res
+
+    # 16. Liquid Biopsy & ctDNA Minimal Residual Disease
+    print("\n[16/16] LIQUID BIOPSY & CIRCULATING TUMOR DNA (ctDNA) MRD DYNAMICS")
+    lb_engine = LiquidBiopsyEngine()
+    ctdna_muts = ctdna_mutations if ctdna_mutations else ["EGFR_C797S"]
+    lb_res = lb_engine.evaluate_longitudinal_ctdna(
+        baseline_vaf_percent=ctdna_baseline_vaf if ctdna_baseline_vaf is not None else 4.8,
+        followup_vaf_percent=ctdna_followup_vaf if ctdna_followup_vaf is not None else 0.02,
+        primary_gene="EGFR",
+        detected_new_mutations=ctdna_muts
+    )
+    print(f"  Longitudinal VAF: {lb_res['baseline_vaf_percent']}% -> {lb_res['followup_vaf_percent']}% (Delta: {lb_res['delta_vaf_percent']}%)")
+    print(f"  Molecular Response: {lb_res['response_classification']} [{lb_res['response_code']}]")
+    print(f"  MRD Status: {lb_res['mrd_status']} | Relapse Risk: {lb_res['relapse_risk']}")
+    print(f"  Clinical Recommendation: {lb_res['clinical_action']}")
+    if lb_res['resistance_findings']:
+        print(f"  Acquired Resistance Clone: {lb_res['resistance_findings'][0]['gene']} {lb_res['resistance_findings'][0]['mutation']}")
+        print(f"  Actionable Bypass Therapy: {lb_res['resistance_findings'][0]['actionable_bypass']}")
+    pipeline_summary['liquid_biopsy'] = lb_res
 
     # OPTIONAL: Build / Rebuild Cohort
     if build_cohort_size:
@@ -372,6 +414,10 @@ if __name__ == "__main__":
     parser.add_argument("--ugt1a1", default=None, help="UGT1A1 diplotype, e.g. --ugt1a1 '*28/*28'")
     parser.add_argument("--cyp2d6", default=None, help="CYP2D6 diplotype, e.g. --cyp2d6 '*4/*4'")
     parser.add_argument("--synthetic_lethal", default=None, help="Query synthetic lethality target dependency (e.g. BRCA1, MSI-H, MTAP, ARID1A, KRAS)")
+    parser.add_argument("--survival_trial", default="FLAURA_EGFR", help="Benchmark trial for survival analysis (FLAURA_EGFR, KEYNOTE_042_TMB_HIGH, OLYMPIAD_BRCA, CODEBREAK_200_KRAS)")
+    parser.add_argument("--ctdna_baseline", type=float, default=4.8, help="Baseline ctDNA Variant Allele Frequency (VAF %)")
+    parser.add_argument("--ctdna_followup", type=float, default=0.02, help="Follow-up ctDNA Variant Allele Frequency (VAF %)")
+    parser.add_argument("--ctdna_mutations", nargs="+", default=None, help="Emerging resistance mutations in liquid biopsy, e.g. EGFR_C797S MET_AMPLIFICATION")
     parser.add_argument("--export_json", default=None, help="Export complete pipeline results to JSON file")
     parser.add_argument("--generate_report", action="store_true", help="Generate publication-grade HTML report")
     args = parser.parse_args()
@@ -404,6 +450,10 @@ if __name__ == "__main__":
         ugt1a1_diplotype=args.ugt1a1,
         cyp2d6_diplotype=args.cyp2d6,
         synthetic_lethal_target=args.synthetic_lethal,
+        survival_trial=args.survival_trial,
+        ctdna_baseline_vaf=args.ctdna_baseline,
+        ctdna_followup_vaf=args.ctdna_followup,
+        ctdna_mutations=args.ctdna_mutations,
         export_db_json_path=args.export_db,
         export_json_path=args.export_json,
         generate_report=args.generate_report

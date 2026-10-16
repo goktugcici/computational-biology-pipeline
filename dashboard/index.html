@@ -48,9 +48,9 @@
         <div>
           <h1 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
             Computational Biology Pipeline
-            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v3.3 Precision Medicine Edition</span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v3.4 Clinical Oncology Edition</span>
           </h1>
-          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, PGx Toksisite, Sentetik Letalite & 100k Erken Kanser Teşhisi</p>
+          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, Kaplan-Meier Sağkalım, ctDNA Sıvı Biyopsi & 100k Erken Kanser Teşhisi</p>
         </div>
       </div>
 
@@ -58,6 +58,12 @@
       <nav class="flex flex-wrap items-center gap-1 bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-xs font-medium">
         <button onclick="switchTab('3d')" id="tabBtn-3d" class="tab-btn px-2.5 py-1.5 rounded-lg bg-sky-500 text-white transition-all shadow">
           🔬 3B Yapı
+        </button>
+        <button onclick="switchTab('survival')" id="tabBtn-survival" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all font-semibold flex items-center gap-1">
+          📈 Sağkalım (KM)
+        </button>
+        <button onclick="switchTab('liquidbiopsy')" id="tabBtn-liquidbiopsy" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all font-semibold flex items-center gap-1">
+          🩸 Sıvı Biyopsi (ctDNA)
         </button>
         <button onclick="switchTab('cancerrisk')" id="tabBtn-cancerrisk" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all font-semibold flex items-center gap-1">
           🩺 Erken Teşhis (100k)
@@ -1075,6 +1081,279 @@
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- TAB: KAPLAN-MEIER SAĞKALIM & LOG-RANK TESTİ -->
+    <!-- ========================================== -->
+    <section id="tab-survival" class="tab-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-sky-950/40 via-slate-900 to-indigo-950/40 border border-sky-900/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+        <div class="relative z-10 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30 text-[11px] font-bold">Kaplan-Meier Ürün-Limit Modeli</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-[11px] font-bold">Mantel-Cox Log-Rank Testi</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">Peto Hazard Ratio (HR)</span>
+            </div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              📈 Klinik Sağkalım Analizi (Kaplan-Meier & Log-Rank Hipotez Testi)
+            </h2>
+            <p class="text-xs text-slate-400 mt-1 max-w-3xl">
+              Hedefe yönelik moleküler tedaviler ve immünoterapilerin Faz 3 landmark klinik çalışmalarındaki (FLAURA, KEYNOTE-042, OlympiAD, CodeBreaK 200) genel sağkalım (OS) ve progresyonsuz sağkalım (PFS) eğrilerini basamak fonksiyonu ile modeller.
+            </p>
+          </div>
+          <div class="flex items-center gap-3 bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-xs">
+            <div class="text-center px-3 border-r border-slate-800">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">Landmark Çalışmalar</div>
+              <div class="text-lg font-bold font-mono text-sky-400">4 Faz-3</div>
+            </div>
+            <div class="text-center px-3">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">Hesaplama Doğruluğu</div>
+              <div class="text-lg font-bold font-mono text-emerald-400">Greenwood SE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Landmark Çalışma Seçicisi -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-slate-400 font-medium">Landmark Çalışma Seç:</span>
+          <button onclick="renderSurvivalTrial('FLAURA_EGFR')" id="survBtn-FLAURA_EGFR" class="surv-btn px-3 py-1.5 rounded-xl bg-sky-500 text-white font-bold transition-all shadow">
+            FLAURA (EGFR: Osimertinib vs Gefitinib)
+          </button>
+          <button onclick="renderSurvivalTrial('KEYNOTE_042_TMB_HIGH')" id="survBtn-KEYNOTE_042_TMB_HIGH" class="surv-btn px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white transition-all">
+            KEYNOTE-042 (TMB-H / PD-L1: Pembrolizumab vs Kemo)
+          </button>
+          <button onclick="renderSurvivalTrial('OLYMPIAD_BRCA')" id="survBtn-OLYMPIAD_BRCA" class="surv-btn px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white transition-all">
+            OlympiAD (gBRCA: Olaparib vs Kemo)
+          </button>
+          <button onclick="renderSurvivalTrial('CODEBREAK_200_KRAS')" id="survBtn-CODEBREAK_200_KRAS" class="surv-btn px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white transition-all">
+            CodeBreaK 200 (KRAS G12C: Sotorasib vs Dosetaksel)
+          </button>
+        </div>
+      </div>
+
+      <!-- Çalışma Detayları ve Kaplan-Meier Grafiği -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Grafik Alanı -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 id="survTrialTitle" class="text-base font-bold text-white">FLAURA (NEJM 2018 / 2020)</h3>
+              <p id="survTrialIndication" class="text-xs text-slate-400">İleri Evre EGFR-Mutant NSCLC | Genel Sağkalım (OS)</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="survEndpointBadge" class="px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono font-bold">Overall Survival (OS)</span>
+            </div>
+          </div>
+
+          <div class="relative h-72 w-full">
+            <canvas id="survivalKmChart"></canvas>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pt-2 border-t border-slate-800">
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px] block">Deneysel Medyan</span>
+              <span id="survExpMedian" class="text-sm font-bold font-mono text-sky-400">38.6 Ay</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px] block">Kontrol Medyan</span>
+              <span id="survCtrlMedian" class="text-sm font-bold font-mono text-slate-300">31.8 Ay</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px] block">Hazard Ratio (HR)</span>
+              <span id="survHRBadge" class="text-sm font-bold font-mono text-emerald-400">0.80 (0.64 - 1.00)</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+              <span class="text-slate-500 text-[10px] block">Log-Rank p-değeri</span>
+              <span id="survPValue" class="text-sm font-bold font-mono text-emerald-400">p = 0.046</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Klinik Yorum ve Hipotez Özeti -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h4 class="text-sm font-bold text-white uppercase tracking-wider">Klinik & İstatistiksel Sonuç</h4>
+            </div>
+            <p id="survConclusionText" class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-3.5 rounded-2xl border border-slate-800/80">
+              Osimertinib, standart 1. jenerasyon TKI lere kıyasla genel sağkalımda istatistiksel ve klinik olarak anlamlı 6.8 aylık uzama sağlar.
+            </p>
+
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between p-2 rounded-lg bg-slate-950 border border-slate-800">
+                <span class="text-slate-400">12 Aylık Sağkalım Oranı:</span>
+                <span id="surv12mRate" class="font-bold text-sky-400 font-mono">%89.0 vs %83.0</span>
+              </div>
+              <div class="flex justify-between p-2 rounded-lg bg-slate-950 border border-slate-800">
+                <span class="text-slate-400">24 Aylık Sağkalım Oranı:</span>
+                <span id="surv24mRate" class="font-bold text-sky-400 font-mono">%74.0 vs %59.0</span>
+              </div>
+              <div class="flex justify-between p-2 rounded-lg bg-slate-950 border border-slate-800">
+                <span class="text-slate-400">36 Aylık Sağkalım Oranı:</span>
+                <span id="surv36mRate" class="font-bold text-sky-400 font-mono">%54.0 vs %44.0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 bg-emerald-950/30 border border-emerald-800/40 rounded-xl text-[11px] text-emerald-300">
+            <strong>Klinik Rehber:</strong> NCCN ve ESMO kılavuzlarında kategori 1 (Category 1 Preferred) basamak olarak önerilmektedir.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB: SIVI BİYOPSİ & ctDNA MRD DİNAMİKLERİ -->
+    <!-- ========================================== -->
+    <section id="tab-liquidbiopsy" class="tab-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-emerald-950/40 via-slate-900 to-rose-950/40 border border-emerald-900/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+        <div class="relative z-10 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">Plazma Dolaşan Tümör DNA (ctDNA)</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 text-[11px] font-bold">Minimal Rezidüel Hastalık (MRD)</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] font-bold">Radyolojik Nüksten 3-6 Ay Önce Erken Uyarı</span>
+            </div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              🩸 Sıvı Biyopsi & ctDNA Minimal Rezidüel Hastalık (MRD) İzlem Motoru
+            </h2>
+            <p class="text-xs text-slate-400 mt-1 max-w-3xl">
+              Tedavi altındaki veya operasyon geçirmiş kanser hastalarının seri kan örneklerindeki plazma ctDNA Varyant Alel Frekansı (VAF %) değişimini izleyerek derin moleküler yanıtı (mCR), stabil durumu veya klonal nüksü tespit eder.
+            </p>
+          </div>
+          <div class="flex items-center gap-3 bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-xs">
+            <div class="text-center px-3 border-r border-slate-800">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">Dedeksiyon Limiti</div>
+              <div class="text-lg font-bold font-mono text-emerald-400">%0.01 VAF</div>
+            </div>
+            <div class="text-center px-3">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">Erken Nüks Öncülüğü</div>
+              <div class="text-lg font-bold font-mono text-amber-400">3 - 6 Ay</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- İnteraktif Hesaplayıcı ve Direnç Klon Paneli -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Sol Panel: Girdi Parametreleri -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            🔬 ctDNA Boylamsal Takip Parametreleri
+          </h3>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1">Hedef Onkogen:</label>
+              <select id="ctdnaGeneSelect" onchange="updateLiquidBiopsyCalc()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+                <option value="EGFR">EGFR (Akciğer Adenokarsinomu)</option>
+                <option value="KRAS">KRAS (Kolorektal / Akciğer / Pankreas)</option>
+                <option value="BRAF">BRAF (Melanom / Kolorektal)</option>
+                <option value="BRCA1">BRCA1 / BRCA2 (Meme / Over Kanseri)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-slate-400 mb-1">Başlangıç (Baseline) ctDNA VAF (%):</label>
+              <input type="number" id="ctdnaBaselineVaf" value="4.80" step="0.1" min="0" max="100" oninput="updateLiquidBiopsyCalc()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono font-bold text-sm">
+            </div>
+
+            <div>
+              <label class="block text-slate-400 mb-1">Takip Ölçümü (Follow-up) ctDNA VAF (%):</label>
+              <input type="number" id="ctdnaFollowupVaf" value="0.02" step="0.01" min="0" max="100" oninput="updateLiquidBiopsyCalc()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono font-bold text-sm">
+            </div>
+
+            <div>
+              <label class="block text-slate-400 mb-1">Saptanan Yeni Kazanılmış Direnç Mutasyonu:</label>
+              <select id="ctdnaResistanceSelect" onchange="updateLiquidBiopsyCalc()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+                <option value="NONE">Direnç Mutasyonu Yok (Temiz / Yanıtlı)</option>
+                <option value="EGFR_C797S">EGFR p.C797S (3. Nesil TKI Direnci)</option>
+                <option value="MET_AMPLIFICATION">MET Amplifikasyonu (Baypas Direnci)</option>
+                <option value="KRAS_Y96D">KRAS p.Y96D (G12C İnhibitör Direnci)</option>
+                <option value="BRCA_REVERSION">BRCA İkincil Reversiyon (PARP Direnci)</option>
+              </select>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-slate-400 text-[11px] block mb-1">Hızlı Klinik Senaryolar:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <button onclick="setLiquidBiopsyScenario(5.2, 0.01, 'NONE')" class="px-2 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-emerald-500/30 text-emerald-400 text-[10px]">Tam Yanıt (mCR)</button>
+                <button onclick="setLiquidBiopsyScenario(6.0, 1.2, 'NONE')" class="px-2 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-sky-500/30 text-sky-400 text-[10px]">Kısmi Yanıt (mPR)</button>
+                <button onclick="setLiquidBiopsyScenario(3.0, 3.2, 'NONE')" class="px-2 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-amber-500/30 text-amber-400 text-[10px]">Stabil (mSD)</button>
+                <button onclick="setLiquidBiopsyScenario(0.4, 4.5, 'EGFR_C797S')" class="px-2 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-rose-500/30 text-rose-400 text-[10px]">Moleküler Nüks (C797S)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orta & Sağ Panel: Moleküler Yanıt & Dinamik Grafik -->
+        <div class="lg:col-span-2 space-y-4">
+          <!-- Yanıt Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span id="mrdStatusDot" class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                <h4 id="mrdResponseTitle" class="text-base font-bold text-white">Molecular Complete Response (mCR)</h4>
+              </div>
+              <span id="mrdBadge" class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold">MRD Negatif</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                <span class="text-slate-500 text-[10px] block">VAF Değişimi</span>
+                <span id="mrdDeltaVaf" class="text-sm font-bold font-mono text-emerald-400">-99.6%</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                <span class="text-slate-500 text-[10px] block">Nüks Riski</span>
+                <span id="mrdRelapseRisk" class="text-sm font-bold font-mono text-emerald-400">Düşük</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                <span class="text-slate-500 text-[10px] block">Moleküler Öncülük</span>
+                <span id="mrdLeadTime" class="text-sm font-bold font-mono text-slate-300">N/A</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                <span class="text-slate-500 text-[10px] block">RECIST Korelasyonu</span>
+                <span class="text-sm font-bold font-mono text-sky-400">Yüksek</span>
+              </div>
+            </div>
+
+            <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 text-xs space-y-1">
+              <span class="text-slate-400 text-[11px] font-bold block">Önerilen Klinik Aksiyon:</span>
+              <p id="mrdActionText" class="text-slate-200 leading-relaxed font-sans">
+                Mevcut hedefe yönelik veya adjuvan tedaviye devam ediniz. 3 ay sonra rutin ctDNA takibi önerilir.
+              </p>
+            </div>
+          </div>
+
+          <!-- Direnç Mekanizması & Baypas Tedavi Kartı -->
+          <div id="mrdResistanceCard" class="hidden bg-rose-950/20 border border-rose-800/40 rounded-3xl p-4 shadow-xl space-y-2 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-rose-400 font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                ⚠️ Kazanılmış İlaç Direnç Klonu Saptandı
+              </span>
+              <span id="resCloneBadge" class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-mono text-[10px]">EGFR p.C797S</span>
+            </div>
+            <p id="resMechanismText" class="text-slate-300 leading-relaxed text-[11px]">
+              Kovalent bağlanma cebindeki sistein 797 kalıntısının serin ile değişmesi; Osimertinibin kovalent bağ kurmasını engeller.
+            </p>
+            <div class="p-2.5 bg-slate-950 rounded-xl border border-rose-900/40 text-emerald-400 text-[11px]">
+              <strong>Klinik Baypas Tedavisi:</strong> <span id="resBypassText" class="text-slate-200">Allosterik 4. jenerasyon EGFR TKI (BLU-945) veya Patritumab Deruxtecan (HER3-DXd).</span>
+            </div>
+          </div>
+
+          <!-- ctDNA Boylamsal Seyir Grafiği -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-2">
+            <span class="text-xs font-bold text-white block">Boylamsal ctDNA VAF Dinamiği (Seri Takip Simülasyonu)</span>
+            <div class="relative h-44 w-full">
+              <canvas id="ctdnaTrajectoryChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script>
@@ -1122,6 +1401,10 @@
       renderSynergy('DABRAFENIB+TRAMETINIB');
       updateImmunoCalc();
       renderAlphaFold('TP53');
+      initSurvivalChart();
+      renderSurvivalTrial('FLAURA_EGFR');
+      initCtdnaChart();
+      updateLiquidBiopsyCalc();
     });
 
     function loadPdb(pdbId, title = "") {
@@ -2025,6 +2308,356 @@
             }
           }
         });
+      }
+    }
+
+    // ==========================================
+    // KAPLAN-MEIER SURVIVAL MODELER
+    // ==========================================
+    const SURVIVAL_COHORTS = {
+      'FLAURA_EGFR': {
+        title: 'FLAURA (NEJM 2018 / 2020)',
+        indication: 'Tedavi Almamış İleri Evre EGFR-Mutant NSCLC',
+        endpoint: 'Genel Sağkalım (OS)',
+        expArm: 'Osimertinib (Tagrisso 80mg)',
+        expMedian: '38.6 Ay',
+        ctrlArm: 'Standart TKI (Gefitinib / Erlotinib)',
+        ctrlMedian: '31.8 Ay',
+        hrText: '0.80 (0.64 - 1.00)',
+        pValueText: 'p = 0.046',
+        conclusion: 'Osimertinib, standart 1. jenerasyon TKI lere kıyasla genel sağkalımda istatistiksel ve klinik olarak anlamlı 6.8 aylık uzama sağlar.',
+        r12: '%89.0 vs %83.0',
+        r24: '%74.0 vs %59.0',
+        r36: '%54.0 vs %44.0',
+        timeline: [0, 6, 12, 18, 24, 30, 36, 42, 48],
+        expCurve: [100, 95.0, 89.0, 81.0, 74.0, 64.0, 54.0, 44.0, 38.0],
+        ctrlCurve: [100, 91.0, 83.0, 70.0, 59.0, 51.0, 44.0, 32.0, 26.0]
+      },
+      'KEYNOTE_042_TMB_HIGH': {
+        title: 'KEYNOTE-042 (Lancet 2019 / NEJM)',
+        indication: 'TMB-High (TMB >= 10 mut/Mb) & PD-L1 TPS >= 50% NSCLC',
+        endpoint: 'Genel Sağkalım (OS)',
+        expArm: 'Pembrolizumab (Keytruda)',
+        expMedian: '20.0 Ay',
+        ctrlArm: 'Platin Bazlı Kemoterapi',
+        ctrlMedian: '12.2 Ay',
+        hrText: '0.69 (0.56 - 0.85)',
+        pValueText: 'p = 0.0003',
+        conclusion: 'TMB-High ve PD-L1 pozitif NSCLC hastalarında immünoterapi, kemoterapiye kıyasla ölüm riskini %31 oranında azaltır.',
+        r12: '%64.0 vs %51.0',
+        r24: '%45.0 vs %28.0',
+        r36: '%32.0 vs %16.0',
+        timeline: [0, 6, 12, 18, 24, 30, 36, 42, 48],
+        expCurve: [100, 82.0, 64.0, 53.0, 45.0, 38.0, 32.0, 28.0, 24.0],
+        ctrlCurve: [100, 75.0, 51.0, 37.0, 28.0, 21.0, 16.0, 13.0, 10.0]
+      },
+      'OLYMPIAD_BRCA': {
+        title: 'OlympiAD (NEJM 2017)',
+        indication: 'gBRCAm HER2-Negatif Metastatik Meme Kanseri',
+        endpoint: 'Progresyonsuz Sağkalım (PFS)',
+        expArm: 'Olaparib Tablet (Lynparza)',
+        expMedian: '7.0 Ay',
+        ctrlArm: 'Standart Tek Ajan Kemoterapi',
+        ctrlMedian: '4.2 Ay',
+        hrText: '0.58 (0.43 - 0.80)',
+        pValueText: 'p = 0.0009',
+        conclusion: 'PARP inhibitörü Olaparib, gBRCA mutant metastatik meme kanserinde progresyonsuz sağkalımı belirgin şekilde uzatarak progresyon riskini %42 düşürür.',
+        r12: '%38.0 vs %15.0',
+        r24: '%22.0 vs %5.0',
+        r36: '%12.0 vs %2.0',
+        timeline: [0, 3, 6, 9, 12, 18, 24, 30, 36],
+        expCurve: [100, 85.0, 60.0, 45.0, 38.0, 27.0, 22.0, 16.0, 12.0],
+        ctrlCurve: [100, 70.0, 38.0, 22.0, 15.0, 8.0, 5.0, 3.0, 2.0]
+      },
+      'CODEBREAK_200_KRAS': {
+        title: 'CodeBreaK 200 (Lancet 2023)',
+        indication: 'Önceden Tedavi Görmüş KRAS G12C NSCLC',
+        endpoint: 'Progresyonsuz Sağkalım (PFS)',
+        expArm: 'Sotorasib (Lumakras 960mg)',
+        expMedian: '5.6 Ay',
+        ctrlArm: 'Dosetaksel Kemoterapisi',
+        ctrlMedian: '4.5 Ay',
+        hrText: '0.66 (0.51 - 0.86)',
+        pValueText: 'p = 0.002',
+        conclusion: 'Doğrudan KRAS G12C inhibitörü Sotorasib, önceden tedavi görmüş NSCLC hastalarında dosetaksele kıyasla progresyonsuz sağkalımı anlamlı şekilde iyileştirir.',
+        r12: '%24.8 vs %10.1',
+        r24: '%11.0 vs %4.0',
+        r36: '%6.0 vs %1.5',
+        timeline: [0, 3, 6, 9, 12, 15, 18, 24, 30],
+        expCurve: [100, 78.0, 48.0, 34.0, 24.8, 17.0, 11.0, 8.0, 6.0],
+        ctrlCurve: [100, 68.0, 36.0, 18.0, 10.1, 6.5, 4.0, 2.5, 1.5]
+      }
+    };
+
+    let survivalKmChart = null;
+
+    function initSurvivalChart() {
+      const ctx = document.getElementById('survivalKmChart');
+      if (!ctx) return;
+      survivalKmChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [0, 6, 12, 18, 24, 30, 36, 42, 48],
+          datasets: [
+            {
+              label: 'Deneysel Kol (Osimertinib)',
+              data: [100, 95, 89, 81, 74, 64, 54, 44, 38],
+              stepped: true,
+              borderColor: '#38bdf8',
+              backgroundColor: 'rgba(56, 189, 248, 0.1)',
+              borderWidth: 2.5,
+              fill: false
+            },
+            {
+              label: 'Kontrol Kolu (Gefitinib)',
+              data: [100, 91, 83, 70, 59, 51, 44, 32, 26],
+              stepped: true,
+              borderColor: '#94a3b8',
+              backgroundColor: 'rgba(148, 163, 184, 0.05)',
+              borderWidth: 2,
+              borderDash: [5, 5],
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: { color: '#1e293b' },
+              ticks: {
+                color: '#94a3b8',
+                callback: function(value) { return value + '%'; }
+              },
+              title: { display: true, text: 'Kümülatif Sağkalım Olasılığı S(t)', color: '#64748b' }
+            },
+            x: {
+              grid: { color: '#1e293b' },
+              ticks: { color: '#94a3b8' },
+              title: { display: true, text: 'Zaman (Aylar)', color: '#64748b' }
+            }
+          },
+          plugins: {
+            legend: { position: 'top', labels: { color: '#e2e8f0', font: { size: 11 } } },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + '%'; }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function renderSurvivalTrial(trialKey) {
+      ['FLAURA_EGFR', 'KEYNOTE_042_TMB_HIGH', 'OLYMPIAD_BRCA', 'CODEBREAK_200_KRAS'].forEach(k => {
+        const btn = document.getElementById(`survBtn-${k}`);
+        if (btn) {
+          if (k === trialKey) {
+            btn.classList.add('bg-sky-500', 'text-white', 'font-bold');
+            btn.classList.remove('bg-slate-800', 'text-slate-300');
+          } else {
+            btn.classList.remove('bg-sky-500', 'text-white', 'font-bold');
+            btn.classList.add('bg-slate-800', 'text-slate-300');
+          }
+        }
+      });
+
+      const d = SURVIVAL_COHORTS[trialKey];
+      if (!d) return;
+
+      document.getElementById('survTrialTitle').innerText = d.title;
+      document.getElementById('survTrialIndication').innerText = d.indication;
+      document.getElementById('survEndpointBadge').innerText = d.endpoint;
+      document.getElementById('survExpMedian').innerText = d.expMedian;
+      document.getElementById('survCtrlMedian').innerText = d.ctrlMedian;
+      document.getElementById('survHRBadge').innerText = d.hrText;
+      document.getElementById('survPValue').innerText = d.pValueText;
+      document.getElementById('survConclusionText').innerText = d.conclusion;
+      document.getElementById('surv12mRate').innerText = d.r12;
+      document.getElementById('surv24mRate').innerText = d.r24;
+      document.getElementById('surv36mRate').innerText = d.r36;
+
+      if (survivalKmChart) {
+        survivalKmChart.data.labels = d.timeline;
+        survivalKmChart.data.datasets[0].label = `Deneysel: ${d.expArm}`;
+        survivalKmChart.data.datasets[0].data = d.expCurve;
+        survivalKmChart.data.datasets[1].label = `Kontrol: ${d.ctrlArm}`;
+        survivalKmChart.data.datasets[1].data = d.ctrlCurve;
+        survivalKmChart.update();
+      }
+    }
+
+    // ==========================================
+    // LIQUID BIOPSY & ctDNA MRD DYNAMICS
+    // ==========================================
+    const RESISTANCE_CLONES_DATA = {
+      'EGFR_C797S': {
+        name: 'EGFR p.Cys797Ser (c.2389T>A)',
+        mechanism: 'Kovalent bağlanma cebindeki sistein 797 kalıntısının serin ile değişmesi; Osimertinibin kovalent bağ kurmasını engeller.',
+        bypass: 'Allosterik 4. jenerasyon EGFR TKI (BLU-945, BDTX-1535) veya Patritumab Deruxtecan (HER3-DXd).'
+      },
+      'MET_AMPLIFICATION': {
+        name: 'MET Gen Amplifikasyonu (Kopya Sayısı >= 5)',
+        mechanism: 'EGFR yolağını baypas ederek ERBB3 fosforilasyonunu ve downstream PI3K/AKT sinyalini devam ettirir.',
+        bypass: 'Kombinasyon: Osimertinib + MET inhibitörü Savolitinib (SAVANNAH Faz 2 çalışması) veya Tepotinib.'
+      },
+      'KRAS_Y96D': {
+        name: 'KRAS p.Tyr96Asp (Switch-II cebi direnci)',
+        mechanism: 'Switch-II allosterik cebindeki Y96 mutasyonu, kovalent inhibitörlerin bağlanmasını sterik olarak bloke eder.',
+        bypass: 'Pan-KRAS inhibitörleri (RMC-6236, Darovasertib) veya SOS1/SHP2 inhibitör kombinasyonları.'
+      },
+      'BRCA_REVERSION': {
+        name: 'BRCA İkincil Reversiyon Mutasyonu',
+        mechanism: 'İkincil mutasyon okuma çerçevesini yeniden düzelterek homolog rekombinasyon (HR) kapasitesini geri kazandırır.',
+        bypass: 'ATR inhibitörleri (Ceralasertib), WEE1 inhibitörleri (Adavosertib) veya Platin bazlı ikili kemoterapi.'
+      }
+    };
+
+    let ctdnaTrajectoryChart = null;
+
+    function initCtdnaChart() {
+      const ctx = document.getElementById('ctdnaTrajectoryChart');
+      if (!ctx) return;
+      ctdnaTrajectoryChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Başlangıç (Ay 0)', 'Ay 1 (Post-Tx)', 'Ay 3 (MRD)', 'Ay 6 (Takip)', 'Ay 9 (Surveillance)'],
+          datasets: [{
+            label: 'Klonal ctDNA VAF (%)',
+            data: [4.8, 1.2, 0.02, 0.01, 0.01],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            borderWidth: 2.5,
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: '#1e293b' },
+              ticks: { color: '#94a3b8', callback: function(val) { return val + '%'; } }
+            },
+            x: {
+              grid: { color: '#1e293b' },
+              ticks: { color: '#94a3b8' }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+    }
+
+    function setLiquidBiopsyScenario(bVaf, fVaf, resMut) {
+      document.getElementById('ctdnaBaselineVaf').value = bVaf;
+      document.getElementById('ctdnaFollowupVaf').value = fVaf;
+      document.getElementById('ctdnaResistanceSelect').value = resMut;
+      updateLiquidBiopsyCalc();
+    }
+
+    function updateLiquidBiopsyCalc() {
+      const bVaf = parseFloat(document.getElementById('ctdnaBaselineVaf').value) || 0.0;
+      const fVaf = parseFloat(document.getElementById('ctdnaFollowupVaf').value) || 0.0;
+      const resKey = document.getElementById('ctdnaResistanceSelect').value;
+
+      let delta = 0.0;
+      if (bVaf > 0) {
+        delta = (((fVaf - bVaf) / bVaf) * 100.0).toFixed(1);
+      } else {
+        delta = fVaf > 0 ? 100.0 : 0.0;
+      }
+
+      const resCard = document.getElementById('mrdResistanceCard');
+      const dot = document.getElementById('mrdStatusDot');
+      const title = document.getElementById('mrdResponseTitle');
+      const badge = document.getElementById('mrdBadge');
+      const deltaEl = document.getElementById('mrdDeltaVaf');
+      const riskEl = document.getElementById('mrdRelapseRisk');
+      const leadEl = document.getElementById('mrdLeadTime');
+      const actionEl = document.getElementById('mrdActionText');
+
+      deltaEl.innerText = (delta > 0 ? '+' : '') + delta + '%';
+
+      if (fVaf < 0.05) {
+        dot.className = 'w-3 h-3 rounded-full bg-emerald-400';
+        title.innerText = 'Molecular Complete Response (mCR) - ctDNA Temizliği';
+        badge.innerText = 'MRD Negatif';
+        badge.className = 'px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold';
+        deltaEl.className = 'text-sm font-bold font-mono text-emerald-400';
+        riskEl.innerText = 'Çok Düşük (Uzun PFS)';
+        riskEl.className = 'text-sm font-bold font-mono text-emerald-400';
+        leadEl.innerText = 'N/A (Temiz)';
+        actionEl.innerText = 'Mevcut hedefe yönelik veya adjuvan tedaviye devam ediniz. 3 ay sonra rutin ctDNA takibi önerilir.';
+      } else if (parseFloat(delta) <= -50.0) {
+        dot.className = 'w-3 h-3 rounded-full bg-sky-400';
+        title.innerText = 'Molecular Partial Response (mPR) - Belirgin Yanıt';
+        badge.innerText = 'MRD Düşük Pozitif';
+        badge.className = 'px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono font-bold';
+        deltaEl.className = 'text-sm font-bold font-mono text-sky-400';
+        riskEl.innerText = 'Orta Düzey';
+        riskEl.className = 'text-sm font-bold font-mono text-sky-400';
+        leadEl.innerText = 'N/A';
+        actionEl.innerText = 'Tümör klonu belirgin şekilde baskılanmaktadır. Tedaviye devam ediniz.';
+      } else if (parseFloat(delta) <= 25.0) {
+        dot.className = 'w-3 h-3 rounded-full bg-amber-400';
+        title.innerText = 'Molecular Stable Disease (mSD) - Persistan Klon';
+        badge.innerText = 'MRD Pozitif';
+        badge.className = 'px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold';
+        deltaEl.className = 'text-sm font-bold font-mono text-amber-400';
+        riskEl.innerText = 'Orta / Yüksek';
+        riskEl.className = 'text-sm font-bold font-mono text-amber-400';
+        leadEl.innerText = 'Kısa İzlem';
+        actionEl.innerText = 'Klon stabil seyretmektedir. Kısa aralıklı (6-8 hafta) ctDNA ve radyolojik izlem önerilir.';
+      } else {
+        dot.className = 'w-3 h-3 rounded-full bg-rose-500 animate-pulse';
+        title.innerText = 'Molecular Progressive Disease (mPD) - Moleküler Nüks';
+        badge.innerText = 'MRD Yüksek Pozitif';
+        badge.className = 'px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 text-xs font-mono font-bold';
+        deltaEl.className = 'text-sm font-bold font-mono text-rose-400';
+        riskEl.innerText = 'Çok Yüksek (Nüks)';
+        riskEl.className = 'text-sm font-bold font-mono text-rose-400';
+        leadEl.innerText = '3 - 6 Ay Öncülük';
+        actionEl.innerText = 'Moleküler progresyon saptandı! Radyolojik nüks beklenmeksizin direnç paneli taranmalı ve rejim değişikliği planlanmalıdır.';
+      }
+
+      // Check resistance mutation card
+      if (resKey !== 'NONE' && RESISTANCE_CLONES_DATA[resKey]) {
+        resCard.classList.remove('hidden');
+        const info = RESISTANCE_CLONES_DATA[resKey];
+        document.getElementById('resCloneBadge').innerText = info.name;
+        document.getElementById('resMechanismText').innerText = info.mechanism;
+        document.getElementById('resBypassText').innerText = info.bypass;
+      } else {
+        resCard.classList.add('hidden');
+      }
+
+      // Update Chart Trajectory
+      if (ctdnaTrajectoryChart) {
+        let traj = [];
+        let strokeColor = '#10b981';
+        if (fVaf < 0.05) {
+          traj = [bVaf, Number((bVaf * 0.4).toFixed(2)), fVaf, 0.01, 0.01];
+          strokeColor = '#10b981';
+        } else if (parseFloat(delta) < 0) {
+          traj = [bVaf, Number((bVaf * 0.7).toFixed(2)), fVaf, Number((fVaf * 0.9).toFixed(2)), Number((fVaf * 0.8).toFixed(2))];
+          strokeColor = '#38bdf8';
+        } else {
+          traj = [bVaf, Number((bVaf * 1.1).toFixed(2)), fVaf, Number((fVaf * 1.4).toFixed(2)), Number((fVaf * 1.8).toFixed(2))];
+          strokeColor = '#ef4444';
+        }
+        ctdnaTrajectoryChart.data.datasets[0].data = traj;
+        ctdnaTrajectoryChart.data.datasets[0].borderColor = strokeColor;
+        ctdnaTrajectoryChart.data.datasets[0].backgroundColor = strokeColor === '#10b981' ? 'rgba(16, 185, 129, 0.1)' : (strokeColor === '#38bdf8' ? 'rgba(56, 189, 248, 0.1)' : 'rgba(239, 68, 68, 0.1)');
+        ctdnaTrajectoryChart.update();
       }
     }
   </script>

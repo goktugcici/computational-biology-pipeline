@@ -290,5 +290,72 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertGreaterEqual(len(sl_pairs), 1)
         self.assertEqual(sl_pairs[0]['synthetic_lethal_target'], 'PARP1')
 
+    def test_survival_kaplan_meier_product_limit(self):
+        from survival_analysis import SurvivalAnalyzer
+        durations = [3.0, 6.0, 9.0, 12.0, 15.0, 18.0]
+        events = [1, 1, 0, 1, 0, 1]
+        km_res = SurvivalAnalyzer.calculate_kaplan_meier(durations, events)
+        self.assertEqual(km_res['total_patients'], 6)
+        self.assertEqual(km_res['total_events'], 4)
+        self.assertIn('curve_points', km_res)
+        pts = km_res['curve_points']
+        self.assertGreater(len(pts), 0)
+        for i in range(len(pts) - 1):
+            self.assertGreaterEqual(pts[i]['survival_probability'], pts[i + 1]['survival_probability'])
+
+    def test_survival_log_rank_test_statistics(self):
+        from survival_analysis import SurvivalAnalyzer
+        exp_d = [5.0, 10.0, 15.0, 20.0, 25.0, 30.0]
+        exp_e = [0, 0, 1, 0, 1, 0]
+        ctrl_d = [2.0, 4.0, 6.0, 8.0, 12.0, 16.0]
+        ctrl_e = [1, 1, 1, 1, 1, 1]
+        logrank = SurvivalAnalyzer.compute_log_rank_test(exp_d, exp_e, ctrl_d, ctrl_e)
+        self.assertIn('log_rank_chisquare', logrank)
+        self.assertIn('hazard_ratio', logrank)
+        self.assertLess(logrank['hazard_ratio'], 1.0)
+        self.assertTrue(logrank['statistically_significant'])
+
+    def test_survival_benchmark_cohort_retrieval(self):
+        from survival_analysis import SurvivalAnalyzer
+        flaura = SurvivalAnalyzer.get_benchmark_cohort('FLAURA_EGFR')
+        self.assertEqual(flaura['hazard_ratio'], 0.80)
+        self.assertIn("Osimertinib", flaura['experimental_arm']['name'])
+
+        keynote = SurvivalAnalyzer.get_benchmark_cohort('KEYNOTE_042_TMB_HIGH')
+        self.assertEqual(keynote['hazard_ratio'], 0.69)
+        self.assertIn("Pembrolizumab", keynote['experimental_arm']['name'])
+
+    def test_liquid_biopsy_longitudinal_evaluation(self):
+        from liquid_biopsy import LiquidBiopsyEngine
+        # Case 1: ctDNA clearance
+        res_mcr = LiquidBiopsyEngine.evaluate_longitudinal_ctdna(
+            baseline_vaf_percent=5.2,
+            followup_vaf_percent=0.01,
+            primary_gene="EGFR"
+        )
+        self.assertEqual(res_mcr['response_code'], 'MCR')
+        self.assertIn("MRD Negatif", res_mcr['mrd_status'])
+
+        # Case 2: Resistance mutation C797S
+        res_prog = LiquidBiopsyEngine.evaluate_longitudinal_ctdna(
+            baseline_vaf_percent=0.5,
+            followup_vaf_percent=3.8,
+            primary_gene="EGFR",
+            detected_new_mutations=["EGFR_C797S"]
+        )
+        self.assertEqual(res_prog['response_code'], 'MPD')
+        self.assertTrue(res_prog['acquired_resistance_detected'])
+        self.assertEqual(res_prog['resistance_clones'][0]['mutation_key'], 'EGFR_C797S')
+
+    def test_database_survival_and_liquid_biopsy_tables(self):
+        kb = BioKnowledgebase(self.db_path)
+        benchmarks = kb.query_survival_benchmarks("FLAURA_EGFR")
+        self.assertEqual(len(benchmarks), 1)
+        self.assertEqual(benchmarks[0]['target_gene'], "EGFR (Exon 19 del / L858R)")
+
+        clones = kb.query_liquid_biopsy_clones("EGFR")
+        self.assertGreaterEqual(len(clones), 1)
+        self.assertEqual(clones[0]['mutation_key'], "EGFR_C797S")
+
 if __name__ == "__main__":
     unittest.main()

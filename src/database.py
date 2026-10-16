@@ -199,6 +199,41 @@ class BioKnowledgebase:
             );
             """)
 
+            # 11. Clinical Survival Benchmarks Table
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS clinical_survival_benchmarks (
+                trial_key TEXT PRIMARY KEY,
+                trial_name TEXT NOT NULL,
+                target_gene TEXT NOT NULL,
+                indication TEXT NOT NULL,
+                endpoint TEXT NOT NULL,
+                experimental_arm TEXT NOT NULL,
+                experimental_n INTEGER NOT NULL,
+                experimental_median_months REAL NOT NULL,
+                control_arm TEXT NOT NULL,
+                control_n INTEGER NOT NULL,
+                control_median_months REAL NOT NULL,
+                hazard_ratio REAL NOT NULL,
+                hr_ci_lower REAL NOT NULL,
+                hr_ci_upper REAL NOT NULL,
+                p_value REAL NOT NULL,
+                clinical_significance TEXT NOT NULL
+            );
+            """)
+
+            # 12. Liquid Biopsy Clones & Acquired Resistance Table
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS liquid_biopsy_clones (
+                clone_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                mutation_key TEXT NOT NULL UNIQUE,
+                gene_symbol TEXT NOT NULL,
+                target_therapy TEXT NOT NULL,
+                mutation_name TEXT NOT NULL,
+                resistance_mechanism TEXT NOT NULL,
+                actionable_bypass TEXT NOT NULL
+            );
+            """)
+
             conn.commit()
 
         # Seed data if empty
@@ -212,7 +247,9 @@ class BioKnowledgebase:
             g_count = cursor.fetchone()[0]
             cursor.execute("SELECT COUNT(*) FROM pharmacogenomics_guidelines;")
             p_count = cursor.fetchone()[0]
-            if g_count > 0 and p_count > 0:
+            cursor.execute("SELECT COUNT(*) FROM clinical_survival_benchmarks;")
+            c_count = cursor.fetchone()[0]
+            if g_count > 0 and p_count > 0 and c_count > 0:
                 return # Already fully seeded
 
         self.seed_comprehensive_data()
@@ -380,6 +417,30 @@ class BioKnowledgebase:
                 VALUES (?, ?, ?, ?, ?, ?, ?);
             """, sl_data)
 
+            # 11. Clinical Survival Benchmarks (Phase 3 Landmark Trials)
+            survival_data = [
+                ("FLAURA_EGFR", "FLAURA (NEJM 2018 / 2020)", "EGFR (Exon 19 del / L858R)", "Untreated Advanced EGFR-Mutated NSCLC", "Overall Survival (OS)", "Osimertinib (Tagrisso 80mg)", 279, 38.6, "Standard EGFR-TKI (Gefitinib / Erlotinib)", 277, 31.8, 0.80, 0.64, 1.00, 0.046, "Osimertinib, standart 1. jenerasyon TKI lere kıyasla genel sağkalımda istatistiksel ve klinik olarak anlamlı 6.8 aylık uzama sağlar."),
+                ("KEYNOTE_042_TMB_HIGH", "KEYNOTE-042 (Lancet 2019 / NEJM)", "TMB-High (TMB >= 10 mut/Mb) & PD-L1 TPS >= 50%", "First-Line Advanced Non-Small-Cell Lung Cancer", "Overall Survival (OS)", "Pembrolizumab Monoterapisi (Keytruda)", 120, 20.0, "Platin Bazlı Kemoterapi (Karboplatin + Pemetreksed)", 120, 12.2, 0.69, 0.56, 0.85, 0.0003, "TMB-High ve PD-L1 pozitif NSCLC hastalarında immünoterapi, kemoterapiye kıyasla ölüm riskini %31 oranında azaltır."),
+                ("OLYMPIAD_BRCA", "OlympiAD (NEJM 2017)", "Germline BRCA1 / BRCA2 Mutation (HRD+)", "gBRCAm HER2-Negative Metastatic Breast Cancer", "Progression-Free Survival (PFS)", "Olaparib Tablet (Lynparza 300mg BID)", 205, 7.0, "Hekim Seçimi Standart Kemoterapi (Kapesitabin/Vinorelbin)", 97, 4.2, 0.58, 0.43, 0.80, 0.0009, "PARP inhibitörü Olaparib, gBRCA mutant metastatik meme kanserinde progresyonsuz sağkalımı belirgin şekilde uzatarak progresyon riskini %42 düşürür."),
+                ("CODEBREAK_200_KRAS", "CodeBreaK 200 (Lancet 2023)", "KRAS p.G12C", "Pretreated KRAS G12C Advanced NSCLC", "Progression-Free Survival (PFS)", "Sotorasib (Lumakras 960mg QD)", 171, 5.6, "Docetaxel Kemoterapisi", 174, 4.5, 0.66, 0.51, 0.86, 0.002, "Doğrudan KRAS G12C inhibitörü Sotorasib, önceden tedavi görmüş NSCLC hastalarında dosetaksele kıyasla progresyonsuz sağkalımı anlamlı şekilde iyileştirir.")
+            ]
+            cursor.executemany("""
+                INSERT OR REPLACE INTO clinical_survival_benchmarks (trial_key, trial_name, target_gene, indication, endpoint, experimental_arm, experimental_n, experimental_median_months, control_arm, control_n, control_median_months, hazard_ratio, hr_ci_lower, hr_ci_upper, p_value, clinical_significance)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            """, survival_data)
+
+            # 12. Liquid Biopsy Clones & Acquired Resistance Mechanisms
+            ctdna_clones_data = [
+                ("EGFR_C797S", "EGFR", "Osimertinib (3rd-gen TKI)", "p.Cys797Ser (c.2389T>A)", "Kovalent bağlanma cebindeki sistein 797 kalıntısının serin ile değişmesi; Osimertinibin kovalent bağ kurmasını engeller.", "Allosterik 4. jenerasyon EGFR TKI (örn. BLU-945, BDTX-1535) veya antikor-ilaç konjugatı (Patritumab Deruxtecan - HER3-DXd)."),
+                ("MET_AMPLIFICATION", "MET", "Osimertinib / Gefitinib", "MET Gene Copy Number Gain (Copy Number >= 5)", "EGFR yolağını baypas ederek ERBB3 fosforilasyonunu ve downstream PI3K/AKT sinyalini devam ettirir.", "Kombinasyon: Osimertinib + MET inhibitörü Savolitinib (SAVANNAH Faz 2 çalışması) veya Tepotinib."),
+                ("KRAS_Y96D", "KRAS", "Sotorasib / Adagrasib (KRAS G12C İnhibitörleri)", "p.Tyr96Asp (Switch-II cebi direnci)", "Switch-II allosterik cebindeki Y96 mutasyonu, kovalent inhibitörlerin bağlanmasını sterik olarak bloke eder.", "Pan-KRAS inhibitörleri (RMC-6236, Darovasertib) veya SOS1/SHP2 inhibitör kombinasyonları."),
+                ("BRCA_REVERSION", "BRCA1 / BRCA2", "Olaparib / Talazoparib (PARP İnhibitörleri)", "Secondary in-frame restore / Reversion mutation", "İkincil mutasyon okuma çerçevesini yeniden düzelterek homolog rekombinasyon (HR) kapasitesini geri kazandırır.", "ATR inhibitörleri (Ceralasertib), WEE1 inhibitörleri (Adavosertib) veya Platin bazlı ikili kemoterapi.")
+            ]
+            cursor.executemany("""
+                INSERT OR REPLACE INTO liquid_biopsy_clones (mutation_key, gene_symbol, target_therapy, mutation_name, resistance_mechanism, actionable_bypass)
+                VALUES (?, ?, ?, ?, ?, ?);
+            """, ctdna_clones_data)
+
             conn.commit()
 
     # Query APIs
@@ -498,13 +559,35 @@ class BioKnowledgebase:
                 cursor.execute("SELECT * FROM synthetic_lethal_pairs ORDER BY vulnerability_score DESC;")
             return [dict(row) for row in cursor.fetchall()]
 
+    def query_survival_benchmarks(self, trial_key: Optional[str] = None) -> List[Dict[str, Any]]:
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if trial_key:
+                cursor.execute("SELECT * FROM clinical_survival_benchmarks WHERE trial_key = ?;", (trial_key,))
+            else:
+                cursor.execute("SELECT * FROM clinical_survival_benchmarks ORDER BY trial_name ASC;")
+            return [dict(row) for row in cursor.fetchall()]
+
+    def query_liquid_biopsy_clones(self, gene: Optional[str] = None) -> List[Dict[str, Any]]:
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if gene:
+                cursor.execute("SELECT * FROM liquid_biopsy_clones WHERE gene_symbol = ?;", (gene.upper(),))
+            else:
+                cursor.execute("SELECT * FROM liquid_biopsy_clones ORDER BY gene_symbol ASC, clone_id ASC;")
+            return [dict(row) for row in cursor.fetchall()]
+
     def get_database_stats(self) -> Dict[str, Any]:
         """Calculates global statistical summaries across the entire knowledgebase."""
         with self._get_connection() as conn:
             cursor = conn.cursor()
 
             stats = {}
-            for table in ['genes', 'variants', 'structures', 'compounds', 'oncology_hotspots', 'pathways', 'drug_synergy', 'literature_trials', 'pharmacogenomics_guidelines', 'synthetic_lethal_pairs']:
+            for table in [
+                'genes', 'variants', 'structures', 'compounds', 'oncology_hotspots',
+                'pathways', 'drug_synergy', 'literature_trials', 'pharmacogenomics_guidelines',
+                'synthetic_lethal_pairs', 'clinical_survival_benchmarks', 'liquid_biopsy_clones'
+            ]:
                 cursor.execute(f"SELECT COUNT(*) FROM {table};")
                 stats[f"{table}_count"] = cursor.fetchone()[0]
 
@@ -568,7 +651,9 @@ class BioKnowledgebase:
             'drug_synergy': self.query_synergies(),
             'literature_trials': self.query_literature(),
             'pharmacogenomics_guidelines': self.query_pgx(),
-            'synthetic_lethal_pairs': self.query_synthetic_lethality()
+            'synthetic_lethal_pairs': self.query_synthetic_lethality(),
+            'clinical_survival_benchmarks': self.query_survival_benchmarks(),
+            'liquid_biopsy_clones': self.query_liquid_biopsy_clones()
         }
 
         os.makedirs(os.path.dirname(target_file), exist_ok=True)
