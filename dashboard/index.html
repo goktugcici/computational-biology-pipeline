@@ -116,6 +116,9 @@
         <button onclick="switchTab('signatures')" id="tabBtn-signatures" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🧬 İmzalar & HRD
         </button>
+        <button onclick="switchTab('spatial')" id="tabBtn-spatial" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🔬 Uzamsal Transkriptomik & TLS
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -2598,6 +2601,246 @@
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- TAB 21: UZAMSAL TRANSKRİPTOMİK & TÜMÖR MİMARİSİ (SPATIAL & TLS) -->
+    <!-- ========================================== -->
+    <section id="tab-spatial" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Tanıtım Paneli -->
+      <div class="bg-gradient-to-r from-teal-950/40 via-slate-900/80 to-emerald-950/40 border border-teal-500/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-semibold">
+              <span>🔬 Uzamsal Biyoloji & Tek Hücre Doku Haritalama</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping"></span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight">Uzamsal Transkriptomik & Tümör Mimarisi (TLS Stüdyosu)</h2>
+            <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+              10x Genomics Visium & Xenium yüksek çözünürlüklü doku mimarisini simüle edin: Tersiyer Lenfoid Yapıların (TLS) olgunlaşmasını, 
+              kanserle ilişkili fibroblast (CAF) desmoplastik bariyerini ve tümör ilişkili makrofaj (TAM) M1/M2 polarizasyonunu uzamsal koordinatlarla analiz edin.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-2 rounded-2xl bg-slate-900/90 border border-slate-700 text-xs text-slate-300 font-mono flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-teal-400"></span>
+              10x Visium / Xenium / CosMx Modeli
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanonik Doku Mimarisi Senaryoları -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <button onclick="selectSpatialScenario('NSCLC_TLS_MATURE')" id="spatialBtn-NSCLC_TLS_MATURE" class="spatial-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Akciğer (NSCLC)</span>
+          <h4 class="text-xs font-bold text-white">Olgun Tersiyer Lenfoid (TLS)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">Germinal Merkez / B Hücresi</span>
+        </button>
+
+        <button onclick="selectSpatialScenario('PDAC_DESMOPLASTIC_CAF')" id="spatialBtn-PDAC_DESMOPLASTIC_CAF" class="spatial-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Pankreas (PDAC)</span>
+          <h4 class="text-xs font-bold text-white">Desmoplastik Fibröz Stroma</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">CAF Bariyeri / Dışlanmış</span>
+        </button>
+
+        <button onclick="selectSpatialScenario('GBM_HYPOXIC_TAM')" id="spatialBtn-GBM_HYPOXIC_TAM" class="spatial-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Glioblastom (GBM)</span>
+          <h4 class="text-xs font-bold text-white">Hipoksik Nekroz & M2 TAM</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">CD47 "Beni Yeme" Ekseni</span>
+        </button>
+
+        <button onclick="selectSpatialScenario('MELANOMA_INVASIVE_FRONT')" id="spatialBtn-MELANOMA_INVASIVE_FRONT" class="spatial-scenario-btn p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Malign Melanom</span>
+          <h4 class="text-xs font-bold text-white">İnvaziv Sınırda T İnfiltrasyonu</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">CD8+ / Adaptif PD-L1</span>
+        </button>
+      </div>
+
+      <!-- Ana Grid: Sol Panel (Parametreler & Uzamsal Spot Izgarası) | Sağ Panel (TLS Skoru, Ligandlar & Kılavuz) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: Hücresel Yoğunluk Sürgüleri & 5x5 Uzamsal Izgara (5 Kolon) -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
+          <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>🧬 Uzamsal Hücre Yoğunlukları</span>
+            </h3>
+            <span id="activeSpatialTitle" class="text-xs font-semibold text-teal-400">Olgun TLS</span>
+          </div>
+
+          <!-- Hücre Yoğunluk Kaydırıcıları -->
+          <div class="space-y-3.5">
+            <div>
+              <div class="flex justify-between text-xs text-slate-400 mb-1">
+                <span>CD8+ Sitotoksik T Hücre Yoğunluğu</span>
+                <span id="spatialCd8Val" class="font-mono text-teal-300 font-bold">25%</span>
+              </div>
+              <input type="range" id="spatialCd8Slider" min="0" max="50" value="25" oninput="calculateSpatialMetricsLive()" class="w-full accent-teal-500 bg-slate-950 h-1.5 rounded-lg">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-slate-400 mb-1">
+                <span>B Hücresi & Plazmosit (CD20+) Yoğunluğu</span>
+                <span id="spatialBcellVal" class="font-mono text-teal-300 font-bold">20%</span>
+              </div>
+              <input type="range" id="spatialBcellSlider" min="0" max="40" value="20" oninput="calculateSpatialMetricsLive()" class="w-full accent-teal-500 bg-slate-950 h-1.5 rounded-lg">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-slate-400 mb-1">
+                <span>CAF Stroma Yoğunluğu (alfa-SMA / FAP)</span>
+                <span id="spatialCafVal" class="font-mono text-amber-300 font-bold">10%</span>
+              </div>
+              <input type="range" id="spatialCafSlider" min="0" max="70" value="10" oninput="calculateSpatialMetricsLive()" class="w-full accent-amber-500 bg-slate-950 h-1.5 rounded-lg">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-slate-400 mb-1">
+                <span>M2 TAM Makrofaj Polarizasyon Oranı</span>
+                <span id="spatialTamVal" class="font-mono text-rose-300 font-bold">15%</span>
+              </div>
+              <input type="range" id="spatialTamSlider" min="0" max="60" value="15" oninput="calculateSpatialMetricsLive()" class="w-full accent-rose-500 bg-slate-950 h-1.5 rounded-lg">
+            </div>
+
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-white font-semibold block">CXCL13 / CXCR5 Kemokin Kemotaksisi</span>
+                <span class="text-[10px] text-slate-400 block">B/T hücre foliküler kümelenme indüksiyonu</span>
+              </div>
+              <input type="checkbox" id="spatialCxcl13Checkbox" onchange="calculateSpatialMetricsLive()" checked class="rounded border-slate-700 text-teal-600 focus:ring-teal-500 w-4 h-4">
+            </div>
+          </div>
+
+          <!-- İnteraktif 5x5 Uzamsal Doku Kesiti Haritası (Spot Matrix) -->
+          <div class="space-y-2 pt-2 border-t border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">10x Visium Spot Matrisi (5x5)</span>
+              <span class="text-[10px] text-slate-500">Spot Üzerine Tıklayarak İnceleyin</span>
+            </div>
+            
+            <div id="spatialSpotGrid" class="grid grid-cols-5 gap-1.5 p-3 bg-slate-950 rounded-2xl border border-slate-800">
+              <!-- JS ile üretilir (25 spot) -->
+            </div>
+
+            <div id="spatialSpotInspector" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300 flex items-center justify-between">
+              <span>Seçili Bölge: <strong class="text-teal-300" id="selectedSpotRegionName">Tersiyer Lenfoid Yapı (TLS) Odak Noktası</strong></span>
+              <span class="font-mono text-[10px] text-slate-500" id="selectedSpotCoord">[Spot #13: x=3, y=3]</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: TLS İndeksi, Bariyer Analizi & Ligand-Reseptör Ağları (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- TLS ve Bariyer Skoru Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">TLS Olgunlaşma Evresi</span>
+                <h3 id="spatialTlsStage" class="text-lg font-black text-white">Evre 3: Olgun Germinal Merkezli Sekonder TLS</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">TLS İmmünojenite Skoru</span>
+                <div class="flex items-baseline gap-2">
+                  <span id="spatialTlsScore" class="text-3xl font-black text-teal-400 font-mono">88.0</span>
+                  <span id="spatialTlsBadge" class="text-xs font-semibold px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">Yüksek İmmün Yanıt</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- İkili Gösterge Çubukları: TLS ve Stroma Bariyeri -->
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>İmmün Kontrol Noktası Yanıtı</span>
+                  <span id="spatialIcbPredVal" class="font-bold text-teal-300">Yüksek (ORR >%65)</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barSpatialTls" class="bg-gradient-to-r from-teal-500 to-emerald-400 h-2 rounded-full transition-all duration-300" style="width: 88%"></div>
+                </div>
+              </div>
+
+              <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 space-y-1.5">
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Stroma Desmoplazi Bariyeri</span>
+                  <span id="spatialBarrierVal" class="font-bold text-amber-300">Düşük (%22)</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barSpatialBarrier" class="bg-gradient-to-r from-amber-500 to-rose-500 h-2 rounded-full transition-all duration-300" style="width: 22%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hücresel Bileşim Dağılım Çubukları -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+              <span>🧬 Uzamsal Hücre Tipi Bileşimi (%)</span>
+            </h4>
+            <div class="space-y-1.5 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-24 text-[11px] text-slate-400">Malign Epitelyal</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCompTumor" class="bg-indigo-400 h-2 rounded-full transition-all duration-300" style="width: 40%"></div>
+                </div>
+                <span id="valCompTumor" class="w-10 text-right font-mono text-[11px] text-slate-300">40%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-24 text-[11px] text-slate-400">CD8+ T Hücresi</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCompCd8" class="bg-teal-400 h-2 rounded-full transition-all duration-300" style="width: 25%"></div>
+                </div>
+                <span id="valCompCd8" class="w-10 text-right font-mono text-[11px] text-slate-300">25%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-24 text-[11px] text-slate-400">B Hücre / Plazma</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCompBcell" class="bg-sky-400 h-2 rounded-full transition-all duration-300" style="width: 20%"></div>
+                </div>
+                <span id="valCompBcell" class="w-10 text-right font-mono text-[11px] text-slate-300">20%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-24 text-[11px] text-slate-400">CAF Fibroblast</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCompCaf" class="bg-amber-400 h-2 rounded-full transition-all duration-300" style="width: 10%"></div>
+                </div>
+                <span id="valCompCaf" class="w-10 text-right font-mono text-[11px] text-slate-300">10%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-24 text-[11px] text-slate-400">TAM Makrofaj</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCompTam" class="bg-rose-400 h-2 rounded-full transition-all duration-300" style="width: 5%"></div>
+                </div>
+                <span id="valCompTam" class="w-10 text-right font-mono text-[11px] text-slate-300">5%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aktif Ligand-Reseptör Uzamsal İletişim Aksları -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🔗 Uzamsal Komşulukta Aktif Ligand-Reseptör Etkileşimleri</span>
+            </h4>
+            <div id="spatialLigandPairsList" class="flex flex-wrap gap-1.5">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- NCCN & ESMO Uzamsal Biyoloji Klinik Tedavi Kılavuzu -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-teal-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🎯 NCCN & ESMO Klinik Onkolojik Yorumu</span>
+            </h4>
+            <div id="spatialClinicalGuidanceBox" class="p-4 rounded-2xl bg-slate-950 border border-teal-900/40 text-xs text-teal-200/90 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script>
@@ -4884,6 +5127,41 @@
           "• Kristal üretilemeyen zorlu membran reseptörlerini sıvı azotta dondurarak 1.5-2.5 Å çözünürlükte görüntüler.\n" +
           "• KRAS G12C inhibitörleri ve ribozom hedefli akıllı ilaçların tasarımında kritik rol oynamıştır."
       },
+      'spatial_transcriptomics_visium': {
+        patterns: [/uzamsal transkriptomik/i, /spatial transcriptomics/i, /10x visium/i, /xenium/i, /doku haritası/i, /cosmx/i],
+        title: 'Uzamsal Transkriptomik & Doku Mimarisi',
+        answer: "🗺️ **Uzamsal Transkriptomik (Spatial Transcriptomics):**\n\n" +
+          "• Dokudaki binlerce genin hücresel koordinatlarını kaybetmeden haritalar (10x Visium / Xenium).\n" +
+          "• Tümör çekirdeği ile invaziv sınır arasındaki klonal farkları ve immün hücrelerin kanserle fiziksel temasını aydınlatır."
+      },
+      'tertiary_lymphoid_structures_tls': {
+        patterns: [/tersiyer lenfoid yapı/i, /tls nedir/i, /tertiary lymphoid/i, /germinal merkez.*tümör/i, /cxcl13/i],
+        title: 'Tersiyer Lenfoid Yapılar (TLS) & Süper-Yanıt',
+        answer: "🏰 **Tersiyer Lenfoid Yapılar (TLS):**\n\n" +
+          "• Tümör kenarında kendiliğinden organize olan minyatür lenf düğümleridir (B, T hücreleri ve CXCL13 folikülleri).\n" +
+          "• Biyopside olgun TLS bulunması Anti-PD-1 immünoterapisine çok yüksek yanıt ve uzun sağkalım göstergesidir."
+      },
+      'tumor_associated_macrophages_tam': {
+        patterns: [/tümör ilişkili makrofaj/i, /tam nedir/i, /m1 m2 makrofaj/i, /cd47/i, /sirpa/i, /beni yeme sinyali/i],
+        title: 'Tümör İlişkili Makrofajlar (TAM) & CD47',
+        answer: "🛡️ **Tümör İlişkili Makrofajlar (TAM) & CD47 'Beni Yeme' Sinyali:**\n\n" +
+          "• M1 makrofajlar tümör savaşçısıyken, M2 makrofajlar bağışıklığı baskılar ve stroma üretir.\n" +
+          "• Kanser hücreleri yüzeydeki CD47 molekülü ile makrofajın SIRPα reseptörünü kilitler; Anti-CD47 antikorları bu freni kırar."
+      },
+      'cancer_associated_fibroblasts_caf': {
+        patterns: [/kanser ilişkili fibroblast/i, /caf nedir/i, /desmoplazi/i, /stroma bariyeri/i, /fibrotik stroma/i, /fap inhibitör/i],
+        title: 'Kanserle İlişkili Fibroblastlar (CAF) & Desmoplazi',
+        answer: "🧱 **Kanserle İlişkili Fibroblastlar (CAF):**\n\n" +
+          "• Tümör çevresinde sert kollajen zırhı (desmoplazi) örerek ilaçların ve T hücrelerinin tümöre girmesini engeller.\n" +
+          "• FAP hedefli radyonüklit tedaviler ve TGF-beta blokerleri ile stroma gevşetilir."
+      },
+      'single_cell_rna_sequencing_scrna': {
+        patterns: [/tek hücre rna/i, /scrna-seq/i, /single cell rna/i, /tek hücre dizileme/i, /klonal heterojenite/i, /kanser kök hücresi/i],
+        title: 'Tek Hücre RNA Dizileme (scRNA-seq)',
+        answer: "🔬 **Tek Hücre RNA Dizileme (scRNA-seq):**\n\n" +
+          "• On binlerce hücrenin transkriptomunu tek tek okur; 10.000 hücre arasındaki %0.1'lik nadir dirençli kanser kök hücrelerini yakalar.\n" +
+          "• Tedavi sürecindeki klonal evrimi ve tükenmiş (exhausted) lenfositleri moleküler haritada gösterir."
+      },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
         title: 'Bot Hakkında & Kullanım Kılavuzu',
@@ -7109,6 +7387,275 @@ uygulanması oy birliği ile uygun bulunmuştur.
     try {
       if (typeof document !== 'undefined') {
         selectSignaturePreset('SBS3_HRD_BRCA');
+      }
+    } catch(e) {}
+
+    // ==========================================
+    // TAB 21: UZAMSAL TRANSKRİPTOMİK & TÜMÖR MİMARİSİ (TLS) MANTIĞI
+    // ==========================================
+    const CANONICAL_SPATIAL_SCENARIOS = {
+      'NSCLC_TLS_MATURE': {
+        title: 'Olgun Tersiyer Lenfoid Yapı (Mature TLS)',
+        cancer_type: 'Küçük Hücreli Dışı Akciğer Kanseri (NSCLC)',
+        cd8: 25,
+        b_cell: 20,
+        caf: 10,
+        tam: 15,
+        cxcl13: true,
+        comp: { tumor: 40, cd8: 25, b_cell: 20, caf: 10, tam: 5 },
+        ligands: ['CXCL13 - CXCR5 (B/T Foliküler Kümelenme)', 'CCL19/21 - CCR7 (DC/T Priming)', 'CD40 - CD40L (B Hücre Aktivasyonu)', 'PD-L1 - PD-1 (Reaktif Kontrol Noktası)'],
+        guidance: 'Olgun germinal merkezli TLS varlığı Anti-PD-1 (Pembrolizumab) veya Nivolumab+Ipilimumab tedavisine çok yüksek yanıt ve uzun genel sağkalım sağlar (NCCN Kategori 1).'
+      },
+      'PDAC_DESMOPLASTIC_CAF': {
+        title: 'Desmoplastik Fibröz Stroma (CAF Bariyeri)',
+        cancer_type: 'Pankreatik Duktal Adenokarsinom (PDAC)',
+        cd8: 5,
+        b_cell: 3,
+        caf: 52,
+        tam: 40,
+        cxcl13: false,
+        comp: { tumor: 25, cd8: 5, b_cell: 3, caf: 52, tam: 15 },
+        ligands: ['TGFB1 - TGFBR2 (Stroma Sentezi & Fibrozis)', 'CXCL12 - CXCR4 (T Hücre İtiş Bariyeri)', 'FAP - Integrin (Miyofibroblast Aktivasyonu)', 'PDGFRA - PDGFB'],
+        guidance: 'Yoğun CAF desmoplazisi nedeniyle T hücreleri stromada rehindir. FOLFIRINOX öncesi stroma gevşetici stratejiler veya FAP hedefli faz 2/3 klinik çalışmalar önerilir.'
+      },
+      'GBM_HYPOXIC_TAM': {
+        title: 'Hipoksik Nekroz & M2 Polarize TAM',
+        cancer_type: 'Glioblastoma Multiforme (GBM)',
+        cd8: 4,
+        b_cell: 1,
+        caf: 5,
+        tam: 55,
+        cxcl13: false,
+        comp: { tumor: 55, cd8: 4, b_cell: 1, caf: 5, tam: 35 },
+        ligands: ['VEGFA - VEGFR2 (Anjiyogenez & Nekroz Sınırı)', 'CD47 - SIRPA ("Beni Yeme" Fagositoz Kaçışı)', 'CSF1 - CSF1R (M2 Polarizasyonu)', 'ANGPT2 - TIE2'],
+        guidance: 'M2 makrofajlar immünosüpresif mikroçevre oluşturur. Radyoterapi + Temozolomid (Stupp); nüks durumunda Anti-VEGF (Bevacizumab) veya CSF-1R / CD47 hedefli tedaviler düşünülür.'
+      },
+      'MELANOMA_INVASIVE_FRONT': {
+        title: 'İnvaziv Sınırda CD8+ T Hücre İnfiltrasyonu',
+        cancer_type: 'Malign Melanom',
+        cd8: 32,
+        b_cell: 8,
+        caf: 8,
+        tam: 18,
+        cxcl13: true,
+        comp: { tumor: 45, cd8: 32, b_cell: 8, caf: 8, tam: 7 },
+        ligands: ['IFNG - IFNGR1 (Adaptif İmmün Uyarım)', 'PD-L1 - PD-1 (Adaptif Direnç)', 'LAG-3 - MHC-II (Tükenmiş T Hücreleri)', 'TIGIT - PVR'],
+        guidance: 'İnvaziv sınırda yoğun temas mevcuttur; Nivolumab + Relatlimab (Anti-LAG-3 / RELATIVITY-047) veya Nivolumab + Ipilimumab ile üstün objektif yanıt elde edilir.'
+      }
+    };
+
+    const SPATIAL_SPOT_GRID_TYPES = [
+      { name: 'Tümör Çekirdeği (Core)', color: 'bg-indigo-600/40 border-indigo-500/60 text-indigo-300', desc: 'Malign neoplastik epitelyal hücre yuvası' },
+      { name: 'İnvaziv Tümör Sınırı (Margin)', color: 'bg-emerald-600/40 border-emerald-500/60 text-emerald-300', desc: 'Tümör-stroma temas hattı; aktif immün etkileşim' },
+      { name: 'Tersiyer Lenfoid Yapı (TLS)', color: 'bg-teal-600/50 border-teal-400 text-teal-200', desc: 'CD20+ B hücresi & CD8+ T hücresi germinal merkezi' },
+      { name: 'Desmoplastik Fibröz Stroma', color: 'bg-amber-600/40 border-amber-500/60 text-amber-300', desc: 'Yoğun alfa-SMA+ CAF ve kollajen lifleri' },
+      { name: 'Hipoksik / Nekrotik Alan', color: 'bg-rose-600/40 border-rose-500/60 text-rose-300', desc: 'HIF-1a pozitif VEGF salgılayan M2 makrofaj odağı' }
+    ];
+
+    function selectSpatialScenario(scId) {
+      const sc = CANONICAL_SPATIAL_SCENARIOS[scId];
+      if (!sc) return;
+
+      document.querySelectorAll('.spatial-scenario-btn').forEach(btn => {
+        btn.classList.remove('border-teal-500', 'bg-teal-950/20');
+      });
+      const activeBtn = document.getElementById(`spatialBtn-${scId}`);
+      if (activeBtn) activeBtn.classList.add('border-teal-500', 'bg-teal-950/20');
+
+      const titleEl = document.getElementById('activeSpatialTitle');
+      if (titleEl) titleEl.innerText = sc.title;
+
+      const cd8Slider = document.getElementById('spatialCd8Slider');
+      if (cd8Slider) cd8Slider.value = sc.cd8;
+
+      const bSlider = document.getElementById('spatialBcellSlider');
+      if (bSlider) bSlider.value = sc.b_cell;
+
+      const cafSlider = document.getElementById('spatialCafSlider');
+      if (cafSlider) cafSlider.value = sc.caf;
+
+      const tamSlider = document.getElementById('spatialTamSlider');
+      if (tamSlider) tamSlider.value = sc.tam;
+
+      const cxclCb = document.getElementById('spatialCxcl13Checkbox');
+      if (cxclCb) cxclCb.checked = sc.cxcl13;
+
+      renderSpatialSpotGrid(scId);
+      calculateSpatialMetricsLive();
+    }
+
+    function renderSpatialSpotGrid(scId) {
+      const grid = document.getElementById('spatialSpotGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      for (let i = 0; i < 25; i++) {
+        let typeIdx = 0; // Default Core
+        if (scId === 'NSCLC_TLS_MATURE') {
+          if ([6, 7, 8, 12, 13, 14].includes(i)) typeIdx = 0;
+          else if ([1, 2, 3, 11, 15, 21, 22, 23].includes(i)) typeIdx = 1;
+          else if ([0, 4, 20, 24].includes(i)) typeIdx = 2;
+          else typeIdx = 3;
+        } else if (scId === 'PDAC_DESMOPLASTIC_CAF') {
+          if ([12].includes(i)) typeIdx = 0;
+          else if ([6, 7, 8, 11, 13, 16, 17, 18].includes(i)) typeIdx = 1;
+          else typeIdx = 3;
+        } else if (scId === 'GBM_HYPOXIC_TAM') {
+          if ([12, 13, 17, 18].includes(i)) typeIdx = 4;
+          else if ([6, 7, 8, 11, 16].includes(i)) typeIdx = 0;
+          else typeIdx = 1;
+        } else {
+          if ([0, 1, 5, 6, 10, 11].includes(i)) typeIdx = 0;
+          else if ([2, 7, 12, 17, 22].includes(i)) typeIdx = 1;
+          else if ([18, 19, 23, 24].includes(i)) typeIdx = 2;
+          else typeIdx = 3;
+        }
+
+        const spotData = SPATIAL_SPOT_GRID_TYPES[typeIdx];
+        const spot = document.createElement('div');
+        spot.className = `h-8 rounded-lg border text-[9px] font-mono flex items-center justify-center cursor-pointer transition-all hover:scale-105 ${spotData.color}`;
+        spot.innerText = `${i + 1}`;
+        spot.title = `Spot #${i + 1}: ${spotData.name}`;
+        spot.onclick = () => inspectSpatialSpot(i + 1, spotData);
+        grid.appendChild(spot);
+      }
+    }
+
+    function inspectSpatialSpot(spotNum, spotData) {
+      const nameEl = document.getElementById('selectedSpotRegionName');
+      const coordEl = document.getElementById('selectedSpotCoord');
+      if (nameEl) nameEl.innerText = `${spotData.name} (${spotData.desc})`;
+      if (coordEl) coordEl.innerText = `[Spot #${spotNum}: Aktif Koordinat]`;
+    }
+
+    function calculateSpatialMetricsLive() {
+      const cd8 = parseFloat(document.getElementById('spatialCd8Slider')?.value || 0);
+      const bCell = parseFloat(document.getElementById('spatialBcellSlider')?.value || 0);
+      const caf = parseFloat(document.getElementById('spatialCafSlider')?.value || 0);
+      const tam = parseFloat(document.getElementById('spatialTamSlider')?.value || 0);
+      const cxcl13 = !!document.getElementById('spatialCxcl13Checkbox')?.checked;
+
+      if (document.getElementById('spatialCd8Val')) document.getElementById('spatialCd8Val').innerText = `${cd8}%`;
+      if (document.getElementById('spatialBcellVal')) document.getElementById('spatialBcellVal').innerText = `${bCell}%`;
+      if (document.getElementById('spatialCafVal')) document.getElementById('spatialCafVal').innerText = `${caf}%`;
+      if (document.getElementById('spatialTamVal')) document.getElementById('spatialTamVal').innerText = `${tam}%`;
+
+      let tls = (cd8 * 1.2) + (bCell * 2.0);
+      if (cxcl13) tls += 30.0;
+      tls -= (caf * 0.3) + (tam * 0.4);
+      tls = Math.max(0.0, Math.min(100.0, tls));
+
+      let barrier = (caf * 1.4) + (tam * 0.6) - (cd8 * 0.2);
+      barrier = Math.max(0.0, Math.min(100.0, barrier));
+
+      const tlsScoreEl = document.getElementById('spatialTlsScore');
+      if (tlsScoreEl) tlsScoreEl.innerText = tls.toFixed(1);
+
+      const tlsBadge = document.getElementById('spatialTlsBadge');
+      const tlsStage = document.getElementById('spatialTlsStage');
+      const icbPredVal = document.getElementById('spatialIcbPredVal');
+
+      if (tls >= 70.0) {
+        if (tlsBadge) {
+          tlsBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30';
+          tlsBadge.innerText = 'Yüksek İmmün Yanıt';
+        }
+        if (tlsStage) tlsStage.innerText = 'Evre 3: Olgun Germinal Merkezli Sekonder TLS';
+        if (icbPredVal) icbPredVal.innerText = 'Yüksek (ORR >%65)';
+      } else if (tls >= 40.0) {
+        if (tlsBadge) {
+          tlsBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+          tlsBadge.innerText = 'Orta İmmün Yanıt';
+        }
+        if (tlsStage) tlsStage.innerText = 'Evre 2: Erken Foliküler Agregat TLS';
+        if (icbPredVal) icbPredVal.innerText = 'Orta (ORR ~%40)';
+      } else if (tls >= 20.0) {
+        if (tlsBadge) {
+          tlsBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30';
+          tlsBadge.innerText = 'Olgunlaşmamış TLS';
+        }
+        if (tlsStage) tlsStage.innerText = 'Evre 1: Olgunlaşmamış Lenfoid Küme';
+        if (icbPredVal) icbPredVal.innerText = 'Düşük / Gecikmiş Yanıt';
+      } else {
+        if (tlsBadge) {
+          tlsBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30';
+          tlsBadge.innerText = 'TLS Yok (Dirençli)';
+        }
+        if (tlsStage) tlsStage.innerText = 'Evre 0: TLS Yok (İmmün Çöl / Dışlanmış)';
+        if (icbPredVal) icbPredVal.innerText = 'Primer Dirençli (ORR <%15)';
+      }
+
+      const barrierVal = document.getElementById('spatialBarrierVal');
+      if (barrierVal) {
+        barrierVal.innerText = `%${barrier.toFixed(0)} (${barrier > 60 ? 'Yüksek Bariyer' : barrier > 30 ? 'Orta' : 'Geçirgen'})`;
+      }
+
+      const barTls = document.getElementById('barSpatialTls');
+      if (barTls) barTls.style.width = `${Math.min(100, Math.round(tls))}%`;
+
+      const barBarrier = document.getElementById('barSpatialBarrier');
+      if (barBarrier) barBarrier.style.width = `${Math.min(100, Math.round(barrier))}%`;
+
+      const totComp = Math.max(1, 100 - (cd8 + bCell + caf + Math.round(tam * 0.4)));
+      const tumorPct = Math.max(15, Math.min(80, totComp));
+      if (document.getElementById('barCompTumor')) document.getElementById('barCompTumor').style.width = `${tumorPct}%`;
+      if (document.getElementById('valCompTumor')) document.getElementById('valCompTumor').innerText = `${tumorPct}%`;
+
+      if (document.getElementById('barCompCd8')) document.getElementById('barCompCd8').style.width = `${cd8}%`;
+      if (document.getElementById('valCompCd8')) document.getElementById('valCompCd8').innerText = `${cd8}%`;
+
+      if (document.getElementById('barCompBcell')) document.getElementById('barCompBcell').style.width = `${bCell}%`;
+      if (document.getElementById('valCompBcell')) document.getElementById('valCompBcell').innerText = `${bCell}%`;
+
+      if (document.getElementById('barCompCaf')) document.getElementById('barCompCaf').style.width = `${caf}%`;
+      if (document.getElementById('valCompCaf')) document.getElementById('valCompCaf').innerText = `${caf}%`;
+
+      const tamPct = Math.round(tam * 0.5);
+      if (document.getElementById('barCompTam')) document.getElementById('barCompTam').style.width = `${tamPct}%`;
+      if (document.getElementById('valCompTam')) document.getElementById('valCompTam').innerText = `${tamPct}%`;
+
+      const pairsList = document.getElementById('spatialLigandPairsList');
+      const guidanceBox = document.getElementById('spatialClinicalGuidanceBox');
+
+      let pairs = [];
+      if (cxcl13) pairs.push('CXCL13 - CXCR5 (B/T Kemotaksis & TLS Odaklanması)');
+      if (cd8 > 15) pairs.push('PD-L1 - PD-1 (Reaktif Kontrol Noktası Blokaj Hedefi)');
+      if (caf > 25) pairs.push('TGFB1 - TGFBR2 (CAF Fibröz Desmoplazi İndüksiyonu)');
+      if (tam > 20) pairs.push('CD47 - SIRPA (Makrofaj "Beni Yeme" Fagositoz Freni)');
+      pairs.push('IFNG - IFNGR1 (Tip-I İnterferon Sinyali)');
+
+      if (pairsList) {
+        pairsList.innerHTML = pairs.map(p => `
+          <span class="px-2.5 py-1 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-sky-200 font-mono">
+            ${p}
+          </span>
+        `).join('');
+      }
+
+      if (guidanceBox) {
+        if (tls >= 70) {
+          guidanceBox.innerHTML = `
+            <div class="text-teal-300 font-bold mb-1">✅ Olgun TLS Varlığında Kategori 1 İmmünoterapi Yanıtı</div>
+            <div>Tümör periferindeki germinal merkezler sitotoksik plazma ve bellek T hücrelerinin de-novo üretimini sağlar. Anti-PD-1 monoterapisi (Pembrolizumab) veya Anti-PD-1 + Anti-CTLA-4 kombinasyonu en yüksek sağkalım avantajını sunar.</div>
+          `;
+        } else if (barrier >= 60) {
+          guidanceBox.innerHTML = `
+            <div class="text-amber-300 font-bold mb-1">⚠️ Desmoplastik Fibröz Bariyer (İmmün Dışlanmış Fenotip)</div>
+            <div>Yoğun CAF stroma duvarı T hücrelerini periferde tutmaktadır. İmmünoterapi tek başına yetersiz kalır; stroma gevşetici kemoterapi (FOLFIRINOX / Nab-Paklitaksel) veya Anti-TGF-beta kombinasyonları gereklidir.</div>
+          `;
+        } else {
+          guidanceBox.innerHTML = `
+            <div class="text-slate-300 font-bold mb-1">ℹ️ Standart Doku Mimarisi</div>
+            <div>Tümör ve stroma hücreleri dengeli dağılım göstermektedir. İnvaziv sınır biyopsisi ve biyobelirteç rehberli (TMB / PD-L1) kombine protokoller uygulanmalıdır.</div>
+          `;
+        }
+      }
+    }
+
+    // İlk yüklemede Uzamsal Transkriptomik Stüdyosunu hazırla
+    try {
+      if (typeof document !== 'undefined') {
+        selectSpatialScenario('NSCLC_TLS_MATURE');
       }
     } catch(e) {}
   </script>

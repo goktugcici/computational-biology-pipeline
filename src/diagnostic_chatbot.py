@@ -1210,6 +1210,75 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
         )
     },
 
+    'spatial_transcriptomics_visium': {
+        'patterns': [
+            r'uzamsal transkriptomik', r'spatial transcriptomics', r'10x visium', r'xenium',
+            r'doku haritası', r'uzamsal biyoloji', r'cosmx'
+        ],
+        'title': 'Uzamsal Transkriptomik (Spatial Transcriptomics) & Doku Mimarisi',
+        'answer': (
+            "🗺️ **Uzamsal Transkriptomik (Spatial Transcriptomics):**\n\n"
+            "• **Hücrenin Konumunu Kaybetmeden:** Klasik RNA dizileme tüm dokuyu blenderdan geçirip tek bir ortalama değer verirken; 10x Visium, Xenium ve CosMx gibi teknolojiler binlerce geni **tümör doku kesiti üzerindeki tam koordinatlarında** görüntüler.\n"
+            "• **Klinik Değeri:**\n"
+            "   1. **Tümör Çekirdeği vs. İnvaziv Sınır:** Kanser hücrelerinin çevre dokuya yayıldığı temas yüzeyindeki saldırgan klonları ve kaçış mutasyonlarını gösterir.\n"
+            "   2. **Hücreler Arası Komşuluk:** Sitotoksik T hücrelerinin kansere temas edip etmediğini veya fibroblast duvarının arkasında hapsolup olmadığını haritalar."
+        )
+    },
+    'tertiary_lymphoid_structures_tls': {
+        'patterns': [
+            r'tersiyer lenfoid yapı', r'tls nedir', r'tertiary lymphoid', r'germinal merkez.*tümör',
+            r'cxcl13', r'tümör lenf düğümü'
+        ],
+        'title': 'Tersiyer Lenfoid Yapılar (TLS) & İmmünoterapi Süper-Yanıtı',
+        'answer': (
+            "🏰 **Tersiyer Lenfoid Yapılar (Tertiary Lymphoid Structures - TLS):**\n\n"
+            "• **Tümör Yanında Minyatür Lenf Düğümü:** Kronik inflamasyon ortamında tümörün hemen kıyısında kendiliğinden organize olan ektopik lenfoid organoidlerdir.\n"
+            "• **İçerik:** B hücreleri (CD20+), T hücreleri (CD4+/CD8+), foliküler dendritik hücreler ve CXCL13 kemokin merkezinden oluşur.\n"
+            "• **Klinik Önemi:** Biyopside olgun (germinal merkezli) TLS varlığı, hastanın **Anti-PD-1 immünoterapisine çok yüksek yanıt vereceğinin ve uzun genel sağkalımının** en güçlü bağımsız biyobelirtecidir."
+        )
+    },
+    'tumor_associated_macrophages_tam': {
+        'patterns': [
+            r'tümör ilişkili makrofaj', r'tam nedir', r'm1 m2 makrofaj', r'cd47', r'sirpa',
+            r'beni yeme sinyali'
+        ],
+        'title': 'Tümör İlişkili Makrofajlar (TAM) & CD47 "Beni Yeme" Sinyali',
+        'answer': (
+            "🛡️ **Tümör İlişkili Makrofajlar (TAM) ve İmmün Kaçış:**\n\n"
+            "• **İki Yüzlü Hücreler:**\n"
+            "   - **M1 Fenotipi:** Tümörü öldüren, pro-inflamatuar, savaşçı makrofajlar.\n"
+            "   - **M2 Fenotipi:** Tümör tarafından 'kandırılmış', anjiyogenezi kamçılayan, stroma üreten ve T hücrelerini susturan baskılayıcı hücreler (CD206+, CD163+).\n"
+            "• **CD47 'Beni Yeme' (Don't Eat Me) Ekseni:** Kanser hücreleri yüzeyinde CD47 molekülünü aşırı eksprese ederek makrofajın SIRPα reseptörünü kilitler ve fagositozdan (yutulmaktan) kaçar.\n"
+            "• **Yeni İlaçlar:** Anti-CD47 monoklonal antikorları (Magrolimab) ve CSF-1R inhibitörleri M2 makrofajları yeniden M1 savaşçılarına çevirmeyi hedefler."
+        )
+    },
+    'cancer_associated_fibroblasts_caf': {
+        'patterns': [
+            r'kanser ilişkili fibroblast', r'caf nedir', r'desmoplazi', r'stroma bariyeri',
+            r'fibrotik stroma', r'fap inhibitör'
+        ],
+        'title': 'Kanserle İlişkili Fibroblastlar (CAF) & Desmoplastik Bariyer',
+        'answer': (
+            "🧱 **Kanserle İlişkili Fibroblastlar (Cancer-Associated Fibroblasts - CAF):**\n\n"
+            "• **Tümörün Koruma Duvarı:** Katı tümörlerde (özellikle pankreas ve meme) aşırı kollajen ve fibronektin üreterek **desmoplazi** adı verilen sert, taş gibi bir zırh oluşturur.\n"
+            "• **İlaç Geçirmez Bariyer:** Bu yoğun fibröz doku tümör içi basıncı artırarak kan damarlarını ezer; kemoterapinin ve T lenfositlerinin tümörün merkezine ulaşmasını fiziksel olarak engeller (İmmün Dışlanmış Fenotip).\n"
+            "• **Tedavi Yaklaşımları:** FAP (Fibroblast Aktivasyon Proteini) hedefli radyonüklit tedaviler ve TGF-beta reseptör blokerleri ile stroma yumuşatılarak immünoterapi duyarlılığı geri kazandırılmaktadır."
+        )
+    },
+    'single_cell_rna_sequencing_scrna': {
+        'patterns': [
+            r'tek hücre rna', r'scrna-seq', r'single cell rna', r'tek hücre dizileme',
+            r'klonal heterojenite', r'kanser kök hücresi'
+        ],
+        'title': 'Tek Hücre RNA Dizileme (scRNA-seq) & Klonal Heterojenite',
+        'answer': (
+            "🔬 **Tek Hücre RNA Dizileme (Single-Cell RNA-seq):**\n\n"
+            "• **Her Hücrenin Ayrı Kimliği:** Biyopsi parçasındaki on binlerce hücreyi tek tek damlacıklar içine hapsederek her bir hücrenin transkriptomunu (aktif genlerini) ayrı ayrı okur.\n"
+            "• **Nadir Klonların Keşfi:** 10.000 hücre arasında saklanan ve tedaviye direnç geliştirecek olan %0.1'lik **nadir kanser kök hücrelerini** veya tükenmiş (exhausted) T hücre alt gruplarını erkenden tespit eder.\n"
+            "• **Klonal Evrim:** Tedavi altında hangi kanser alt grubunun öldüğünü, hangisinin mutasyon biriktirerek hayatta kaldığını moleküler düzeyde izler."
+        )
+    },
+
     'bot_help': {
         'patterns': [
             r'sen kimsin', r'ne yapabilirsin', r'yardım', r'komutlar', r'neler yaparsın',

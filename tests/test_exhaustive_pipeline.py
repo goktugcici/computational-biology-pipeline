@@ -24,6 +24,7 @@ from molecular_tumor_board import MolecularTumorBoardEngine
 from cancer_pathway_engine import CancerPathwayEngine, CANONICAL_PATHWAYS
 from immunotherapy_resistance import ImmunotherapyResistanceEngine, CANONICAL_ICB_SCENARIOS
 from mutational_signatures_hrd import MutationalSignaturesHrdEngine, CANONICAL_MUTATIONAL_SIGNATURES
+from spatial_transcriptomics import SpatialTranscriptomicsEngine, CANONICAL_SPATIAL_SCENARIOS
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -108,6 +109,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'protac_molecular_glues': 'PROTAC teknolojisi ve hedefe yönelik protein yıkımı TPD nasıl çalışır?',
             'ctc_circulating_tumor_cells': 'Dolaşımdaki tümör hücresi CTC ve CellSearch testi nedir?',
             'cryo_em_in_drug_discovery': 'Kriyojenik elektron mikroskobisi Cryo-EM ile ilaç keşfi nasıl yapılır?',
+            'spatial_transcriptomics_visium': '10x Visium uzamsal transkriptomik doku haritası nedir?',
+            'tertiary_lymphoid_structures_tls': 'Tersiyer lenfoid yapılar TLS ve germinal merkez immünoterapi yanıtı nedir?',
+            'tumor_associated_macrophages_tam': 'Tümör ilişkili makrofajlar TAM M1 M2 ve CD47 beni yeme sinyali nedir?',
+            'cancer_associated_fibroblasts_caf': 'Kanserle ilişkili fibroblastlar CAF ve desmoplazi stroma bariyeri nedir?',
+            'single_cell_rna_sequencing_scrna': 'Tek hücre RNA dizileme scRNA-seq ve klonal heterojenite nedir?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -540,6 +546,46 @@ class TestExhaustivePipeline(unittest.TestCase):
         )
         self.assertEqual(dec_uv['dominant_signature'], 'SBS7_UV_LIGHT')
 
+    # =========================================================================
+    # 15. SPATIAL TRANSCRIPTOMICS & TUMOR MICROARCHITECTURE ENGINE
+    # =========================================================================
+    def test_spatial_transcriptomics_canonical_scenarios(self):
+        """Verify that all canonical spatial microarchitectures are defined."""
+        scenarios = SpatialTranscriptomicsEngine.list_scenarios()
+        self.assertEqual(len(scenarios), 4)
+        sc_ids = [s['id'] for s in scenarios]
+        self.assertIn('NSCLC_TLS_MATURE', sc_ids)
+        self.assertIn('PDAC_DESMOPLASTIC_CAF', sc_ids)
+        self.assertIn('GBM_HYPOXIC_TAM', sc_ids)
+        self.assertIn('MELANOMA_INVASIVE_FRONT', sc_ids)
+
+    def test_spatial_transcriptomics_metrics_calculation(self):
+        """Verify TLS score, stroma desmoplasia score, and stage classification."""
+        # 1. Mature TLS in NSCLC
+        metrics_tls = SpatialTranscriptomicsEngine.calculate_spatial_metrics(
+            cd8_density=25.0,
+            b_cell_density=20.0,
+            caf_density=10.0,
+            m2_tam_ratio=15.0,
+            cxcl13_positive=True
+        )
+        self.assertGreater(metrics_tls['tls_score'], 70.0)
+        self.assertIn('Evre 3', metrics_tls['tls_stage'])
+        self.assertIn('Yüksek İmmünoterapi', metrics_tls['icb_prediction'])
+
+        # 2. Desmoplastic CAF barrier in PDAC
+        metrics_caf = SpatialTranscriptomicsEngine.calculate_spatial_metrics(
+            cd8_density=5.0,
+            b_cell_density=3.0,
+            caf_density=52.0,
+            m2_tam_ratio=40.0,
+            cxcl13_positive=False
+        )
+        self.assertGreater(metrics_caf['stroma_barrier_score'], 70.0)
+        self.assertIn('Desmoplazi', metrics_caf['stroma_status'])
+        self.assertIn('Evre 0', metrics_caf['tls_stage'])
+
 if __name__ == "__main__":
     unittest.main()
+
 

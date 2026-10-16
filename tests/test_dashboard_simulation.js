@@ -255,7 +255,16 @@ console.log('✓ Tumor Immune Microenvironment (TIME) & ICB Resistance Studio (4
 sandbox.switchTab('signatures');
 console.log('✓ COSMIC Mutational Signatures & HRD Studio (6 SBS signatures, LOH/TAI/LST scoring, PARP sensitivity) validated');
 
+// Spatial Transcriptomics & Tumor Architecture Studio
+['NSCLC_TLS_MATURE', 'PDAC_DESMOPLASTIC_CAF', 'GBM_HYPOXIC_TAM', 'MELANOMA_INVASIVE_FRONT'].forEach(sc => {
+  sandbox.selectSpatialScenario(sc);
+  sandbox.calculateSpatialMetricsLive();
+});
+sandbox.switchTab('spatial');
+console.log('✓ Spatial Transcriptomics & Tumor Architecture Studio (4 canonical architectures, TLS scoring, spot grid) validated');
+
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');
 console.log('======================================================');
+
 

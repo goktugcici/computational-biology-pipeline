@@ -263,6 +263,15 @@ cosmicSigs.forEach(sig => {
 sandbox.switchTab('signatures');
 console.log(`  ✓ COSMIC Mutational Signatures & HRD studio verified (${cosmicSigs.length} signatures, LOH/TAI/LST index, PARP sensitivity)`);
 
+// 3.11 Spatial Transcriptomics & Tumor Microarchitecture Studio
+const spatialScenarios = ['NSCLC_TLS_MATURE', 'PDAC_DESMOPLASTIC_CAF', 'GBM_HYPOXIC_TAM', 'MELANOMA_INVASIVE_FRONT'];
+spatialScenarios.forEach(sc => {
+  sandbox.selectSpatialScenario(sc);
+  sandbox.calculateSpatialMetricsLive();
+});
+sandbox.switchTab('spatial');
+console.log(`  ✓ Spatial Transcriptomics & TLS studio verified (${spatialScenarios.length} architectures, TLS scoring, Visium spot grid)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
