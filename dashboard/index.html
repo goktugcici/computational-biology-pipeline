@@ -107,6 +107,9 @@
         <button onclick="switchTab('mtb')" id="tabBtn-mtb" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🩺 Moleküler Tümör Konseyi (MTB)
         </button>
+        <button onclick="switchTab('pathways')" id="tabBtn-pathways" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          ⚡ Sinyal Yolakları
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -1865,6 +1868,228 @@
               <span>🧪 Eşleşen Aktif Faz II/III Klinik Çalışmalar (ClinicalTrials.gov)</span>
             </h4>
             <div id="mtbTrialsContainer" class="space-y-2">
+              <!-- JavaScript ile doldurulur -->
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- TAB 18: CANCER SIGNALING PATHWAYS & PERTURBATION STUDIO -->
+    <section id="tab-pathways" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Üst Aksiyon Çubuğu -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">SİNYAL BİYOLOJİSİ</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">FARMAKODİNAMİK DİRENÇ</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-black text-white flex items-center gap-2">
+            <span>⚡ Kanser Sinyal İletim Yolakları & Pertürbasyon Stüdyosu</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-1 max-w-3xl">
+            Tümör hücrelerindeki onkojenik sinyal kaskadlarını, sürücü mutasyonların biyokimyasal fosforilasyon akısını, hedefe yönelik ilaçların ikili blokaj sinerjisini ve feedback geri tepmesi direnç mekanizmalarını canlı simüle eden araştırma stüdyosu.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button 
+            onclick="applyCanonicalResistanceScenario()" 
+            id="pathwayResistanceScenarioBtn"
+            class="px-4 py-2.5 rounded-2xl bg-amber-600/30 hover:bg-amber-600/40 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-2 transition-all shadow"
+          >
+            <span>⚠️ Direnç Baypasını Simüle Et</span>
+          </button>
+          <button 
+            onclick="resetPathwayStudio()" 
+            id="pathwayResetBtn"
+            class="px-4 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-2 border border-slate-700 transition-all"
+          >
+            <span>🔄 Sıfırla</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Yolak Seçim Kartları Grid (5 Kanonik Sinyal Ailesi) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <button 
+          onclick="selectPathway('MAPK_ERK')" 
+          id="pathwayBtn-MAPK_ERK" 
+          class="pathway-selector-btn p-3.5 rounded-2xl bg-slate-900 border border-amber-500/50 hover:border-amber-400 text-left transition-all space-y-1 shadow-md"
+        >
+          <div class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Mitogenik Kaskad</div>
+          <div class="text-xs font-bold text-white leading-tight">MAPK / ERK (RAS-RAF-MEK)</div>
+          <div class="text-[10px] text-slate-400">Akciğer, Kolon, Melanom</div>
+        </button>
+
+        <button 
+          onclick="selectPathway('PI3K_AKT_MTOR')" 
+          id="pathwayBtn-PI3K_AKT_MTOR" 
+          class="pathway-selector-btn p-3.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+        >
+          <div class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">Anabolik Sağkalım</div>
+          <div class="text-xs font-bold text-white leading-tight">PI3K / AKT / PTEN / mTOR</div>
+          <div class="text-[10px] text-slate-400">Meme, Prostat, Glioblastom</div>
+        </button>
+
+        <button 
+          onclick="selectPathway('DDR_HRR')" 
+          id="pathwayBtn-DDR_HRR" 
+          class="pathway-selector-btn p-3.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+        >
+          <div class="text-[10px] text-pink-400 font-bold uppercase tracking-wider">DNA Onarımı</div>
+          <div class="text-xs font-bold text-white leading-tight">DDR & HRR (BRCA/PARP)</div>
+          <div class="text-[10px] text-slate-400">Sentetik Letalite Eksen</div>
+        </button>
+
+        <button 
+          onclick="selectPathway('CELL_CYCLE_CDK')" 
+          id="pathwayBtn-CELL_CYCLE_CDK" 
+          class="pathway-selector-btn p-3.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+        >
+          <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">G1/S Kontrolü</div>
+          <div class="text-xs font-bold text-white leading-tight">CDK4/6 - Retinoblastoma</div>
+          <div class="text-[10px] text-slate-400">Hücre Bölünme Döngüsü</div>
+        </button>
+
+        <button 
+          onclick="selectPathway('IMMUNE_CHECKPOINT')" 
+          id="pathwayBtn-IMMUNE_CHECKPOINT" 
+          class="pathway-selector-btn p-3.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition-all space-y-1 shadow-md"
+        >
+          <div class="text-[10px] text-sky-400 font-bold uppercase tracking-wider">İmmün Kaçış</div>
+          <div class="text-xs font-bold text-white leading-tight">PD-1 / PD-L1 Kontrol Noktası</div>
+          <div class="text-[10px] text-slate-400">T-Hücre Anergisi & Kaçış</div>
+        </button>
+      </div>
+
+      <!-- İki Kolonlu İnteraktif Gövde -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- SOL KOLON: SİNYAL AKIŞ ŞEMASI VE MÜDAHALE KONTROLLERİ (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Seçili Yolak Bilgi Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-2">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <span id="pathwayTitle">RTK / RAS / RAF / MEK / ERK (MAPK Kaskadı)</span>
+              </h4>
+              <span class="text-[11px] text-amber-400 font-mono font-bold" id="pathwayPrimaryCancers">Akciğer, Kolon, Melanom</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed" id="pathwayDescription">
+              Hücre çoğalması, farklılaşması ve sağkalımını yöneten en temel mitogenik sinyal yolağıdır. Katı tümörlerin %30-40'ında aşırı aktiftir.
+            </p>
+          </div>
+
+          <!-- Görsel Sinyal Kaskadı Akış Şeması (Diagram Flow) -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <span>🔄 Biyokimyasal Sinyal İletim Topolojisi</span>
+              </h4>
+              <span class="text-[10px] text-slate-400">Sol: Giriş → Sağ: Nükleer Efektör</span>
+            </div>
+            <div id="pathwayFlowDiagram" class="flex flex-wrap items-center gap-2 p-4 rounded-2xl bg-slate-950 border border-slate-800/80 overflow-x-auto min-h-[90px]">
+              <!-- JavaScript ile doldurulur -->
+            </div>
+          </div>
+
+          <!-- Sürücü Alterasyonlar & Mutasyon Seçiciler -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-2">
+                <span>🧬 1. Adım: Onkojenik Sürücü Mutasyonları Seçiniz</span>
+              </h4>
+              <span class="text-[10px] text-slate-400">Yolak Aktivasyonu</span>
+            </div>
+            <div id="pathwayAlterationsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <label class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors">
+                <input type="checkbox" id="alt_KRAS_G12C" value="KRAS_G12C" checked onchange="updatePathwaySimulation()" class="accent-rose-500 rounded">
+                <span class="text-white text-xs">KRAS p.G12C Mutasyonu</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Hedefe Yönelik Tedavi & İlaç Blokajı Seçiciler -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+                <span>💊 2. Adım: Hedefe Yönelik Tedavileri Uygulayınız</span>
+              </h4>
+              <span class="text-[10px] text-slate-400">İlaç Baskılaması</span>
+            </div>
+            <div id="pathwayDrugsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <label class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors">
+                <input type="checkbox" id="drug_SOTORASIB" value="SOTORASIB" onchange="updatePathwaySimulation()" class="accent-emerald-500 rounded">
+                <span class="text-slate-200 text-xs">Sotorasib / Adagrasib (KRAS G12Ci)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors">
+                <input type="checkbox" id="drug_PANITUMUMAB" value="PANITUMUMAB" onchange="updatePathwaySimulation()" class="accent-emerald-500 rounded">
+                <span class="text-slate-200 text-xs">Panitumumab / Setuksimab (Anti-EGFR)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- SAĞ KOLON: CANLI FENOTİPİK METRİKLER & REHBERLER (5 Kolon) -->
+        <div class="lg:col-span-5 space-y-6">
+          <!-- Biyokimyasal Akı & Fenotip Skor Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h4 class="text-xs font-bold text-white uppercase tracking-wider">📊 Canlı Fenotipik Akı Göstergeleri</h4>
+              <span id="pathwayStatusBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold border bg-rose-500/20 text-rose-300 border-rose-500/30">
+                AŞIRI AKTİF / DİRENÇLİ
+              </span>
+            </div>
+
+            <!-- Fosforilasyon Akısı Barı -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400">Net Sinyal Akısı (% Flux):</span>
+                <span id="pathwayFluxVal" class="font-bold text-white font-mono text-sm">85.0%</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
+                <div id="pathwayFluxBar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500 transition-all duration-500" style="width: 85%;"></div>
+              </div>
+            </div>
+
+            <!-- Proliferasyon ve Apoptoz Göstergeleri -->
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-400 block">Proliferasyon / Büyüme İndeksi</span>
+                <span id="pathwayProlifVal" class="text-lg font-black text-rose-400 block font-mono">80.8%</span>
+                <span class="text-[10px] text-slate-500">Tümöral Mitoz Gücü</span>
+              </div>
+              <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-400 block">Apoptoz / Hücre Ölümü Skoru</span>
+                <span id="pathwayApoptosisVal" class="text-lg font-black text-emerald-400 block font-mono">18.5%</span>
+                <span class="text-[10px] text-slate-500">Programlı Ölüm Hızı</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direnç Mekanizmaları & Geri Tepme (Feedback) Paneli -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+              <span>⚠️ Direnç Mekanizmaları & Geri Tepme (Feedback)</span>
+            </h4>
+            <div id="pathwayResistanceBox" class="p-3.5 rounded-2xl bg-slate-950 border border-amber-900/40 text-xs text-amber-200/90 leading-relaxed space-y-1">
+              KRAS G12C tek ajan kullanımında EGFR aracılı hızlı feedback aktivasyonu riski mevcuttur.
+            </div>
+          </div>
+
+          <!-- Klinik Kılavuz & Onkolojik Konsensüs Paneli -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🏛️ NCCN & ESMO Klinik Kılavuz Önerisi</span>
+            </h4>
+            <div id="pathwayClinicalGuidanceBox" class="p-3.5 rounded-2xl bg-slate-950 border border-sky-900/40 text-xs text-sky-200/90 leading-relaxed space-y-1">
+              Onkojenik KRAS mutasyonu varlığında tek başına Anti-EGFR (Setuksimab/Panitumumab) verilmemelidir.
+            </div>
+          </div>
+
+          <!-- Hedefe Yönelik Tedaviler Kütüphanesi -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+              <span>💊 Ruhsatlı & Faz 3 Hedefli İlaçlar</span>
+            </h4>
+            <div id="pathwayTargetedTherapiesList" class="flex flex-wrap gap-1.5">
               <!-- JavaScript ile doldurulur -->
             </div>
           </div>
@@ -5449,6 +5674,376 @@ uygulanması oy birliği ile uygun bulunmuştur.
         loadMtbCase('CASE_01_LUNG_MET_EGFR');
       }
     } catch(e) {}
+
+    // ==========================================
+    // TAB 18: CANCER SIGNALING PATHWAYS STUDIO
+    // ==========================================
+    const CANONICAL_SIGNALING_PATHWAYS = {
+      'MAPK_ERK': {
+        id: 'MAPK_ERK',
+        title: 'RTK / RAS / RAF / MEK / ERK (MAPK Kaskadı)',
+        cancers: 'Akciğer Adeno, Kolon, Melanom, Pankreas',
+        description: 'Hücre çoğalması, farklılaşması ve sağkalımını yöneten en temel mitogenik sinyal yolağıdır. Katı tümörlerin %30-40\'ında aşırı aktiftir.',
+        nodes: ['EGFR (RTK)', 'GRB2 / SOS1', 'KRAS (GTPase)', 'BRAF (Kinaz)', 'MEK1/2 (Kinaz)', 'ERK1/2 (Efektör)', 'MYC / ELK1'],
+        alterations: [
+          { id: 'KRAS_G12C', name: 'KRAS p.G12C Mutasyonu', boost: 45, checked: true },
+          { id: 'BRAF_V600E', name: 'BRAF p.V600E Mutasyonu', boost: 50, checked: false },
+          { id: 'EGFR_L858R', name: 'EGFR p.L858R Mutasyonu', boost: 35, checked: false },
+          { id: 'MET_AMP', name: 'MET Amplifikasyonu (Baypas)', boost: 40, checked: false }
+        ],
+        drugs: [
+          { id: 'SOTORASIB', name: 'Sotorasib / Adagrasib (KRAS G12Ci)', inh: 40, checked: false },
+          { id: 'PANITUMUMAB', name: 'Panitumumab / Setuksimab (Anti-EGFR)', inh: 35, checked: false },
+          { id: 'DABRAFENIB', name: 'Dabrafenib / Encorafenib (BRAFi)', inh: 45, checked: false },
+          { id: 'TRAMETINIB', name: 'Trametinib / Binimetinib (MEKi)', inh: 40, checked: false }
+        ],
+        therapies: ['Sotorasib (Lumakras)', 'Adagrasib (Krazati)', 'Dabrafenib (Tafinlar)', 'Trametinib (Mekinist)', 'Encorafenib (Braftovi)', 'Cetuximab (Erbitux)', 'Panitumumab (Vectibix)', 'Osimertinib (Tagrisso)']
+      },
+      'PI3K_AKT_MTOR': {
+        id: 'PI3K_AKT_MTOR',
+        title: 'PI3K / AKT / PTEN / mTOR Sağkalım Yolağı',
+        cancers: 'Meme (HR+/HER2-), Endometrium, Prostat, Glioblastom',
+        description: 'Hücresel büyüme, protein translasyonu, glukoz kullanımı ve apoptoz direncini kontrol eden majör anabolik eksendir.',
+        nodes: ['RTK / IRS1', 'PI3K (p110α)', 'PTEN (Fosfataz)', 'AKT1/2 (Kinaz)', 'TSC1/2 & RHEB', 'mTORC1', 'p70S6K / 4EBP1'],
+        alterations: [
+          { id: 'PIK3CA_MUT', name: 'PIK3CA p.H1047R Mutasyonu', boost: 45, checked: true },
+          { id: 'PTEN_LOSS', name: 'PTEN Homozigot Kaybı / Delesyon', boost: 40, checked: false },
+          { id: 'AKT1_E17K', name: 'AKT1 p.E17K Mutasyonu', boost: 35, checked: false }
+        ],
+        drugs: [
+          { id: 'ALPELISIB', name: 'Alpelisib / Inavolisib (PI3Kαi)', inh: 65, checked: false },
+          { id: 'CAPIVASERTIB', name: 'Capivasertib (AKTi)', inh: 70, checked: false },
+          { id: 'EVEROLIMUS', name: 'Everolimus (mTORC1i)', inh: 55, checked: false }
+        ],
+        therapies: ['Alpelisib (Piqray)', 'Inavolisib (Itovebi)', 'Capivasertib (Truqap)', 'Everolimus (Afinitor)', 'Temsirolimus (Torisel)']
+      },
+      'DDR_HRR': {
+        id: 'DDR_HRR',
+        title: 'DNA Hasar Yanıtı (DDR) & Homolog Onarım (HRR)',
+        cancers: 'Over (Yumurtalık), Üçlü Negatif Meme, Prostat, Pankreas',
+        description: 'Çift iplikçikli DNA kırıklarının (DSB) hatasız onarımını sağlar. Sentetik letalite mekanizmasının hedefidir.',
+        nodes: ['DSB Lezyonu', 'ATM / ATR Kinaz', 'CHK1 / CHK2', 'BRCA1 / BRCA2', 'RAD51 Filamenti', 'PARP1 Enzimi'],
+        alterations: [
+          { id: 'BRCA1_MUT', name: 'BRCA1 Patojenik Varyant (HRD+)', boost: -30, checked: true },
+          { id: 'BRCA2_MUT', name: 'BRCA2 Patojenik Varyant (HRD+)', boost: -30, checked: false },
+          { id: 'ATM_LOSS', name: 'ATM Kaybı / Mutasyonu', boost: -25, checked: false }
+        ],
+        drugs: [
+          { id: 'OLAPARIB', name: 'Olaparib (PARPi)', inh: 85, checked: false },
+          { id: 'TALAZOPARIB', name: 'Talazoparib (PARPi)', inh: 90, checked: false },
+          { id: 'PLATINUM', name: 'Karboplatin / Sisplatin', inh: 60, checked: false }
+        ],
+        therapies: ['Olaparib (Lynparza)', 'Talazoparib (Talzenna)', 'Niraparib (Zejula)', 'Rucaparib (Rubraca)', 'Ceralasertib (ATRi)']
+      },
+      'CELL_CYCLE_CDK': {
+        id: 'CELL_CYCLE_CDK',
+        title: 'Hücre Döngüsü G1/S Kontrolü (CDK4/6 - Retinoblastoma)',
+        cancers: 'HR+/HER2- Meme Kanseri, Melanom, Skuamöz Karsinom',
+        description: 'Hücrenin kontrolsüz bölünmesini önleyen G1/S fazı kısıtlama noktasıdır. p16 kaybı kontrolü yıkar.',
+        nodes: ['Mitojenik Uyarı', 'Cyclin D1 (CCND1)', 'p16 (CDKN2A)', 'CDK4 / CDK6', 'Retinoblastoma (pRB)', 'E2F Transkripsiyon'],
+        alterations: [
+          { id: 'CDKN2A_DEL', name: 'p16 / CDKN2A Delesyonu', boost: 45, checked: true },
+          { id: 'CCND1_AMP', name: 'Cyclin D1 Amplifikasyonu', boost: 40, checked: false },
+          { id: 'RB1_MUT', name: 'RB1 Mutasyonu / Kaybı', boost: 50, checked: false }
+        ],
+        drugs: [
+          { id: 'PALBOCICLIB', name: 'Palbociclib (CDK4/6i)', inh: 75, checked: false },
+          { id: 'RIBOCICLIB', name: 'Ribociclib (CDK4/6i)', inh: 80, checked: false },
+          { id: 'ABEMACICLIB', name: 'Abemaciclib (CDK4/6i)', inh: 80, checked: false }
+        ],
+        therapies: ['Palbociclib (Ibrance)', 'Ribociclib (Kisqali)', 'Abemaciclib (Verzenio)', 'Fulvestrant (Faslodex)']
+      },
+      'IMMUNE_CHECKPOINT': {
+        id: 'IMMUNE_CHECKPOINT',
+        title: 'İmmün Kontrol Noktası & T-Hücre Anergisi (PD-1 / PD-L1)',
+        cancers: 'Küçük Hücreli Dışı Akciğer, Melanom, MSI-H Kolon, Mesane',
+        description: 'Tümör mikroçevresinde sitotoksik CD8+ T hücrelerinin tükenmesini ve immün kaçışı sağlayan ligand eksenidir.',
+        nodes: ['TMB & Neoantijen', 'TCR : MHC-I', 'PD-L1 (Tümör)', 'PD-1 (T-Hücresi)', 'SHP-2 Fosfataz', 'Sitotoksik Lizis'],
+        alterations: [
+          { id: 'TMB_HIGH', name: 'TMB-High (>=10 mut/Mb)', boost: 45, checked: true },
+          { id: 'MSI_HIGH', name: 'MSI-High / dMMR', boost: 40, checked: false },
+          { id: 'B2M_MUT', name: 'B2M Mutasyonu (MHC-I Kaybı)', boost: -40, checked: false }
+        ],
+        drugs: [
+          { id: 'PEMBROLIZUMAB', name: 'Pembrolizumab (Anti-PD-1)', inh: 85, checked: false },
+          { id: 'NIVOLUMAB', name: 'Nivolumab (Anti-PD-1)', inh: 85, checked: false },
+          { id: 'ATEZOLIZUMAB', name: 'Atezolizumab (Anti-PD-L1)', inh: 80, checked: false }
+        ],
+        therapies: ['Pembrolizumab (Keytruda)', 'Nivolumab (Opdivo)', 'Atezolizumab (Tecentriq)', 'Durvalumab (Imfinzi)', 'Cemiplimab (Libtayo)', 'Ipilimumab (Yervoy)']
+      }
+    };
+
+    let activePathwayKey = 'MAPK_ERK';
+
+    function selectPathway(pathwayId) {
+      const pData = CANONICAL_SIGNALING_PATHWAYS[pathwayId];
+      if (!pData) return;
+      activePathwayKey = pathwayId;
+
+      // Buton aktiflik sınıfları
+      document.querySelectorAll('.pathway-selector-btn').forEach(btn => {
+        btn.classList.remove('border-amber-500', 'border-amber-500/50', 'bg-amber-950/20');
+        btn.classList.add('border-slate-800');
+      });
+      const activeBtn = document.getElementById(`pathwayBtn-${pathwayId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('border-slate-800');
+        activeBtn.classList.add('border-amber-500/50', 'bg-amber-950/20');
+      }
+
+      // Bilgi alanları
+      const titleEl = document.getElementById('pathwayTitle');
+      const cancersEl = document.getElementById('pathwayPrimaryCancers');
+      const descEl = document.getElementById('pathwayDescription');
+
+      if (titleEl) titleEl.innerText = pData.title;
+      if (cancersEl) cancersEl.innerText = pData.cancers;
+      if (descEl) descEl.innerText = pData.description;
+
+      // Akış Şeması Düğümleri (Flow Diagram)
+      const flowEl = document.getElementById('pathwayFlowDiagram');
+      if (flowEl) {
+        flowEl.innerHTML = '';
+        pData.nodes.forEach((nodeName, idx) => {
+          const nodeBadge = document.createElement('div');
+          nodeBadge.className = 'px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-white shadow flex items-center gap-1.5 transition-all';
+          nodeBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400"></span><span>${nodeName}</span>`;
+          flowEl.appendChild(nodeBadge);
+
+          if (idx < pData.nodes.length - 1) {
+            const arrow = document.createElement('span');
+            arrow.className = 'text-slate-500 text-xs font-mono font-bold';
+            arrow.innerText = '➔';
+            flowEl.appendChild(arrow);
+          }
+        });
+      }
+
+      // Alterasyon Checkboxları
+      const altContainer = document.getElementById('pathwayAlterationsContainer');
+      if (altContainer) {
+        altContainer.innerHTML = '';
+        pData.alterations.forEach(alt => {
+          const label = document.createElement('label');
+          label.className = 'flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors';
+          label.innerHTML = `
+            <input type="checkbox" id="alt_${alt.id}" value="${alt.id}" ${alt.checked ? 'checked' : ''} onchange="updatePathwaySimulation()" class="accent-rose-500 rounded">
+            <span class="text-white text-xs">${alt.name}</span>
+          `;
+          altContainer.appendChild(label);
+        });
+      }
+
+      // İlaç Checkboxları
+      const drugContainer = document.getElementById('pathwayDrugsContainer');
+      if (drugContainer) {
+        drugContainer.innerHTML = '';
+        pData.drugs.forEach(d => {
+          const label = document.createElement('label');
+          label.className = 'flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors';
+          label.innerHTML = `
+            <input type="checkbox" id="drug_${d.id}" value="${d.id}" ${d.checked ? 'checked' : ''} onchange="updatePathwaySimulation()" class="accent-emerald-500 rounded">
+            <span class="text-slate-200 text-xs">${d.name}</span>
+          `;
+          drugContainer.appendChild(label);
+        });
+      }
+
+      // Hedefli İlaçlar Listesi
+      const therapiesEl = document.getElementById('pathwayTargetedTherapiesList');
+      if (therapiesEl) {
+        therapiesEl.innerHTML = '';
+        pData.therapies.forEach(th => {
+          const item = document.createElement('span');
+          item.className = 'px-2 py-0.5 rounded-lg bg-slate-800/80 text-slate-300 border border-slate-700 text-[10px] font-mono';
+          item.innerText = th;
+          therapiesEl.appendChild(item);
+        });
+      }
+
+      updatePathwaySimulation();
+    }
+
+    function updatePathwaySimulation() {
+      const pData = CANONICAL_SIGNALING_PATHWAYS[activePathwayKey];
+      if (!pData) return;
+
+      // Seçili alterasyonları topla
+      const selectedAlts = [];
+      pData.alterations.forEach(alt => {
+        const cb = document.getElementById(`alt_${alt.id}`);
+        if (cb && cb.checked) selectedAlts.push(alt);
+      });
+
+      // Seçili ilaçları topla
+      const selectedDrugs = [];
+      pData.drugs.forEach(d => {
+        const cb = document.getElementById(`drug_${d.id}`);
+        if (cb && cb.checked) selectedDrugs.push(d);
+      });
+
+      // Akı Hesaplaması
+      let baseFlux = 40.0;
+      let activationBonus = 0.0;
+      let inhibitionEffect = 0.0;
+      const resistanceFlags = [];
+      let clinicalGuidance = "Klinik Kılavuz: Standart takip önerilir.";
+
+      selectedAlts.forEach(alt => { activationBonus += alt.boost; });
+
+      if (activePathwayKey === 'MAPK_ERK') {
+        const hasKras = selectedAlts.some(a => a.id === 'KRAS_G12C');
+        const hasBraf = selectedAlts.some(a => a.id === 'BRAF_V600E');
+        const hasMetAmp = selectedAlts.some(a => a.id === 'MET_AMP');
+        const hasSotorasib = selectedDrugs.some(d => d.id === 'SOTORASIB');
+        const hasPanitumumab = selectedDrugs.some(d => d.id === 'PANITUMUMAB');
+        const hasDabrafenib = selectedDrugs.some(d => d.id === 'DABRAFENIB');
+        const hasTrametinib = selectedDrugs.some(d => d.id === 'TRAMETINIB');
+
+        if (hasSotorasib) {
+          if (hasPanitumumab) {
+            inhibitionEffect += 75.0;
+            clinicalGuidance = "NCCN Kategori 1: Sotorasib + Panitumumab ikili blokajı ile EGFR feedback geri tepmesi engellenmiştir (CodeBreak-300).";
+          } else {
+            inhibitionEffect += 40.0;
+            resistanceFlags.push("⚠️ DİKKAT: Tek ajan Sotorasib/Adagrasib kolonda hızlı EGFR feedback aktivasyonu üretir; Anti-EGFR kombine edilmelidir.");
+            clinicalGuidance = "Tek ajan KRAS G12C blokajı sonrası 3-6 ayda reaktivasyon riski yüksektir.";
+          }
+        }
+        if (hasDabrafenib && hasTrametinib) {
+          inhibitionEffect += 80.0;
+          clinicalGuidance = "NCCN Kategori 1: BRAF + MEK ikili kaskad blokajı paradoksal aktivasyonu önler ve genel sağkalımı uzatır.";
+        } else if (hasDabrafenib) {
+          inhibitionEffect += 45.0;
+          resistanceFlags.push("⚠️ Tek ajan BRAF inhibitörü paradoksal CRAF dimerizasyonuna yol açabilir; MEK inhibitörü eklenmelidir.");
+        }
+        if (hasMetAmp) {
+          inhibitionEffect *= 0.4;
+          resistanceFlags.push("🚨 MET Amplifikasyonu mevcuttur; paralel baypas direnci nedeniyle TKI duyarlılığı kırılmıştır (Savolitinib / Capmatinib eklenmelidir).");
+        }
+      } else if (activePathwayKey === 'PI3K_AKT_MTOR') {
+        const hasPtenLoss = selectedAlts.some(a => a.id === 'PTEN_LOSS');
+        const hasAlpelisib = selectedDrugs.some(d => d.id === 'ALPELISIB');
+        const hasCapivasertib = selectedDrugs.some(d => d.id === 'CAPIVASERTIB');
+
+        if (hasAlpelisib) {
+          if (hasPtenLoss) {
+            inhibitionEffect += 20.0;
+            resistanceFlags.push("⚠️ PTEN kaybı PIP3 düzeyini sürekli yüksek tutar; PI3K alfa inhibitörüne primer direnç oluşturur.");
+            clinicalGuidance = "PTEN eksikliğinde AKT inhibitörü (Capivasertib) veya kombinasyon değerlendirilmelidir.";
+          } else {
+            inhibitionEffect += 65.0;
+            clinicalGuidance = "NCCN Kategori 1: PIK3CA mutasyonlu HR+/HER2- meme kanserinde Alpelisib + Fulvestrant onaylıdır (SOLAR-1).";
+          }
+        }
+        if (hasCapivasertib) {
+          inhibitionEffect += 70.0;
+          clinicalGuidance = "NCCN Kategori 1: Capivasertib + Fulvestrant ile PTEN/AKT alterasyonlu tümörlerde üstün PFS kanıtlanmıştır (CAPItello-291).";
+        }
+      } else if (activePathwayKey === 'DDR_HRR') {
+        const isHrd = selectedAlts.some(a => a.id.includes('BRCA') || a.id.includes('ATM'));
+        const hasParp = selectedDrugs.some(d => d.id.includes('PARIB'));
+        if (isHrd && hasParp) {
+          inhibitionEffect += 85.0;
+          clinicalGuidance = "NCCN Kategori 1: Sentetik Letalite! Çift iplik tamir defekti olan hücreler PARP blokajı ile apoptoza gider (OlympiA / SOLO-1).";
+        } else if (hasParp) {
+          inhibitionEffect += 25.0;
+          resistanceFlags.push("ℹ️ BRCA-yabanıl (HR yetkin) tümörlerde PARP inhibitörü monoterapi etkinliği düşüktür.");
+        }
+      } else if (activePathwayKey === 'CELL_CYCLE_CDK') {
+        const hasRb1Loss = selectedAlts.some(a => a.id === 'RB1_MUT');
+        const hasCdk46 = selectedDrugs.some(d => d.id.includes('CICLIB'));
+        if (hasCdk46) {
+          if (hasRb1Loss) {
+            inhibitionEffect += 5.0;
+            resistanceFlags.push("🚨 MUTLAK DİRENÇ: RB1 kaybı varlığında CDK4/6 inhibisyonu E2F transkripsiyonunu durduramaz; kemoterapiye geçilmelidir.");
+          } else {
+            inhibitionEffect += 75.0;
+            clinicalGuidance = "NCCN Kategori 1: CDK4/6 İnhibitörü + Endokrin Tedavi (Palbociclib/Ribociclib/Abemaciclib) birinci basamak standarttır.";
+          }
+        }
+      } else if (activePathwayKey === 'IMMUNE_CHECKPOINT') {
+        const hasB2m = selectedAlts.some(a => a.id === 'B2M_MUT');
+        const hasIo = selectedDrugs.length > 0;
+        if (hasIo) {
+          if (hasB2m) {
+            inhibitionEffect += 10.0;
+            resistanceFlags.push("🚨 İMMÜN KAÇIŞ DİRENCİ: B2M kaybı yüzeyde MHC-I antijen sunumunu yok eder; T hücreleri tümörü tanıyamaz.");
+          } else {
+            inhibitionEffect += 80.0;
+            clinicalGuidance = "NCCN Kategori 1: Anti-PD-1 / Anti-PD-L1 immünoterapisi ile kalıcı ve uzun vadeli sağkalım kazancı sağlanır.";
+          }
+        }
+      }
+
+      // Net Skorlar
+      const rawFlux = baseFlux + activationBonus - inhibitionEffect;
+      const finalFlux = Math.max(5.0, Math.min(100.0, rawFlux));
+      const prolifScore = Math.max(5.0, Math.min(100.0, finalFlux * 0.95));
+      const apoptosisScore = Math.max(5.0, Math.min(100.0, (100.0 - finalFlux) * 0.90 + (inhibitionEffect * 0.2)));
+
+      // UI Güncellemeleri
+      const fluxValEl = document.getElementById('pathwayFluxVal');
+      const fluxBarEl = document.getElementById('pathwayFluxBar');
+      const prolifEl = document.getElementById('pathwayProlifVal');
+      const apopEl = document.getElementById('pathwayApoptosisVal');
+      const statusBadge = document.getElementById('pathwayStatusBadge');
+      const resBox = document.getElementById('pathwayResistanceBox');
+      const guideBox = document.getElementById('pathwayClinicalGuidanceBox');
+
+      if (fluxValEl) fluxValEl.innerText = `${finalFlux.toFixed(1)}%`;
+      if (fluxBarEl) fluxBarEl.style.width = `${finalFlux.toFixed(1)}%`;
+      if (prolifEl) prolifEl.innerText = `${prolifScore.toFixed(1)}%`;
+      if (apopEl) apopEl.innerText = `${apoptosisScore.toFixed(1)}%`;
+
+      if (statusBadge) {
+        if (finalFlux < 35.0) {
+          statusBadge.innerText = 'BASKILANDI (TERAPÖTİK YANIT)';
+          statusBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold border bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+        } else if (finalFlux < 60.0) {
+          statusBadge.innerText = 'KISMEN KONTROLDE';
+          statusBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold border bg-amber-500/20 text-amber-300 border-amber-500/40';
+        } else {
+          statusBadge.innerText = 'AŞIRI AKTİF / DİRENÇLİ';
+          statusBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold border bg-rose-500/20 text-rose-300 border-rose-500/40';
+        }
+      }
+
+      if (resBox) {
+        if (resistanceFlags.length > 0) {
+          resBox.className = 'p-3.5 rounded-2xl bg-rose-950/40 border border-rose-900/60 text-xs text-rose-200 leading-relaxed space-y-1';
+          resBox.innerHTML = resistanceFlags.map(f => `<div>${f}</div>`).join('');
+        } else {
+          resBox.className = 'p-3.5 rounded-2xl bg-slate-950 border border-emerald-900/40 text-xs text-emerald-300 leading-relaxed';
+          resBox.innerText = '✅ Kritik farmakodinamik direnç geri tepmesi saptanmadı. İlaç kombinasyonu biyolojik olarak hedefe oturmuştur.';
+        }
+      }
+
+      if (guideBox) guideBox.innerText = clinicalGuidance;
+    }
+
+    function applyCanonicalResistanceScenario() {
+      selectPathway('MAPK_ERK');
+      const krasCb = document.getElementById('alt_KRAS_G12C');
+      const sotoCb = document.getElementById('drug_SOTORASIB');
+      const paniCb = document.getElementById('drug_PANITUMUMAB');
+      if (krasCb) krasCb.checked = true;
+      if (sotoCb) sotoCb.checked = true;
+      if (paniCb) paniCb.checked = false; // Tek ajan monoterapi simülasyonu
+      updatePathwaySimulation();
+    }
+
+    function resetPathwayStudio() {
+      selectPathway(activePathwayKey);
+    }
+
+    // İlk yüklemede Yolak Stüdyosunu hazırla
+    try {
+      if (typeof document !== 'undefined') {
+        selectPathway('MAPK_ERK');
+      }
+    } catch(e) {}
+
 
   </script>
 </body>

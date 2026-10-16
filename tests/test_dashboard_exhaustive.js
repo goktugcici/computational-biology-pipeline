@@ -170,7 +170,7 @@ console.log('[2/4] Browser environment & DOMContentLoaded initialized successful
 console.log('\n[3/4] RUNNING EXHAUSTIVE VALIDATION ACROSS ALL 16 SECTIONS...');
 
 // 3.1 Tab Navigation
-const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb'];
+const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways'];
 allTabs.forEach(t => sandbox.switchTab(t));
 console.log(`  ✓ All ${allTabs.length} tabs cycled without errors`);
 
@@ -233,6 +233,16 @@ sandbox.generateCustomMtbConsensus();
 sandbox.printMtbConsensusReport();
 sandbox.toggleChatSpeechRecognition();
 console.log(`  ✓ Molecular Tumor Board studio verified (${mtbCases.length} canonical cases, custom synthesizer, consensus report, and STT voice)`);
+
+// 3.8 Cancer Signaling Pathways & Perturbation Studio
+const testPathways = ['MAPK_ERK', 'PI3K_AKT_MTOR', 'DDR_HRR', 'CELL_CYCLE_CDK', 'IMMUNE_CHECKPOINT'];
+testPathways.forEach(p => {
+  sandbox.selectPathway(p);
+  sandbox.updatePathwaySimulation();
+});
+sandbox.applyCanonicalResistanceScenario();
+sandbox.resetPathwayStudio();
+console.log(`  ✓ Cancer Signaling Pathways studio verified (${testPathways.length} cascades, flux simulation, feedback resistance)`);
 
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)

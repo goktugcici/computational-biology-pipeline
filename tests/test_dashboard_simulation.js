@@ -143,8 +143,8 @@ console.log('\n=== [3/3] VERIFYING ALL 16 TABS & MODULES ===');
 if (mockWindow.domLoaded) mockWindow.domLoaded();
 console.log('✓ DOMContentLoaded initialized');
 
-// 17 Tabs
-const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb'];
+// 18 Tabs
+const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways'];
 tabs.forEach(t => sandbox.switchTab(t));
 console.log(`✓ switchTab validated for all ${tabs.length} tabs`);
 
@@ -228,6 +228,15 @@ sandbox.generateCustomMtbConsensus();
 sandbox.printMtbConsensusReport();
 sandbox.toggleChatSpeechRecognition();
 console.log('✓ Molecular Tumor Board (MTB) (6 canonical cases, custom evaluator, AMP tiering, report export, STT voice) validated');
+
+// Cancer Signaling Pathways & Perturbation Studio
+['MAPK_ERK', 'PI3K_AKT_MTOR', 'DDR_HRR', 'CELL_CYCLE_CDK', 'IMMUNE_CHECKPOINT'].forEach(p => {
+  sandbox.selectPathway(p);
+  sandbox.updatePathwaySimulation();
+});
+sandbox.applyCanonicalResistanceScenario();
+sandbox.resetPathwayStudio();
+console.log('✓ Cancer Signaling Pathways Studio (5 cascades, flux gauge, feedback resistance) validated');
 
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');
