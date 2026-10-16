@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biyoinformatik & Hassas Onkoloji Konsolu v3.0 Ultimate</title>
+  <title>Biyoinformatik & Çoklu Omik Veri Tabanı Platformu v3.1</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.4/3Dmol-min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -48,9 +48,9 @@
         <div>
           <h1 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
             Computational Biology Pipeline
-            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v3.0 Ultimate</span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v3.1 Database Edition</span>
           </h1>
-          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, İlaç Sinerjisi & İmmünoterapi Konsolu</p>
+          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, İlaç Sinerjisi & İlişkisel Veri Tabanı</p>
         </div>
       </div>
 
@@ -58,6 +58,9 @@
       <nav class="flex flex-wrap items-center gap-1 bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-xs font-medium">
         <button onclick="switchTab('3d')" id="tabBtn-3d" class="tab-btn px-2.5 py-1.5 rounded-lg bg-sky-500 text-white transition-all shadow">
           🔬 3B Yapı
+        </button>
+        <button onclick="switchTab('database')" id="tabBtn-database" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🗄️ Veri Tabanı
         </button>
         <button onclick="switchTab('oncology')" id="tabBtn-oncology" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🎯 Pan-Kanser
@@ -175,7 +178,96 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 2: PAN-KANSER ONKOLOJİ -->
+    <!-- TAB 2: İLİŞKİSEL VERİ TABANI GEZGİNİ -->
+    <!-- ========================================== -->
+    <section id="tab-database" class="tab-content hidden space-y-6">
+      
+      <!-- KPI Metrikleri -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <span class="text-slate-400 uppercase text-[10px] font-bold">Kataloglanan Genler</span>
+          <p class="text-2xl font-bold font-mono text-sky-400 mt-1">10</p>
+          <span class="text-[10px] text-slate-500">EGFR, KRAS, TP53, HBB...</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <span class="text-slate-400 uppercase text-[10px] font-bold">Klinik Varyantlar</span>
+          <p class="text-2xl font-bold font-mono text-rose-400 mt-1">14</p>
+          <span class="text-[10px] text-rose-400/80">13 Patojenik | 1 Kontrol</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <span class="text-slate-400 uppercase text-[10px] font-bold">3B Kristal Yapılar</span>
+          <p class="text-2xl font-bold font-mono text-emerald-400 mt-1">7</p>
+          <span class="text-[10px] text-slate-500">Ort. 2.13 Å Çözünürlük</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+          <span class="text-slate-400 uppercase text-[10px] font-bold">Moleküler İlaçlar</span>
+          <p class="text-2xl font-bold font-mono text-amber-400 mt-1">11</p>
+          <span class="text-[10px] text-slate-500">Ort. QED Skoru: 78.4</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 col-span-2 sm:col-span-1">
+          <span class="text-slate-400 uppercase text-[10px] font-bold">İlaç Sinerjisi & Yolak</span>
+          <p class="text-2xl font-bold font-mono text-purple-400 mt-1">11</p>
+          <span class="text-[10px] text-purple-400/80">4 Sinerji | 7 Yolak</span>
+        </div>
+      </div>
+
+      <!-- Arama ve Filtre Kontrolleri -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="flex-1 min-w-[240px]">
+            <input type="text" id="dbSearchInput" onkeyup="filterDatabaseTable()" placeholder="Veri tabanında ara (örn. EGFR, p.L858R, Osimertinib, 4HHB, Patojenik)..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500">
+          </div>
+
+          <div class="flex items-center gap-2 text-xs">
+            <select id="dbCategorySelect" onchange="filterDatabaseTable()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-sky-500 font-mono">
+              <option value="all">Tüm Kategoriler (Tüm Kayıtlar)</option>
+              <option value="variants">Klinik Varyantlar (ClinVar / dbSNP)</option>
+              <option value="compounds">Farmakolojik Moleküller (PubChem)</option>
+              <option value="structures">3B Yapılar (RCSB PDB)</option>
+              <option value="pathways">Biyolojik Yolaklar (Reactome)</option>
+              <option value="synergies">Kombinasyon Sinerjileri (Loewe/Bliss)</option>
+            </select>
+
+            <button onclick="downloadDatabaseJson()" class="px-3 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-medium flex items-center gap-1 transition-colors">
+              📥 JSON İndir
+            </button>
+          </div>
+        </div>
+
+        <!-- Hızlı Filtre Hapları -->
+        <div class="flex flex-wrap items-center gap-1.5 text-xs">
+          <span class="text-slate-400 text-[11px] font-medium mr-1">Hızlı Filtre:</span>
+          <button onclick="setDbQuickFilter('EGFR')" class="px-2.5 py-0.5 rounded-lg bg-slate-950 border border-slate-800 text-sky-400 hover:bg-slate-800">EGFR</button>
+          <button onclick="setDbQuickFilter('KRAS')" class="px-2.5 py-0.5 rounded-lg bg-slate-950 border border-slate-800 text-amber-400 hover:bg-slate-800">KRAS</button>
+          <button onclick="setDbQuickFilter('TP53')" class="px-2.5 py-0.5 rounded-lg bg-slate-950 border border-slate-800 text-purple-400 hover:bg-slate-800">TP53</button>
+          <button onclick="setDbQuickFilter('HBB')" class="px-2.5 py-0.5 rounded-lg bg-slate-950 border border-slate-800 text-rose-400 hover:bg-slate-800">HBB</button>
+          <button onclick="setDbQuickFilter('Pathogenic')" class="px-2.5 py-0.5 rounded-lg bg-slate-950 border border-rose-900/60 text-rose-300 hover:bg-slate-800">Patojenik</button>
+          <button onclick="setDbQuickFilter('Approved')" class="px-2.5 py-0.5 rounded-lg bg-slate-950 border border-emerald-900/60 text-emerald-300 hover:bg-slate-800">FDA Onaylı</button>
+          <button onclick="setDbQuickFilter('')" class="px-2.5 py-0.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white">Temizle</button>
+        </div>
+
+        <!-- Dinamik Tablo -->
+        <div class="overflow-x-auto text-xs rounded-2xl border border-slate-800 bg-slate-950">
+          <table class="w-full text-left">
+            <thead class="bg-slate-900 text-slate-400 uppercase tracking-wider text-[11px] border-b border-slate-800">
+              <tr>
+                <th class="p-3">Kategori</th>
+                <th class="p-3">Gen / Tanımlayıcı</th>
+                <th class="p-3">Adı / İsimlendirme</th>
+                <th class="p-3">Klinik / Biyokimyasal Özellik</th>
+                <th class="p-3">Durum / Kanıt</th>
+              </tr>
+            </thead>
+            <tbody id="dbTableBody" class="divide-y divide-slate-800/60 font-mono">
+              <!-- JavaScript ile doldurulur -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: PAN-KANSER ONKOLOJİ -->
     <!-- ========================================== -->
     <section id="tab-oncology" class="tab-content hidden space-y-6">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -220,7 +312,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 3: İLAÇ SİNERJİSİ (COMBINATION THERAPY) -->
+    <!-- TAB 4: İLAÇ SİNERJİSİ (COMBINATION THERAPY) -->
     <!-- ========================================== -->
     <section id="tab-synergy" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
@@ -272,7 +364,6 @@
           </div>
         </div>
 
-        <!-- Sinerji Matrisi Bar Grafiği -->
         <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl flex flex-col">
           <h3 class="text-sm font-bold text-white mb-2">Onkoloji Kombinasyon İndeksleri</h3>
           <p class="text-xs text-slate-400 mb-4">Loewe CI Karşılaştırması (Daha düşük CI = Daha yüksek sinerji)</p>
@@ -284,7 +375,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 4: İMMÜNOTERAPİ & TMB HESAPLAYICI -->
+    <!-- TAB 5: İMMÜNOTERAPİ & TMB HESAPLAYICI -->
     <!-- ========================================== -->
     <section id="tab-immuno" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-6">
@@ -294,7 +385,6 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- İnteraktif Parametre Girişleri -->
           <div class="space-y-4 bg-slate-950 p-5 rounded-2xl border border-slate-800 text-xs">
             <div>
               <div class="flex justify-between items-center mb-1">
@@ -323,7 +413,6 @@
             </div>
           </div>
 
-          <!-- Hesaplanan Sonuç Göstergesi -->
           <div class="lg:col-span-2 bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
             <div class="flex items-center justify-between">
               <div>
@@ -361,7 +450,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 5: ALPHAFOLD pLDDT GÜVENİLİRLİK -->
+    <!-- TAB 6: ALPHAFOLD pLDDT GÜVENİLİRLİK -->
     <!-- ========================================== -->
     <section id="tab-alphafold" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
@@ -386,7 +475,6 @@
           </div>
         </div>
 
-        <!-- Renkli pLDDT Güvenilirlik Şeridi -->
         <div class="space-y-2">
           <div class="flex justify-between items-center text-xs text-slate-400">
             <span>AlphaFold Güvenilirlik Skalası</span>
@@ -400,7 +488,6 @@
           <div id="afColorRibbon" class="h-6 w-full rounded-xl overflow-hidden flex border border-slate-800"></div>
         </div>
 
-        <!-- Alan Mimarisi Tablosu -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
             <h4 class="font-bold text-sky-400 flex items-center gap-1.5">
@@ -419,7 +506,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 6: ETKİLEŞİM AĞI (PPI INTERACTOME) -->
+    <!-- TAB 7: ETKİLEŞİM AĞI (PPI INTERACTOME) -->
     <!-- ========================================== -->
     <section id="tab-ppi" class="tab-content hidden space-y-6">
       <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl">
@@ -471,7 +558,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 7: DİZİ HİZALAMA (SEQUENCE ALIGNMENT) -->
+    <!-- TAB 8: DİZİ HİZALAMA (SEQUENCE ALIGNMENT) -->
     <!-- ========================================== -->
     <section id="tab-align" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
@@ -524,7 +611,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 8: SANAL İLAÇ TARAMA (DRUG SCREENING) -->
+    <!-- TAB 9: SANAL İLAÇ TARAMA (DRUG SCREENING) -->
     <!-- ========================================== -->
     <section id="tab-screening" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
@@ -568,7 +655,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 9: VARYANTLAR (ClinVar) -->
+    <!-- TAB 10: VARYANTLAR (ClinVar) -->
     <!-- ========================================== -->
     <section id="tab-variants" class="tab-content hidden space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -604,7 +691,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- TAB 10: FARMAKOLOJİ (Voxelotor & Metformin) -->
+    <!-- TAB 11: FARMAKOLOJİ (Voxelotor & Metformin) -->
     <!-- ========================================== -->
     <section id="tab-pharma" class="tab-content hidden space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -671,6 +758,7 @@
         loadPdb('4HHB', 'İnsan Deoksihemoglobini');
       }
       initCharts();
+      initDatabaseExplorer();
       selectOncogene('EGFR');
       renderPpiNetwork('EGFR');
       renderAlignment('HBB_SICKLE');
@@ -749,6 +837,105 @@
         viewer.zoomTo({ chain: 'B', resi: 6 });
       }
       viewer.render();
+    }
+
+    // ==========================================
+    // VERİ TABANI GEZGİNİ MANTIĞI (DATABASE EXPLORER)
+    // ==========================================
+    const DB_RECORDS = [
+      { cat: 'variants', catName: 'Genomik Varyant', gene: 'HBB', id: 'rs334', name: 'p.Glu7Val (c.20A>T)', feature: 'Orak Hücreli Anemi (HbS Polimerleşmesi)', status: 'Patojenik', badge: 'bg-rose-500/10 text-rose-400 border border-rose-500/20' },
+      { cat: 'variants', catName: 'Genomik Varyant', gene: 'EGFR', id: 'rs121434568', name: 'p.Leu858Arg (Exon 21)', feature: 'Akciğer Kanseri 1./3. Nesil TKI Duyarlılığı', status: 'Patojenik', badge: 'bg-rose-500/10 text-rose-400 border border-rose-500/20' },
+      { cat: 'variants', catName: 'Genomik Varyant', gene: 'EGFR', id: 'rs121434569', name: 'p.Thr790M (Exon 20)', feature: 'Kazanılmış 1. Nesil TKI Direnci', status: 'Patojenik', badge: 'bg-rose-500/10 text-rose-400 border border-rose-500/20' },
+      { cat: 'variants', catName: 'Genomik Varyant', gene: 'KRAS', id: 'rs121913529', name: 'p.Gly12Cys (Codon 12)', feature: 'Pankreas & NSCLC Sotorasib Hedefi', status: 'Patojenik', badge: 'bg-rose-500/10 text-rose-400 border border-rose-500/20' },
+      { cat: 'variants', catName: 'Genomik Varyant', gene: 'BRAF', id: 'rs113488022', name: 'p.Val600Glu (Exon 15)', feature: 'Malign Melanom Constitutive Aktivasyon', status: 'Patojenik', badge: 'bg-rose-500/10 text-rose-400 border border-rose-500/20' },
+      { cat: 'variants', catName: 'Genomik Varyant', gene: 'TP53', id: 'rs28934578', name: 'p.Arg175His (Exon 5)', feature: 'Çinko Koordinasyon Yapısal Kusuru', status: 'Patojenik', badge: 'bg-rose-500/10 text-rose-400 border border-rose-500/20' },
+      { cat: 'variants', catName: 'Genomik Varyant', gene: 'BRCA2', id: 'rs28897700', name: 'p.Lys66Lys (c.198A>G)', feature: 'Eş Anlamlı Negatif Kontrol Varyantı', status: 'Benign (Zararsız)', badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' },
+      
+      { cat: 'compounds', catName: 'Moleküler İlaç', gene: 'EGFR', id: 'CID: 71496458', name: 'Osimertinib (Tagrisso)', feature: 'MW: 499.6 | XLogP: 3.7 | QED: 82.4', status: 'FDA Onaylı', badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' },
+      { cat: 'compounds', catName: 'Moleküler İlaç', gene: 'KRAS', id: 'CID: 137278711', name: 'Sotorasib (Lumakras)', feature: 'MW: 560.6 | XLogP: 2.8 | QED: 70.8', status: 'FDA Onaylı', badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' },
+      { cat: 'compounds', catName: 'Moleküler İlaç', gene: 'BRAF', id: 'CID: 44462760', name: 'Dabrafenib (Tafinlar)', feature: 'MW: 519.6 | XLogP: 4.3 | QED: 72.5', status: 'FDA Onaylı', badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' },
+      { cat: 'compounds', catName: 'Moleküler İlaç', gene: 'HBB', id: 'CID: 71602803', name: 'Voxelotor (Oxbryta)', feature: 'MW: 337.4 | XLogP: 2.4 | QED: 89.2', status: 'FDA Onaylı', badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' },
+      { cat: 'compounds', catName: 'Moleküler İlaç', gene: 'MET', id: 'CID: 53342379', name: 'Savolitinib (Orpathys)', feature: 'MW: 345.4 | XLogP: 1.8 | QED: 78.4', status: 'Klinik Faz 2/3', badge: 'bg-sky-500/10 text-sky-400 border border-sky-500/20' },
+
+      { cat: 'structures', catName: '3B Kristal Yapı', gene: 'HBB', id: 'PDB: 4HHB', name: 'Deoxyhemoglobin (1.74 Å)', feature: 'Aktif Koordinasyon: His87(A), His58(A)', status: 'Çözünürlük: 1.74 Å', badge: 'bg-sky-500/10 text-sky-400 border border-sky-500/20' },
+      { cat: 'structures', catName: '3B Kristal Yapı', gene: 'TP53', id: 'PDB: 1TSR', name: 'p53-DNA Complex (2.20 Å)', feature: 'Çinko Koordinasyonu: Cys176, Cys238, Cys242', status: 'Çözünürlük: 2.20 Å', badge: 'bg-sky-500/10 text-sky-400 border border-sky-500/20' },
+      { cat: 'structures', catName: '3B Kristal Yapı', gene: 'EGFR', id: 'PDB: 2J6M', name: 'EGFR Kinase Domain (2.80 Å)', feature: 'Gefitinib Kompleksi: Cys797, Met793', status: 'Çözünürlük: 2.80 Å', badge: 'bg-sky-500/10 text-sky-400 border border-sky-500/20' },
+      { cat: 'structures', catName: '3B Kristal Yapı', gene: 'KRAS', id: 'PDB: 6OIM', name: 'KRAS G12C Covalent Inhibitor (1.39 Å)', feature: 'Kovalent Bağlanma Cebi: Cys12, Asp54', status: 'Çözünürlük: 1.39 Å', badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' },
+
+      { cat: 'pathways', catName: 'Biyolojik Yolak', gene: 'HBB', id: 'R-HSA-1247673', name: 'Erythrocytes O2/CO2 Transport', feature: 'Reactome Hemostasis & Transport Kaskadı', status: 'Homo sapiens', badge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20' },
+      { cat: 'pathways', catName: 'Biyolojik Yolak', gene: 'EGFR', id: 'R-HSA-177929', name: 'Signaling by EGFR', feature: 'ERBB2, GRB2, SOS1 Adaptör Kaskadı', status: 'Homo sapiens', badge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20' },
+      { cat: 'pathways', catName: 'Biyolojik Yolak', gene: 'KRAS', id: 'R-HSA-5683057', name: 'MAPK family signaling cascades', feature: 'RAF1, MAP2K1, MAPK1 Sinyal Kaskadı', status: 'Homo sapiens', badge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20' },
+
+      { cat: 'synergies', catName: 'İlaç Sinerjisi', gene: 'BRAF', id: 'COMBI-d Faz 3', name: 'Dabrafenib + Trametinib', feature: 'Loewe CI: 0.42 | Bliss Fazlalık: +28.5', status: 'Kuvvetli Sinerji', badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' },
+      { cat: 'synergies', catName: 'İlaç Sinerjisi', gene: 'EGFR', id: 'SAVANNAH Faz 2', name: 'Osimertinib + Savolitinib', feature: 'Loewe CI: 0.51 | Bliss Fazlalık: +24.0', status: 'MET Baypas Kırıcı', badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' }
+    ];
+
+    function initDatabaseExplorer() {
+      renderDatabaseRows(DB_RECORDS);
+    }
+
+    function renderDatabaseRows(records) {
+      const tbody = document.getElementById('dbTableBody');
+      if (!tbody) return;
+
+      if (records.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-500 font-sans">Arama kriterlerine uygun kayıt bulunamadı.</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      records.forEach(r => {
+        html += `
+          <tr class="hover:bg-slate-900/60 transition-colors">
+            <td class="p-3">
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300 text-[10px]">${r.catName}</span>
+            </td>
+            <td class="p-3">
+              <span class="font-bold text-sky-400">${r.gene}</span>
+              <span class="text-slate-500 text-[10px] block">${r.id}</span>
+            </td>
+            <td class="p-3 font-semibold text-white">${r.name}</td>
+            <td class="p-3 text-slate-300 text-[11px]">${r.feature}</td>
+            <td class="p-3">
+              <span class="px-2 py-0.5 rounded-full ${r.badge} text-[10px] font-bold">${r.status}</span>
+            </td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+    }
+
+    function filterDatabaseTable() {
+      const search = document.getElementById('dbSearchInput').value.trim().toLowerCase();
+      const cat = document.getElementById('dbCategorySelect').value;
+
+      const filtered = DB_RECORDS.filter(r => {
+        const matchesCat = (cat === 'all') || (r.cat === cat);
+        const matchesSearch = !search || 
+          r.gene.toLowerCase().includes(search) || 
+          r.name.toLowerCase().includes(search) || 
+          r.feature.toLowerCase().includes(search) || 
+          r.id.toLowerCase().includes(search) || 
+          r.status.toLowerCase().includes(search);
+        return matchesCat && matchesSearch;
+      });
+
+      renderDatabaseRows(filtered);
+    }
+
+    function setDbQuickFilter(keyword) {
+      document.getElementById('dbSearchInput').value = keyword;
+      filterDatabaseTable();
+    }
+
+    function downloadDatabaseJson() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(DB_RECORDS, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "bio_knowledgebase_export.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
     }
 
     // ONKOLOJİ VERİ SETİ
@@ -917,7 +1104,6 @@
       document.getElementById('tmbDisplay').innerText = `${tmb.toFixed(1)} mut/Mb`;
       document.getElementById('pdl1Display').innerText = `${pdl1.toFixed(0)}%`;
 
-      // Hesaplama
       let tmbScore = tmb >= 20 ? 45.0 : (tmb >= 10 ? 35.0 + (tmb - 10) : (tmb / 10) * 20.0);
       let msiScore = msi === 'MSI-H' ? 35.0 : 5.0;
       let pdl1Score = (pdl1 / 100.0) * 20.0;
@@ -1025,14 +1211,12 @@
       document.getElementById('afMeanBadge').innerText = `Ortalama pLDDT: ${d.mean}`;
       document.getElementById('afDisorderBadge').innerText = d.disorder;
 
-      // Ribbon
       let rHtml = '';
       d.ribbon.forEach(r => {
         rHtml += `<div class="${r.c} h-full text-[9px] font-mono flex items-center justify-center text-white px-1 font-bold" style="width: ${r.w};" title="${r.t}">${r.t}</div>`;
       });
       document.getElementById('afColorRibbon').innerHTML = rHtml;
 
-      // Structured
       let sHtml = '';
       d.structured.forEach(s => {
         sHtml += `
@@ -1044,7 +1228,6 @@
       });
       document.getElementById('afStructuredList').innerHTML = sHtml;
 
-      // Disordered
       let disHtml = '';
       d.disordered.forEach(dis => {
         disHtml += `
@@ -1399,7 +1582,6 @@
 
     // Chart.js Grafikleri
     function initCharts() {
-      // ClinVar Donut
       const cCtx = document.getElementById('clinvarDonut');
       if (cCtx) {
         new Chart(cCtx, {
@@ -1423,7 +1605,6 @@
         });
       }
 
-      // Screening Radar
       const rCtx = document.getElementById('screeningRadarChart');
       if (rCtx) {
         screeningRadarChart = new Chart(rCtx, {
@@ -1455,7 +1636,6 @@
         });
       }
 
-      // Sinerji Grafiği (Loewe CI Bar Chart)
       const synCtx = document.getElementById('synergyChart');
       if (synCtx) {
         new Chart(synCtx, {

@@ -1,8 +1,9 @@
 """
-Unit Tests for Computational Biology Pipeline (v3.0 Ultimate)
+Unit Tests for Computational Biology Pipeline (v3.1 Database Edition)
 Tests structural, variant, pharmacology, pathway, literature,
 sequence alignment, docking scorer, interaction network,
-drug combination synergy, immunotherapy response, and AlphaFold quality.
+drug combination synergy, immunotherapy response, AlphaFold quality,
+and relational database query capabilities.
 """
 
 import os
@@ -25,6 +26,7 @@ from interaction_network import InteractionNetwork
 from synergy_predictor import SynergyPredictor
 from immunotherapy_response import ImmunotherapyPredictor
 from alphafold_quality import AlphaFoldQualityAnalyzer
+from database import BioKnowledgebase
 from report_generator import ReportGenerator
 
 class TestComputationalBiologyPipeline(unittest.TestCase):
@@ -32,6 +34,16 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
     def setUpClass(cls):
         cls.data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
         cls.output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "reports"))
+        cls.db_path = os.path.join(cls.data_dir, "bio_knowledgebase.db")
+
+    @classmethod
+    def tearDownClass(cls):
+        test_file = os.path.join(cls.output_dir, "test_summary.html")
+        if os.path.exists(test_file):
+            try:
+                os.remove(test_file)
+            except OSError:
+                pass
 
     def test_structural_analyzer(self):
         cif_path = os.path.join(self.data_dir, "pdb_00004hhb.cif")
@@ -144,6 +156,32 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertGreater(res["mean_plddt"], 50.0)
         self.assertGreater(len(res["structured_domains"]), 0)
         self.assertGreater(res["disorder_fraction_percent"], 20.0)
+
+    def test_database_init_and_stats(self):
+        kb = BioKnowledgebase(self.db_path)
+        stats = kb.get_database_stats()
+        self.assertGreaterEqual(stats["genes_count"], 5)
+        self.assertGreaterEqual(stats["variants_count"], 10)
+        self.assertGreaterEqual(stats["structures_count"], 5)
+        self.assertGreaterEqual(stats["compounds_count"], 5)
+        self.assertIn("Pathogenic", stats["variants_by_significance"])
+
+    def test_database_queries(self):
+        kb = BioKnowledgebase(self.db_path)
+        # Query gene
+        egfr_vars = kb.query_variants(gene="EGFR")
+        self.assertGreaterEqual(len(egfr_vars), 1)
+        self.assertEqual(egfr_vars[0]["gene_symbol"], "EGFR")
+
+        # Query drug
+        drugs = kb.query_compounds(target="KRAS")
+        self.assertGreaterEqual(len(drugs), 1)
+        self.assertIn("Sotorasib", drugs[0]["common_name"])
+
+        # Query structure
+        structs = kb.query_structures(gene="HBB")
+        self.assertGreaterEqual(len(structs), 1)
+        self.assertEqual(structs[0]["pdb_id"], "4HHB")
 
     def test_report_generator(self):
         rg = ReportGenerator(data_dir=self.data_dir, output_dir=self.output_dir)
