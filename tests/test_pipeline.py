@@ -551,6 +551,39 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         res_sl = bot.process_message("Sentetik letalite ve PARP inhibitörleri nasıl çalışır?")
         self.assertIn("BRCA", res_sl['message'])
 
+        # 13. Immunotherapy & Keytruda
+        res_immuno = bot.process_message("İmmünoterapi ve Keytruda nasıl çalışır?")
+        self.assertIn("Keytruda", res_immuno['message'])
+        self.assertIn("PD-L1", res_immuno['message'])
+
+        # 14. Targeted Therapy & EGFR Osimertinib
+        res_targ = bot.process_message("Osimertinib Tagrisso ilacı ne işe yarar?")
+        self.assertIn("EGFR", res_targ['message'])
+
+        # 15. PET-CT & SUVmax
+        res_pet = bot.process_message("PET-BT çekiminde SUVmax değeri ne anlama gelir?")
+        self.assertIn("SUVmax", res_pet['message'])
+
+        # 16. Cancer Staging & Metastasis
+        res_stage = bot.process_message("Kanserde Evre 4 ve metastaz ne demektir?")
+        self.assertIn("Metastatik", res_stage['message'])
+
+        # 17. HPV Vaccine
+        res_hpv = bot.process_message("HPV aşısı Gardasil rahim ağzı kanserini önler mi?")
+        self.assertIn("Serviks", res_hpv['message'])
+
+        # 18. Greetings & Gratitude
+        res_greet = bot.process_message("Merhaba, günaydın!")
+        self.assertIn("Merhaba", res_greet['message'])
+        res_thanks = bot.process_message("Çok teşekkür ederim, eline sağlık!")
+        self.assertIn("Rica ederim", res_thanks['message'])
+
+        # 19. Adaptive Medical Synthesizer (Unmatched question with anatomical organ & finding)
+        res_liver = bot.process_message("Karaciğerimde 3 cm lezyon saptandı ne yapmalıyım?")
+        self.assertIn("Karaciğer", res_liver['message'])
+        self.assertIn("Gastroenteroloji", res_liver['message'])
+        self.assertIn("MRG", res_liver['message'])
+
     def test_diagnostic_chatbot_dynamic_evaluation_standalone(self):
         """Verifies pure-Python dynamic risk evaluation without external database files."""
         from diagnostic_chatbot import DiagnosticChatbot, clean_for_console

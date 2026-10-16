@@ -649,6 +649,286 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
             "   Mikrosatellit instabilitesi (MSI-H) olan tümörler Broad DepMap verilerine göre kesinlikle WRN DNA helikazına bağımlıdır. WRN blokajı bu tümörleri selektif olarak yok eder."
         )
     },
+
+    'immunotherapy_pembro': {
+        'patterns': [
+            r'immünoterapi', r'immunoterapi', r'pembrolizumab', r'keytruda',
+            r'nivolumab', r'opdivo', r'pd-1', r'pd-l1', r'bağışıklık tedavisi'
+        ],
+        'title': 'İmmünoterapi (PD-1 / PD-L1 İnhibitörleri) & Keytruda',
+        'answer': (
+            "🛡️ **İmmünoterapi ve Kontrol Noktası (Checkpoint) İnhibitörleri:**\n\n"
+            "• **Çalışma Prensibi:** Kanser hücreleri PD-L1 proteinini kullanarak bağışıklık sistemimizin T hücrelerini 'uyutur' ve kendini gizler. "
+            "Pembrolizumab (Keytruda) ve Nivolumab (Opdivo) gibi ilaçlar bu fren mekanizmasını kaldırarak vücudun kendi bağışıklık hücrelerinin tümöre saldırmasını sağlar.\n"
+            "• **Kullanıldığı Başlıca Kanserler:** Malign melanom, küçük hücreli dışı akciğer kanseri (NSCLC), böbrek (RCC), mesane ve MSI-H tümörler.\n"
+            "• **Avantajı:** Kemoterapiden farklı olarak doğrudan sağlıklı hücreleri zehirlemez; yanıt veren hastalarda yıllarca süren kalıcı remisyon sağlayabilir.\n"
+            "• **Belirteçler:** Tedavi öncesinde biyopsi dokusunda PD-L1 ekspresyonu ve Tümör Mutasyon Yükü (TMB) bakılır."
+        )
+    },
+    'targeted_therapy_osimertinib': {
+        'patterns': [
+            r'osimertinib', r'tagrisso', r'egfr.*mutasyon', r't790m', r'c797s',
+            r'akıllı ilaç.*akciğer', r'tirozin kinaz'
+        ],
+        'title': 'EGFR Mutasyonları & 3. Kuşak Akıllı İlaç (Osimertinib)',
+        'answer': (
+            "🎯 **EGFR Mutasyonları ve Hedefe Yönelik Tedavi (Osimertinib):**\n\n"
+            "• **EGFR Nedir?** Akciğer adenokarsinomlarının yaklaşık %15-35'inde (özellikle sigara içmemiş veya kadınlarda) EGFR geninde aktive edici mutasyonlar (Ekzon 19 delesyonu veya L858R) bulunur.\n"
+            "• **Osimertinib (Tagrisso):** 3. kuşak oral tirozin kinaz inhibitörüdür (TKI). FLAURA klinik çalışmasında standart kemoterapiye göre genel sağkalımı belirgin şekilde uzatmıştır.\n"
+            "• **Direnç Mekanizmaları:** Eski nesil ilaçlara direnç geliştiren **T790M** mutasyonunu yener. Osimertinib direnci geliştiğinde ise kanda **C797S** veya MET amplifikasyonu araştırılır."
+        )
+    },
+    'kras_sotorasib': {
+        'patterns': [
+            r'kras', r'sotorasib', r'lumakras', r'g12c', r'adagrasib', r'kras inhibitör'
+        ],
+        'title': 'KRAS Mutasyonu & KRAS G12C İnhibitörleri',
+        'answer': (
+            "🧬 **KRAS G12C Mutasyonu ve Hedefe Yönelik Tedaviler:**\n\n"
+            "• **Tarihsel Önemi:** KRAS, 40 yılı aşkın süre boyunca 'ilaç geliştirilemez' (undruggable) kabul edilen en yaygın onkogendi.\n"
+            "• **G12C Başarısı:** Sotorasib (Lumakras) ve Adagrasib, KRAS proteininin G12C cep mutasyonuna kovalent bağlanarak proteini inaktif (GDP bağlı) fazda kilitler.\n"
+            "• **Uygulama Alanı:** Akciğer kanserlerinin (NSCLC) yaklaşık %13'ünde ve kolorektal kanserlerin %3-4'ünde G12C mutasyonu görülür ve bu hastalarda hedefe yönelik tedavi seçeneği sunar."
+        )
+    },
+    'her2_trastuzumab': {
+        'patterns': [
+            r'her2', r'trastuzumab', r'herceptin', r'pertuzumab', r'enhertu', r't-dxd', r'erbb2'
+        ],
+        'title': 'HER2 Pozitifliği & Trastuzumab (Herceptin / Enhertu)',
+        'answer': (
+            "🎀 **HER2 Pozitif Kanserler ve Monoklonal Antikorlar:**\n\n"
+            "• **HER2 Nedir?** Meme ve mide kanserlerinin yaklaşık %15-20'sinde hücre yüzeyinde HER2 (Human Epidermal Growth Factor Receptor 2) proteini aşırı miktarda üretilir (amplifikasyon).\n"
+            "• **Tedavi:** Trastuzumab (Herceptin) ve Pertuzumab, bu reseptörleri bloke ederek hücre bölünmesini durdurur.\n"
+            "• **Yeni Nesil Antikor-İlaç Konjugatları (ADC):** Trastuzumab Deruxtecan (Enhertu), antikora bağlı kemoterapi roketi gibi doğrudan tümör içine girerek HER2-low (düşük) tümörlerde dahi çığır açıcı yanıt verir."
+        )
+    },
+    'chemotherapy_basics': {
+        'patterns': [
+            r'kemoterapi nedir', r'kemoterapi nasıl', r'kemoterapötik', r'damardan ilaç.*kanser'
+        ],
+        'title': 'Kemoterapi Nedir & Nasıl Çalışır?',
+        'answer': (
+            "💉 **Kemoterapi (Sitotoksik Tedavi) Hakkında Temel Bilgiler:**\n\n"
+            "• **Mekanizma:** Kemoterapi ilaçları, vücutta hızlı bölünen tüm hücrelerin DNA sentezini veya hücre bölünmesini (mitoz) durdurarak onları apoptoza (hücre ölümüne) sürükler.\n"
+            "• **Uygulama Yolları:** Damar yoluyla (serum içinde infüzyon), ağızdan (tablet/kapsül) veya doğrudan vücut boşluklarına uygulanabilir.\n"
+            "• **Amaçlar:**\n"
+            "   1. **Küratif (Tam Şifa):** Kanseri tamamen yok etmek.\n"
+            "   2. **Neoadjuvan:** Ameliyat öncesi tümörü küçültmek.\n"
+            "   3. **Adjuvan:** Ameliyat sonrası geride kalabilecek mikroskobik hücreleri temizlemek.\n"
+            "   4. **Palyatif:** İlerlemiş evrede tümör büyümesini frenleyip şikayetleri azaltmak."
+        )
+    },
+    'chemo_side_effects': {
+        'patterns': [
+            r'kemoterapi.*yan etki', r'saç dökülmesi.*kanser', r'nötropeni', r'kemoterapi.*bulantı',
+            r'kemoterapi.*halsizlik'
+        ],
+        'title': 'Kemoterapinin Yan Etkileri ve Başa Çıkma',
+        'answer': (
+            "💊 **Kemoterapi Yan Etkileri ve Yönetimi:**\n\n"
+            "• **Neden Yan Etki Olur?** İlaçlar kanser hücrelerinin yanında vücudun normal hızlı bölünen hücrelerini de (kemik iliği, saç folikülü, ağız ve sindirim mukozası) geçici olarak etkiler.\n"
+            "• **En Sık Görülenler ve Çözümleri:**\n"
+            "   1. **Saç Dökülmesi:** Tedavi bittikten 1-2 ay sonra saçlar eskisinden daha gür olarak yeniden uzar.\n"
+            "   2. **Bulantı/Kusma:** Modern antiemetik ilaçlar (5-HT3 ve NK1 reseptör blokerleri) sayesinde bulantı günümüzde %80-90 oranında tamamen önlenir.\n"
+            "   3. **Nötropeni (Bağışıklık Düşüklüğü):** Beyaz kan hücreleri (lökosit) düştüğünde G-CSF iğneleriyle kemik iliği desteklenir. **38°C üzeri ateş durumunda acil hastaneye başvurulmalıdır!**\n"
+            "   4. **Ağız Yaraları (Mukozit):** Karbonatlı tuzlu su gargaraları ve buz uygulaması rahatlatır."
+        )
+    },
+    'radiotherapy_basics': {
+        'patterns': [
+            r'radyoterapi', r'ışın tedavisi', r'radyasyon tedavisi', r'cyberknife', r'linak'
+        ],
+        'title': 'Radyoterapi (Işın Tedavisi) Nedir?',
+        'answer': (
+            "⚡ **Radyoterapi (Işın Tedavisi) Rehberi:**\n\n"
+            "• **Nasıl Çalışır?** Yüksek enerjili X-ışınları veya foton demetleri milimetrik doğrulukla tümör dokusuna odaklanarak kanser hücrelerinin DNA'sını parçalar.\n"
+            "• **Ağrılı mıdır?** Hayır, radyoterapi seansları röntgen filmi çektirmek gibidir; seans sırasında hasta hiçbir acı veya sıcaklık hissetmez; işlem 10-15 dakikada biter.\n"
+            "• **Radyasyon Bulaşır mı?** Dışarıdan uygulanan (eksternal) radyoterapide hastanın vücudunda radyasyon kalmaz; hasta seans biter bitmez ailesine ve çocuklara güvenle sarılabilir."
+        )
+    },
+    'hormonotherapy_breast_prostate': {
+        'patterns': [
+            r'hormonoterapi', r'tamoksifen', r'letrozol', r'anastrozol', r'hormon tedavisi.*kanser'
+        ],
+        'title': 'Hormon Tedavisi (Meme & Prostat Kanseri)',
+        'answer': (
+            "🌱 **Onkolojide Hormon Tedavisi (Endokrin Terapi):**\n\n"
+            "• **Meme Kanseri:** Östrojen ve Progesteron reseptörü pozitif (ER+/PR+) tümörlerde Tamoksifen veya Aromataz İnhibitörleri (Letrozol, Anastrozol) ile östrojen hormonu baskılanır, nüks riski %50 oranında düşürülür.\n"
+            "• **Prostat Kanseri:** Testosteron hormonunun prostat tümörünü beslemesi androjen baskılayıcı iğneler (GnRH analogları) ile engellenir.\n"
+            "• **Avantajı:** Klasik kemoterapiye göre yan etki profili çok daha hafiftir."
+        )
+    },
+    'pet_ct_suvmax': {
+        'patterns': [
+            r'pet.*bt', r'pet.*ct', r'suvmax', r'suv değeri', r'fdg tutulumu', r'pet çekimi'
+        ],
+        'title': 'PET-BT İncelemesi & SUVmax Değeri Ne Anlama Gelir?',
+        'answer': (
+            "☢️ **PET-BT (Pozitron Emisyon Tomografisi) & SUVmax Rehberi:**\n\n"
+            "• **Nasıl Çalışır?** Kanser hücreleri normal hücrelere göre çok daha fazla şeker (glukoz) tüketir. Damardan verilen radyoaktif işaretli şeker (18F-FDG) hızla tümör hücrelerinde birikir ve PET kamerası bu hipermetabolik alanları parlatır.\n"
+            "• **SUVmax (Standardized Uptake Value) Nedir?** Lezyondaki metabolik aktivite yoğunluğunun sayısal göstergesidir.\n"
+            "   - SUVmax < 2.5: Genellikle düşük aktivite (enfeksiyon veya iyi huylu lezyon lehine).\n"
+            "   - SUVmax > 4 - 5: Artmış glukoz metabolizması (tümör şüphesini artırır).\n"
+            "• **Unutulmamalıdır ki:** Şiddetli enfeksiyon ve iltihaplar da yüksek FDG tutabilir; kesin teşhis mutlaka patolojik biyopsiyle konulur."
+        )
+    },
+    'biopsy_types': {
+        'patterns': [
+            r'biyopsi çeşitleri', r'tru.*cut', r'kalın iğne biyopsi', r'ince iğne biyopsi',
+            r'biyopsi nasıl yapılır', r'parça alma'
+        ],
+        'title': 'Biyopsi Türleri & Doku Tanısının Önemi',
+        'answer': (
+            "🔬 **Biyopsi Çeşitleri ve Uygulama Alanları:**\n\n"
+            "1. **Tru-Cut (Kalın İğne / Kor Biyopsi):** Meme, karaciğer, prostat gibi organlardan ince bir doku silindiri çıkarır; tümörün mimarisini ve immünohistokimyasal boyamalarını net gösterir (Altın standart).\n"
+            "2. **İnce İğne Aspirasyon Biyopsisi (İİAB):** Enjektörle sadece sıvı ve hücre çekilir; en sık tiroid nodüllerinde kullanılır.\n"
+            "3. **Eksizyonel Biyopsi:** Şüpheli kitlenin veya lenf bezinin tamamının cerrahiyle çıkarılmasıdır (Örn: Cilt benleri, lenfoma şüpheli lenf nodu).\n"
+            "4. **Sıvı Biyopsi (ctDNA):** Kandan DNA parçacıklarının incelenmesidir."
+        )
+    },
+    'tumor_marker_cea': {
+        'patterns': [
+            r'cea.*test', r'cea.*tümör', r'karsinoembriyonik', r'cea yüksekliği'
+        ],
+        'title': 'CEA (Karsinoembriyonik Antijen) Testi',
+        'answer': (
+            "📊 **CEA (Karsinoembriyonik Antijen) Tümör Belirteci:**\n\n"
+            "• **Kullanım Alanı:** En sık Kolorektal (kalın bağırsak) kanserinin tedavi yanıtını ve ameliyat sonrası takibini izlemek için kanda ölçülür.\n"
+            "• **Normal Değer:** Sigara içmeyenlerde < 3.0 ng/mL, sigara içenlerde < 5.0 ng/mL.\n"
+            "• **Önemli Bilgi:** Tek başına kanser teşhisi koyamaz. Sigara içmek, mide ülseri, karaciğer yağlanması veya kolit gibi iyi huylu durumlarda da hafif yükselebilir."
+        )
+    },
+    'tumor_marker_ca125': {
+        'patterns': [
+            r'ca.*125', r'ca125', r'yumurtalık.*belirteç', r'over.*tümör belirteç'
+        ],
+        'title': 'CA 125 Tümör Belirteci (Yumurtalık / Over Kanseri)',
+        'answer': (
+            "🌸 **CA 125 Belirteci ve Klinik Anlamı:**\n\n"
+            "• **Kullanım Alanı:** Yumurtalık (over) kanserinin tanı ve kemoterapi yanıtının izlenmesinde birincil belirteçtir.\n"
+            "• **Normal Eşik:** Genellikle < 35 U/mL kabul edilir.\n"
+            "• **İyi Huylu Nedenler:** Menopoz öncesi kadınlarda endometriozis (çikolata kisti), adet dönemi, miyomlar veya pelvik enfeksiyonlar da CA 125 seviyesini yükseltebilir. Bu nedenle pelvik ultrasonografi ile birlikte değerlendirilir."
+        )
+    },
+    'tumor_marker_ca19_9': {
+        'patterns': [
+            r'ca.*19-9', r'ca19-9', r'ca 19.9', r'pankreas.*belirteç'
+        ],
+        'title': 'CA 19-9 Belirteci (Pankreas & Safra Yolları)',
+        'answer': (
+            "🟡 **CA 19-9 Belirteci ve Klinik Önemi:**\n\n"
+            "• **Kullanım:** Pankreas ve safra yolu (kolanjiyosellüler) kanserlerinde takipte kullanılır.\n"
+            "• **Normal Değer:** < 37 U/mL.\n"
+            "• **Dikkat Edilmesi Gereken:** Safra kanalı tıkanıklığı, sarılık, safra kesesi taşı veya pankreatit varlığında tümör olmaksızın da ileri derecede yükselebilir."
+        )
+    },
+    'cancer_stages_tnm': {
+        'patterns': [
+            r'kanser evreleri', r'evre 4', r'evre 1', r'evre 2', r'evre 3',
+            r'tnm sistemi', r'metastaz nedir', r'metastatik kanser'
+        ],
+        'title': 'Kanser Evreleri & TNM Sınıflandırması',
+        'answer': (
+            "📈 **Kanser Evrelemesi (TNM Sistemi) ve Metastaz Rehberi:**\n\n"
+            "• **TNM Sistemi:**\n"
+            "   - **T (Tümör Boyutu):** Primer tümörün milimetrik çapı ve komşu dokuya yayılımı (T1 - T4).\n"
+            "   - **N (Lenf Nodu):** Bölgesel lenf bezlerine sıçrama var mı (N0 - N3).\n"
+            "   - **M (Metastaz):** Uzak organlara sıçrama var mı (M0: Yok, M1: Var).\n"
+            "• **Evreler:**\n"
+            "   • **Evre 1 (Lokal):** Tümör küçük ve organın içinde sınırlıdır. Erken cerrahiyle %90+ kür sağlanır.\n"
+            "   • **Evre 2 - 3 (Bölgesel İlerlemiş):** Tümör büyümüş veya lenf bezlerine ulaşmıştır.\n"
+            "   • **Evre 4 (Metastatik):** Kanser kan veya lenf yoluyla akciğer, karaciğer, kemik veya beyin gibi uzak organlara yayılmıştır. Günümüzde yeni nesil immünoterapi ve akıllı ilaçlarla Evre 4 kanserlerde dahi uzun yıllar yüksek yaşam kalitesi sağlanabilmektedir."
+        )
+    },
+    'remission_vs_cure': {
+        'patterns': [
+            r'remisyon', r'kür ne demek', r'nüks', r'rekürrens', r'kanser tekrarlar mı'
+        ],
+        'title': 'Kanserde Remisyon, Nüks ve Kür Terimleri',
+        'answer': (
+            "🔄 **Remisyon, Nüks ve Kür Ne Anlama Gelir?**\n\n"
+            "• **Tam Remisyon:** Yapılan tüm radyolojik (BT, MR, PET) ve laboratuvar testlerinde vücutta saptanabilir hiçbir tümör kalmaması durumudur.\n"
+            "• **Kısmi Remisyon:** Tümör yükünün en az %30-50 oranında küçülmesi ve hastalığın kontrol altına alınmasıdır.\n"
+            "• **Kür (Tam Şifa):** Tedavi bitiminden sonra kanserin türüne göre 5 yıl boyunca hiçbir nüks görülmemesi durumunda hasta tıbben 'tam şifaya ulaşmış' kabul edilir.\n"
+            "• **Nüks (Rekürrens):** Remisyondan sonra mikroskobik uykudaki hücrelerin yeniden aktifleşmesidir; sıvı biyopsi (ctDNA) ile aylar öncesinden yakalanabilir."
+        )
+    },
+    'survival_os_pfs': {
+        'patterns': [
+            r'pfs nedir', r'overall survival', r'genel sağkalım', r'progresyonsuz sağkalım'
+        ],
+        'title': 'Klinik Sağkalım Kriterleri: OS & PFS',
+        'answer': (
+            "📊 **Onkolojik Sağkalım Terimleri:**\n\n"
+            "• **Genel Sağkalım (OS - Overall Survival):** Tanı veya tedavi başlangıcından itibaren hastanın hayatta kaldığı toplam süredir; onkoloji ilaç araştırmalarında 'nihai altın standart' kabul edilir.\n"
+            "• **Progresyonsuz Sağkalım (PFS - Progression-Free Survival):** İlaç başlandıktan sonra kanserin büyümeden veya ilerlemeden stabil kaldığı süredir.\n"
+            "• **Hazard Ratio (HR - Tehlike Oranı):** Denenen yeni ilacın plasebo veya eski tedaviye göre ölüm/ilerleme riskini ne kadar düşürdüğünü gösterir (Örn: HR=0.60, riski %40 azaltmış demektir)."
+        )
+    },
+    'cancer_prevention_diet': {
+        'patterns': [
+            r'kanserden korunma', r'kanser diyeti', r'nasıl beslenmeliyim', r'kanser yapmayan gıdalar'
+        ],
+        'title': 'Kanserden Korunma & Beslenme Kılavuzu (WHO)',
+        'answer': (
+            "🥗 **Kanıta Dayalı Kanserden Korunma Kılavuzu:**\n\n"
+            "1. **Tütün Ürünlerinden Uzak Durun:** Kanser ölümlerinin %30'unun, akciğer kanserlerinin %90'ının doğrudan nedenidir.\n"
+            "2. **İşlenmiş Et ve Şarküteri Ürünlerini Kısıtlayın:** Salam, sosis, sucuk gibi nitritli işlenmiş etler DSÖ tarafından Grup 1 karsinojen ilan edilmiştir.\n"
+            "3. **Akdeniz Tipi Beslenin:** Zeytinyağı, baklagiller, lifli sebzeler, ceviz ve taze balık tüketimi bağırsak mikrobiyotasını koruyarak inflamasyonu azaltır.\n"
+            "4. **İdeal Kilonuzu Koruyun:** Obezite; meme, kolon, rahim, pankreas ve böbrek dahil 13 farklı kanserin kanıtlanmış risk faktörüdür.\n"
+            "5. **Haftada En Az 150 Dakika Egzersiz Yapın.**"
+        )
+    },
+    'hpv_vaccine': {
+        'patterns': [
+            r'hpv aşısı', r'gardasil', r'rahim ağzı aşısı', r'hpv nedir'
+        ],
+        'title': 'HPV Aşısı & Kanserden %90 Korunma',
+        'answer': (
+            "💉 **HPV (Human Papilloma Virus) Aşısı Rehberi:**\n\n"
+            "• **Hangi Kanserleri Önler?** Serviks (rahim ağzı) kanserlerinin %99'undan, ayrıca anüs, penis, vajina ve boğaz/ağız (orofarenks) kanserlerinden korur.\n"
+            "• **Kimlere Yapılır?** Hem kız hem erkek çocuklarına 9-14 yaşından itibaren; yetişkinlerde ise 45 yaşına kadar uygulanabilir.\n"
+            "• **Etkinlik:** Geniş toplum aşılaması yapılan ülkelerde (Avustralya, İngiltere) rahim ağzı kanseri oranları %90 azalmıştır."
+        )
+    },
+    'genetic_counseling': {
+        'patterns': [
+            r'genetik danışmanlık', r'brca testi', r'gen testi.*kanser', r'gen paneli'
+        ],
+        'title': 'Genetik Kanser Danışmanlığı & Risk Panelleri',
+        'answer': (
+            "🧬 **Genetik Kanser Danışmanlığı & NGS Gen Panelleri:**\n\n"
+            "• **Kime Yapılmalı?** Genç yaşta (<50 yaş) kanser tanısı alanlar, ailesinde birden fazla bireyde meme/over/kolon kanseri olanlar veya erkekte meme kanseri vakalarında önerilir.\n"
+            "• **İncelenen Genler:** BRCA1, BRCA2, PALB2, ATM, CHEK2, TP53 ve Lynch sendromu genleri (MLH1, MSH2, MSH6, PMS2).\n"
+            "• **Faydası:** Yüksek riskli bireylere erken tarama takvimi (Kontrastlı Meme MR, 30 yaşında kolonoskopi) veya koruyucu önlemler planlanır."
+        )
+    },
+    'greetings': {
+        'patterns': [
+            r'\bmerhaba\b', r'\bselam\b', r'\bgünaydın\b', r'\biyi günler\b',
+            r'\bnasılsın\b', r'\biyi akşamlar\b'
+        ],
+        'title': 'Klinik Karşılama & Selamlaşma',
+        'answer': (
+            "👋 **Merhaba! Hoş geldiniz.**\n\n"
+            "Ben **Klinik Onkoloji & Erken Kanser Teşhisi Danışmanıyım** 🩺.\n\n"
+            "Bana aklınıza takılan herhangi bir kanser belirtisini, tarama testlerini (Kolonoskopi, Mamografi, Düşük Doz BT), "
+            "akıllı ilaçları, biyomarkerları (ctDNA, DPYD, BRCA) veya tahlil sonuçlarınızı sorabilirsiniz.\n\n"
+            "👉 Nasıl yardımcı olabilirim? Şikayetlerinizi yazarak risk analizi başlatabilir veya merak ettiğiniz konuyu sorabilirsiniz."
+        )
+    },
+    'gratitude': {
+        'patterns': [
+            r'teşekkür', r'sağ ol', r'sağol', r'eline sağlık', r'harikasın', r'çok sağol'
+        ],
+        'title': 'Teşekkür & Klinik Destek',
+        'answer': (
+            "🙏 **Rica ederim! Sağlığınız her şeyden önemlidir.**\n\n"
+            "Erken teşhis hayat kurtarır. Aklınıza takılan başka bir tıbbi soru olursa dilediğiniz zaman çekinmeden sorabilirsiniz. "
+            "Sağlıklı ve güzel günler dilerim! 🌿"
+        )
+    },
+
     'bot_help': {
         'patterns': [
             r'sen kimsin', r'ne yapabilirsin', r'yardım', r'komutlar', r'neler yaparsın',
@@ -977,6 +1257,73 @@ class DiagnosticChatbot:
             'clinical_action_plan': f"{primary_recommendation} - {action_summary}"
         }
 
+
+    def synthesize_clinical_guidance(self, text: str) -> str:
+        """
+        Adaptive Medical Synthesizer:
+        Generates contextual oncology and clinical guidance when no pre-defined static topic matches.
+        Scans for mentioned anatomical organs, pathological findings, symptoms, or diagnostic tests.
+        """
+        norm = self.normalize_text(text)
+        
+        # 1. Organ mapping
+        organs = {
+            'karaciğer': ('Karaciğer', 'Gastroenteroloji / Hepatoloji veya Genel Cerrahi', 'Dinamik 3 Fazlı Batın BT veya Karaciğer MRG (Primovist)'),
+            'böbrek': ('Böbrek', 'Üroloji', 'Üriner Sistem Ultrasonografisi ve Kontrastlı Batın BT'),
+            'pankreas': ('Pankreas', 'Gastroenteroloji / Cerrahi Onkoloji', 'Pankreas Protokolü Dinamik BT / MRCP ve Serum CA 19-9'),
+            'akciğer': ('Akciğer', 'Göğüs Hastalıkları / Torasik Onkoloji', 'Düşük Doz Toraks BT (LDCT) ve Bronkoskopi'),
+            'meme': ('Meme', 'Genel Cerrahi / Meme Cerrahisi', 'Bilateral Dijital Mamografi, Meme USG ve Tru-Cut Biyopsi'),
+            'mide': ('Mide & Özofagus', 'Gastroenteroloji', 'Üst GIS Endoskopisi (Gastroskopi) ve patolojik biyopsi'),
+            'kolon': ('Kalın Bağırsak (Kolon)', 'Gastroenteroloji / Genel Cerrahi', 'Tam Kolonoskopi ve Biyopsi'),
+            'bağırsak': ('Bağırsak', 'Gastroenteroloji', 'Kolonoskopi ve Gaitada Gizli Kan Testi (FIT)'),
+            'prostat': ('Prostat', 'Üroloji', 'Serum Total PSA, mpMRI ve Füzyon Biyopsi'),
+            'beyin': ('Merkezi Sinir Sistemi (Beyin)', 'Beyin ve Sinir Cerrahisi (Nöroşirürji) / Nöroloji', 'Kontrastlı Kraniyal Beyin MRG'),
+            'kemik': ('Kemik & İskelet Sistemi', 'Ortopedik Onkoloji', 'Direkt Grafi, Ekstremite MRG ve Kemik Sintigrafisi'),
+            'tiroid': ('Tiroid Bezi', 'Endokrinoloji veya Genel Cerrahi', 'Tiroid Ultrasonografisi ve İnce İğne Aspirasyon Biyopsisi (İİAB)'),
+            'yumurtalık': ('Yumurtalık (Over)', 'Jinekolojik Onkoloji', 'Transvajinal Pelvik Ultrasonografi, Kontrastlı Pelvik MRG ve CA 125'),
+            'rahim': ('Rahim (Endometrium)', 'Kadın Hastalıkları ve Doğum', 'Endometriyal Pipelle Biyopsisi ve Pelvik USG'),
+            'larenks': ('Larenks (Gırtlak)', 'Kulak Burun Boğaz (KBB)', 'Fiberoptik Laringoskopi ve Biyopsi'),
+            'boyun': ('Boyun Bölgesi', 'Kulak Burun Boğaz (KBB)', 'Boyun Ultrasonografisi ve Kontrastlı Boyun BT')
+        }
+
+        detected_organ = None
+        for k, v in organs.items():
+            if k in norm:
+                detected_organ = v
+                break
+
+        # 2. Finding mapping
+        findings = []
+        if any(w in norm for w in ['lezyon', 'nodül', 'kitle', 'kist', 'polip', 'kalınlaşma', 'şişlik']):
+            findings.append("yapısal doku değişikliği (nodül / kitle / lezyon)")
+        if any(w in norm for w in ['ağrı', 'sızı', 'kramp']):
+            findings.append("ağrı semptomu")
+        if any(w in norm for w in ['kan', 'kanama', 'leke']):
+            findings.append("kanama bulgusu")
+
+        if detected_organ:
+            organ_name, clinic, test = detected_organ
+            finding_text = f" ({', '.join(findings)})" if findings else ""
+            return (
+                f"🩺 **{organ_name} Klinik Değerlendirme & Tetkik Rehberi:**\n\n"
+                f"• **Soru Değerlendirmesi:** {organ_name} ile ilgili belirttiğiniz durumu{finding_text} inceledim.\n"
+                f"• **İyi Huylu vs Kötü Huylu Ayrımı:** Vücutta saptanan lezyonların ve kitlelerin önemli bir bölümü iyi huyludur (basit kistler, adenomlar, hemanjiomlar vb.). Ancak hiçbir doku değişikliği hekim onayı olmaksızın göz ardı edilmemelidir.\n"
+                f"• **Önerilen İnceleme:** Tanısal netlik için **{test}** tetkiki altın standarttır.\n"
+                f"• **Başvurulacak Uzmanlık:** Zaman kaybetmeden **{clinic}** hekimine başvurarak muayene olmanız ve görüntüleme disklerinizi değerlendirtmeniz önerilir.\n\n"
+                f"👉 Dilerseniz şikayetlerinizi detaylandırarak aşağıdaki **'Şikayetim Var (Anamnez Başlat)'** butonundan 100.000 kişilik veri tabanı üzerinden erken kanser risk analizinizi yaptırabilirsiniz."
+            )
+
+        # General intelligent synthesis fallback
+        return (
+            "ℹ️ **Klinik Danışma & Erken Teşhis Rehberi:**\n\n"
+            "Tıbbi sorunuzu inceledim. Onkolojik süreçlerde altın kural; vücutta 2-3 haftadan uzun süren normal dışı değişiklikleri ciddiye almaktır.\n\n"
+            "• **Danışabileceğiniz Başlıca Alanlar:**\n"
+            "  1. **Kanser Türleri & Belirtileri:** Akciğer, meme, kolon, prostat, mide, pankreas, lenfoma, beyin vb.\n"
+            "  2. **Modern Tedaviler:** Akıllı ilaçlar (Osimertinib, Sotorasib), İmmünoterapi (Keytruda), Kemoterapi, Radyoterapi.\n"
+            "  3. **Tanı & Biyomarkerlar:** PET-BT SUVmax, DPYD testi, Sıvı biyopsi (ctDNA), Mamografi, Kolonoskopi.\n\n"
+            "👉 Merak ettiğiniz spesifik konuyu doğrudan sorabilir veya hissettiğiniz belirtileri yazarak kişisel risk analizinizi başlatabilirsiniz."
+        )
+
     def process_message(self, user_message: str, session_id: str = "default") -> Dict[str, Any]:
         """
         Processes an incoming user message and returns the next conversation step.
@@ -1021,17 +1368,7 @@ class DiagnosticChatbot:
                 if matched_topic:
                     response_text = matched_topic['answer']
                 else:
-                    response_text = (
-                        "ℹ️ **Klinik Danışma Yanıtı:**\n"
-                        "Kanser erken teşhisinde altın kural; vücutta 2-3 haftadan uzun süren normal dışı değişiklikleri ciddiye almaktır.\n\n"
-                        "• **En Önemli Kırmızı Bayraklar:**\n"
-                        "  1. Açıklanamayan kilo kaybı (>%10) ve iştahsızlık.\n"
-                        "  2. Memede, koltuk altında veya boyunda ele gelen ağrısız kitleler.\n"
-                        "  3. Balgamda, idrarda veya dışkıda kan görülmesi.\n"
-                        "  4. 3 haftayı geçen inatçı öksürük veya ses kısıklığı.\n"
-                        "  5. Yutma güçlüğü veya bağırsak alışkanlığında kalıcı değişiklikler.\n\n"
-                        "👉 Kişiselleştirilmiş bir risk değerlendirmesi yaptırmak isterseniz kendi şikayetlerinizi buraya yazabilir veya aşağıdaki **'Şikayetim Var (Anamnez Başlat)'** butonunu seçebilirsiniz."
-                    )
+                    response_text = self.synthesize_clinical_guidance(user_message)
 
                 quick_replies = [
                     "Şikayetim Var (Anamnez Başlat)",

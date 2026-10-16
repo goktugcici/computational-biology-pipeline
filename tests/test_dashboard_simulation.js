@@ -179,11 +179,18 @@ sandbox.calculateCancerRiskLive();
 sandbox.clearCrpSymptoms();
 console.log('✓ 100k Cancer Risk Bayesian predictor (22 red-flag symptoms, 14 cancer categories) validated');
 
-// Chatbot (Multi-turn Anamnesis, Q&A Knowledge Base, Voice Synthesis, & Printing)
+// Chatbot (Multi-turn Anamnesis, 48 Q&A topics, Adaptive Clinical Synthesizer, Voice Synthesis, & Printing)
 sandbox.initChatbot();
 sandbox.toggleChatVoice();
 sandbox.sendChatMessage('DPYD testi nedir?');
 sandbox.sendChatMessage('Akciğer kanseri belirtileri nelerdir?');
+sandbox.sendChatMessage('İmmünoterapi ve Keytruda nasıl etki eder?');
+sandbox.sendChatMessage('Osimertinib ve EGFR T790M direnci nedir?');
+sandbox.sendChatMessage('PET-BT SUVmax değeri ne anlama gelir?');
+sandbox.sendChatMessage('Kanser evreleri ve TNM nedir?');
+sandbox.sendChatMessage('Karaciğerimde 3 cm lezyon saptandı ne yapmalıyım?'); // Adaptive clinical synthesizer test
+sandbox.sendChatMessage('Merhaba');
+sandbox.sendChatMessage('Teşekkür ederim');
 sandbox.sendChatMessage('Son zamanlarda kanlı balgam ve geçmeyen öksürük şikayetim var');
 sandbox.handleQuickReply('58 Yaşında Erkek');
 sandbox.sendChatMessage('Günde 1 paket, 25 yıl içtim');
@@ -192,7 +199,7 @@ sandbox.sendChatMessage('2 aydır devam ediyor');
 sandbox.printChatConsultationReport();
 sandbox.copyChatConsultationSummary();
 sandbox.resetChatbotSession();
-console.log('✓ Anamnesis Diagnostic Chatbot (22 symptoms, 27 Q&A topics, TTS voice, PDF report) validated');
+console.log('✓ Anamnesis Diagnostic Chatbot (22 symptoms, 48 Q&A topics, Adaptive Synthesizer, TTS voice, PDF report) validated');
 
 // Survival & Liquid Biopsy
 ['FLAURA_EGFR', 'KEYNOTE_042_TMB_HIGH', 'OLYMPIAD_BRCA', 'CODEBREAK_200_KRAS'].forEach(tr => sandbox.renderSurvivalTrial(tr));
