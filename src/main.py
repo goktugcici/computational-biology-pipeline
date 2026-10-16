@@ -25,6 +25,8 @@ from immunotherapy_response import ImmunotherapyPredictor
 from alphafold_quality import AlphaFoldQualityAnalyzer
 from database import BioKnowledgebase
 from cancer_risk_predictor import CancerRiskPredictor
+from pharmacogenomics import PharmacogenomicsEngine
+from synthetic_lethality import SyntheticLethalityEngine
 from report_generator import ReportGenerator
 
 def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = None, 
@@ -37,11 +39,14 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
                  patient_gender: str = "M", patient_symptoms: str = None,
                  smoking_pack_years: float = 0.0, family_history: bool = False,
                  build_cohort_size: int = None,
+                 pgx_check: bool = False, dpyd_alleles: list = None,
+                 ugt1a1_diplotype: str = None, cyp2d6_diplotype: str = None,
+                 synthetic_lethal_target: str = None,
                  export_db_json_path: str = None, export_json_path: str = None,
                  generate_report: bool = False):
     print("=" * 70)
-    print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE v3.2 EARLY DETECTION EDITION")
-    print("Multi-Omics Structural, Genomic, Pharmacological, Synergy & 100k Cancer Risk")
+    print("COMPUTATIONAL BIOLOGY & SCIENCE PIPELINE v3.3 PRECISION MEDICINE")
+    print("Multi-Omics Structural, Genomic, PGx, Synthetic Lethality & 100k Cancer Risk")
     print("=" * 70)
 
     pipeline_summary = {}
@@ -150,7 +155,7 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['alphafold_quality'] = af_res
 
     # 11. Relational Database Engine
-    print("\n[11/12] UNIFIED RELATIONAL BIO-KNOWLEDGEBASE (SQLite 3)")
+    print("\n[11/14] UNIFIED RELATIONAL BIO-KNOWLEDGEBASE (SQLite 3)")
     db_stats = kb.get_database_stats()
     print(f"  Database File: {kb.db_path}")
     print(f"  Entities: {db_stats['genes_count']} Genes, {db_stats['variants_count']} Variants, {db_stats['structures_count']} Structures, {db_stats['compounds_count']} Compounds, {db_stats['pathways_count']} Pathways")
@@ -158,11 +163,35 @@ def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = 
     pipeline_summary['database_stats'] = db_stats
 
     # 12. Early Cancer Detection & 100k Population Epidemiology Engine
-    print("\n[12/12] EARLY CANCER DETECTION & POPULATION EPIDEMIOLOGY (100k Cohort)")
+    print("\n[12/14] EARLY CANCER DETECTION & POPULATION EPIDEMIOLOGY (100k Cohort)")
     risk_pred = CancerRiskPredictor()
     cohort_count = risk_pred.get_cohort_count()
     print(f"  Cohort Database: {risk_pred.db_path} ({cohort_count:,} Records)")
     pipeline_summary['cohort_database'] = {'path': risk_pred.db_path, 'records': cohort_count}
+
+    # 13. Pharmacogenomics (PGx) Safety Engine
+    print("\n[13/14] PHARMACOGENOMICS (PGx) CLINICAL TOXICITY (CPIC Level A)")
+    dpyd_a1 = dpyd_alleles[0] if dpyd_alleles else "*1"
+    dpyd_a2 = dpyd_alleles[1] if dpyd_alleles else "*1"
+    pgx_profile = PharmacogenomicsEngine.profile_all_oncology_pgx(
+        dpyd_diplotype=(dpyd_a1, dpyd_a2),
+        ugt1a1_diplotype=ugt1a1_diplotype if ugt1a1_diplotype else "*1/*1",
+        cyp2d6_diplotype=cyp2d6_diplotype if cyp2d6_diplotype else "*1/*1"
+    )
+    dpyd_eval = pgx_profile['dpyd_fluoropyrimidine']
+    print(f"  DPYD Diplotype: {dpyd_eval['diplotype']} (Activity Score: {dpyd_eval['activity_score']}) -> {dpyd_eval['phenotype']}")
+    print(f"  Fluoropyrimidine Toxicity: {dpyd_eval['risk_level']} | Guideline: {dpyd_eval['clinical_action']}")
+    pipeline_summary['pharmacogenomics'] = pgx_profile
+
+    # 14. Synthetic Lethality & DepMap Essentiality
+    print("\n[14/14] SYNTHETIC LETHALITY & CRISPR DEPMAP DEPENDENCY")
+    sl_query = synthetic_lethal_target if synthetic_lethal_target else "BRCA1"
+    sl_res = SyntheticLethalityEngine.query_vulnerabilities(sl_query)
+    print(f"  Biomarker: {sl_res.get('biomarker_gene', sl_query)} -> Target: {sl_res.get('synthetic_lethal_target', 'N/A')}")
+    print(f"  DepMap Chronos Score: {sl_res.get('depmap_chronos_score', 0.0)} | Vulnerability: %{sl_res.get('vulnerability_score', 0.0)}")
+    if sl_res.get('clinical_therapies'):
+        print(f"  Primary Targeted Drug: {sl_res['clinical_therapies'][0]['drug']} ({sl_res['clinical_therapies'][0]['fda_status']})")
+    pipeline_summary['synthetic_lethality'] = sl_res
 
     # OPTIONAL: Build / Rebuild Cohort
     if build_cohort_size:
@@ -338,6 +367,11 @@ if __name__ == "__main__":
     parser.add_argument("--smoking_pack_years", type=float, default=0.0, help="Smoking history in pack-years (e.g. 25.0)")
     parser.add_argument("--family_history", action="store_true", help="First-degree family history of malignant neoplasm")
     parser.add_argument("--build_cohort", type=int, default=None, help="Generate / seed epidemiological population cohort size (e.g. 100000)")
+    parser.add_argument("--pgx_check", action="store_true", help="Run pharmacogenomics toxicity and CPIC dosing analysis")
+    parser.add_argument("--dpyd_alleles", nargs=2, default=None, help="DPYD alleles, e.g. --dpyd_alleles *1 *2A")
+    parser.add_argument("--ugt1a1", default=None, help="UGT1A1 diplotype, e.g. --ugt1a1 '*28/*28'")
+    parser.add_argument("--cyp2d6", default=None, help="CYP2D6 diplotype, e.g. --cyp2d6 '*4/*4'")
+    parser.add_argument("--synthetic_lethal", default=None, help="Query synthetic lethality target dependency (e.g. BRCA1, MSI-H, MTAP, ARID1A, KRAS)")
     parser.add_argument("--export_json", default=None, help="Export complete pipeline results to JSON file")
     parser.add_argument("--generate_report", action="store_true", help="Generate publication-grade HTML report")
     args = parser.parse_args()
@@ -365,6 +399,11 @@ if __name__ == "__main__":
         smoking_pack_years=args.smoking_pack_years,
         family_history=args.family_history,
         build_cohort_size=args.build_cohort,
+        pgx_check=args.pgx_check,
+        dpyd_alleles=args.dpyd_alleles,
+        ugt1a1_diplotype=args.ugt1a1,
+        cyp2d6_diplotype=args.cyp2d6,
+        synthetic_lethal_target=args.synthetic_lethal,
         export_db_json_path=args.export_db,
         export_json_path=args.export_json,
         generate_report=args.generate_report

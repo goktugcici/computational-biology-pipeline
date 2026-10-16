@@ -4,18 +4,18 @@
 [![Pages Deployment](https://github.com/goktugcici/computational-biology-pipeline/actions/workflows/deploy-pages.yml/badge.svg)](https://goktugcici.github.io/computational-biology-pipeline/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version: 3.2 Early Detection](https://img.shields.io/badge/Release-v3.2_Early_Detection-emerald.svg)](https://github.com/goktugcici/computational-biology-pipeline/releases)
-[![Tests Passing](https://img.shields.io/badge/Tests-20%2F20%20Passed-brightgreen.svg)](https://github.com/goktugcici/computational-biology-pipeline/actions)
+[![Version: 3.3 Precision Medicine](https://img.shields.io/badge/Release-v3.3_Precision_Medicine-purple.svg)](https://github.com/goktugcici/computational-biology-pipeline/releases)
+[![Tests Passing](https://img.shields.io/badge/Tests-25%2F25%20Passed-brightgreen.svg)](https://github.com/goktugcici/computational-biology-pipeline/actions)
 
-A state-of-the-art, production-grade computational biology and precision oncology platform integrating **Early Cancer Detection & 100,000+ Patient Statistical Risk Engine**, **Unified Relational Multi-Omics Knowledgebase (SQLite 3)**, **3D Structural Crystallography**, **Genomic Pathogenicity Annotation**, **Pan-Cancer Targeted Oncology**, **Needleman-Wunsch Sequence Alignment**, **In Silico Drug Screening (Lipinski Ro5 & Binding Free Energy)**, **Protein-Protein Interaction (PPI) Interactome Networks**, **Drug Combination Synergy Modeling (Bliss / Loewe CI)**, **Immunotherapy Biomarker Response Prediction (TMB & MSI-H)**, **AlphaFold Structural Quality (pLDDT & Disordered Regions)**, and an **Interactive WebGL Dashboard with Live 100k Cancer Risk Simulator**.
+A state-of-the-art, production-grade computational biology and precision oncology platform integrating **Pharmacogenomics (PGx) Clinical Toxicity Modeling (CPIC Level A)**, **Synthetic Lethality & CRISPR DepMap Dependency Mapping**, **Early Cancer Detection & 100,000+ Patient Statistical Risk Engine**, **Unified Relational Multi-Omics Knowledgebase (SQLite 3 - 10 Tables)**, **3D Structural Crystallography**, **Genomic Pathogenicity Annotation**, **Pan-Cancer Targeted Oncology**, **Needleman-Wunsch Sequence Alignment**, **In Silico Drug Screening (Lipinski Ro5 & Binding Free Energy)**, **Protein-Protein Interaction (PPI) Interactome Networks**, **Drug Combination Synergy Modeling (Bliss / Loewe CI)**, **Immunotherapy Biomarker Response Prediction (TMB & MSI-H)**, **AlphaFold Structural Quality (pLDDT & Disordered Regions)**, and an **Interactive WebGL Dashboard**.
 
 ---
 
-## 🏛️ Comprehensive Architecture (v3.2 Early Detection Edition)
+## 🏛️ Comprehensive Architecture (v3.3 Precision Medicine Edition)
 
 ```
                             +-----------------------------------------------+
-                            |   Computational Biology Platform v3.2         |
+                            |   Computational Biology Platform v3.3         |
                             +-----------------------+-----------------------+
                                                     |
         +--------------------+----------------------+-----------------------+--------------------+
@@ -33,82 +33,100 @@ A state-of-the-art, production-grade computational biology and precision oncolog
                                                     |
                                                     v
                     +-------------------------------+-------------------------------+
-                    |                                                               |
-                    v                                                               v
-    +---------------------------------------+       +-----------------------------------------------+
-    |  Unified SQLite 3 Bio-Knowledgebase   |       |  100,000+ Patient Cancer Epidemiology DB     |
-    |  (8 Relational Multi-Omics Tables)    |       |  (NICE NG12 Red Flags & Bayesian Risk Model)  |
-    +-------------------+-------------------+       +-----------------------+-----------------------+
-                        |                                                   |
-                        +---------------------------+-----------------------+
+                    |                               |                               |
+                    v                               v                               v
+    +-------------------------------+   +-----------------------+   +-------------------------------+
+    |  Pharmacogenomics (PGx) Safety|   |  Synthetic Lethality  |   |  100k Cancer Epidemiology DB  |
+    |  (CPIC DPYD, UGT1A1, CYP2D6)  |   |  (DepMap Chronos Map) |   |  (NICE NG12 Red Flags & Bayes)|
+    +---------------+---------------+   +-----------+-----------+   +---------------+---------------+
+                    |                               |                               |
+                    +-------------------------------+-------------------------------+
+                                                    |
+                                                    v
+                               +----------------------------------------+
+                               |  Unified SQLite 3 Bio-Knowledgebase    |
+                               |  (10 Relational Multi-Omics Tables)    |
+                               +--------------------+-------------------+
                                                     |
                                                     v
     +-----------------------------------------------+       +---------------------------------------+
-    |  Interactive WebGL Dashboard & Risk Simulator |       |   Executive Publication Report v3.2   |
-    |  (3Dmol.js, 100k Risk Gauge, DB Explorer, etc)|       |   (HTML / Printable PDF / JSON)       |
+    |  Interactive WebGL Dashboard & PGx Console    |       |   Executive Publication Report v3.3   |
+    |  (3Dmol.js, PGx Evaluator, 100k Risk Gauge)   |       |   (HTML / Printable PDF / JSON)       |
     +-----------------------------------------------+       +---------------------------------------+
 ```
 
 ---
 
+## 💊 Pharmacogenomics (PGx) Safety Engine (`src/pharmacogenomics.py`)
+
+Implements **CPIC Level A/B** and **PharmGKB** clinical guidelines to calculate patient-specific drug toxicity risks, metabolic phenotypes, and dosing modifications:
+
+1. **`DPYD` (Fluoropyrimidines: 5-FU, Capecitabine)**:
+   - Detects loss-of-function alleles: `*2A` ($c.1905+1G>A$), `*13` ($p.I560S$), $c.2846A>T$ ($p.D949V$), and `HapB3`.
+   - Computes DPYD Activity Score ($0.0$ to $2.0$).
+   - Flags **Intermediate Metabolizers** for a mandatory **50% initial dose reduction** with therapeutic drug monitoring (TDM).
+   - Flags **Poor Metabolizers (Activity Score $\le 0.5$)** as **CONTRAINDICATED** due to lethal mucositis, pancytopenia, and septic shock risk.
+2. **`UGT1A1` (Irinotecan / FOLFIRI / FOLFIRINOX)**:
+   - Evaluates $(TA)_6$ vs $(TA)_7$ promoter repeats (`*28` allele, Gilbert syndrome variant).
+   - Recommends at least **25–30% Irinotecan dose reduction** in homozygous `*28/*28` poor metabolizers to prevent life-threatening Grade 4 neutropenia and severe diarrhea.
+3. **`CYP2D6` (Tamoxifen in ER+ Breast Cancer)**:
+   - Evaluates bioactivation of prodrug Tamoxifen to potent active anti-estrogen **Endoxifen**.
+   - Identifies poor metabolizers (`*4/*4`, `*4/*5`, `*5/*5`) with subtherapeutic endoxifen levels and recommends switching postmenopausal patients to **Aromatase Inhibitors (Anastrozole/Letrozole)**.
+
+---
+
+## 🎯 Synthetic Lethality & DepMap Dependency Engine (`src/synthetic_lethality.py`)
+
+Models CRISPR knockout essentiality scores from the **Broad Institute Cancer Dependency Map (DepMap Chronos / Project Score)** to uncover exploitable genetic vulnerabilities:
+
+- **`BRCA1/2 Deficiency` $\iff$ `PARP1` Dependency**: Homologous recombination deficiency (HRD+) causes hypersensitivity to PARP trapping (Chronos: $-1.24$, Vulnerability: $98.0\%$). Targeted by *Olaparib, Talazoparib*.
+- **`MSI-H / dMMR` $\iff$ `WRN` RecQ Helicase Dependency**: Microsatellite-unstable tumors require WRN to resolve non-B DNA secondary hairpins (Chronos: $-1.45$, Vulnerability: $95.0\%$). Targeted by *HRO761, RO7589831*.
+- **`MTAP Deletion (9p21)` $\iff$ `PRMT5 / MAT2A` Dependency**: MTA accumulation creates synthetic lethal vulnerability to PRMT5/MAT2A inhibition (Chronos: $-0.92$, Vulnerability: $88.0\%$). Targeted by *MRTX1719, AG-270*.
+- **`ARID1A Mutation` $\iff$ `EZH2` Dependency**: SWI/SNF loss confers dependency on PRC2/EZH2 histone methyltransferase (Chronos: $-0.85$, Vulnerability: $84.0\%$). Targeted by *Tazemetostat*.
+- **`KRAS G12C/D/V` $\iff$ `SHP2 / SOS1` Feedback Dependency**: Prevents RTK feedback reactivation during direct KRAS inhibition (Chronos: $-0.78$, Vulnerability: $82.0\%$). Targeted by *TNO155 + Sotorasib*.
+
+---
+
 ## 🩺 Early Cancer Detection & 100,000+ Patient Risk Engine (`src/cancer_risk_predictor.py`)
 
-The pipeline implements an advanced, clinically grounded statistical estimation engine for early cancer detection:
-
-1. **100,000+ Patient Population Cohort (`data/cancer_epidemiology_100k.db`)**:
-   - A fully indexed SQLite database holding 100,000 population-calibrated patient records modeled on **CDC WONDER**, **SEER Cancer Statistics Review**, and **NICE NG12** primary care data.
-   - High-speed bitwise masking indexes allow sub-millisecond query matching for combinations of symptoms, age brackets, smoking pack-years, and family history.
-
-2. **14 Clinical Alarm Symptoms ("Red Flags" - NICE NG12 & QCancer Guidelines)**:
-   - **Hemoptysis (`hemoptysis`)**: Coughing blood (OR $8.5$, PPV $5.5\%$, Lung Cancer primary driver).
-   - **Persistent Cough (`chronic_cough`)**: Cough $>3$ weeks / hoarseness (OR $3.2$, PPV $2.4\%$, Lung/Larynx).
-   - **Unexplained Weight Loss (`unexplained_weight_loss`)**: $>5-10\%$ loss in 6 months (OR $4.8$, PPV $3.8\%$, Pan-cancer red flag).
-   - **Rectal Bleeding (`rectal_bleeding`)**: Blood in stool / hematochezia (OR $7.5$, PPV $4.8\%$, Colorectal).
-   - **Bowel Habit Change (`bowel_habit_change`)**: Persistent alteration $>4-6$ weeks (OR $4.2$, PPV $3.2\%$, Colorectal).
-   - **Iron Deficiency Anemia (`iron_deficiency_anemia`)**: Microcytic anemia (OR $5.2$, PPV $6.2\%$, Colorectal & Gastric).
-   - **Palpable Breast Lump (`breast_lump`)**: Firm, painless mass (OR $12.0$, PPV $11.5\%$, Breast Cancer).
-   - **Nipple Abnormality (`nipple_abnormality`)**: Spontaneous discharge / inversion (OR $6.0$, PPV $4.5\%$, Breast).
-   - **Gross Hematuria (`hematuria`)**: Blood in urine (OR $7.2$, PPV $5.8\%$, Bladder / Renal / Prostate).
-   - **Urinary Hesitancy (`urinary_hesitancy`)**: Weak stream / nocturia (OR $2.8$, PPV $2.1\%$, Prostate).
-   - **Painless Jaundice (`jaundice`)**: Skin/scleral yellowing, dark urine (OR $18.5$, PPV $22.0\%$, Pancreatic Head).
-   - **Progressive Dysphagia (`dysphagia`)**: Difficulty swallowing solids/liquids (OR $8.4$, PPV $7.5\%$, Gastric / Esophageal).
-   - **Persistent Dyspepsia (`persistent_dyspepsia`)**: Epigastric pain, early satiety (OR $3.1$, PPV $2.5\%$, Gastric).
-   - **Suspicious Mole Changes (`skin_mole_changes`)**: ABCDE criteria alteration (OR $14.2$, PPV $12.5\%$, Cutaneous Melanoma).
-
-3. **NICE NG12 Urgent Suspected Cancer Pathway (2-Week-Wait / 2WW)**:
-   - Automatically evaluates if symptoms meet or exceed the **$\ge 3\%$ Positive Predictive Value (PPV)** threshold established by the UK National Institute for Health and Care Excellence (NICE).
-   - Triggers actionable referral guidance and prioritizes specialized diagnostic imaging (Low-dose CT, Colonoscopy, Mammography, Upper GI Endoscopy, etc.).
+- **100,000+ Patient Population Cohort (`data/cancer_epidemiology_100k.db`)**: Calibrated against **CDC WONDER**, **SEER Cancer Statistics Review**, and **WHO IARC**.
+- **14 Clinical Alarm Symptoms ("Red Flags" - NICE NG12 & QCancer)**: Hemoptysis, persistent cough, unexplained weight loss, rectal bleeding, change in bowel habits, iron deficiency anemia, palpable breast lump, nipple abnormality, gross hematuria, urinary hesitancy, painless jaundice, progressive dysphagia, persistent dyspepsia, and suspicious mole changes (ABCDE).
+- **NICE NG12 Urgent 2-Week-Wait (2WW) Referral Protocol**: Triggers immediate clinical pathways when symptoms exceed the clinical $\ge 3\%$ Positive Predictive Value (PPV) threshold.
 
 ---
 
 ## 🗄️ Unified Multi-Omics Relational Database (`src/database.py`)
 
-The pipeline features an embedded, zero-configuration relational knowledgebase (`SQLite 3`) stored in `data/bio_knowledgebase.db` with 8 normalized tables:
-- **`genes`**: Target oncogenes & tumor suppressors (*EGFR, KRAS, BRAF, TP53, HBB, BRCA1, BRCA2, MET, ALK, PIK3CA*).
-- **`variants`**: ClinVar & dbSNP clinical records, HGVS cDNA/protein notation, chromosomal loci, allele frequencies, and clinical pathogenicity.
-- **`structures`**: Macromolecular crystallography coordinates (PDB IDs) & AlphaFold predictive models with mean pLDDT confidence scores.
-- **`compounds`**: Targeted therapies & small molecules (*Osimertinib, Sotorasib, Dabrafenib, Trametinib, Voxelotor, Metformin*), Lipinski Ro5 compliance, and QED scores.
-- **`oncology_hotspots`**: Actionable cancer mutations across NSCLC, CRC, Melanoma, and PDAC, linked to targeted regimens.
-- **`pathways`**: Reactome cellular events and signal cascades (RTK, MAPK, p53 checkpoints, oxygen transport).
-- **`drug_synergy`**: Clinically validated dual-agent regimens, Loewe Combination Index ($\text{CI}$), and Bliss excess scores.
-- **`literature_trials`**: Landmark Phase 2/3 oncology and hematology studies published in *The New England Journal of Medicine (NEJM)*.
+An embedded, zero-configuration relational knowledgebase (`SQLite 3`) in `data/bio_knowledgebase.db` with **10 normalized tables**:
+1. `genes` (10 target oncogenes & tumor suppressors)
+2. `variants` (28 ClinVar & dbSNP pathogenic variants)
+3. `structures` (7 crystallographic PDB coordinates & AlphaFold models)
+4. `compounds` (11 targeted therapeutic small molecules)
+5. `oncology_hotspots` (16 actionable driver mutations)
+6. `pathways` (7 Reactome cellular signaling cascades)
+7. `drug_synergy` (8 validated dual-agent combination regimens)
+8. `literature_trials` (10 landmark NEJM Phase 2/3 clinical studies)
+9. `pharmacogenomics_guidelines` (6 CPIC Level A dosing guidelines)
+10. `synthetic_lethal_pairs` (6 DepMap validated genetic dependencies)
 
 ---
 
-## 🌟 12 Integrated Multi-Omics Modules
+## 🌟 14 Integrated Multi-Omics Modules
 
-1. **🩺 Early Cancer Detection & 100k Risk Engine (`src/cancer_risk_predictor.py`)**: Population cohort matching, NICE 2WW criteria, and multi-organ Bayesian log-odds prediction.
-2. **🗄️ Relational Bio-Knowledgebase (`src/database.py`)**: SQLite 3 engine for relational data queries and JSON exports.
-3. **🔬 3D Structural Biology (`src/structural_biology.py`)**: Macromolecular coordinate analysis, catalytic histidines, and heme pockets (`4HHB`).
-4. **🧬 Needleman-Wunsch Sequence Alignment (`src/sequence_aligner.py`)**: Dynamic programming with BLOSUM62 matrix for global amino acid alignments.
-5. **💊 In Silico Drug Screening & Lipinski Scoring (`src/docking_scorer.py`)**: Lipinski Rule of 5, Veber criteria, QED proxy, and binding free energy estimation ($\Delta G$).
-6. **💥 Combination Therapy & Drug Synergy Predictor (`src/synergy_predictor.py`)**: Loewe Combination Index (CI) and Bliss Independence models.
-7. **🛡️ Immunotherapy Biomarker & TMB Response Predictor (`src/immunotherapy_response.py`)**: TMB ($\ge 10\ \text{mut/Mb}$), MSI-H/dMMR, and PD-L1 TPS evaluation.
-8. **📐 AlphaFold Structural Quality & Disorder (`src/alphafold_quality.py`)**: Per-residue pLDDT confidence bands and Intrinsically Disordered Regions (IDRs).
-9. **🕸️ Protein-Protein Interaction (PPI) Interactome (`src/interaction_network.py`)**: STRING-calibrated network topology, centrality hubs, and bottleneck proteins.
-10. **🎯 Pan-Cancer Precision Oncology (`src/oncology_profiler.py`)**: Clinically actionable hotspot catalogs for *EGFR, KRAS, BRAF, TP53*.
-11. **⚡ Dynamic Live Scientific API Search (`src/live_fetcher.py`)**: Real-time REST integrations for RCSB PDB, PubChem, and PubMed with smart caching.
-12. **📑 Publication Report Generator (`src/report_generator.py`)**: Standalone publication-ready HTML reports with embedded charts and metrics.
+1. **💊 Pharmacogenomics (PGx) Safety Engine (`src/pharmacogenomics.py`)**: CPIC Level A dosing rules for DPYD, UGT1A1, and CYP2D6.
+2. **🎯 Synthetic Lethality & DepMap Engine (`src/synthetic_lethality.py`)**: CRISPR Chronos essentiality and synthetic lethal drug matching.
+3. **🩺 Early Cancer Detection & 100k Risk Engine (`src/cancer_risk_predictor.py`)**: Population cohort matching and NICE 2WW criteria.
+4. **🗄️ Relational Bio-Knowledgebase (`src/database.py`)**: SQLite 3 engine with 10 multi-omics tables and JSON exports.
+5. **🔬 3D Structural Biology (`src/structural_biology.py`)**: Macromolecular coordinate analysis, catalytic histidines, and heme pockets (`4HHB`).
+6. **🧬 Needleman-Wunsch Sequence Alignment (`src/sequence_aligner.py`)**: Dynamic programming with BLOSUM62 matrix for global amino acid alignments.
+7. **💊 In Silico Drug Screening & Lipinski Scoring (`src/docking_scorer.py`)**: Lipinski Rule of 5, Veber criteria, QED proxy, and binding free energy estimation ($\Delta G$).
+8. **💥 Combination Therapy & Drug Synergy Predictor (`src/synergy_predictor.py`)**: Loewe Combination Index (CI) and Bliss Independence models.
+9. **🛡️ Immunotherapy Biomarker & TMB Response Predictor (`src/immunotherapy_response.py`)**: TMB ($\ge 10\ \text{mut/Mb}$), MSI-H/dMMR, and PD-L1 TPS evaluation.
+10. **📐 AlphaFold Structural Quality & Disorder (`src/alphafold_quality.py`)**: Per-residue pLDDT confidence bands and Intrinsically Disordered Regions (IDRs).
+11. **🕸️ Protein-Protein Interaction (PPI) Interactome (`src/interaction_network.py`)**: STRING-calibrated network topology, centrality hubs, and bottleneck proteins.
+12. **🎯 Pan-Cancer Precision Oncology (`src/oncology_profiler.py`)**: Clinically actionable hotspot catalogs for *EGFR, KRAS, BRAF, TP53*.
+13. **⚡ Dynamic Live Scientific API Search (`src/live_fetcher.py`)**: Real-time REST integrations for RCSB PDB, PubChem, and PubMed with smart caching.
+14. **📑 Publication Report Generator (`src/report_generator.py`)**: Standalone publication-ready HTML reports with embedded charts and metrics.
 
 ---
 
@@ -121,34 +139,33 @@ cd computational-biology-pipeline
 pip install -r requirements.txt
 ```
 
-### 2. Early Cancer Detection CLI Usage
+### 2. Precision Medicine & Pharmacogenomics CLI Usage
 
 ```bash
-# 1. Evaluate early cancer risk for a 62 y/o male smoker with hemoptysis and weight loss:
+# 1. Screen DPYD diplotype for 5-FU / Capecitabine toxicity risk:
+python src/main.py --dpyd_alleles *1 *2A
+
+# 2. Screen UGT1A1 and CYP2D6 diplotypes:
+python src/main.py --ugt1a1 "*28/*28" --cyp2d6 "*4/*4"
+
+# 3. Query synthetic lethal dependency for BRCA1 or MSI-H:
+python src/main.py --synthetic_lethal BRCA1
+
+# 4. Evaluate early cancer risk with 100k cohort matching:
 python src/main.py --predict_cancer --patient_age 62 --patient_gender M --patient_symptoms "hemoptysis,chronic_cough,weight_loss" --smoking_pack_years 30.0 --family_history
 
-# 2. Evaluate breast cancer risk for a 52 y/o female with palpable breast lump:
-python src/main.py --predict_cancer --patient_age 52 --patient_gender F --patient_symptoms "breast_lump,nipple_abnormality"
-
-# 3. Evaluate colorectal cancer risk with rectal bleeding and iron-deficiency anemia:
-python src/main.py --predict_cancer --patient_age 58 --patient_gender M --patient_symptoms "rectal_bleeding,iron_deficiency_anemia"
-
-# 4. Generate or re-seed the 100,000-patient epidemiological cohort:
-python src/main.py --build_cohort 100000
-```
-
-### 3. Comprehensive Pipeline Run
-```bash
+# 5. Full Pipeline Run with Pan-Cancer, Drug Synergy, TMB, and HTML report:
 python src/main.py --pan_cancer EGFR --synergy Dabrafenib Trametinib --tmb 16.2 --msi MSI-H --db_query EGFR --generate_report
 ```
 
-### 4. Interactive Web Dashboard & 100k Risk Simulator
+### 3. Interactive Web Dashboard
 ```bash
 python -m http.server 8000
 ```
 Open **[http://localhost:8000/dashboard/index.html](http://localhost:8000/dashboard/index.html)** in your browser:
-- **🩺 Erken Teşhis (100k)**: Real-time risk gauge, 14 interactive NICE alarm symptom pills, 100,000-patient cohort matching card, organ-specific progress bars, and evidence-based clinical investigation recommendations.
-- **🗄️ Veri Tabanı (Database Explorer)**: Search, category filtering, and JSON export over the 8 SQLite relational tables.
+- **💊 PGx & Sentetik Letalite**: Interactive DPYD, UGT1A1, and CYP2D6 diplotype toxicity evaluator, CPIC dosing calculator, and DepMap Chronos synthetic lethality visualizer.
+- **🩺 Erken Teşhis (100k)**: Real-time risk gauge, 14 interactive NICE alarm symptom pills, 100,000-patient cohort matching card, and organ-specific progress bars.
+- **🗄️ Veri Tabanı (Database Explorer)**: Instant search, category filtering, and JSON export over the 10 SQLite relational tables.
 - **🧬 3B Molekül Görselleştirici**: Interactive 3Dmol.js WebGL crystallographic rendering.
 - **🛡️ İmmünoterapi Simülatörü**: Interactive TMB, MSI, and PD-L1 response prediction sliders.
 
@@ -156,7 +173,7 @@ Open **[http://localhost:8000/dashboard/index.html](http://localhost:8000/dashbo
 
 ## 🧪 Automated Testing
 
-Covering all 20 unit tests across epidemiology cohort generation, NICE guidelines, multi-organ Bayesian risk models, SQLite queries, structural biology, and sequence alignments:
+Covering all 25 unit tests across pharmacogenomics CPIC rules, synthetic lethality DepMap scores, epidemiology cohort generation, NICE guidelines, multi-organ Bayesian risk models, SQLite queries, structural biology, and sequence alignments:
 ```bash
 python -m unittest tests/test_pipeline.py
 # or
@@ -164,9 +181,9 @@ pytest tests/
 ```
 Output:
 ```
-....................
+.........................
 ----------------------------------------------------------------------
-Ran 20 tests in 0.715s
+Ran 25 tests in 0.787s
 
 OK
 ```

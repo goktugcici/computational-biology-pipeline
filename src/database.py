@@ -171,6 +171,34 @@ class BioKnowledgebase:
             );
             """)
 
+            # 9. Pharmacogenomics Guidelines Table
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS pharmacogenomics_guidelines (
+                pgx_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                gene_symbol TEXT NOT NULL,
+                drug_name TEXT NOT NULL,
+                diplotype_example TEXT NOT NULL,
+                phenotype TEXT NOT NULL,
+                toxicity_risk TEXT NOT NULL,
+                dosing_recommendation TEXT NOT NULL,
+                guideline_source TEXT NOT NULL
+            );
+            """)
+
+            # 10. Synthetic Lethal Pairs Table
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS synthetic_lethal_pairs (
+                sl_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                biomarker_gene TEXT NOT NULL,
+                biomarker_state TEXT NOT NULL,
+                synthetic_lethal_target TEXT NOT NULL,
+                depmap_chronos REAL NOT NULL,
+                vulnerability_score REAL NOT NULL,
+                approved_therapy TEXT NOT NULL,
+                clinical_status TEXT NOT NULL
+            );
+            """)
+
             conn.commit()
 
         # Seed data if empty
@@ -181,9 +209,11 @@ class BioKnowledgebase:
         with self._get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT COUNT(*) FROM genes;")
-            count = cursor.fetchone()[0]
-            if count > 0:
-                return # Already seeded
+            g_count = cursor.fetchone()[0]
+            cursor.execute("SELECT COUNT(*) FROM pharmacogenomics_guidelines;")
+            p_count = cursor.fetchone()[0]
+            if g_count > 0 and p_count > 0:
+                return # Already fully seeded
 
         self.seed_comprehensive_data()
 
@@ -322,6 +352,34 @@ class BioKnowledgebase:
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?);
             """, trials_data)
 
+            # 9. Pharmacogenomics (PGx) Guidelines
+            pgx_data = [
+                ("DPYD", "Fluorouracil (5-FU) / Capecitabine", "*1/*2A (c.1905+1G>A)", "Intermediate Metabolizer (AS: 1.0)", "Moderate/High Toxicity", "%50 Başlangıç Dozu Azaltımı Önerilir. TDM takibi yapınız.", "CPIC Level A / PharmGKB"),
+                ("DPYD", "Fluorouracil (5-FU) / Capecitabine", "*2A/*2A (c.1905+1G>A)", "Poor Metabolizer (AS: 0.0)", "Fatal / Lethal Toxicity Risk", "KONTRENDİKE! 5-FU ve Kapesitabin kullanımından tamamen kaçınınız.", "CPIC Level A / PharmGKB"),
+                ("UGT1A1", "Irinotecan (Camptosar)", "*28/*28 ((TA)7 repeat)", "Poor Metabolizer", "Severe Grade 4 Neutropenia / Diarrhea", "İrinotekan başlangıç dozunda %25-30 azaltım önerilir.", "CPIC Level A / FDA"),
+                ("UGT1A1", "Irinotecan (Camptosar)", "*1/*28 ((TA)6/(TA)7)", "Intermediate Metabolizer", "Moderate Toxicity Risk", "Standart başlangıç dozu uygulanabilir; haftalık tam kan sayımı izlenmelidir.", "CPIC Level A"),
+                ("CYP2D6", "Tamoxifen (Nolvadex)", "*4/*4 (Splice Defect)", "Poor Metabolizer", "Therapeutic Resistance / Subtherapeutic Endoxifen", "Tamoksifen aktif metabolit üretemez. Postmenopozal kadınlarda Aromataz İnhibitörüne geçiniz.", "CPIC Level A"),
+                ("TPMT", "6-Mercaptopurine / Azathioprine", "*1/*3A (c.460G>A, c.719A>G)", "Intermediate Metabolizer", "High Myelosuppression", "%30-50 doz azaltımı ve haftalık lökosit takibi önerilir.", "CPIC Level A")
+            ]
+            cursor.executemany("""
+                INSERT OR REPLACE INTO pharmacogenomics_guidelines (gene_symbol, drug_name, diplotype_example, phenotype, toxicity_risk, dosing_recommendation, guideline_source)
+                VALUES (?, ?, ?, ?, ?, ?, ?);
+            """, pgx_data)
+
+            # 10. Synthetic Lethal Pairs (DepMap Dependency)
+            sl_data = [
+                ("BRCA1", "HRD+ / Inactivating Mutation", "PARP1", -1.24, 98.0, "Olaparib / Talazoparib", "FDA Onaylı"),
+                ("BRCA2", "HRD+ / Truncating Mutation", "PARP1", -1.18, 96.0, "Olaparib / Rucaparib", "FDA Onaylı"),
+                ("MLH1 / MSH2", "dMMR / MSI-High", "WRN", -1.45, 95.0, "HRO761 / RO7589831", "Faz 1/2 Klinik"),
+                ("MTAP", "Homozygous 9p21 Deletion", "PRMT5 / MAT2A", -0.92, 88.0, "MRTX1719 / AG-270", "Faz 1/2 Klinik"),
+                ("ARID1A", "Truncating SWI/SNF Loss", "EZH2", -0.85, 84.0, "Tazemetostat (Tazverik)", "FDA Onaylı"),
+                ("KRAS", "G12C / G12D / G12V Mutation", "SHP2 / SOS1", -0.78, 82.0, "TNO155 + Sotorasib / BI-1701963", "Faz 1/2 Klinik")
+            ]
+            cursor.executemany("""
+                INSERT OR REPLACE INTO synthetic_lethal_pairs (biomarker_gene, biomarker_state, synthetic_lethal_target, depmap_chronos, vulnerability_score, approved_therapy, clinical_status)
+                VALUES (?, ?, ?, ?, ?, ?, ?);
+            """, sl_data)
+
             conn.commit()
 
     # Query APIs
@@ -422,13 +480,31 @@ class BioKnowledgebase:
                 cursor.execute("SELECT * FROM literature_trials ORDER BY publication_year DESC;")
             return [dict(row) for row in cursor.fetchall()]
 
+    def query_pgx(self, gene: Optional[str] = None) -> List[Dict[str, Any]]:
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if gene:
+                cursor.execute("SELECT * FROM pharmacogenomics_guidelines WHERE gene_symbol = ?;", (gene.upper(),))
+            else:
+                cursor.execute("SELECT * FROM pharmacogenomics_guidelines ORDER BY gene_symbol ASC;")
+            return [dict(row) for row in cursor.fetchall()]
+
+    def query_synthetic_lethality(self, biomarker: Optional[str] = None) -> List[Dict[str, Any]]:
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if biomarker:
+                cursor.execute("SELECT * FROM synthetic_lethal_pairs WHERE biomarker_gene LIKE ? OR synthetic_lethal_target LIKE ?;", (f"%{biomarker.upper()}%", f"%{biomarker.upper()}%"))
+            else:
+                cursor.execute("SELECT * FROM synthetic_lethal_pairs ORDER BY vulnerability_score DESC;")
+            return [dict(row) for row in cursor.fetchall()]
+
     def get_database_stats(self) -> Dict[str, Any]:
         """Calculates global statistical summaries across the entire knowledgebase."""
         with self._get_connection() as conn:
             cursor = conn.cursor()
 
             stats = {}
-            for table in ['genes', 'variants', 'structures', 'compounds', 'oncology_hotspots', 'pathways', 'drug_synergy', 'literature_trials']:
+            for table in ['genes', 'variants', 'structures', 'compounds', 'oncology_hotspots', 'pathways', 'drug_synergy', 'literature_trials', 'pharmacogenomics_guidelines', 'synthetic_lethal_pairs']:
                 cursor.execute(f"SELECT COUNT(*) FROM {table};")
                 stats[f"{table}_count"] = cursor.fetchone()[0]
 
@@ -490,7 +566,9 @@ class BioKnowledgebase:
             'oncology_hotspots': self.query_hotspots(),
             'pathways': self.query_pathways(),
             'drug_synergy': self.query_synergies(),
-            'literature_trials': self.query_literature()
+            'literature_trials': self.query_literature(),
+            'pharmacogenomics_guidelines': self.query_pgx(),
+            'synthetic_lethal_pairs': self.query_synthetic_lethality()
         }
 
         os.makedirs(os.path.dirname(target_file), exist_ok=True)

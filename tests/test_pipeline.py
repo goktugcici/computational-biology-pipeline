@@ -242,5 +242,53 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         )
         self.assertIn("Meme", br_res['organ_probabilities'][0]['cancer_name'])
 
+    def test_pharmacogenomics_dpyd_toxicity(self):
+        from pharmacogenomics import PharmacogenomicsEngine
+        im_res = PharmacogenomicsEngine.evaluate_dpyd('*1', '*2A')
+        self.assertEqual(im_res['activity_score'], 1.0)
+        self.assertEqual(im_res['phenotype_code'], 'IM')
+        self.assertIn("50", im_res['clinical_action'])
+
+        pm_res = PharmacogenomicsEngine.evaluate_dpyd('*2A', '*2A')
+        self.assertEqual(pm_res['activity_score'], 0.0)
+        self.assertEqual(pm_res['phenotype_code'], 'PM')
+        self.assertEqual(pm_res['action_code'], 'CONTRAINDICATED')
+
+    def test_pharmacogenomics_ugt1a1_and_cyp2d6(self):
+        from pharmacogenomics import PharmacogenomicsEngine
+        ugt_res = PharmacogenomicsEngine.evaluate_ugt1a1('*28/*28')
+        self.assertEqual(ugt_res['phenotype_code'], 'PM')
+        self.assertIn("azalt", ugt_res['clinical_action'])
+
+        cyp_res = PharmacogenomicsEngine.evaluate_cyp2d6_tamoxifen('*4/*4')
+        self.assertEqual(cyp_res['phenotype_code'], 'PM')
+        self.assertIn("Aromataz", cyp_res['clinical_action'])
+
+    def test_synthetic_lethality_brca_parp(self):
+        from synthetic_lethality import SyntheticLethalityEngine
+        sl_res = SyntheticLethalityEngine.query_vulnerabilities('BRCA1')
+        self.assertEqual(sl_res['status'], 'synthetic_lethal_identified')
+        self.assertEqual(sl_res['synthetic_lethal_target'], 'PARP1')
+        self.assertLess(sl_res['depmap_chronos_score'], -1.0)
+        self.assertGreaterEqual(sl_res['vulnerability_score'], 90.0)
+        self.assertIn("Olaparib", sl_res['clinical_therapies'][0]['drug'])
+
+    def test_synthetic_lethality_msi_wrn(self):
+        from synthetic_lethality import SyntheticLethalityEngine
+        wrn_res = SyntheticLethalityEngine.query_vulnerabilities('MSI-H')
+        self.assertEqual(wrn_res['status'], 'synthetic_lethal_identified')
+        self.assertEqual(wrn_res['synthetic_lethal_target'], 'WRN')
+        self.assertLess(wrn_res['depmap_chronos_score'], -1.2)
+
+    def test_database_pgx_and_synthetic_lethality(self):
+        kb = BioKnowledgebase(self.db_path)
+        dpyd_guidelines = kb.query_pgx("DPYD")
+        self.assertGreaterEqual(len(dpyd_guidelines), 1)
+        self.assertIn("Fluorouracil", dpyd_guidelines[0]['drug_name'])
+
+        sl_pairs = kb.query_synthetic_lethality("BRCA1")
+        self.assertGreaterEqual(len(sl_pairs), 1)
+        self.assertEqual(sl_pairs[0]['synthetic_lethal_target'], 'PARP1')
+
 if __name__ == "__main__":
     unittest.main()

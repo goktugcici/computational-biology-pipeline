@@ -48,9 +48,9 @@
         <div>
           <h1 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
             Computational Biology Pipeline
-            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v3.2 Early Detection Edition</span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">v3.3 Precision Medicine Edition</span>
           </h1>
-          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, 100k Erken Kanser Teşhisi & İlişkisel Veri Tabanı</p>
+          <p class="text-xs text-slate-400">Çok Katmanlı Biyoinformatik, PGx Toksisite, Sentetik Letalite & 100k Erken Kanser Teşhisi</p>
         </div>
       </div>
 
@@ -64,6 +64,9 @@
         </button>
         <button onclick="switchTab('database')" id="tabBtn-database" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🗄️ Veri Tabanı
+        </button>
+        <button onclick="switchTab('pgx')" id="tabBtn-pgx" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all font-semibold flex items-center gap-1">
+          💊 PGx & Sentetik Letalite
         </button>
         <button onclick="switchTab('oncology')" id="tabBtn-oncology" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🎯 Pan-Kanser
@@ -451,6 +454,168 @@
             </h3>
             <div id="crpOrganList" class="space-y-2.5 text-xs">
               <!-- JavaScript ile doldurulur -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB: FARMAKOGENOMİK (PGx) & SENTETİK LETALİTE -->
+    <!-- ========================================== -->
+    <section id="tab-pgx" class="tab-content hidden space-y-6">
+      <!-- Header Banner -->
+      <div class="bg-gradient-to-r from-amber-950/40 via-slate-900 to-emerald-950/40 border border-amber-900/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+        <div class="relative z-10 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] font-bold">CPIC Level A / PharmGKB</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-[11px] font-bold">Broad DepMap Chronos</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">Kişiselleştirilmiş Dozaj</span>
+            </div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              💊 Farmakogenomik (PGx) Güvenliği & DepMap Sentetik Letalite
+            </h2>
+            <p class="text-xs text-slate-400 mt-1 max-w-3xl">
+              Kemoterapötik toksisite risklerini (DPYD, UGT1A1, CYP2D6) önlemek için <strong>CPIC kılavuzlarına göre</strong> doz ayarlaması hesaplar 
+              ve kanser hücrelerindeki genetik kusurları hedef alan <strong>CRISPR DepMap sentetik letal zaafları</strong> analiz eder.
+            </p>
+          </div>
+          <div class="flex items-center gap-3 bg-slate-950/80 p-3 rounded-2xl border border-slate-800 text-xs">
+            <div class="text-center px-3 border-r border-slate-800">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">PGx Kılavuz</div>
+              <div class="text-lg font-bold font-mono text-amber-400">CPIC Seviye A</div>
+            </div>
+            <div class="text-center px-3 border-r border-slate-800">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">Hedef Toksisite</div>
+              <div class="text-lg font-bold font-mono text-rose-400">Ölümcül Toksisite Önleme</div>
+            </div>
+            <div class="text-center px-3">
+              <div class="text-[10px] text-slate-500 uppercase font-bold">DepMap Zafiyet</div>
+              <div class="text-lg font-bold font-mono text-emerald-400">%98'e varan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- SOL PANEL: PGx TOKSİSİTE HESAPLAYICI (6 Kolon) -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2">
+              🧪 Kemoterapi Farmakogenomik (PGx) Paneli
+            </h3>
+            
+            <!-- Gen Seçimi Butonları -->
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="selectPgxGene('DPYD')" id="pgxGeneBtn-DPYD" class="pgx-gene-btn p-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs transition-all shadow">
+                DPYD (5-FU)
+              </button>
+              <button onclick="selectPgxGene('UGT1A1')" id="pgxGeneBtn-UGT1A1" class="pgx-gene-btn p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 text-xs hover:bg-slate-800 transition-all">
+                UGT1A1 (İrinotekan)
+              </button>
+              <button onclick="selectPgxGene('CYP2D6')" id="pgxGeneBtn-CYP2D6" class="pgx-gene-btn p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 text-xs hover:bg-slate-800 transition-all">
+                CYP2D6 (Tamoksifen)
+              </button>
+            </div>
+
+            <!-- Diplotip Seçici -->
+            <div class="space-y-1.5">
+              <label class="text-xs text-slate-300 font-medium">Hasta Diplotip / Allel Kombinasyonu:</label>
+              <select id="pgxDiplotypeSelect" onchange="updatePgxEvaluation()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 font-mono">
+                <!-- JavaScript ile doldurulur -->
+              </select>
+            </div>
+
+            <!-- Sonuç Kartı -->
+            <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] text-slate-500 uppercase font-bold">Tahmini Fenotip</span>
+                  <p id="pgxPhenotype" class="text-sm font-bold text-white mt-0.5">Intermediate Metabolizer</p>
+                </div>
+                <span id="pgxRiskBadge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                  Yüksek Toksisite Riski
+                </span>
+              </div>
+
+              <div class="space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase font-bold">CPIC Seviye A Dozaj Önerisi</span>
+                <p id="pgxDoseGuideline" class="text-xs text-amber-300 font-semibold bg-amber-950/30 p-2.5 rounded-xl border border-amber-900/40">
+                  %50 Başlangıç Dozu Azaltımı Önerilir. Terapötik ilaç izlemi (TDM) yapınız.
+                </p>
+              </div>
+
+              <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800/80 space-y-1">
+                <div><strong class="text-slate-300">Etkilenen İlaçlar:</strong> <span id="pgxDrugs" class="text-slate-200">Fluorouracil (5-FU), Capecitabine (Xeloda)</span></div>
+                <div><strong class="text-slate-300">Biyolojik Yolak:</strong> <span id="pgxPathway" class="text-slate-400">Floropirimidinlerin hepatik katabolizması (Dozun >%80'i DPYD ile inaktive edilir).</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SAĞ PANEL: SENTETİK LETALİTE & DEPMAP BAĞIMLILIKLARI (6 Kolon) -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+              🎯 DepMap CRISPR Sentetik Letalite & Hedef Zaaflar
+            </h3>
+
+            <!-- Biyobelirteç Seçimi -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              <button onclick="selectSlBiomarker('BRCA1')" id="slBtn-BRCA1" class="sl-btn p-2 rounded-xl bg-emerald-500 text-slate-950 font-bold transition-all shadow">
+                BRCA1 (HRD+)
+              </button>
+              <button onclick="selectSlBiomarker('MSI-H')" id="slBtn-MSI-H" class="sl-btn p-2 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:bg-slate-800 transition-all">
+                MSI-H (dMMR)
+              </button>
+              <button onclick="selectSlBiomarker('MTAP')" id="slBtn-MTAP" class="sl-btn p-2 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:bg-slate-800 transition-all">
+                MTAP Del (9p21)
+              </button>
+              <button onclick="selectSlBiomarker('KRAS')" id="slBtn-KRAS" class="sl-btn p-2 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 hover:bg-slate-800 transition-all">
+                KRAS (G12C/D)
+              </button>
+            </div>
+
+            <!-- Zafiyet Detay Kartı -->
+            <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] text-slate-500 uppercase font-bold">Sentetik Letal Hedef</span>
+                  <p id="slTargetTitle" class="text-sm font-bold text-white mt-0.5">PARP1 (Poly(ADP-Ribose) Polymerase 1)</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-slate-500 uppercase font-bold">DepMap Chronos</span>
+                  <p id="slChronosScore" class="text-sm font-bold font-mono text-emerald-400 mt-0.5">-1.24</p>
+                </div>
+              </div>
+
+              <!-- İlerleme Çubuğu -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-[11px]">
+                  <span class="text-slate-400">Tümör Bağımlılık / Zafiyet Skoru:</span>
+                  <span id="slVulnPercent" class="font-bold text-emerald-400 font-mono">%98.0</span>
+                </div>
+                <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                  <div id="slProgressBar" class="h-full bg-emerald-500 rounded-full transition-all duration-500" style="width: 98%;"></div>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1 text-xs">
+                <span class="text-[10px] text-slate-500 uppercase font-bold">Etki Mekanizması:</span>
+                <p id="slRationale" class="text-slate-300 text-[11px] leading-relaxed">
+                  Homolog rekombinasyon (HR) defekti olan hücreler, DNA onarımında PARP aracılı tek zincir tamirine bağımlı kalır. PARP inhibisyonu tümörü seçici olarak yok eder.
+                </p>
+              </div>
+
+              <!-- Hedefe Yönelik Tedaviler -->
+              <div class="space-y-1.5 pt-1">
+                <span class="text-[10px] text-slate-500 uppercase font-bold">Klinik Hedefe Yönelik İlaçlar:</span>
+                <div id="slTherapiesList" class="space-y-1 text-xs">
+                  <!-- JavaScript ile doldurulur -->
+                </div>
+              </div>
             </div>
           </div>
         </div>

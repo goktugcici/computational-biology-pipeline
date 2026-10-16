@@ -4,16 +4,18 @@
     "database_file": "data/bio_knowledgebase.db",
     "stats": {
       "genes_count": 10,
-      "variants_count": 14,
+      "variants_count": 28,
       "structures_count": 7,
       "compounds_count": 11,
-      "oncology_hotspots_count": 8,
+      "oncology_hotspots_count": 16,
       "pathways_count": 7,
-      "drug_synergy_count": 4,
-      "literature_trials_count": 5,
+      "drug_synergy_count": 8,
+      "literature_trials_count": 10,
+      "pharmacogenomics_guidelines_count": 6,
+      "synthetic_lethal_pairs_count": 6,
       "variants_by_significance": {
-        "Benign": 1,
-        "Pathogenic": 13
+        "Benign": 2,
+        "Pathogenic": 26
       },
       "avg_structure_resolution_angstrom": 2.13,
       "avg_alphafold_plddt": 93.4,
@@ -140,7 +142,37 @@
       "review_status": "criteria provided, multiple submitters"
     },
     {
+      "variant_id": 18,
+      "gene_symbol": "HBB",
+      "rs_id": "rs35004220",
+      "hgvs_c": "c.92+1G>A",
+      "hgvs_p": "Splice Donor",
+      "chromosome": "11",
+      "position": 5226929,
+      "ref_allele": "G",
+      "alt_allele": "A",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Beta-Thalassemia Major",
+      "clinvar_id": "15340",
+      "review_status": "criteria provided, multiple submitters"
+    },
+    {
       "variant_id": 3,
+      "gene_symbol": "HBB",
+      "rs_id": "rs33950507",
+      "hgvs_c": "c.19G>A",
+      "hgvs_p": "p.Glu7Lys",
+      "chromosome": "11",
+      "position": 5227001,
+      "ref_allele": "G",
+      "alt_allele": "A",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Hemoglobin C Disease",
+      "clinvar_id": "15335",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "variant_id": 17,
       "gene_symbol": "HBB",
       "rs_id": "rs33950507",
       "hgvs_c": "c.19G>A",
@@ -185,7 +217,52 @@
       "review_status": "criteria provided, single submitter"
     },
     {
+      "variant_id": 15,
+      "gene_symbol": "HBB",
+      "rs_id": "rs334",
+      "hgvs_c": "c.20A>T",
+      "hgvs_p": "p.Glu7Val",
+      "chromosome": "11",
+      "position": 5227002,
+      "ref_allele": "A",
+      "alt_allele": "T",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Sickle Cell Anemia / HbS",
+      "clinvar_id": "15333",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
+      "variant_id": 16,
+      "gene_symbol": "HBB",
+      "rs_id": "rs33930165",
+      "hgvs_c": "c.20A>G",
+      "hgvs_p": "p.Glu7Gly",
+      "chromosome": "11",
+      "position": 5227002,
+      "ref_allele": "A",
+      "alt_allele": "G",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Hemoglobin G-Makassar",
+      "clinvar_id": "15334",
+      "review_status": "criteria provided, single submitter"
+    },
+    {
       "variant_id": 11,
+      "gene_symbol": "TP53",
+      "rs_id": "rs11540652",
+      "hgvs_c": "c.743G>A",
+      "hgvs_p": "p.Arg248Gln",
+      "chromosome": "17",
+      "position": 7674220,
+      "ref_allele": "G",
+      "alt_allele": "A",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Li-Fraumeni Syndrome",
+      "clinvar_id": "12375",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "variant_id": 25,
       "gene_symbol": "TP53",
       "rs_id": "rs11540652",
       "hgvs_c": "c.743G>A",
@@ -215,7 +292,37 @@
       "review_status": "reviewed by expert panel"
     },
     {
+      "variant_id": 24,
+      "gene_symbol": "TP53",
+      "rs_id": "rs28934578",
+      "hgvs_c": "c.524G>A",
+      "hgvs_p": "p.Arg175His",
+      "chromosome": "17",
+      "position": 7675088,
+      "ref_allele": "G",
+      "alt_allele": "A",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Li-Fraumeni Syndrome / Diverse Carcinomas",
+      "clinvar_id": "12374",
+      "review_status": "reviewed by expert panel"
+    },
+    {
       "variant_id": 8,
+      "gene_symbol": "KRAS",
+      "rs_id": "rs121913530",
+      "hgvs_c": "c.35G>A",
+      "hgvs_p": "p.Gly12Asp",
+      "chromosome": "12",
+      "position": 25245347,
+      "ref_allele": "G",
+      "alt_allele": "A",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Pancreatic Ductal Adenocarcinoma",
+      "clinvar_id": "12583",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "variant_id": 22,
       "gene_symbol": "KRAS",
       "rs_id": "rs121913530",
       "hgvs_c": "c.35G>A",
@@ -245,7 +352,37 @@
       "review_status": "reviewed by expert panel"
     },
     {
+      "variant_id": 21,
+      "gene_symbol": "KRAS",
+      "rs_id": "rs121913529",
+      "hgvs_c": "c.34G>T",
+      "hgvs_p": "p.Gly12Cys",
+      "chromosome": "12",
+      "position": 25245350,
+      "ref_allele": "G",
+      "alt_allele": "T",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Lung & Colorectal Carcinoma",
+      "clinvar_id": "12582",
+      "review_status": "reviewed by expert panel"
+    },
+    {
       "variant_id": 14,
+      "gene_symbol": "BRCA2",
+      "rs_id": "rs28897700",
+      "hgvs_c": "c.198A>G",
+      "hgvs_p": "p.Lys66Lys",
+      "chromosome": "13",
+      "position": 32316499,
+      "ref_allele": "A",
+      "alt_allele": "G",
+      "clinical_significance": "Benign",
+      "disease_name": "Synonymous Control Variant",
+      "clinvar_id": "51234",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "variant_id": 28,
       "gene_symbol": "BRCA2",
       "rs_id": "rs28897700",
       "hgvs_c": "c.198A>G",
@@ -275,7 +412,37 @@
       "review_status": "reviewed by expert panel"
     },
     {
+      "variant_id": 27,
+      "gene_symbol": "BRCA2",
+      "rs_id": "rs80359550",
+      "hgvs_c": "c.5946delT",
+      "hgvs_p": "p.Ser1982fs",
+      "chromosome": "13",
+      "position": 32340300,
+      "ref_allele": "T",
+      "alt_allele": "-",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Hereditary Breast & Ovarian Cancer",
+      "clinvar_id": "9325",
+      "review_status": "reviewed by expert panel"
+    },
+    {
       "variant_id": 12,
+      "gene_symbol": "BRCA1",
+      "rs_id": "rs80357906",
+      "hgvs_c": "c.68_69delAG",
+      "hgvs_p": "p.Glu23fs",
+      "chromosome": "17",
+      "position": 43124031,
+      "ref_allele": "AG",
+      "alt_allele": "-",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Hereditary Breast & Ovarian Cancer",
+      "clinvar_id": "17660",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "variant_id": 26,
       "gene_symbol": "BRCA1",
       "rs_id": "rs80357906",
       "hgvs_c": "c.68_69delAG",
@@ -305,6 +472,21 @@
       "review_status": "reviewed by expert panel"
     },
     {
+      "variant_id": 20,
+      "gene_symbol": "EGFR",
+      "rs_id": "rs121434569",
+      "hgvs_c": "c.2369C>T",
+      "hgvs_p": "p.Thr790M",
+      "chromosome": "7",
+      "position": 55181378,
+      "ref_allele": "C",
+      "alt_allele": "T",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Acquired 1st Gen EGFR TKI Resistance",
+      "clinvar_id": "16610",
+      "review_status": "reviewed by expert panel"
+    },
+    {
       "variant_id": 5,
       "gene_symbol": "EGFR",
       "rs_id": "rs121434568",
@@ -320,7 +502,37 @@
       "review_status": "reviewed by expert panel"
     },
     {
+      "variant_id": 19,
+      "gene_symbol": "EGFR",
+      "rs_id": "rs121434568",
+      "hgvs_c": "c.2573T>G",
+      "hgvs_p": "p.Leu858Arg",
+      "chromosome": "7",
+      "position": 55191822,
+      "ref_allele": "T",
+      "alt_allele": "G",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Non-Small Cell Lung Cancer (TKI Sensitive)",
+      "clinvar_id": "16609",
+      "review_status": "reviewed by expert panel"
+    },
+    {
       "variant_id": 9,
+      "gene_symbol": "BRAF",
+      "rs_id": "rs113488022",
+      "hgvs_c": "c.1799T>A",
+      "hgvs_p": "p.Val600Glu",
+      "chromosome": "7",
+      "position": 140753336,
+      "ref_allele": "T",
+      "alt_allele": "A",
+      "clinical_significance": "Pathogenic",
+      "disease_name": "Malignant Melanoma & Papillary Thyroid",
+      "clinvar_id": "13961",
+      "review_status": "reviewed by expert panel"
+    },
+    {
+      "variant_id": 23,
       "gene_symbol": "BRAF",
       "rs_id": "rs113488022",
       "hgvs_c": "c.1799T>A",
@@ -633,6 +845,16 @@
       "resistance_mechanism": "MEK baypas ve CRAF dimerizasyonu"
     },
     {
+      "hotspot_id": 14,
+      "gene_symbol": "BRAF",
+      "variant_nomenclature": "p.V600E",
+      "exon": "Exon 15",
+      "mutation_type": "Activation Loop Missense",
+      "cancer_types": "Malign Melanom, Kolorektal, Tiroid",
+      "therapeutic_response": "Dabrafenib + Trametinib Kombinasyonu",
+      "resistance_mechanism": "MEK baypas ve CRAF dimerizasyonu"
+    },
+    {
       "hotspot_id": 1,
       "gene_symbol": "EGFR",
       "variant_nomenclature": "p.L858R",
@@ -663,6 +885,36 @@
       "resistance_mechanism": "T790M ikincil mutasyonu"
     },
     {
+      "hotspot_id": 9,
+      "gene_symbol": "EGFR",
+      "variant_nomenclature": "p.L858R",
+      "exon": "Exon 21",
+      "mutation_type": "Missense Substitution",
+      "cancer_types": "Non-Small Cell Lung Cancer",
+      "therapeutic_response": "1st/3rd gen TKI Duyarlı (Osimertinib, Gefitinib)",
+      "resistance_mechanism": "T790M veya MET amplifikasyonu"
+    },
+    {
+      "hotspot_id": 10,
+      "gene_symbol": "EGFR",
+      "variant_nomenclature": "p.T790M",
+      "exon": "Exon 20",
+      "mutation_type": "Gatekeeper Missense",
+      "cancer_types": "NSCLC (Secondary Resistance)",
+      "therapeutic_response": "3. Nesil Osimertinib Duyarlı",
+      "resistance_mechanism": "C797S mutasyonu"
+    },
+    {
+      "hotspot_id": 11,
+      "gene_symbol": "EGFR",
+      "variant_nomenclature": "Exon 19 del",
+      "exon": "Exon 19",
+      "mutation_type": "In-frame Deletion",
+      "cancer_types": "NSCLC",
+      "therapeutic_response": "EGFR TKI Dramatik Klinik Yanıt",
+      "resistance_mechanism": "T790M ikincil mutasyonu"
+    },
+    {
       "hotspot_id": 4,
       "gene_symbol": "KRAS",
       "variant_nomenclature": "p.G12C",
@@ -683,6 +935,26 @@
       "resistance_mechanism": "GTPaz hidroliz kilitlenmesi"
     },
     {
+      "hotspot_id": 12,
+      "gene_symbol": "KRAS",
+      "variant_nomenclature": "p.G12C",
+      "exon": "Exon 2",
+      "mutation_type": "Codon 12 Missense",
+      "cancer_types": "NSCLC, Kolorektal, Pankreas",
+      "therapeutic_response": "Sotorasib ve Adagrasib Doğrudan Hedefleme",
+      "resistance_mechanism": "Geri bildirim EGFR veya RTK aktivasyonu"
+    },
+    {
+      "hotspot_id": 13,
+      "gene_symbol": "KRAS",
+      "variant_nomenclature": "p.G12D",
+      "exon": "Exon 2",
+      "mutation_type": "Codon 12 Missense",
+      "cancer_types": "Pankreas Duktal Adenokarsinomu",
+      "therapeutic_response": "Geliştirilmekte Olan Pan-KRAS / Degrader İlaçlar",
+      "resistance_mechanism": "GTPaz hidroliz kilitlenmesi"
+    },
+    {
       "hotspot_id": 7,
       "gene_symbol": "TP53",
       "variant_nomenclature": "p.R175H",
@@ -694,6 +966,26 @@
     },
     {
       "hotspot_id": 8,
+      "gene_symbol": "TP53",
+      "variant_nomenclature": "p.R248Q",
+      "exon": "Exon 7",
+      "mutation_type": "DNA Contact Mutation",
+      "cancer_types": "Glioblastoma, Meme, Over",
+      "therapeutic_response": "WEE1/ATR Sentetik Ölümcüllük Adayı",
+      "resistance_mechanism": "DNA temas kaybı"
+    },
+    {
+      "hotspot_id": 15,
+      "gene_symbol": "TP53",
+      "variant_nomenclature": "p.R175H",
+      "exon": "Exon 5",
+      "mutation_type": "Zinc Binding Structural Defect",
+      "cancer_types": "Kolorektal, Akciğer, Meme",
+      "therapeutic_response": "Eprenetapopt (APR-246) Yapı Düzelticisi",
+      "resistance_mechanism": "Dominant-negatif tetramer disfonksiyonu"
+    },
+    {
+      "hotspot_id": 16,
       "gene_symbol": "TP53",
       "variant_nomenclature": "p.R248Q",
       "exon": "Exon 7",
@@ -775,7 +1067,31 @@
       "clinical_trial": "COMBI-d / COMBI-v Phase 3"
     },
     {
+      "synergy_id": 5,
+      "drug_a": "Dabrafenib",
+      "target_a": "BRAF V600E",
+      "drug_b": "Trametinib",
+      "target_b": "MEK1/2",
+      "indication": "BRAF V600E Melanom & NSCLC",
+      "combination_index": 0.42,
+      "bliss_score": 28.5,
+      "mechanistic_class": "Vertical MAPK Pathway Blockade",
+      "clinical_trial": "COMBI-d / COMBI-v Phase 3"
+    },
+    {
       "synergy_id": 3,
+      "drug_a": "Sotorasib",
+      "target_a": "KRAS G12C",
+      "drug_b": "Panitumumab",
+      "target_b": "EGFR mAb",
+      "indication": "KRAS G12C Colorectal Carcinoma",
+      "combination_index": 0.48,
+      "bliss_score": 26.2,
+      "mechanistic_class": "Upstream RTK Feedback Loop Suppression",
+      "clinical_trial": "CodeBreaK 300 Phase 3"
+    },
+    {
+      "synergy_id": 7,
       "drug_a": "Sotorasib",
       "target_a": "KRAS G12C",
       "drug_b": "Panitumumab",
@@ -799,7 +1115,31 @@
       "clinical_trial": "TATTON / SAVANNAH Phase 2"
     },
     {
+      "synergy_id": 6,
+      "drug_a": "Osimertinib",
+      "target_a": "EGFR T790M",
+      "drug_b": "Savolitinib",
+      "target_b": "MET Receptor",
+      "indication": "MET-Amplified EGFR Resistance",
+      "combination_index": 0.51,
+      "bliss_score": 24.0,
+      "mechanistic_class": "Parallel Receptor Bypass Inhibition",
+      "clinical_trial": "TATTON / SAVANNAH Phase 2"
+    },
+    {
       "synergy_id": 4,
+      "drug_a": "Pembrolizumab",
+      "target_a": "PD-1",
+      "drug_b": "Lenvatinib",
+      "target_b": "VEGFR/FGFR",
+      "indication": "Renal Cell Carcinoma & Endometrial",
+      "combination_index": 0.58,
+      "bliss_score": 19.8,
+      "mechanistic_class": "Immuno-Angiogenic Microenvironment",
+      "clinical_trial": "CLEAR Phase 3"
+    },
+    {
+      "synergy_id": 8,
       "drug_a": "Pembrolizumab",
       "target_a": "PD-1",
       "drug_b": "Lenvatinib",
@@ -824,7 +1164,29 @@
       "key_finding": "CRISPR-Cas9 editing of BCL11A enhancer produces durable elimination of vaso-occlusive crises in 97% of patients."
     },
     {
+      "trial_id": 6,
+      "identifier": "PMID: 38661449",
+      "title": "Exagamglogene Autotemcel for Severe Sickle Cell Disease",
+      "journal_or_source": "New England Journal of Medicine",
+      "publication_year": 2024,
+      "primary_gene": "HBB",
+      "therapy_name": "Exa-cel (Casgevy)",
+      "clinical_phase": "Phase 3",
+      "key_finding": "CRISPR-Cas9 editing of BCL11A enhancer produces durable elimination of vaso-occlusive crises in 97% of patients."
+    },
+    {
       "trial_id": 3,
+      "identifier": "PMID: 34096690",
+      "title": "Overall Survival with Sotorasib in Advanced KRAS G12C-Mutated Non-Small-Cell Lung Cancer",
+      "journal_or_source": "New England Journal of Medicine",
+      "publication_year": 2021,
+      "primary_gene": "KRAS",
+      "therapy_name": "Sotorasib (Lumakras)",
+      "clinical_phase": "Phase 2 (CodeBreaK 100)",
+      "key_finding": "First targeted therapeutic agent demonstrating confirmed objective response in KRAS G12C mutant solid tumors."
+    },
+    {
+      "trial_id": 8,
       "identifier": "PMID: 34096690",
       "title": "Overall Survival with Sotorasib in Advanced KRAS G12C-Mutated Non-Small-Cell Lung Cancer",
       "journal_or_source": "New England Journal of Medicine",
@@ -846,7 +1208,29 @@
       "key_finding": "Dose-dependent increase in hemoglobin and reduction in hemolytic markers without causing tissue hypoxia."
     },
     {
+      "trial_id": 10,
+      "identifier": "PMID: 31922372",
+      "title": "Voxelotor for the Treatment of Sickle Cell Disease",
+      "journal_or_source": "New England Journal of Medicine",
+      "publication_year": 2019,
+      "primary_gene": "HBB",
+      "therapy_name": "Voxelotor (Oxbryta)",
+      "clinical_phase": "Phase 3 (HOPE)",
+      "key_finding": "Dose-dependent increase in hemoglobin and reduction in hemolytic markers without causing tissue hypoxia."
+    },
+    {
       "trial_id": 2,
+      "identifier": "PMID: 29151359",
+      "title": "Osimertinib in Untreated EGFR-Mutated Advanced Non-Small-Cell Lung Cancer",
+      "journal_or_source": "New England Journal of Medicine",
+      "publication_year": 2018,
+      "primary_gene": "EGFR",
+      "therapy_name": "Osimertinib (Tagrisso)",
+      "clinical_phase": "Phase 3 (FLAURA)",
+      "key_finding": "Significantly superior progression-free survival (18.9 vs 10.2 months) and central nervous system efficacy compared to standard EGFR TKIs."
+    },
+    {
+      "trial_id": 7,
       "identifier": "PMID: 29151359",
       "title": "Osimertinib in Untreated EGFR-Mutated Advanced Non-Small-Cell Lung Cancer",
       "journal_or_source": "New England Journal of Medicine",
@@ -866,6 +1250,141 @@
       "therapy_name": "Dabrafenib + Trametinib",
       "clinical_phase": "Phase 3 (COMBI-v)",
       "key_finding": "Combination therapy significantly improved overall survival compared to vemurafenib monotherapy alone."
+    },
+    {
+      "trial_id": 9,
+      "identifier": "PMID: 25399551",
+      "title": "Combined BRAF and MEK Inhibition in Melanoma with BRAF V600 Mutations",
+      "journal_or_source": "New England Journal of Medicine",
+      "publication_year": 2014,
+      "primary_gene": "BRAF",
+      "therapy_name": "Dabrafenib + Trametinib",
+      "clinical_phase": "Phase 3 (COMBI-v)",
+      "key_finding": "Combination therapy significantly improved overall survival compared to vemurafenib monotherapy alone."
+    }
+  ],
+  "pharmacogenomics_guidelines": [
+    {
+      "pgx_id": 5,
+      "gene_symbol": "CYP2D6",
+      "drug_name": "Tamoxifen (Nolvadex)",
+      "diplotype_example": "*4/*4 (Splice Defect)",
+      "phenotype": "Poor Metabolizer",
+      "toxicity_risk": "Therapeutic Resistance / Subtherapeutic Endoxifen",
+      "dosing_recommendation": "Tamoksifen aktif metabolit üretemez. Postmenopozal kadınlarda Aromataz İnhibitörüne geçiniz.",
+      "guideline_source": "CPIC Level A"
+    },
+    {
+      "pgx_id": 1,
+      "gene_symbol": "DPYD",
+      "drug_name": "Fluorouracil (5-FU) / Capecitabine",
+      "diplotype_example": "*1/*2A (c.1905+1G>A)",
+      "phenotype": "Intermediate Metabolizer (AS: 1.0)",
+      "toxicity_risk": "Moderate/High Toxicity",
+      "dosing_recommendation": "%50 Başlangıç Dozu Azaltımı Önerilir. TDM takibi yapınız.",
+      "guideline_source": "CPIC Level A / PharmGKB"
+    },
+    {
+      "pgx_id": 2,
+      "gene_symbol": "DPYD",
+      "drug_name": "Fluorouracil (5-FU) / Capecitabine",
+      "diplotype_example": "*2A/*2A (c.1905+1G>A)",
+      "phenotype": "Poor Metabolizer (AS: 0.0)",
+      "toxicity_risk": "Fatal / Lethal Toxicity Risk",
+      "dosing_recommendation": "KONTRENDİKE! 5-FU ve Kapesitabin kullanımından tamamen kaçınınız.",
+      "guideline_source": "CPIC Level A / PharmGKB"
+    },
+    {
+      "pgx_id": 6,
+      "gene_symbol": "TPMT",
+      "drug_name": "6-Mercaptopurine / Azathioprine",
+      "diplotype_example": "*1/*3A (c.460G>A, c.719A>G)",
+      "phenotype": "Intermediate Metabolizer",
+      "toxicity_risk": "High Myelosuppression",
+      "dosing_recommendation": "%30-50 doz azaltımı ve haftalık lökosit takibi önerilir.",
+      "guideline_source": "CPIC Level A"
+    },
+    {
+      "pgx_id": 3,
+      "gene_symbol": "UGT1A1",
+      "drug_name": "Irinotecan (Camptosar)",
+      "diplotype_example": "*28/*28 ((TA)7 repeat)",
+      "phenotype": "Poor Metabolizer",
+      "toxicity_risk": "Severe Grade 4 Neutropenia / Diarrhea",
+      "dosing_recommendation": "İrinotekan başlangıç dozunda %25-30 azaltım önerilir.",
+      "guideline_source": "CPIC Level A / FDA"
+    },
+    {
+      "pgx_id": 4,
+      "gene_symbol": "UGT1A1",
+      "drug_name": "Irinotecan (Camptosar)",
+      "diplotype_example": "*1/*28 ((TA)6/(TA)7)",
+      "phenotype": "Intermediate Metabolizer",
+      "toxicity_risk": "Moderate Toxicity Risk",
+      "dosing_recommendation": "Standart başlangıç dozu uygulanabilir; haftalık tam kan sayımı izlenmelidir.",
+      "guideline_source": "CPIC Level A"
+    }
+  ],
+  "synthetic_lethal_pairs": [
+    {
+      "sl_id": 1,
+      "biomarker_gene": "BRCA1",
+      "biomarker_state": "HRD+ / Inactivating Mutation",
+      "synthetic_lethal_target": "PARP1",
+      "depmap_chronos": -1.24,
+      "vulnerability_score": 98.0,
+      "approved_therapy": "Olaparib / Talazoparib",
+      "clinical_status": "FDA Onaylı"
+    },
+    {
+      "sl_id": 2,
+      "biomarker_gene": "BRCA2",
+      "biomarker_state": "HRD+ / Truncating Mutation",
+      "synthetic_lethal_target": "PARP1",
+      "depmap_chronos": -1.18,
+      "vulnerability_score": 96.0,
+      "approved_therapy": "Olaparib / Rucaparib",
+      "clinical_status": "FDA Onaylı"
+    },
+    {
+      "sl_id": 3,
+      "biomarker_gene": "MLH1 / MSH2",
+      "biomarker_state": "dMMR / MSI-High",
+      "synthetic_lethal_target": "WRN",
+      "depmap_chronos": -1.45,
+      "vulnerability_score": 95.0,
+      "approved_therapy": "HRO761 / RO7589831",
+      "clinical_status": "Faz 1/2 Klinik"
+    },
+    {
+      "sl_id": 4,
+      "biomarker_gene": "MTAP",
+      "biomarker_state": "Homozygous 9p21 Deletion",
+      "synthetic_lethal_target": "PRMT5 / MAT2A",
+      "depmap_chronos": -0.92,
+      "vulnerability_score": 88.0,
+      "approved_therapy": "MRTX1719 / AG-270",
+      "clinical_status": "Faz 1/2 Klinik"
+    },
+    {
+      "sl_id": 5,
+      "biomarker_gene": "ARID1A",
+      "biomarker_state": "Truncating SWI/SNF Loss",
+      "synthetic_lethal_target": "EZH2",
+      "depmap_chronos": -0.85,
+      "vulnerability_score": 84.0,
+      "approved_therapy": "Tazemetostat (Tazverik)",
+      "clinical_status": "FDA Onaylı"
+    },
+    {
+      "sl_id": 6,
+      "biomarker_gene": "KRAS",
+      "biomarker_state": "G12C / G12D / G12V Mutation",
+      "synthetic_lethal_target": "SHP2 / SOS1",
+      "depmap_chronos": -0.78,
+      "vulnerability_score": 82.0,
+      "approved_therapy": "TNO155 + Sotorasib / BI-1701963",
+      "clinical_status": "Faz 1/2 Klinik"
     }
   ]
 }
