@@ -357,5 +357,86 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertGreaterEqual(len(clones), 1)
         self.assertEqual(clones[0]['mutation_key'], "EGFR_C797S")
 
+    def test_diagnostic_chatbot_nlp_extraction(self):
+        from diagnostic_chatbot import DiagnosticChatbot
+        bot = DiagnosticChatbot()
+        
+        # Test Turkish clinical phrase extraction
+        text1 = "Yaklaşık 3 aydır inatçı bir öksürük var ve sabahları balgamımda kan tükürüyorum, ayrıca çok zayıfladım."
+        extracted1 = bot.extract_symptoms_from_text(text1)
+        self.assertIn("hemoptysis", extracted1)
+        self.assertIn("chronic_cough", extracted1)
+        self.assertIn("unexplained_weight_loss", extracted1)
+
+        # Test gastrointestinal and breast symptoms
+        text2 = "Büyük abdestimde kan gördüm ve katı gıdaları yutmakta zorlanıyorum."
+        extracted2 = bot.extract_symptoms_from_text(text2)
+        self.assertIn("rectal_bleeding", extracted2)
+        self.assertIn("dysphagia", extracted2)
+
+        # Test breast lump and hematuria
+        text3 = "Sol mememde elime sert bir kitle geliyor, ayrıca idrar yaparken kırmızı kan fark ettim."
+        extracted3 = bot.extract_symptoms_from_text(text3)
+        self.assertIn("breast_lump", extracted3)
+        self.assertIn("hematuria", extracted3)
+
+    def test_diagnostic_chatbot_multiturn_flow(self):
+        from diagnostic_chatbot import DiagnosticChatbot
+        bot = DiagnosticChatbot()
+        sess_init = bot.start_session("patient_test_01")
+        self.assertEqual(sess_init['state'], bot.STATE_SYMPTOMS)
+        self.assertIn("Erken Kanser Teşhisi", sess_init['message'])
+
+        # Turn 1: Presenting symptoms
+        res1 = bot.process_message("patient_test_01", "2 aydır öksürüyorum ve kanlı balgam var, ayrıca kilo verdim")
+        self.assertEqual(res1['state'], bot.STATE_DEMOGRAPHICS)
+        self.assertIn("hemoptysis", res1['session_data']['symptoms'])
+        self.assertIn("unexplained_weight_loss", res1['session_data']['symptoms'])
+
+        # Turn 2: Demographics
+        res2 = bot.process_message("patient_test_01", "58 yaşındayım, erkek")
+        self.assertEqual(res2['state'], bot.STATE_SMOKING)
+        self.assertEqual(res2['session_data']['age'], 58)
+        self.assertEqual(res2['session_data']['gender'], 'M')
+
+        # Turn 3: Smoking pack-years
+        res3 = bot.process_message("patient_test_01", "Günde 1 paket, yaklaşık 25 yıl içtim")
+        self.assertEqual(res3['state'], bot.STATE_FAMILY)
+        self.assertAlmostEqual(res3['session_data']['smoking_pack_years'], 25.0)
+
+        # Turn 4: Family history
+        res4 = bot.process_message("patient_test_01", "Evet, babamda akciğer kanseri vardı")
+        self.assertEqual(res4['state'], bot.STATE_DURATION)
+        self.assertTrue(res4['session_data']['family_history'])
+
+        # Turn 5: Symptom duration -> Final Evaluation
+        res5 = bot.process_message("patient_test_01", "Yaklaşık 2 aydır devam ediyor")
+        self.assertEqual(res5['state'], bot.STATE_COMPLETED)
+        self.assertIn("evaluation", res5)
+        eval_data = res5['evaluation']
+        risk_eval = eval_data['risk_evaluation']
+        self.assertGreater(risk_eval['composite_risk_percent'], 50.0)
+        self.assertTrue(risk_eval['meets_nice_2ww_referral'])
+        self.assertEqual(eval_data['organ_probabilities'][0]['cancer_code'], 'LUNG')
+        self.assertIn("Toraks BT", risk_eval['primary_diagnostic_recommendation'])
+
+    def test_diagnostic_chatbot_risk_generation(self):
+        from diagnostic_chatbot import DiagnosticChatbot
+        bot = DiagnosticChatbot()
+        bot.start_session("patient_eval_test")
+        
+        # Test low-risk healthy checkup scenario
+        bot.process_message("patient_eval_test", "Hiçbir şikayetim yok, sadece rutin kontrol yaptırmak istiyorum")
+        bot.process_message("patient_eval_test", "30 yaşındayım, kadın")
+        bot.process_message("patient_eval_test", "Hiç sigara içmedim")
+        bot.process_message("patient_eval_test", "Hayır, ailemde kanser öyküsü yok")
+        final_res = bot.process_message("patient_eval_test", "Şikayetim bulunmamaktadır")
+        
+        eval_data = final_res['evaluation']
+        risk_eval = eval_data['risk_evaluation']
+        self.assertLess(risk_eval['composite_risk_percent'], 10.0)
+        self.assertFalse(risk_eval['meets_nice_2ww_referral'])
+        self.assertEqual(risk_eval['tier_code'], 'LOW')
+
 if __name__ == "__main__":
     unittest.main()

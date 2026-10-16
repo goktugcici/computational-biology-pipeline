@@ -29,6 +29,7 @@ from pharmacogenomics import PharmacogenomicsEngine
 from synthetic_lethality import SyntheticLethalityEngine
 from survival_analysis import SurvivalAnalysisModeler, BENCHMARK_CLINICAL_COHORTS
 from liquid_biopsy import LiquidBiopsyEngine, ACQUIRED_RESISTANCE_MUTATIONS
+from diagnostic_chatbot import DiagnosticChatbot
 from report_generator import ReportGenerator
 
 def run_pipeline(data_dir: str = "data", live_pdb: str = None, live_drug: str = None, 
@@ -397,7 +398,7 @@ if __name__ == "__main__":
     parser.add_argument("--synergy", nargs=2, default=None, help="Evaluate combination therapy synergy (e.g. --synergy Dabrafenib Trametinib)")
     parser.add_argument("--tmb", type=float, default=None, help="Tumor Mutational Burden (mut/Mb, e.g. 15.5)")
     parser.add_argument("--msi", default="MSS", help="Microsatellite Instability status (MSS or MSI-H)")
-    parser.add_argument("--pdl1", type=float, default=0.0, help="PD-L1 Tumor Proportion Score (TPS %)")
+    parser.add_argument("--pdl1", type=float, default=0.0, help="PD-L1 Tumor Proportion Score (TPS %%)")
     parser.add_argument("--alphafold_conf", default=None, help="Analyze AlphaFold pLDDT confidence (e.g. TP53, EGFR, HBB)")
     parser.add_argument("--db_query", default=None, help="Query relational knowledgebase for a gene (e.g. EGFR, KRAS, HBB)")
     parser.add_argument("--db_stats", action="store_true", help="Display global relational database statistics")
@@ -415,12 +416,18 @@ if __name__ == "__main__":
     parser.add_argument("--cyp2d6", default=None, help="CYP2D6 diplotype, e.g. --cyp2d6 '*4/*4'")
     parser.add_argument("--synthetic_lethal", default=None, help="Query synthetic lethality target dependency (e.g. BRCA1, MSI-H, MTAP, ARID1A, KRAS)")
     parser.add_argument("--survival_trial", default="FLAURA_EGFR", help="Benchmark trial for survival analysis (FLAURA_EGFR, KEYNOTE_042_TMB_HIGH, OLYMPIAD_BRCA, CODEBREAK_200_KRAS)")
-    parser.add_argument("--ctdna_baseline", type=float, default=4.8, help="Baseline ctDNA Variant Allele Frequency (VAF %)")
-    parser.add_argument("--ctdna_followup", type=float, default=0.02, help="Follow-up ctDNA Variant Allele Frequency (VAF %)")
+    parser.add_argument("--ctdna_baseline", type=float, default=4.8, help="Baseline ctDNA Variant Allele Frequency (VAF %%)")
+    parser.add_argument("--ctdna_followup", type=float, default=0.02, help="Follow-up ctDNA Variant Allele Frequency (VAF %%)")
     parser.add_argument("--ctdna_mutations", nargs="+", default=None, help="Emerging resistance mutations in liquid biopsy, e.g. EGFR_C797S MET_AMPLIFICATION")
     parser.add_argument("--export_json", default=None, help="Export complete pipeline results to JSON file")
     parser.add_argument("--generate_report", action="store_true", help="Generate publication-grade HTML report")
+    parser.add_argument("--chat_bot", "--question_bot", action="store_true", help="Launch interactive clinical anamnesis & early cancer risk question bot")
     args = parser.parse_args()
+    
+    if args.chat_bot:
+        bot = DiagnosticChatbot()
+        bot.interactive_cli_session()
+        sys.exit(0)
     
     run_pipeline(
         data_dir=args.data_dir,

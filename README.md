@@ -4,10 +4,10 @@
 [![Pages Deployment](https://github.com/goktugcici/computational-biology-pipeline/actions/workflows/deploy-pages.yml/badge.svg)](https://goktugcici.github.io/computational-biology-pipeline/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version: 3.4 Clinical Oncology](https://img.shields.io/badge/Release-v3.4_Clinical_Oncology-purple.svg)](https://github.com/goktugcici/computational-biology-pipeline/releases)
-[![Tests Passing](https://img.shields.io/badge/Tests-30%2F30%20Passed-brightgreen.svg)](https://github.com/goktugcici/computational-biology-pipeline/actions)
+[![Version: 3.5 Anamnesis Bot](https://img.shields.io/badge/Release-v3.5_Anamnesis_Chatbot-purple.svg)](https://github.com/goktugcici/computational-biology-pipeline/releases)
+[![Tests Passing](https://img.shields.io/badge/Tests-33%2F33%20Passed-brightgreen.svg)](https://github.com/goktugcici/computational-biology-pipeline/actions)
 
-A state-of-the-art, production-grade computational biology, translational research, and precision oncology platform integrating **Kaplan-Meier Clinical Survival Analysis & Log-Rank Modeler**, **Liquid Biopsy & ctDNA Minimal Residual Disease (MRD) Tracking**, **Pharmacogenomics (PGx) Clinical Toxicity Modeling (CPIC Level A)**, **Synthetic Lethality & CRISPR DepMap Dependency Mapping**, **Early Cancer Detection & 100,000+ Patient Statistical Risk Engine**, **Unified Relational Multi-Omics Knowledgebase (SQLite 3 - 12 Tables)**, **3D Structural Crystallography**, **Genomic Pathogenicity Annotation**, **Pan-Cancer Targeted Oncology**, **Needleman-Wunsch Sequence Alignment**, **In Silico Drug Screening (Lipinski Ro5 & Binding Free Energy)**, **Protein-Protein Interaction (PPI) Interactome Networks**, **Drug Combination Synergy Modeling (Bliss / Loewe CI)**, **Immunotherapy Biomarker Response Prediction (TMB & MSI-H)**, **AlphaFold Structural Quality (pLDDT & Disordered Regions)**, and an **Interactive WebGL Dashboard**.
+A state-of-the-art, production-grade computational biology, translational research, and precision oncology platform integrating **Interactive Early Diagnosis Question Bot (Soru Botu & Conversational Anamnesis)**, **Kaplan-Meier Clinical Survival Analysis & Log-Rank Modeler**, **Liquid Biopsy & ctDNA Minimal Residual Disease (MRD) Tracking**, **Pharmacogenomics (PGx) Clinical Toxicity Modeling (CPIC Level A)**, **Synthetic Lethality & CRISPR DepMap Dependency Mapping**, **Early Cancer Detection & 100,000+ Patient Statistical Risk Engine**, **Unified Relational Multi-Omics Knowledgebase (SQLite 3 - 12 Tables)**, **3D Structural Crystallography**, **Genomic Pathogenicity Annotation**, **Pan-Cancer Targeted Oncology**, **Needleman-Wunsch Sequence Alignment**, **In Silico Drug Screening (Lipinski Ro5 & Binding Free Energy)**, **Protein-Protein Interaction (PPI) Interactome Networks**, **Drug Combination Synergy Modeling (Bliss / Loewe CI)**, **Immunotherapy Biomarker Response Prediction (TMB & MSI-H)**, **AlphaFold Structural Quality (pLDDT & Disordered Regions)**, and an **Interactive WebGL Dashboard**.
 
 ---
 
@@ -147,6 +147,19 @@ Models CRISPR knockout essentiality scores from the **Broad Institute Cancer Dep
 
 ---
 
+## 🤖 Conversational Anamnesis & Diagnostic Question Bot (`src/diagnostic_chatbot.py`)
+
+An intelligent clinical triage and guided anamnesis chatbot that simulates an oncologist/physician consultation:
+- **Turkish Natural Language Processing (NLP)**: Automatically parses free-text Turkish complaints (e.g. *"2 aydır öksürüyorum ve balgamda kan gördüm"*, *"katı gıdaları yutmakta zorlanıyorum"*, *"büyük abdestimde kan var"*) and maps them to 14 standardized NICE NG12 clinical alarm codes using comprehensive regex synonym patterns.
+- **Multi-Turn State Machine**: Systematically guides patients through:
+  $$\text{SYMPTOMS} \longrightarrow \text{DEMOGRAPHICS} \longrightarrow \text{SMOKING} \longrightarrow \text{FAMILY HISTORY} \longrightarrow \text{DURATION} \longrightarrow \text{EVALUATION}$$
+- **Cohort Evidence & NICE Triaging**: Queries the 100,000+ patient database (`data/cancer_epidemiology_100k.db`) and computes composite probability, organ likelihoods, NICE 2-Week-Wait urgency status, and prioritized diagnostic investigations.
+- **Dual Interfaces**:
+  - **Terminal Interactive CLI**: Run `python src/main.py --chat_bot` for a live console anamnesis chat.
+  - **In-Browser Web Chatbot**: Dedicated `🤖 Teşhis Soru Botu` tab in the web dashboard with instant typing indicators, interactive quick replies, and live consultation summary cards.
+
+---
+
 ## 🗄️ Unified Multi-Omics Relational Database (`src/database.py`)
 
 An embedded, zero-configuration relational knowledgebase (`SQLite 3`) in `data/bio_knowledgebase.db` with **12 normalized tables**:
@@ -210,10 +223,13 @@ python src/main.py --dpyd_alleles *1 *2A
 # 4. Query synthetic lethal dependency for BRCA1 or MSI-H:
 python src/main.py --synthetic_lethal BRCA1
 
-# 5. Evaluate early cancer risk with 100k cohort matching:
+# 5. Launch interactive clinical anamnesis & early cancer risk question bot (CLI):
+python src/main.py --chat_bot
+
+# 6. Evaluate early cancer risk with 100k cohort matching:
 python src/main.py --predict_cancer --patient_age 62 --patient_gender M --patient_symptoms "hemoptysis,chronic_cough,weight_loss" --smoking_pack_years 30.0 --family_history
 
-# 6. Full Pipeline Run across all 16 modules:
+# 7. Full Pipeline Run across all modules:
 python src/main.py --pan_cancer EGFR --synergy Dabrafenib Trametinib --tmb 16.2 --msi MSI-H --db_query EGFR --generate_report
 ```
 
@@ -222,6 +238,7 @@ python src/main.py --pan_cancer EGFR --synergy Dabrafenib Trametinib --tmb 16.2 
 python -m http.server 8000 --bind 127.0.0.1
 ```
 Open **[http://localhost:8000/dashboard/index.html](http://localhost:8000/dashboard/index.html)** in your browser:
+- **🤖 Teşhis Soru Botu**: Interactive conversational AI anamnesis assistant, natural Turkish NLP symptom detection, quick-reply pills, real-time clinical consultation summary, and NICE 2WW evaluation.
 - **📈 Sağkalım (KM)**: Interactive Kaplan-Meier stepped survival curves for Phase 3 trials, median survival comparisons, and Log-Rank statistics.
 - **🩸 Sıvı Biyopsi (ctDNA)**: Longitudinal VAF calculator, molecular response classification (mCR/mPR/mSD/mPD), relapse lead time, and resistance clone bypass therapies.
 - **💊 PGx & Sentetik Letalite**: Interactive DPYD, UGT1A1, and CYP2D6 diplotype toxicity evaluator, CPIC dosing calculator, and DepMap Chronos synthetic lethality visualizer.
@@ -233,7 +250,7 @@ Open **[http://localhost:8000/dashboard/index.html](http://localhost:8000/dashbo
 
 ## 🧪 Automated Testing
 
-Covering all 30 unit tests across Kaplan-Meier estimators, Log-Rank tests, ctDNA MRD response, resistance mutations, pharmacogenomics CPIC rules, synthetic lethality DepMap scores, epidemiology cohort generation, NICE guidelines, multi-organ Bayesian risk models, SQLite queries, structural biology, and sequence alignments:
+Covering all 33 unit tests across Diagnostic Chatbot NLP & multi-turn flows, Kaplan-Meier estimators, Log-Rank tests, ctDNA MRD response, resistance mutations, pharmacogenomics CPIC rules, synthetic lethality DepMap scores, epidemiology cohort generation, NICE guidelines, multi-organ Bayesian risk models, SQLite queries, structural biology, and sequence alignments:
 ```bash
 python -m unittest tests/test_pipeline.py
 # or
@@ -241,9 +258,9 @@ pytest tests/
 ```
 Output:
 ```
-..............................
+.................................
 ----------------------------------------------------------------------
-Ran 30 tests in 0.630s
+Ran 33 tests in 1.079s
 
 OK
 ```
