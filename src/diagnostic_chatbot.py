@@ -327,7 +327,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'melanoma_skin': {
         'patterns': [
-            r'melanom', r'cilt.*kanser', r'deri.*kanser', r'ben.*değiş',
+            r'melanom', r'\bcilt\b.*kanser', r'\bderi\b.*kanser', r'ben.*değiş',
             r'ben.*büyü', r'şüpheli.*ben', r'abcde', r'et.*beni'
         ],
         'title': 'Malign Melanom & Benlerde ABCDE Kuralı',
@@ -523,6 +523,130 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
             "• **İlk Değerlendirme:** Memede saptanan kitlelerin yaklaşık %80'i iyi huyludur (fibroadenom, basit kist vb.). Ancak hekim ve görüntüleme onayı olmaksızın iyi huylu olduğu varsayılamaz.\n"
             "• **Şüpheli Bulgular:** Sert, sınırları düzensiz, çevre dokuya yapışık ve ağrısız kitleler malignite açısından daha yüksek risk taşır.\n"
             "• **İzlenecek Yol:** 40 yaş altı için Meme USG, 40 yaş üzeri için Dijital Mamografi + Meme USG, şüpheli durumlarda Tru-Cut iğne biyopsisi."
+        )
+    },
+    'head_neck_cancer': {
+        'patterns': [
+            r'baş boyun.*kanser', r'larenks.*kanser', r'gırtlak.*kanser', r'ağız.*kanser',
+            r'ses kısıklığı.*kanser', r'dil.*kanser', r'ağız yarası.*kanser'
+        ],
+        'title': 'Baş & Boyun (Larenks / Oral Kavite) Kanserleri & Erken Tanı',
+        'answer': (
+            "🗣️ **Baş & Boyun ve Larenks (Gırtlak) Kanserleri Rehberi:**\n\n"
+            "• **En Kritik Kırmızı Bayraklar (NICE NG12):**\n"
+            "   1. **3 haftadan uzun süren kalıcı ses kısıklığı (disfoni):** Larenks (ses teli) kanserlerinin en erken ve en değerli bulgusudur.\n"
+            "   2. **Ağız içinde, dilde veya damakta 3 haftayı geçen iyileşmeyen ülser veya aft benzeri yara**.\n"
+            "   3. **Ağız içinde kırmızı (eritroplaki) veya beyaz (lökoplaki) silinmeyen plaklar**.\n"
+            "   4. **Tek taraflı boğaz ağrısı, kulağa vuran ağrı (yansıyan otalji) ve boyunda ele gelen sert kitle**.\n"
+            "• **En Büyük Risk Faktörleri:** Sigara ve alkolün birlikte kullanımı riski 30 kat artırır; ayrıca orofarenks kanserlerinde HPV (Özellikle HPV Tip 16) majör etkendir.\n"
+            "• **Tanı Yöntemi:** Fleksibl fiberoptik nazofaringolaringoskopi ve biyopsi."
+        )
+    },
+    'lymphoma_hematologic': {
+        'patterns': [
+            r'lenfoma', r'lösemi', r'kan kanseri', r'b belirtileri', r'gece terlemesi.*kanser',
+            r'lenf bezi.*kanser', r'hodgkin'
+        ],
+        'title': 'Hematolojik Maligniteler & Lenfoma B-Semptomları',
+        'answer': (
+            "🩸 **Lenfoma ve Hematolojik Kanserler Erken Teşhis Rehberi:**\n\n"
+            "• **Kritik B-Semptomları Triadı:**\n"
+            "   1. **Sırılsıklam Gece Terlemeleri:** Gece kıyafet ve çarşaf değiştirmeyi gerektirecek derecede yoğun terleme.\n"
+            "   2. **Açıklanamayan Sürekli Ateş:** Enfeksiyon odağı olmaksızın 38°C üzerindeki dalgalı ateş (Pel-Ebstein ateşi).\n"
+            "   3. **6 ayda %10'dan fazla açıklanamayan kilo kaybı**.\n"
+            "• **Fizik Muayene Bulgusu:** Boyunda, koltuk altında veya kasıkta büyüyen, genellikle ağrısız, lastik kıvamında sert lenfadenopati (>2 cm).\n"
+            "• **Tanı Protokolü:** İğne aspirasyonu (İAB) yetersizdir; **kesin tanı için tam eksizyonel lenf nodu biyopsisi** ve PET-BT evrelemesi zorunludur."
+        )
+    },
+    'gynecologic_cancer': {
+        'patterns': [
+            r'jinekolojik.*kanser', r'rahim.*kanser', r'yumurtalık.*kanser', r'over.*kanser',
+            r'endometrium.*kanser', r'serviks.*kanser', r'menopoz.*kanama', r'karında asit'
+        ],
+        'title': 'Jinekolojik Kanserler (Endometrium, Over, Serviks)',
+        'answer': (
+            "🌺 **Jinekolojik Kanserler ve Erken Teşhis Kılavuzu:**\n\n"
+            "• **Postmenopozal Vajinal Kanama (En Büyük Kırmızı Bayrak):**\n"
+            "   Menopoza girmiş bir kadında tek bir damla dahi kanama veya kahverengi lekelenme görülmesi, aksi kanıtlanana kadar **Endometrium (Rahim İçi) Kanseri** şüphesidir ve doğrudan acil 2WW sevk gerektirir.\n"
+            "• **Over (Yumurtalık) Kanseri Sinsi İlerler:**\n"
+            "   - Sürekli karın şişkinliği, pantolonun kapanmaması, erken doyma ve karında sıvı toplanması (asit).\n"
+            "• **Serviks (Rahim Ağzı) Kanseri Önlenebilir:**\n"
+            "   - HPV aşılaması ve 30-65 yaş arası 5 yılda bir yapılan HPV-DNA/Smear testi ile kanser öncül lezyon aşamasında %100 yakalanabilir."
+        )
+    },
+    'cns_brain_tumor': {
+        'patterns': [
+            r'beyin.*tümör', r'beyin.*kanser', r'glioblastom', r'sabah baş ağrısı.*kanser',
+            r'fışkırır.*kusma', r'baş ağrısı.*kanser'
+        ],
+        'title': 'Merkezi Sinir Sistemi (MSS) & Beyin Tümörleri',
+        'answer': (
+            "🧠 **Beyin ve Merkezi Sinir Sistemi Tümörleri Rehberi:**\n\n"
+            "• **Karakteristik Kırmızı Bayraklar:**\n"
+            "   1. **Sabahları uykudan uyandıran ve öksürmekle/ıkınmakla şiddetlenen baş ağrısı** (Kafa içi basınç artışı - KİBAS sendromu).\n"
+            "   2. **Bulantı eşlik etmeksizin fışkırır tarzda sabah kusmaları**.\n"
+            "   3. **Daha önce epilepsi öyküsü olmayan erişkin bir bireyde aniden ortaya çıkan ilk nöbet (havale)**.\n"
+            "   4. **Vücudun tek tarafında ilerleyici kuvvet kaybı (felç), hissizlik, yürüme dengesizliği veya konuşma bozukluğu**.\n"
+            "• **Tanıda Altın Standart:** Kontrastlı Kraniyal Beyin Manyetik Rezonans Görüntüleme (MRG)."
+        )
+    },
+    'sarcoma_bone_tumor': {
+        'patterns': [
+            r'sarkom', r'kemik.*kanser', r'kemik.*tümör', r'osteosarkom',
+            r'derin kemik ağrısı', r'kemikte kitle'
+        ],
+        'title': 'Kemik ve Yumuşak Doku Sarkomları',
+        'answer': (
+            "🦴 **Sarkomlar ve Kemik/Yumuşak Doku Kanserleri:**\n\n"
+            "• **Alarm Belirtileri:**\n"
+            "   1. **İstirahat halindeyken veya geceleri uykudan uyandıran derin, sızlayıcı kemik ağrısı**.\n"
+            "   2. **Kol, bacak veya gövdede hızla büyüyen, ağrılı veya ağrısız, sert doku kitlesi** (>5 cm derin kitleler daima şüphelidir).\n"
+            "   3. **Travma olmaksızın basit bir hareketle oluşan patolojik kemik kırıkları**.\n"
+            "• **Tanı:** İki yönlü direkt grafi, Kontrastlı Ekstremite MRG ve Tru-Cut / İnsizyonel biyopsi."
+        )
+    },
+    'thyroid_cancer': {
+        'patterns': [
+            r'tiroid.*kanser', r'tiroid.*nodül', r'guatr.*kanser', r'boyunda nodül',
+            r'papiller'
+        ],
+        'title': 'Tiroid Kanseri & Tiroid Nodülleri',
+        'answer': (
+            "🦋 **Tiroid Kanseri ve Tiroid Nodülleri Rehberi:**\n\n"
+            "• **Nodüllerin Ne Kadarı Kanserdir?** Toplumda tiroid nodülleri çok yaygındır ancak bu nodüllerin yalnızca %5-10'u kanserleşir.\n"
+            "• **Malignite Şüphesi Uyandıran Bulgular (TIRADS Kriterleri):**\n"
+            "   - Boyun ön bölgesinde hızla büyüyen sert ve hareketsiz kitle.\n"
+            "   - Ultrasonografide mikrokalsifikasyonlar, düzensiz sınırlar ve hipoekoik yapı.\n"
+            "   - Boyun lenf bezlerinde eşzamanlı büyüme.\n"
+            "• **Erken Teşhiste Başarı:** Papiller tiroid kanseri erken yakalandığında cerrahi ve radyoaktif iyot ile **%98'in üzerinde 10 yıllık tam sağkalım** oranına sahiptir."
+        )
+    },
+    'pharmacogenomics_dpyd': {
+        'patterns': [
+            r'dpyd', r'farmakogenomik', r'pgx', r'5-fu.*toksisite', r'kapesitabin.*test',
+            r'ugt1a1', r'kemoterapi toksisite'
+        ],
+        'title': 'Farmakogenomik (PGx) Testleri & Kemoterapi Güvenliği',
+        'answer': (
+            "💊 **Farmakogenomik (PGx) Testleri ve CPIC Seviye A Kılavuzları:**\n\n"
+            "• **DPYD Gen Testi Nedir?** 5-Fluorouracil (5-FU) ve Kapesitabin gibi kolorektal/meme kemoterapilerini vücut DPYD enzimi ile yıkar. DPYD enzim eksikliği olan hastalarda bu ilaçlar birikir ve ölümcül toksisiteye (nötropenik sepsis, ağır mukozit) yol açar.\n"
+            "• **Testin Önemi:** Kemoterapi başlamadan önce yapılan basit bir DNA testiyle doz %50 azaltılarak veya alternatif ilaca geçilerek hasta hayatı kurtarılır.\n"
+            "• **UGT1A1 & İrinotekan:** İrinotekan metabolizmasını düzenler; *28/*28 homozigot hastalarda ağır ishal ve lökopeni riskine karşı doz ayarı gereklidir."
+        )
+    },
+    'synthetic_lethality_parp': {
+        'patterns': [
+            r'sentetik letalite', r'parp.*inhibitör', r'olaparib', r'brca.*parp',
+            r'depmap', r'msi.*wrn'
+        ],
+        'title': 'Sentetik Letalite (Synthetic Lethality) & PARP Tedavileri',
+        'answer': (
+            "🎯 **Sentetik Letalite ve Hedefe Yönelik Kanser Tedavisi:**\n\n"
+            "• **Sentetik Letalite Nedir?** İki genden birinin mutasyonu hücreyi yaşatırken, her iki genin aynı anda bozulması durumunda kanser hücresinin seçici olarak ölmesidir. Sağlıklı hücreler zarar görmez!\n"
+            "• **Klinik Başarı (BRCA1/2 + PARP):**\n"
+            "   BRCA mutant tümörler homolog rekombinasyon (HRD) onarımını kaybetmiştir. PARP inhibitörleri (Olaparib, Talazoparib) tek zincir onarımını da bloke edince tümör hücresi bölünemez ve apoptoza gider.\n"
+            "• **Yeni Nesil Zaaflar (MSI-H + WRN):**\n"
+            "   Mikrosatellit instabilitesi (MSI-H) olan tümörler Broad DepMap verilerine göre kesinlikle WRN DNA helikazına bağımlıdır. WRN blokajı bu tümörleri selektif olarak yok eder."
         )
     },
     'bot_help': {

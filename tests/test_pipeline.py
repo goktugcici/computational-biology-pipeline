@@ -523,6 +523,34 @@ class TestComputationalBiologyPipeline(unittest.TestCase):
         self.assertIn("Hemoptizi", res_hemo['message'])
         self.assertIn("Toraks BT", res_hemo['message'])
 
+        # 6. Head & Neck / Hoarseness
+        res_hn = bot.process_message("Geçmeyen ses kısıklığı kanser belirtisi olabilir mi?")
+        self.assertIn("Larenks", res_hn['message'])
+
+        # 7. Lymphoma / B-symptoms
+        res_lymph = bot.process_message("Gece terlemesi kanser işareti midir?")
+        self.assertIn("Lenfoma", res_lymph['message'])
+
+        # 8. Gynecologic / Postmenopausal bleeding
+        res_gyn = bot.process_message("Menopoz sonrası vajinal kanama tehlikeli midir?")
+        self.assertIn("Endometrium", res_gyn['message'])
+
+        # 9. Brain Tumor / Morning headache
+        res_cns = bot.process_message("Sabah baş ağrısı ve kusma beyin tümörü belirtisi midir?")
+        self.assertIn("Beyin", res_cns['message'])
+
+        # 10. Sarcoma / Bone pain
+        res_sarc = bot.process_message("Geceleri derin kemik ağrısı kemik kanseri midir?")
+        self.assertIn("Sarkom", res_sarc['message'])
+
+        # 11. Pharmacogenomics DPYD
+        res_dpyd = bot.process_message("Kemoterapide DPYD testi neden yapılır?")
+        self.assertIn("Fluorouracil", res_dpyd['message'])
+
+        # 12. Synthetic Lethality PARP
+        res_sl = bot.process_message("Sentetik letalite ve PARP inhibitörleri nasıl çalışır?")
+        self.assertIn("BRCA", res_sl['message'])
+
     def test_diagnostic_chatbot_dynamic_evaluation_standalone(self):
         """Verifies pure-Python dynamic risk evaluation without external database files."""
         from diagnostic_chatbot import DiagnosticChatbot, clean_for_console

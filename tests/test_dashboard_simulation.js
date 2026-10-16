@@ -88,7 +88,9 @@ const mockWindow = {
   addEventListener: (event, handler) => {
     if (event === 'DOMContentLoaded') mockWindow.domLoaded = handler;
   },
-  navigator: { clipboard: { writeText: () => Promise.resolve() } }
+  navigator: { clipboard: { writeText: () => Promise.resolve() } },
+  open: () => ({ document: { write: () => {}, close: () => {} } }),
+  speechSynthesis: { speak: () => {}, cancel: () => {} }
 };
 
 const mockChart = function(ctx, config) {
@@ -124,6 +126,7 @@ const sandbox = {
   setInterval: setInterval,
   clearInterval: clearInterval,
   alert: () => {},
+  SpeechSynthesisUtterance: function(t) { this.text = t; },
   Number, Math, Date, Set, Map, Object, Array, String, Boolean, parseInt, parseFloat, isNaN, isFinite, RegExp
 };
 
@@ -176,12 +179,20 @@ sandbox.calculateCancerRiskLive();
 sandbox.clearCrpSymptoms();
 console.log('✓ 100k Cancer Risk Bayesian predictor (22 red-flag symptoms, 14 cancer categories) validated');
 
-// Chatbot
+// Chatbot (Multi-turn Anamnesis, Q&A Knowledge Base, Voice Synthesis, & Printing)
 sandbox.initChatbot();
+sandbox.toggleChatVoice();
+sandbox.sendChatMessage('DPYD testi nedir?');
+sandbox.sendChatMessage('Akciğer kanseri belirtileri nelerdir?');
 sandbox.sendChatMessage('Son zamanlarda kanlı balgam ve geçmeyen öksürük şikayetim var');
-sandbox.handleQuickReply('Açıklanamayan Kilo Kaybı');
+sandbox.handleQuickReply('58 Yaşında Erkek');
+sandbox.sendChatMessage('Günde 1 paket, 25 yıl içtim');
+sandbox.sendChatMessage('Evet, ailemde kanser var');
+sandbox.sendChatMessage('2 aydır devam ediyor');
+sandbox.printChatConsultationReport();
+sandbox.copyChatConsultationSummary();
 sandbox.resetChatbotSession();
-console.log('✓ Anamnesis Diagnostic Chatbot multi-turn consultation validated');
+console.log('✓ Anamnesis Diagnostic Chatbot (22 symptoms, 27 Q&A topics, TTS voice, PDF report) validated');
 
 // Survival & Liquid Biopsy
 ['FLAURA_EGFR', 'KEYNOTE_042_TMB_HIGH', 'OLYMPIAD_BRCA', 'CODEBREAK_200_KRAS'].forEach(tr => sandbox.renderSurvivalTrial(tr));

@@ -520,9 +520,14 @@
                 <p class="text-[11px] text-slate-400">Bayesyen Triyaj Motoru &bull; 100k Kohort Kanıtı</p>
               </div>
             </div>
-            <span id="chatPhaseIndicator" class="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-slate-800 text-sky-300 font-semibold border border-slate-700">
-              Aşama: Şikayet Bildirimi
-            </span>
+            <div class="flex items-center gap-2">
+              <button onclick="toggleChatVoice()" id="chatVoiceBtn" title="Sesli Asistan (Metin Okuma)" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition-all">
+                <span id="chatVoiceIcon">🔇</span> <span id="chatVoiceLabel" class="hidden sm:inline">Ses: Kapalı</span>
+              </button>
+              <span id="chatPhaseIndicator" class="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-slate-800 text-sky-300 font-semibold border border-slate-700">
+                Aşama: Şikayet Bildirimi
+              </span>
+            </div>
           </div>
 
           <!-- Mesaj Akışı -->
@@ -643,9 +648,14 @@
               </p>
             </div>
 
-            <button onclick="copyChatConsultationSummary()" class="w-full py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-md">
-              <span>📋 Klinik Triyaj Özetini Kopyala</span>
-            </button>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+              <button onclick="copyChatConsultationSummary()" class="py-2.5 px-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-md">
+                <span>📋 Kopyala</span>
+              </button>
+              <button onclick="printChatConsultationReport()" class="py-2.5 px-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-sky-600 hover:from-emerald-500 hover:to-sky-500 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-md">
+                <span>🖨️ Rapor Yazdır</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -3283,7 +3293,7 @@
     // ==========================================
     const JS_NLP_PATTERNS = {
       'hemoptysis': [/kan.*balgam/i, /balgam.*kan/i, /kan.*tükür/i, /tükür.*kan/i, /ağzı.*kan/i, /öksür.*kan/i, /hemoptizi/i, /kanlı balgam/i],
-      'chronic_cough': [/öksür/i, /öksürük/i, /öksürüyorum/i, /ses kısıklığı/i, /boğazımda gıcık/i, /inatçı öksürük/i, /geçmeyen öksürük/i, /kuru öksürük/i],
+      'chronic_cough': [/öksür/i, /öksürük/i, /öksürüyorum/i, /boğazımda gıcık/i, /inatçı öksürük/i, /geçmeyen öksürük/i, /kuru öksürük/i],
       'unexplained_weight_loss': [/kilo kayb/i, /kilo ver/i, /zayıfla/i, /iştahım yok/i, /iştahsız/i, /eridim/i, /istemsiz kilo/i, /hızlı kilo/i, /pantolonum bol/i],
       'rectal_bleeding': [/makat.*kan/i, /rektal kanama/i, /dışkı.*kan/i, /kanlı dışkı/i, /tuvalet.*kan/i, /büyük abdest.*kan/i, /kırmızı dışkı/i, /hematoşez/i],
       'bowel_habit_change': [/bağırsak/i, /ishal/i, /kabız/i, /büyük abdest.*değiş/i, /tuvalet.*değiş/i, /dışkı.*incel/i, /dışkılama alışkanlığı/i],
@@ -3293,15 +3303,373 @@
       'hematuria': [/idrar.*kan/i, /çiş.*kan/i, /kanlı idrar/i, /kırmızı idrar/i, /hematüri/i, /idrar yaparken kan/i],
       'urinary_hesitancy': [/idrar.*zor/i, /zor.*idrar/i, /zayıf akım/i, /kesik kesik/i, /damla damla/i, /gece idrar/i, /prostat/i, /mesane boşalmı/i],
       'jaundice': [/sarılık/i, /göz.*sarar/i, /cilt.*sarar/i, /tenim sarar/i, /çay rengi idrar/i, /açık renk dışkı/i, /beyaz dışkı/i, /kaşıntı.*sarılık/i],
-      'dysphagia': [/yutma güç/i, /yutamıyor/i, /lokma takıl/i, /boğazıma takıl/i, /yemekler boğazıma/i, /katı gıda/i, /zor yut/i],
+      'dysphagia': [/yutma güç/i, /yutamıyor/i, /lokma takıl/i, /boğazıma takıl/i, /yemekler boğazıma/i, /katı gıda/i, /zor yut/i, /disfaji/i],
       'persistent_abdominal_pain': [/karın ağrı/i, /mide ağrı/i, /geçmeyen karın/i, /batın ağrı/i, /yemekten sonra ağrı/i, /erken doyma/i, /mide ekşi/i, /epigastrik/i, /şişkinlik/i],
-      'skin_mole_changes': [/\bben\b.*büyü/i, /\bben\b.*değiş/i, /ben.*kaşın/i, /ben.*kana/i, /şüpheli ben/i, /et beni/i, /renk.*alaca/i, /melanom/i, /yeni çıkan ben/i]
+      'skin_mole_changes': [/\bben\b.*büyü/i, /\bben\b.*değiş/i, /ben.*kaşın/i, /ben.*kana/i, /şüpheli ben/i, /et beni/i, /renk.*alaca/i, /melanom/i, /yeni çıkan ben/i],
+      'persistent_hoarseness': [/ses kısıklığı/i, /sesim kısık/i, /sesim kısıldı/i, /sesim çıkmıyor/i, /disfoni/i, /boğazımda batma/i, /inatçı ses/i, /geçmeyen ses/i],
+      'oral_ulceration': [/ağzımda yara/i, /dilimde yara/i, /ağız yarası/i, /ağızda kitle/i, /lökoplaki/i, /dudakta yara/i, /aft.*geçm/i, /iyileşmeyen yara/i, /damakta yara/i],
+      'cervical_lymphadenopathy': [/boynumda şişlik/i, /boyunda beze/i, /boynumda beze/i, /lenf bezi/i, /koltuk altı.*şişlik/i, /lenf nodu/i, /beze çıktı/i, /lenfadenopati/i, /sert beze/i, /boyunda yumru/i],
+      'night_sweats_fever': [/gece.*ter/i, /sırılsıklam/i, /çarşaf değiştir/i, /nedensiz ateş/i, /düşmeyen ateş/i, /titreme.*ateş/i, /su gibi ter/i, /terliyorum/i],
+      'postmenopausal_bleeding': [/menopoz.*kanama/i, /menopoz.*leke/i, /vajinal kanama/i, /adetim bitti.*kanama/i, /rahim kanama/i, /menopozdan sonra/i, /lekelenme.*menopoz/i],
+      'persistent_bloating_ascites': [/karın şiş/i, /karnım davul gibi/i, /karında sıvı/i, /asit/i, /pantolonum kapanmıyor/i, /pelvik dolgunluk/i, /geçmeyen şişkinlik/i, /karında gerginlik/i],
+      'neurological_deficits_headache': [/sabah baş ağrısı/i, /fışkırır.*kusma/i, /kuvvetsizlik/i, /felç/i, /nöbet/i, /gözüm kararıyor/i, /çift görme/i, /kolumda uyuşma/i, /sabahları başım ağrıyor/i, /denge kaybı/i],
+      'bone_pain_mass': [/kemik ağrısı/i, /gece kemik/i, /derin kitle/i, /bacağımda şişlik/i, /kolda kitle/i, /kemikte sızı/i, /büyüyen kitle/i, /istirahatte kemik/i, /kemiklerim sızlıyor/i]
     };
 
     function normalizeTurkishText(t) {
       if (!t) return '';
       return t.replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase();
     }
+
+    // ==========================================
+    // KLINIK ONKOLOJI KUTUPHANESI & CEVRIMDISI Q&A
+    // ==========================================
+    const JS_OFFLINE_KNOWLEDGE = {
+      'lung_cancer': {
+        patterns: [/akciğer.*kanser/i, /akciger.*kanser/i, /akciğer.*tümör/i, /akciğer.*belirti/i, /toraks.*bt/i, /akciğer.*nasıl anlaşılır/i, /akciğer.*erken teşhis/i],
+        title: 'Akciğer Kanseri & Erken Tanı',
+        answer: "🫁 **Akciğer Kanseri ve Erken Teşhis Rehberi:**\n\n" +
+          "• **Erken Evre:** Akciğer dokusunun kendisinde duyu siniri olmadığından başlangıçta sinsi ilerler.\n" +
+          "• **Kritik Kırmızı Bayraklar (NICE NG12):**\n" +
+          "  1. **Hemoptizi:** Tek bir kez dahi olsa balgamda kan görülmesi acil 2WW sevk gerektirir.\n" +
+          "  2. **3 haftayı geçen inatçı öksürük** veya karakter değiştiren kronik öksürük.\n" +
+          "  3. **Açıklanamayan nefes darlığı, istemsiz kilo kaybı ve ses kısıklığı**.\n" +
+          "• **Altın Standart Tarama:** 50-80 yaş arası, 20 paket-yıl sigara içmiş kişilere yıllık **Düşük Doz Toraks BT (LDCT)** önerilir."
+      },
+      'breast_cancer': {
+        patterns: [/meme.*kanser/i, /göğüs.*kanser/i, /memede.*kitle/i, /meme.*belirti/i, /mamografi/i, /meme.*akıntı/i, /koltuk altı.*kitle/i],
+        title: 'Meme Kanseri & Erken Tanı',
+        answer: "🎀 **Meme Kanseri ve Erken Teşhis Rehberi:**\n\n" +
+          "• **En Sık Belirtiler:**\n" +
+          "  1. Memede veya koltuk altında ele gelen ağrısız, sert, hareketsiz kitle (%80 ilk bulgu).\n" +
+          "  2. Meme başında içe çekilme (retraksiyon) veya tek taraflı spontan kanlı akıntı.\n" +
+          "  3. Meme cildinde portakal kabuğu görünümü ve ödem.\n" +
+          "• **Tarama Takvimi:** 40-69 yaş arası kadınlara 2 yılda bir Dijital Mamografi (KETEM/Hastaneler) önerilir. Kitlelerin %80'i iyi huyludur ancak hekim muayenesi şarttır."
+      },
+      'colorectal_cancer': {
+        patterns: [/kolon.*kanser/i, /kolorektal/i, /bağırsak.*kanser/i, /rektum.*kanser/i, /dışkı.*kan/i, /büyük abdest.*kan/i, /kolonoskopi/i, /makat.*kan/i],
+        title: 'Kolorektal (Kalın Bağırsak) Kanseri & Erken Tanı',
+        answer: "🎗️ **Kolorektal Kanser ve Erken Teşhis Rehberi:**\n\n" +
+          "• **Kırmızı Bayraklar:** Dışkıda kan görülmesi, 6 haftayı geçen dışkılama değişikliği (ishal/kabızlık) ve açıklanamayan demir eksikliği anemisi.\n" +
+          "• **Öncül Lezyonlar:** Kolorektal kanserlerin %95'i iyi huylu poliplerden gelişir; kolonoskopi polipleri alarak kanseri oluşmadan önler!\n" +
+          "• **Tarama:** 50-70 yaş arası 2 yılda bir GGK (Gaitada Gizli Kan) ve 10 yılda bir Kolonoskopi önerilir."
+      },
+      'prostate_cancer': {
+        patterns: [/prostat.*kanser/i, /prostat.*belirti/i, /psa.*test/i, /idrar.*zor/i, /kesik kesik idrar/i, /prostat.*nasıl/i],
+        title: 'Prostat Kanseri & PSA Taraması',
+        answer: "🔷 **Prostat Kanseri ve Erken Teşhis Rehberi:**\n\n" +
+          "• **Klinik Seyir:** Prostatın dış kapsülünde geliştiği için erken evrede belirtisizdir.\n" +
+          "• **İlerleyen Bulgular:** İdrar akımında zayıflama, kesik kesik yapma, gece sık idrara kalkma (noktüri) ve idrarda kan.\n" +
+          "• **Tarama:** 50 yaş üzeri erkeklerde kanda Total PSA ve ürolojik muayene; şüpheli olgularda multiparametrik prostat MR (mpMRI) ve füzyon biyopsi uygulanır."
+      },
+      'pancreatic_cancer': {
+        patterns: [/pankreas.*kanser/i, /pankreas.*belirti/i, /sarılık.*kanser/i, /çay rengi idrar/i, /açık renk dışkı/i],
+        title: 'Pankreas Kanseri & Ağrısız Sarılık',
+        answer: "⚠️ **Pankreas Kanseri ve Erken Teşhis:**\n\n" +
+          "• **Kritik Kırmızı Bayraklar:**\n" +
+          "  1. **Ağrısız İlerleyici Sarılık:** Göz aklarında sararma, çay rengi koyu idrar ve açık renkli (cam macunu) dışkı.\n" +
+          "  2. **Açıklanamayan ani ve derin kilo kaybı**.\n" +
+          "  3. Sırta vuran, öne eğilince hafifleyen üst karın ağrısı.\n" +
+          "  4. 50 yaşından sonra aniden ortaya çıkan yeni başlangıçlı diyabet.\n" +
+          "• **Tanı:** Dinamik 3 Fazlı Batın BT, MRCP ve Endoskopik Ultrasonografi (EUS)."
+      },
+      'stomach_cancer': {
+        patterns: [/mide.*kanser/i, /gastrik.*kanser/i, /mide.*belirti/i, /yutma güç/i, /disfaji/i, /erken doyma/i],
+        title: 'Mide & Özofagus Kanseri',
+        answer: "🍽️ **Mide ve Yemek Borusu Kanserleri:**\n\n" +
+          "• **Kırmızı Bayraklar:** Katı gıdalara karşı ilerleyici yutma güçlüğü (disfaji), birkaç lokmada erken doyma hissi, tedaviye dirençli mide ağrısı ve kilo kaybı.\n" +
+          "• **Tanı:** Üst GIS Endoskopisi (ÖGD) ve patolojik biyopsi altın standarttır."
+      },
+      'bladder_cancer': {
+        patterns: [/mesane.*kanser/i, /idrar.*kan/i, /hematüri/i, /böbrek.*kanser/i, /sistoskopi/i],
+        title: 'Mesane & Böbrek Kanseri (Ağrısız Hematüri)',
+        answer: "💧 **Mesane ve Böbrek Kanseri:**\n\n" +
+          "• **En Önemli Kırmızı Bayrak:** Ağrısız, sancısız gözle görülür kanlı idrar (Makroskopik Hematüri). Enfeksiyon olmaksızın idrarda kan görülmesi aksi kanıtlanana kadar ürolojik tümör şüphesidir!\n" +
+          "• **Risk Faktörü:** Sigara içimi mesane kanseri riskini 4 kat artırır.\n" +
+          "• **NICE Kuralı:** 45 yaş üzeri ağrısız hematüri doğrudan 2 hafta içinde (2WW) Fleksibl Sistoskopiye yönlendirilmelidir."
+      },
+      'melanoma_skin': {
+        patterns: [/melanom/i, /\bcilt\b.*kanser/i, /\bderi\b.*kanser/i, /ben.*değiş/i, /ben.*büyü/i, /şüpheli.*ben/i, /abcde/i],
+        title: 'Malign Melanom & Benlerde ABCDE Kuralı',
+        answer: "☀️ **Malign Melanom ve Cilt Benlerinde ABCDE Kuralı:**\n\n" +
+          "• **A (Asimetri):** Benin iki yarısı birbirine benzemez.\n" +
+          "• **B (Sınır Düzensizliği):** Kenarları girintili, dalgalı veya pürüzlüdür.\n" +
+          "• **C (Renk Alacalığı):** Siyah, kahve, kırmızı, mavi alacalı tonlar içerir.\n" +
+          "• **D (Çap):** Çapı 6 mm'den (silgi çapı) geniştir.\n" +
+          "• **E (Evrim):** Benin hızla büyümesi, kaşınması veya kanaması en kritik alarmdır!\n" +
+          "• Erken evrede basit eksizyonla %99 tam şifa sağlanır."
+      },
+      'head_neck_cancer': {
+        patterns: [/baş boyun.*kanser/i, /larenks.*kanser/i, /gırtlak.*kanser/i, /ağız.*kanser/i, /ses kısıklığı.*kanser/i, /ağız yarası.*kanser/i],
+        title: 'Baş & Boyun ve Larenks (Gırtlak) Kanseri',
+        answer: "🗣️ **Baş & Boyun ve Larenks Kanserleri:**\n\n" +
+          "• **En Kritik Kırmızı Bayraklar:**\n" +
+          "  1. **3 haftayı geçen ses kısıklığı:** Larenks kanserinin en erken ve tipik belirtisidir.\n" +
+          "  2. **Ağız içinde 3 haftayı geçen iyileşmeyen yara/ülser** veya beyaz/kırmızı plaklar.\n" +
+          "  3. Tek taraflı yutkunma ağrısı, kulağa vuran ağrı ve boyunda sert lenf bezi kitlesi.\n" +
+          "• **Risk:** Sigara + alkol birlikteliği riski 30 kat artırır. Tanıda KBB endoskopisi ve biyopsi esastır."
+      },
+      'lymphoma_hematologic': {
+        patterns: [/lenfoma/i, /lösemi/i, /kan kanseri/i, /b belirtileri/i, /gece terlemesi.*kanser/i, /hodgkin/i],
+        title: 'Hematolojik Kanserler & Lenfoma B-Semptomları',
+        answer: "🩸 **Lenfoma ve Hematolojik Maligniteler:**\n\n" +
+          "• **Klasik B-Semptomları Triadı:**\n" +
+          "  1. **Sırılsıklam Gece Terlemeleri:** Çarşaf değiştirmeyi gerektirecek yoğunlukta terleme.\n" +
+          "  2. **Açıklanamayan Dalgalı Ateş:** Enfeksiyon odağı olmaksızın 38°C üzeri ateş.\n" +
+          "  3. İstemsiz >%10 kilo kaybı.\n" +
+          "• **Muayene:** Boyunda, koltuk altında ağrısız, lastik kıvamında büyüyen lenf nodları (>2 cm).\n" +
+          "• Kesin tanı için **tam eksizyonel lenf bezi biyopsisi** şarttır."
+      },
+      'gynecologic_cancer': {
+        patterns: [/jinekolojik.*kanser/i, /rahim.*kanser/i, /yumurtalık.*kanser/i, /over.*kanser/i, /endometrium/i, /menopoz.*kanama/i],
+        title: 'Jinekolojik Kanserler (Endometrium, Over, Serviks)',
+        answer: "🌺 **Jinekolojik Kanserler ve Erken Teşhis:**\n\n" +
+          "• **Postmenopozal Vajinal Kanama:** Menopoza girmiş bir kadında tek bir damla dahi kanama doğrudan Endometrium Kanseri şüphesi kabul edilir ve acil 2WW sevk gerektirir.\n" +
+          "• **Over (Yumurtalık) Kanseri:** Karında kalıcı gerginlik/şişlik, pantolonun kapanmaması ve sıvı toplanması (asit) ile sinsi seyreder.\n" +
+          "• **Serviks Kanseri:** 30-65 yaş arası 5 yılda bir yapılan HPV-DNA/Smear testi ile öncül lezyonken yakalanıp tamamen önlenebilir."
+      },
+      'cns_brain_tumor': {
+        patterns: [/beyin.*tümör/i, /beyin.*kanser/i, /glioblastom/i, /sabah baş ağrısı.*kanser/i, /fışkırır.*kusma/i],
+        title: 'Merkezi Sinir Sistemi (MSS) & Beyin Tümörleri',
+        answer: "🧠 **Beyin Tümörleri ve Nörolojik Kırmızı Bayraklar:**\n\n" +
+          "• **Karakteristik Bulgular:**\n" +
+          "  1. Sabahları uykudan uyandıran, öksürmekle şiddetlenen baş ağrısı (KİBAS bulgusu).\n" +
+          "  2. Bulantısız, fışkırır tarzda sabah kusmaları.\n" +
+          "  3. Erişkin yaşta aniden ilk kez geçirilen epileptik nöbet (havale).\n" +
+          "  4. Vücudun tek tarafında felç/kuvvetsizlik, görme kaybı veya konuşma bozukluğu.\n" +
+          "• **Tanı:** Kontrastlı Kraniyal Beyin MRG (Manyetik Rezonans) altın standarttır."
+      },
+      'sarcoma_bone_tumor': {
+        patterns: [/sarkom/i, /kemik.*kanser/i, /kemik.*tümör/i, /osteosarkom/i, /derin kemik ağrısı/i],
+        title: 'Kemik & Yumuşak Doku Sarkomları',
+        answer: "🦴 **Kemik ve Yumuşak Doku Sarkomları:**\n\n" +
+          "• **Alarm Belirtileri:**\n" +
+          "  1. Geceleri uykudan uyandıran derin, sızlayıcı kemik ağrısı.\n" +
+          "  2. Kol veya bacakta hızla büyüyen, sert doku kitlesi (>5 cm derin kitleler acil inceleme gerektirir).\n" +
+          "  3. Basit hareketle gelişen patolojik kemik kırıkları.\n" +
+          "• **Tanı:** Direkt grafi, Kontrastlı Ekstremite MRG ve Tru-Cut iğne biyopsisi."
+      },
+      'thyroid_cancer': {
+        patterns: [/tiroid.*kanser/i, /tiroid.*nodül/i, /guatr.*kanser/i, /boyunda nodül/i],
+        title: 'Tiroid Kanseri & Tiroid Nodülleri',
+        answer: "🦋 **Tiroid Kanseri ve Erken Teşhis:**\n\n" +
+          "• Toplumda tiroid nodülleri yaygındır ancak yalnızca %5-10'u kanserleşir.\n" +
+          "• Boyun önünde sert, hızla büyüyen ve yutkunmakla hareket eden kitlelerde Tiroid USG ve İnce İğne Aspirasyon Biyopsisi (İİAB) yapılır.\n" +
+          "• Papiller tiroid kanseri erken evrede cerrahi ile %98'in üzerinde tam iyileşme oranına sahiptir."
+      },
+      'pharmacogenomics_dpyd': {
+        patterns: [/dpyd/i, /farmakogenomik/i, /pgx/i, /5-fu.*toksisite/i, /kapesitabin.*test/i, /ugt1a1/i],
+        title: 'Farmakogenomik (PGx) DPYD Testi & Kemoterapi Güvenliği',
+        answer: "💊 **Farmakogenomik DPYD Testi ve CPIC Kılavuzları:**\n\n" +
+          "• 5-FU ve Kapesitabin gibi kemoterapileri karaciğer DPYD enzimiyle yıkar.\n" +
+          "• Genetik varyantı olan hastalarda bu enzim eksiktir; standart doz ölümcül nötropenik sepsise yol açar.\n" +
+          "• Kemoterapi öncesi DNA analiziyle doz %50 azaltılarak veya alternatif ilaca geçilerek ölümcül toksisite tamamen önlenir!"
+      },
+      'synthetic_lethality_parp': {
+        patterns: [/sentetik letalite/i, /parp.*inhibitör/i, /olaparib/i, /brca.*parp/i, /depmap/i, /msi.*wrn/i],
+        title: 'Sentetik Letalite & Hedefe Yönelik Akıllı İlaçlar',
+        answer: "🎯 **Sentetik Letalite (Synthetic Lethality):**\n\n" +
+          "• İki genden biri bozulduğunda yaşayan kanser hücresi, ikinci gen de bloke edildiğinde seçici olarak ölür.\n" +
+          "• **BRCA1/2 + PARP İnhibitörü (Olaparib):** DNA çift zincir tamir kusuru olan hücrelere PARP inhibitörü verilerek tümör selektif olarak yok edilir.\n" +
+          "• **MSI-H + WRN:** DepMap CRISPR verilerine göre MSI-H tümörler WRN helikazına mutlak bağımlıdır."
+      },
+      'liquid_biopsy': {
+        patterns: [/sıvı biyopsi/i, /ctdna/i, /kanda kanser/i, /kandan teşhis/i, /mrd/i],
+        title: 'Sıvı Biyopsi (ctDNA) & Kanda Kanser Takibi',
+        answer: "🩸 **Sıvı Biyopsi ve Dolaşımdaki Tümör DNA'sı (ctDNA):**\n\n" +
+          "• Kanser hücreleri parçalandığında genetik materyallerini (ctDNA) kana bırakır.\n" +
+          "• Basit bir kan örneğinden NGS ile mutant DNA tespit edilir.\n" +
+          "• Ameliyat sonrası moleküler kalıntı hastalığı (MRD) tespit ederek nüksü radyolojik BT/MR'dan **3-6 ay önce** yakalar!"
+      },
+      'colonoscopy_info': {
+        patterns: [/kolonoskopi.*nedir/i, /kolonoskopi.*acı/i, /kolonoskopi.*nasıl/i, /kolonoskopi.*zor mu/i],
+        title: 'Kolonoskopi İşlemi ve Konforu',
+        answer: "🔍 **Kolonoskopi Hakkında Gerçekler:**\n\n" +
+          "• Günümüzde sedasyon (hafif anestezi) altında yapılır; hasta hiçbir ağrı veya rahatsızlık hissetmez.\n" +
+          "• İşlem ortalama 15-20 dakika sürer.\n" +
+          "• Kolonoskopi sadece teşhis koymaz; kansere dönüşebilecek polipleri anında kesip alarak kanseri oluşmadan engeller!"
+      },
+      'biopsy_myths': {
+        patterns: [/biyopsi.*kanser.*yayar/i, /biyopsi.*zararlı/i, /biyopsi.*bıçak değerse/i, /bıçak vurulmaz/i],
+        title: 'Biyopsi Kanseri Yayar mı? (Tıbbi Gerçek)',
+        answer: "🛡️ **Tıbbi Gerçek: Biyopsi Kanseri Kesinlikle Yaymaz!**\n\n" +
+          "• Bu inanış tıbbi temeli olmayan tehlikeli bir şehir efsanesidir.\n" +
+          "• Kan tahlili veya filmle kesin kanser teşhisi konulamaz; patolojik doku tanısı şarttır.\n" +
+          "• Günümüzde biyopsiler kapalı koruyucu iğnelerle (Tru-Cut) güvenle yapılır."
+      },
+      'nice_guidelines': {
+        patterns: [/nice.*kılavuz/i, /nice.*ng12/i, /2ww/i, /2-week-wait/i, /iki hafta/i, /acil sevk/i],
+        title: 'NICE NG12 ve 2-Week-Wait (2WW) Sevk Protokolü',
+        answer: "⏱️ **NICE NG12 ve 2-Week-Wait (2WW) Acil Sevk Sistemi:**\n\n" +
+          "• Bir belirtinin kanser olma olasılığı (Pozitif Prediktif Değer) **%3 ve üzerine çıktığında**, bu durum 'Kırmızı Bayrak' sayılır.\n" +
+          "• 2WW kuralı gereğince hasta **en geç 14 takvim günü içinde** ilgili uzman tarafından ileri tetkike alınmalıdır.\n" +
+          "• Amaç bürokratik gecikmeleri önleyerek erken evrede tam şifa sağlamaktır."
+      },
+      'screening_and_tests': {
+        patterns: [/hangi test/i, /kanser tarama/i, /hangi yaşta/i, /tarama.*test/i, /check.*up/i],
+        title: 'Resmi Kanser Tarama Takvimi (Sağlık Bakanlığı & WHO)',
+        answer: "📋 **Kanser Tarama Takvimi:**\n\n" +
+          "• **Meme Kanseri:** 40-69 yaş kadınlarda 2 yılda bir Mamografi.\n" +
+          "• **Kolorektal Kanser:** 50-70 yaş kadın ve erkeklerde 2 yılda bir GGK, 10 yılda bir Kolonoskopi.\n" +
+          "• **Rahim Ağzı (Serviks):** 30-65 yaş kadınlarda 5 yılda bir HPV-DNA ve Smear.\n" +
+          "• **Akciğer:** 50-80 yaş ağır sigara içicilerine yıllık Düşük Doz Toraks BT (LDCT).\n" +
+          "• **Prostat:** 50 yaş üzeri erkeklerde kanda Total PSA."
+      },
+      'bot_help': {
+        patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
+        title: 'Bot Hakkında & Kullanım Kılavuzu',
+        answer: "🤖 **Klinik Onkoloji & Erken Teşhis Soru Botu:**\n\n" +
+          "Bu bot **%100 çevrimdışı (offline)** çalışır ve önceden kaydedilmiş hiçbir kişisel verinizi saklamaz.\n\n" +
+          "📌 **Neler Yapabilirsiniz?**\n" +
+          "1. **Tıbbi Soru Sorabilirsiniz:** Erken belirtiler, tarama testleri, sıvı biyopsi, DPYD testi veya kanser türleri hakkında dilediğinizi yazabilirsiniz.\n" +
+          "2. **Kişisel Anamnez Başlatabilirsiniz:** Şikayetlerinizi yazarak (Örn: *'2 aydır öksürüyorum ve kilo verdim'*) 5 adımlı Bayesyen risk analizini başlatabilirsiniz.\n" +
+          "3. **Sesli Dinleme & Rapor Yazdırma:** Ses butonunu (🔊) açarak yanıtları sesli dinleyebilir, 'Rapor Yazdır' butonuyla resmi klinik triyaj özeti alabilirsiniz."
+      }
+    };
+
+    function isChatQuestion(text) {
+      if (!text) return false;
+      if (text.includes('?')) return true;
+      const qWords = [/\bnedir\b/i, /\bnasıl\b/i, /\bne zaman\b/i, /\bhangi\b/i, /\bkimlere\b/i, /\btehlikeli mi\b/i, /\bkanser mi\b/i, /\bolabilir mi\b/i, /\bvar mı\b/i, /\bmidir\b/i, /\bmudur\b/i, /\bbelirtileri\b/i, /\btaraması\b/i, /\btesti\b/i, /\bne demek\b/i, /\bsebebi\b/i, /\bzararlı mı\b/i];
+      return qWords.some(rx => rx.test(text));
+    }
+
+    function findMatchingKnowledge(text) {
+      const norm = normalizeTurkishText(text);
+      for (const [key, item] of Object.entries(JS_OFFLINE_KNOWLEDGE)) {
+        for (const p of item.patterns) {
+          if (p.test(norm)) return item;
+        }
+      }
+      return null;
+    }
+
+    let chatVoiceEnabled = false;
+
+    function toggleChatVoice() {
+      chatVoiceEnabled = !chatVoiceEnabled;
+      const icon = document.getElementById('chatVoiceIcon');
+      const label = document.getElementById('chatVoiceLabel');
+      const btn = document.getElementById('chatVoiceBtn');
+      if (chatVoiceEnabled) {
+        if (icon) icon.innerText = '🔊';
+        if (label) label.innerText = 'Ses: Açık';
+        if (btn) btn.className = 'text-[11px] px-2.5 py-1 rounded-lg bg-emerald-600/30 text-emerald-300 border border-emerald-500/50 flex items-center gap-1.5 transition-all shadow-sm';
+        speakChatText("Sesli klinik asistan aktif edildi. Tıbbi danışma ve anamnez adımlarını sesli olarak dinleyebilirsiniz.");
+      } else {
+        if (icon) icon.innerText = '🔇';
+        if (label) label.innerText = 'Ses: Kapalı';
+        if (btn) btn.className = 'text-[11px] px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition-all';
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+      }
+    }
+
+    function speakChatText(rawText) {
+      if (!window.speechSynthesis || !chatVoiceEnabled) return;
+      window.speechSynthesis.cancel();
+      const clean = rawText
+        .replace(/\*\*(.*?)\*\*/g, '$1')
+        .replace(/\*(.*?)\*/g, '$1')
+        .replace(/[🚩⚠️🚨🩺🎀🍽️💧☀️🩸⚖️🗣️🌺🧠🦴🦋💊🎯📋🔍ℹ️👉•]/g, '')
+        .replace(/\n+/g, ' ');
+
+      const utterance = new SpeechSynthesisUtterance(clean);
+      utterance.lang = 'tr-TR';
+      utterance.rate = 1.05;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function printChatConsultationReport() {
+      const evalRes = calculateChatbotRisk();
+      const symNames = chatSession.symptoms.map(k => CANONICAL_SYMPTOMS[k] ? CANONICAL_SYMPTOMS[k].name : k).join(', ') || 'Belirtilmedi / Spesifik alarm bulgusu yok';
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) {
+        alert("Yazdırma penceresi açılamadı. Lütfen açılır pencere (pop-up) izinlerini kontrol ediniz.");
+        return;
+      }
+
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html lang="tr">
+        <head>
+          <meta charset="UTF-8">
+          <title>Klinik Triyaj ve Erken Kanser Sevk Raporu</title>
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; padding: 28px; color: #0f172a; line-height: 1.5; font-size: 13px; }
+            .header { border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-start; }
+            .title { font-size: 18px; font-weight: 800; color: #0f172a; text-transform: uppercase; }
+            .subtitle { font-size: 11px; color: #64748b; margin-top: 3px; }
+            .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 11px; }
+            .badge-critical { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+            .badge-low { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+            .card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; background: #f8fafc; }
+            .card h4 { margin: 0 0 8px 0; font-size: 11px; color: #475569; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
+            .item { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 12px; }
+            .item-label { color: #64748b; font-weight: 500; }
+            .item-val { font-weight: 700; color: #0f172a; }
+            .action-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px; margin-bottom: 16px; }
+            .action-box h3 { margin: 0 0 6px 0; font-size: 13px; color: #1e40af; }
+            .footer { border-top: 1px solid #cbd5e1; padding-top: 10px; margin-top: 24px; font-size: 10px; color: #94a3b8; text-align: center; }
+            @media print { body { padding: 10px; } }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div>
+              <div class="title">🩺 Klinik Onkoloji Triyaj & Erken Kanser Sevk Raporu</div>
+              <div class="subtitle">NICE NG12 Kılavuzları & 100.000 Kişilik Doğrulanmış Kohort Analizi</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 11px; font-weight: bold;">Tarih: ${new Date().toLocaleDateString('tr-TR')} ${new Date().toLocaleTimeString('tr-TR')}</div>
+              <div class="badge ${evalRes.compositeProb >= 0.25 ? 'badge-critical' : 'badge-low'}" style="margin-top: 6px;">
+                ${evalRes.riskLevel}
+              </div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h4>Hasta Profili & Anamnez</h4>
+              <div class="item"><span class="item-label">Yaş & Biyolojik Cinsiyet:</span><span class="item-val">${chatSession.age} Yaş, ${chatSession.gender === 'F' ? 'Kadın' : 'Erkek'}</span></div>
+              <div class="item"><span class="item-label">Tütün Kullanımı:</span><span class="item-val">${chatSession.smokingPackYears.toFixed(1)} Paket-Yıl</span></div>
+              <div class="item"><span class="item-label">Aile Kanser Öyküsü:</span><span class="item-val">${chatSession.familyHistory ? 'Pozitif (1. Derece)' : 'Yok'}</span></div>
+              <div class="item"><span class="item-label">Şikayet Süresi:</span><span class="item-val">${chatSession.durationDesc}</span></div>
+            </div>
+
+            <div class="card">
+              <h4>Epidemiyolojik Risk & Kohort</h4>
+              <div class="item"><span class="item-label">Tahmini Kanser Riski:</span><span class="item-val" style="color: ${evalRes.compositeProb >= 0.25 ? '#dc2626' : '#16a34a'}; font-size: 14px;">%${evalRes.riskPercent}</span></div>
+              <div class="item"><span class="item-label">NICE 2WW Sevk Durumu:</span><span class="item-val">${evalRes.niceStatus}</span></div>
+              <div class="item"><span class="item-label">Birincil Hedef Organ:</span><span class="item-val">${evalRes.primaryOrganName}</span></div>
+              <div class="item"><span class="item-label">İncelenen Kohort:</span><span class="item-val">${evalRes.matchedCount.toLocaleString('tr-TR')} Benzer Hasta</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: 16px;">
+            <h4>Algılanan Klinik Kırmızı Bayraklar (22 Semptom Taraması)</h4>
+            <div style="font-size: 12px; font-weight: 600; color: #0f172a;">${symNames}</div>
+          </div>
+
+          <div class="action-box">
+            <h3>🚨 Önerilen Öncelikli Klinik Tanı Protokolü</h3>
+            <p style="margin: 0; font-size: 12px; font-weight: 600; color: #1e3a8a;">${evalRes.actionPlan}</p>
+            <div style="margin-top: 8px; font-size: 11px; color: #3b82f6;"><strong>İkincil Ayırıcı Tanı Organları:</strong> ${evalRes.secondaryList}</div>
+          </div>
+
+          <div class="footer">
+            Bu belge istatistiksel epidemiyolojik karar destek ve ön triyaj amacıyla oluşturulmuştur. Kesin tıbbi teşhis ve tedavi uzman hekim değerlendirmesi gerektirir.
+          </div>
+          <script>
+            window.onload = function() { window.print(); };
+          <\/script>
+        </body>
+        </html>
+      `;
+      printWindow.document.write(htmlContent);
+      printWindow.document.close();
+    }
+
 
     let chatSession = {
       state: 'SYMPTOMS',
@@ -3331,21 +3699,21 @@
       };
 
       const greetingText = 
-        "Merhaba! Ben **Erken Kanser Teşhisi ve Klinik Triyaj Soru Botu** 🩺.\n\n" +
-        "Amacım, hissettiğiniz belirtileri adım adım dinleyerek analiz etmek ve " +
-        "**100.000 kişilik doğrulanmış epidemiyoloji veri tabanımız** ile NICE NG12 klinik kılavuzları " +
-        "ışığında erken risk profilinizi değerlendirmektir.\n\n" +
-        "👉 **Şu anda sizi rahatsız eden, vücudunuzda hissettiğiniz şikayet veya belirtiler nelerdir?**\n" +
-        "(Örn: *'2 aydır öksürüyorum ve balgamda kan gördüm'*, *'son zamanlarda istemsiz kilo verdim'*, " +
-        "*'büyük abdestimde kan var'*, *'yutkunurken yemekler takılıyor'* gibi kendi cümlelerinizle yazabilirsiniz)";
+        "Merhaba! Ben **Klinik Onkoloji & Erken Kanser Teşhisi Soru Botu** 🩺.\n\n" +
+        "Bu asistan **%100 çevrimdışı (offline)** çalışır. Bana erken kanser belirtileri, tarama takvimi, " +
+        "sıvı biyopsi (ctDNA), DPYD gen testi veya 22 kırmızı bayrak belirtisi hakkında sorular sorabilir; " +
+        "veya şikayetlerinizi belirterek **100.000 kişilik doğrulanmış epidemiyoloji kohortu** üzerinden kişisel Bayesyen risk analizinizi yaptırabilirsiniz.\n\n" +
+        "👉 **Nasıl yardımcı olabilirim?**\n" +
+        "• Merak ettiğiniz tıbbi bir soruyu yazabilirsiniz (*'DPYD testi nedir?'*, *'Kolonoskopi acıtır mı?'*, *'Biyopsi yayar mı?'*)\n" +
+        "• Veya vücudunuzda hissettiğiniz belirtileri kendi cümlelerinizle yazarak erken triyajı başlatabilirsiniz (*'2 aydır öksürüyorum ve kanlı balgam var'*).";
 
       const initialQuickReplies = [
         "Kanlı Balgam ve Öksürük",
-        "Açıklanamayan Kilo Kaybı",
-        "Dışkıda Kan / Rektal Kanama",
         "Memede Ele Gelen Kitle",
-        "Yutma Güçlüğü",
-        "Gözlerde/Ciltte Sarılık",
+        "❓ DPYD Kemoterapi Testi",
+        "❓ Sıvı Biyopsi (ctDNA)",
+        "❓ Kolonoskopi Acıtır mı?",
+        "❓ NICE 2WW Kuralı Nedir?",
         "Rutin Kontrol (Şikayetim Yok)"
       ];
 
@@ -3477,13 +3845,62 @@
       const timeStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
       const norm = normalizeTurkishText(userText);
 
+      // Check Q&A knowledge base
+      const matchedTopic = findMatchingKnowledge(userText);
+      const isQ = isChatQuestion(userText);
+      const wantsAnamnesis = norm.includes('anamnez') || norm.includes('şikayet') || norm.includes('risk') || norm.includes('başlat') || norm.includes('kontrol') || norm.includes('tahlil');
+      const detectedSymptoms = extractSymptomsNlp(userText);
+
+      // Soru Yanıtlama (Başlangıç veya Tamamlandı aşamasında)
+      if (chatSession.state === 'SYMPTOMS' && (isQ || matchedTopic) && !wantsAnamnesis && detectedSymptoms.length === 0) {
+        let answerText = matchedTopic ? matchedTopic.answer : 
+          "ℹ️ **Klinik Danışma Yanıtı:**\n" +
+          "Kanser erken teşhisinde altın kural; vücutta 2-3 haftadan uzun süren normal dışı değişiklikleri ciddiye almaktır.\n\n" +
+          "• **En Önemli Kırmızı Bayraklar:** Açıklanamayan kilo kaybı (>%10), ele gelen ağrısız kitleler, kanlı balgam/idrar/dışkı, 3 haftayı geçen öksürük veya ses kısıklığı.\n\n" +
+          "👉 Kişisel risk değerlendirmesi yaptırmak isterseniz kendi şikayetlerinizi yazabilir veya aşağıdaki butonu seçebilirsiniz.";
+
+        chatSession.messages.push({
+          sender: 'bot',
+          text: answerText,
+          quickReplies: [
+            "🩺 Şikayetim Var (Anamnez Başlat)",
+            "❓ Akciğer Kanseri Belirtileri",
+            "❓ DPYD Kemoterapi Testi",
+            "❓ Sıvı Biyopsi (ctDNA)",
+            "❓ NICE 2WW Kuralı Nedir?"
+          ],
+          time: timeStr
+        });
+        speakChatText(answerText);
+        return;
+      }
+
+      // Anamnez ortasında soru sorulursa araya girip yanıtlama
+      if (['DEMOGRAPHICS', 'SMOKING', 'FAMILY', 'DURATION'].includes(chatSession.state) && isQ) {
+        const sideAns = matchedTopic ? matchedTopic.answer : "Sorunuzu inceledim. İlgili tıbbi konu kılavuzlarımıza göre yakından takip edilmektedir.";
+        const pendingPrompts = {
+          'DEMOGRAPHICS': "👉 **Kaç yaşındasınız ve biyolojik cinsiyetiniz nedir?** (Örn: *'58 yaşındayım, erkeğim'*)",
+          'SMOKING': "👉 **Tütün kullanım öykünüz var mı? Günde kaç paket ve kaç yıl içtiniz?** (Örn: *'Günde 1 paket 25 yıl'* veya *'Hiç içmedim'*)",
+          'FAMILY': "👉 **Birinci derece akrabalarınızda teşhis edilmiş kanser öyküsü var mı?**",
+          'DURATION': "👉 **Bu şikayetleriniz yaklaşık ne kadar süredir devam ediyor?** (Örn: *'2 haftadır'*, *'2 aydır'*)"
+        };
+        const comboText = `${sideAns}\n\n---\n💡 **Anamnezimize kaldığımız yerden devam edelim:**\n${pendingPrompts[chatSession.state] || ''}`;
+        chatSession.messages.push({
+          sender: 'bot',
+          text: comboText,
+          quickReplies: ["Devam Et", "🔄 Baştan Başla"],
+          time: timeStr
+        });
+        speakChatText(comboText);
+        return;
+      }
+
       if (chatSession.state === 'SYMPTOMS') {
-        const detected = extractSymptomsNlp(userText);
-        chatSession.symptoms = detected;
+        chatSession.symptoms = detectedSymptoms;
 
         let responseText = '';
-        if (detected.length > 0) {
-          const names = detected.map(k => CANONICAL_SYMPTOMS[k].name).join(', ');
+        if (detectedSymptoms.length > 0) {
+          const names = detectedSymptoms.map(k => CANONICAL_SYMPTOMS[k] ? CANONICAL_SYMPTOMS[k].name : k).join(', ');
           responseText = 
             `Anladım, belirttiğiniz şikayetleri kaydettim: **${names}**.\n\n` +
             `Bu şikayetler NICE NG12 klinik kılavuzunda erken tanı alarm bulguları arasında yer almaktadır.\n\n` +
@@ -3491,7 +3908,7 @@
             `(Örn: *'58 yaşındayım, erkeğim'*, *'45 kadın'* veya aşağıdaki hızlı butonları kullanabilirsiniz)`;
         } else {
           responseText = 
-            `Belirttiğiniz şikayeti inceledim. Spesifik bir kırmızı bayrak alarm semptomu doğrudan algılanamadı, ancak tam risk profilinizi çıkarmak için anamneze devam ediyoruz.\n\n` +
+            `Belirttiğiniz ifadeyi inceledim. Spesifik bir kırmızı bayrak alarm semptomu doğrudan algılanamadı, ancak tam risk profilinizi çıkarmak için anamneze devam ediyoruz.\n\n` +
             `👉 **Lütfen yaşınızı ve biyolojik cinsiyetinizi belirtir misiniz?**\n` +
             `(Örn: *'50 yaşında erkeğim'*, *'45 kadın'* vb.)`;
         }
@@ -3509,6 +3926,7 @@
           ],
           time: timeStr
         });
+        speakChatText(responseText);
         return;
       }
 
@@ -3652,13 +4070,24 @@
           switchTab('cancerrisk');
         } else if (norm.includes('sağkalım') || norm.includes('km')) {
           switchTab('survival');
-        } else {
+        } else if (isQ || matchedTopic) {
+          const ans = matchedTopic ? matchedTopic.answer : "Sorunuzu inceledim. Tıbbi tarama ve tedavi seçenekleri onkoloji kılavuzlarına göre yürütülmektedir.";
           chatSession.messages.push({
             sender: 'bot',
-            text: "Anamnez tamamlanmıştır. Yeni bir hasta değerlendirmesi için **'🔄 Yeni Anamnez Başlat'** butonuna tıklayabilirsiniz.",
-            quickReplies: ["🔄 Yeni Anamnez Başlat", "🩺 Erken Teşhis (100k) Tabına Git"],
+            text: ans,
+            quickReplies: ["🔄 Yeni Anamnez Başlat", "🖨️ Rapor Yazdır", "🩺 100k Kohort Paneline Git"],
             time: timeStr
           });
+          speakChatText(ans);
+        } else {
+          const defaultMsg = "Anamnez tamamlanmıştır. Dilediğiniz tıbbi soruyu sorabilir veya yeni bir hasta değerlendirmesi için **'🔄 Yeni Anamnez Başlat'** butonuna tıklayabilirsiniz.";
+          chatSession.messages.push({
+            sender: 'bot',
+            text: defaultMsg,
+            quickReplies: ["🔄 Yeni Anamnez Başlat", "🖨️ Rapor Yazdır", "🩺 Erken Teşhis (100k) Tabına Git"],
+            time: timeStr
+          });
+          speakChatText(defaultMsg);
         }
       }
     }
