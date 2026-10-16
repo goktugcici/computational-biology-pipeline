@@ -1137,6 +1137,79 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
         )
     },
 
+    'mutational_signatures_cosmic': {
+        'patterns': [
+            r'mutasyonel imza', r'cosmic imza', r'sbs1', r'sbs2', r'sbs4', r'sbs7',
+            r'apobec imza', r'mutational signature'
+        ],
+        'title': 'COSMIC Mutasyonel İmzalar (SBS) & Tümör Arkeolojisi',
+        'answer': (
+            "🧬 **COSMIC Mutasyonel İmzalar (Mutational Signatures):**\n\n"
+            "Kanserin genomunda geçmişte maruz kaldığı biyolojik ve çevresel hasarların bıraktığı moleküler 'parmak izleridir' (96 trinükleotit bağlamı):\n\n"
+            "• **SBS1 (Biyolojik Yaş Saati):** Spontan 5-metilsitozin deaminasyonu ile oluşur; hastanın biyolojik yaşlanma hızını yansıtır.\n"
+            "• **SBS2 & SBS13 (APOBEC İmzası):** Hücresel sitidin deaminaz enzim atağıdır; mesane, meme ve serviks kanserlerinde yüksek TMB yaratır.\n"
+            "• **SBS4 (Sigara Dumanı):** Tütün polisiklik aromatik hidrokarbonları (benzo[a]piren) DNA'ya kovalent bağlanarak C>A transversiyonları üretir.\n"
+            "• **SBS7 (Güneş / UV Hasarı):** Melanomda pirimidin dimerleri üzerinden CC>TT değişimleri üretir; en yüksek neoantijen yükünü oluşturur.\n"
+            "• **SBS10 (POLE İmzası):** DNA polimeraz epsilon proofreading arızası; 100-500+ mut/Mb ultra-hipermutasyon yaratır (immünoterapiye aşırı duyarlı)."
+        )
+    },
+    'hrd_genomic_scar': {
+        'patterns': [
+            r'hrd skoru', r'hrd nedir', r'genomik skar', r'homolog rekombinasyon eksikliği',
+            r'heterozigotluk kaybı', r'loh skoru', r'mychoice'
+        ],
+        'title': 'Homolog Rekombinasyon Eksikliği (HRD) & Genomik Skar Skoru',
+        'answer': (
+            "🎯 **HRD (Homologous Recombination Deficiency) & Genomik Skar:**\n\n"
+            "• **Kritik Biyobelirteç:** Tümörün çift iplik DNA kırıklarını hatasız onarma yeteneğini kaybedip kaybetmediğini ölçer (özellikle over, meme, prostat ve pankreas kanserlerinde).\n"
+            "• **3 Bileşenli Genomik Skar:**\n"
+            "   1. **LOH (Loss of Heterozygosity):** Heterozigotluk kaybı alanları.\n"
+            "   2. **TAI (Telomeric Allelic Imbalance):** Telomerik alelik dengesizlik bölgeleri.\n"
+            "   3. **LST (Large-scale State Transitions):** Kromozomal büyük ölçekli durum geçişleri.\n"
+            "• **Klinik Eşik:** Toplam HRD Skoru **≥42** veya patojenik **BRCA1/2 mutasyonu** bulunması durumu 'HRD Pozitif' kabul edilir.\n"
+            "• **Tedavi:** Bu hastalar **PARP İnhibitörlerinden (Olaparib, Niraparib, Rucaparib)** ve Platin Kemoterapisinden en yüksek sağkalım avantajını elde eder."
+        )
+    },
+    'protac_molecular_glues': {
+        'patterns': [
+            r'protac', r'hedefe yönelik protein yıkımı', r'tpd', r'moleküler yapıştırıcı',
+            r'molecular glue', r'e3 ligaz', r'arv-110'
+        ],
+        'title': 'PROTAC Teknolojisi & Moleküler Yapıştırıcılar (TPD)',
+        'answer': (
+            "💣 **Hedefe Yönelik Protein Yıkımı (Targeted Protein Degradation - PROTAC / TPD):**\n\n"
+            "• **İlaçlama Paradigmasında Devrim:** Klasik inhibitörler hedef proteinin aktif bölgesini geçici olarak tıkarken; PROTAC molekülleri hedef proteini hücrenin kendi çöp öğütücüsüne (Proteazom) teslim ederek **tamamen yok eder**.\n"
+            "• **Nasıl Çalışır?** Çift başlıklı bir moleküldür: Bir ucu kanser proteinine (örn. Androjen veya Östrojen reseptörü), diğer ucu ise bir E3 ubiquitin ligaz enzimine (Cereblon veya VHL) bağlanır.\n"
+            "• **Klinik Örnekler:** Bavdegalutamide (ARV-110, prostat kanseri), Vepdegestrant (ARV-471, meme kanseri) gibi moleküller, standart ilaçlara dirençli mutasyonlu reseptörleri dahi başarıyla yıkar."
+        )
+    },
+    'ctc_circulating_tumor_cells': {
+        'patterns': [
+            r'ctc nedir', r'dolaşımdaki tümör hücresi', r'kanda tümör hücresi', r'cellsearch',
+            r'metastaz hücresi', r'dolaşan kanser hücresi'
+        ],
+        'title': 'Dolaşımdaki Tümör Hücreleri (CTC) & Sıvı Biyopsi Hücre Sayımı',
+        'answer': (
+            "🩸 **Dolaşımdaki Tümör Hücreleri (Circulating Tumor Cells - CTC):**\n\n"
+            "• **Primer Tümörden Kopan Hücreler:** Katı tümörlerden ayrılarak kan dolaşımına geçen ve uzak organlara tutunarak metastaz başlatabilen canlı kanser hücreleridir.\n"
+            "• **CellSearch Teknolojisi (FDA Onaylı):** Kanda 7.5 mL tüp başına düşen CTC sayısını (örn. Meme ve prostatta ≥5 hücre/7.5 mL kötü prognoz eşiğidir) ölçer.\n"
+            "• **ctDNA\'dan Farkı:** ctDNA ölen hücrelerin serbest DNA parçalarını ölçerken; CTC canlı hücreleri yakalar. Bu hücreler üzerinde tek hücre RNA dizileme (scRNA-seq) veya kültüre edilerek ilaç duyarlılık testleri yapılabilir."
+        )
+    },
+    'cryo_em_in_drug_discovery': {
+        'patterns': [
+            r'cryo-em', r'kriyo em', r'kriyojenik elektron mikroskop', r'elektron mikroskobu ilaç',
+            r'yapısal biyoloji', r'protein yapısı çözme'
+        ],
+        'title': 'Cryo-EM (Kriyojenik Elektron Mikroskobisi) & İlaç Tasarımı',
+        'answer': (
+            "🔬 **Kriyojenik Elektron Mikroskobisi (Cryo-EM) ile İlaç Keşfi:**\n\n"
+            "• **Kristallendirme Şartı Yok:** Klasik X-ışını kristalografisinde zorunlu olan ve membran proteinlerinde (GPCR'lar, iyon kanalları, RTK'lar) aylarca kristal üretilemeyen zorlu hedefleri sıvı azotta şok dondurarak (vitrifikasyon) inceler.\n"
+            "• **Atomik Çözünürlük:** 1.5 - 2.5 Ångström seviyesinde atomik detayla proteinin doğal fizyolojik konformasyonunu ve ilaç adayıyla bağlanma cebini doğrudan görüntüler.\n"
+            "• **Kanserde Rolü:** KRAS G12C kompleksleri, Ribozom hedefli terapötikler ve büyük antikor-antijen kompleksleri Cryo-EM sayesinde çözülerek yeni nesil akıllı ilaçlar geliştirilmiştir."
+        )
+    },
+
     'bot_help': {
         'patterns': [
             r'sen kimsin', r'ne yapabilirsin', r'yardım', r'komutlar', r'neler yaparsın',

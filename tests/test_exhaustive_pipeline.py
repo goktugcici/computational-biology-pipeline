@@ -23,6 +23,7 @@ from sequence_aligner import SequenceAligner
 from molecular_tumor_board import MolecularTumorBoardEngine
 from cancer_pathway_engine import CancerPathwayEngine, CANONICAL_PATHWAYS
 from immunotherapy_resistance import ImmunotherapyResistanceEngine, CANONICAL_ICB_SCENARIOS
+from mutational_signatures_hrd import MutationalSignaturesHrdEngine, CANONICAL_MUTATIONAL_SIGNATURES
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -102,6 +103,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'oncolytic_virus_therapy': 'Onkolitik virüs tedavisi imlygic t-vec kanser virüsü nasıl çalışır?',
             'neoantigen_mrna_vaccines': 'Kişiye özel mrna kanser aşısı ve neoantijen nedir?',
             'radioligand_pluvicto_lutathera': 'Radyoligand tedavisi Pluvicto ve Lutathera nedir?',
+            'mutational_signatures_cosmic': 'COSMIC mutasyonel imzalar SBS1 ve APOBEC SBS2 nedir?',
+            'hrd_genomic_scar': 'Homolog rekombinasyon eksikliği HRD skoru LOH ve PARP nedir?',
+            'protac_molecular_glues': 'PROTAC teknolojisi ve hedefe yönelik protein yıkımı TPD nasıl çalışır?',
+            'ctc_circulating_tumor_cells': 'Dolaşımdaki tümör hücresi CTC ve CellSearch testi nedir?',
+            'cryo_em_in_drug_discovery': 'Kriyojenik elektron mikroskobisi Cryo-EM ile ilaç keşfi nasıl yapılır?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -478,5 +484,62 @@ class TestExhaustivePipeline(unittest.TestCase):
         self.assertTrue(any('B2M' in m for m in res_b2m['resistance_reasons']))
         self.assertTrue(any('NK' in b for b in res_b2m['bypass_therapies']))
 
+    # =========================================================================
+    # 14. COSMIC MUTATIONAL SIGNATURES & HRD GENOMIC SCAR ENGINE
+    # =========================================================================
+    def test_mutational_signatures_canonical_signatures(self):
+        """Verify that all canonical COSMIC signatures are defined and retrievable."""
+        sigs = MutationalSignaturesHrdEngine.list_signatures()
+        self.assertEqual(len(sigs), 6)
+        sig_ids = [s['id'] for s in sigs]
+        self.assertIn('SBS1_DEAMINATION', sig_ids)
+        self.assertIn('SBS2_13_APOBEC', sig_ids)
+        self.assertIn('SBS3_HRD_BRCA', sig_ids)
+        self.assertIn('SBS4_SMOKING', sig_ids)
+        self.assertIn('SBS7_UV_LIGHT', sig_ids)
+        self.assertIn('SBS10_POLE_PROOFREADING', sig_ids)
+
+    def test_mutational_signatures_hrd_calculation(self):
+        """Verify composite HRD scoring (LOH + TAI + LST), FDA cutoff >=42, and BRCA status."""
+        # 1. High genomic scar (>=42) + BRCA Mutant -> Positive
+        res_pos = MutationalSignaturesHrdEngine.calculate_hrd_genomic_scar(
+            loh_score=18,
+            tai_score=16,
+            lst_score=17,
+            brca_status='BRCA1_MUT',
+            cancer_type='Over Kanseri'
+        )
+        self.assertEqual(res_pos['composite_hrd_score'], 51)
+        self.assertTrue(res_pos['hrd_positive'])
+        self.assertIn('Kategori 1', res_pos['parp_recommendation'])
+        self.assertIn('Platin', res_pos['platinum_recommendation'])
+
+        # 2. Low scar (<42) + BRCA WT -> Negative
+        res_neg = MutationalSignaturesHrdEngine.calculate_hrd_genomic_scar(
+            loh_score=8,
+            tai_score=7,
+            lst_score=9,
+            brca_status='WT',
+            cancer_type='Meme Kanseri'
+        )
+        self.assertEqual(res_neg['composite_hrd_score'], 24)
+        self.assertFalse(res_neg['hrd_positive'])
+        self.assertIn('HRD Negatif', res_neg['clinical_status'])
+
+    def test_mutational_signatures_spectrum_decomposition(self):
+        """Verify heuristic SBS deconvolution matching smoking, UV, and APOBEC patterns."""
+        # Smoking C>A high
+        dec_smk = MutationalSignaturesHrdEngine.decompose_patient_spectrum(
+            c_to_a=65, c_to_g=10, c_to_t=12, t_to_a=5, t_to_c=5, t_to_g=3
+        )
+        self.assertEqual(dec_smk['dominant_signature'], 'SBS4_SMOKING')
+
+        # UV C>T high
+        dec_uv = MutationalSignaturesHrdEngine.decompose_patient_spectrum(
+            c_to_a=4, c_to_g=2, c_to_t=85, t_to_a=3, t_to_c=4, t_to_g=2
+        )
+        self.assertEqual(dec_uv['dominant_signature'], 'SBS7_UV_LIGHT')
+
 if __name__ == "__main__":
     unittest.main()
+

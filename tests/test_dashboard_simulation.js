@@ -246,6 +246,16 @@ console.log('✓ Cancer Signaling Pathways Studio (5 cascades, flux gauge, feedb
 sandbox.switchTab('timeresistance');
 console.log('✓ Tumor Immune Microenvironment (TIME) & ICB Resistance Studio (4 canonical phenotypes, STK11/B2M/JAK1 modeling) validated');
 
+// COSMIC Mutational Signatures & HRD Genomic Scar Studio
+['SBS3_HRD_BRCA', 'SBS4_SMOKING', 'SBS7_UV_LIGHT', 'SBS2_13_APOBEC', 'SBS10_POLE_PROOFREADING', 'SBS1_DEAMINATION'].forEach(sig => {
+  sandbox.selectSignaturePreset(sig);
+  sandbox.calculateHrdLive();
+  sandbox.updateSignatureSpectrumLive();
+});
+sandbox.switchTab('signatures');
+console.log('✓ COSMIC Mutational Signatures & HRD Studio (6 SBS signatures, LOH/TAI/LST scoring, PARP sensitivity) validated');
+
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');
 console.log('======================================================');
+

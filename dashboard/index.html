@@ -113,6 +113,9 @@
         <button onclick="switchTab('timeresistance')" id="tabBtn-timeresistance" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🛡️ İmmünoterapi & TIME
         </button>
+        <button onclick="switchTab('signatures')" id="tabBtn-signatures" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🧬 İmzalar & HRD
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -2306,6 +2309,289 @@
             </h4>
             <div id="icbBypassCards" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <!-- JS ile güncellenir -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 20: COSMIC MUTASYONEL İMZALAR & HRD GENOMİK SKAR STÜDYOSU -->
+    <!-- ========================================== -->
+    <section id="tab-signatures" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Tanıtım Paneli -->
+      <div class="bg-gradient-to-r from-purple-950/40 via-slate-900/80 to-pink-950/40 border border-purple-500/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-semibold">
+              <span>🧬 COSMIC v3 Mutasyonel İmzalar & Genomik Skar Modülü</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping"></span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight">COSMIC Mutasyonel İmzalar & HRD Genomik Skar Stüdyosu</h2>
+            <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+              Tümör genomundaki 96-trinükleotit mutasyonel parmak izlerini (SBS1 Yaşlanma, SBS2/13 APOBEC, SBS3 HRD, SBS4 Sigara, SBS7 UV, SBS10 POLE) dekonvolüe edin;
+              LOH, TAI ve LST bileşenleriyle Homolog Rekombinasyon Eksikliği (HRD) skorunu hesaplayarak PARP inhibitörü duyarlılığını tahminleyin.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-2 rounded-2xl bg-slate-900/90 border border-slate-700 text-xs text-slate-300 font-mono flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+              Myriad myChoice CDx & ESMO Standart
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanonik COSMIC İmza Seçim Butonları -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+        <button onclick="selectSignaturePreset('SBS3_HRD_BRCA')" id="sigBtn-SBS3_HRD_BRCA" class="sig-preset-btn p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 text-left transition-all space-y-1">
+          <span class="text-[9px] uppercase font-bold text-slate-400 block">SBS3</span>
+          <h4 class="text-xs font-bold text-white">HRD / BRCA1/2</h4>
+          <span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">PARP Duyarlı</span>
+        </button>
+
+        <button onclick="selectSignaturePreset('SBS4_SMOKING')" id="sigBtn-SBS4_SMOKING" class="sig-preset-btn p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 text-left transition-all space-y-1">
+          <span class="text-[9px] uppercase font-bold text-slate-400 block">SBS4</span>
+          <h4 class="text-xs font-bold text-white">Tütün Dumanı</h4>
+          <span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">C>A Transversiyon</span>
+        </button>
+
+        <button onclick="selectSignaturePreset('SBS7_UV_LIGHT')" id="sigBtn-SBS7_UV_LIGHT" class="sig-preset-btn p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 text-left transition-all space-y-1">
+          <span class="text-[9px] uppercase font-bold text-slate-400 block">SBS7</span>
+          <h4 class="text-xs font-bold text-white">Güneş / UV Hasarı</h4>
+          <span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">CC>TT Dimerleri</span>
+        </button>
+
+        <button onclick="selectSignaturePreset('SBS2_13_APOBEC')" id="sigBtn-SBS2_13_APOBEC" class="sig-preset-btn p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 text-left transition-all space-y-1">
+          <span class="text-[9px] uppercase font-bold text-slate-400 block">SBS2 / SBS13</span>
+          <h4 class="text-xs font-bold text-white">APOBEC Deaminaz</h4>
+          <span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">C>T / C>G Kataegis</span>
+        </button>
+
+        <button onclick="selectSignaturePreset('SBS10_POLE_PROOFREADING')" id="sigBtn-SBS10_POLE_PROOFREADING" class="sig-preset-btn p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 text-left transition-all space-y-1">
+          <span class="text-[9px] uppercase font-bold text-slate-400 block">SBS10</span>
+          <h4 class="text-xs font-bold text-white">POLE Proofreading</h4>
+          <span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Ultra-Hipermutatör</span>
+        </button>
+
+        <button onclick="selectSignaturePreset('SBS1_DEAMINATION')" id="sigBtn-SBS1_DEAMINATION" class="sig-preset-btn p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 text-left transition-all space-y-1">
+          <span class="text-[9px] uppercase font-bold text-slate-400 block">SBS1</span>
+          <h4 class="text-xs font-bold text-white">5-mC Deaminasyon</h4>
+          <span class="inline-block text-[9px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Biyolojik Saat</span>
+        </button>
+      </div>
+
+      <!-- Ana Grid: Sol Panel (HRD & Spektrum Girdileri) | Sağ Panel (Genomik Skar Göstergesi & Kılavuz) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: HRD Skar Parametreleri & 6-Kanal Dağılımı (5 Kolon) -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
+          <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>🧬 Genomik Skar Parametreleri</span>
+            </h3>
+            <span id="activeSignatureTitle" class="text-xs font-semibold text-purple-400">SBS3 (HRD)</span>
+          </div>
+
+          <!-- Kanser Türü ve BRCA Durumu -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Kanser Türü</label>
+              <select id="hrdCancerType" onchange="calculateHrdLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
+                <option value="Over Kanseri (Yüksek Dereceli Seröz)">Over Kanseri (Yüksek Dereceli Seröz)</option>
+                <option value="Meme Kanseri (Üçlü Negatif)">Meme Kanseri (Üçlü Negatif)</option>
+                <option value="Prostat Kanseri (Kastrasyona Dirençli)">Prostat Kanseri (Kastrasyona Dirençli)</option>
+                <option value="Pankreas Adenokarsinomu">Pankreas Adenokarsinomu</option>
+              </select>
+            </div>
+
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-white font-semibold block">BRCA1 / BRCA2 Patojenik Mutasyonu</span>
+                <span class="text-[10px] text-slate-400 block">Germline veya somatik fonksiyon kaybı</span>
+              </div>
+              <input type="checkbox" id="hrdBrcaCheckbox" onchange="calculateHrdLive()" checked class="rounded border-slate-700 text-purple-600 focus:ring-purple-500 w-4 h-4">
+            </div>
+
+            <!-- 3 Bileşenli Genomik Skar Kaydırıcıları -->
+            <div class="space-y-3 pt-1">
+              <div>
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>LOH (Heterozigotluk Kaybı)</span>
+                  <span id="hrdLohVal" class="font-mono text-purple-300 font-bold">18</span>
+                </div>
+                <input type="range" id="hrdLohSlider" min="0" max="30" value="18" oninput="calculateHrdLive()" class="w-full accent-purple-500 bg-slate-950 h-1.5 rounded-lg">
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>TAI (Telomerik Alelik Dengesizlik)</span>
+                  <span id="hrdTaiVal" class="font-mono text-purple-300 font-bold">16</span>
+                </div>
+                <input type="range" id="hrdTaiSlider" min="0" max="30" value="16" oninput="calculateHrdLive()" class="w-full accent-purple-500 bg-slate-950 h-1.5 rounded-lg">
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                  <span>LST (Büyük Ölçekli Durum Geçişleri)</span>
+                  <span id="hrdLstVal" class="font-mono text-purple-300 font-bold">17</span>
+                </div>
+                <input type="range" id="hrdLstSlider" min="0" max="30" value="17" oninput="calculateHrdLive()" class="w-full accent-purple-500 bg-slate-950 h-1.5 rounded-lg">
+              </div>
+            </div>
+          </div>
+
+          <!-- 6-Kanal SBS Spektrum Girdileri -->
+          <div class="space-y-2 pt-2 border-t border-slate-800">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">SBS Nükleotit Değişim Dağılımı (%)</span>
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <span class="text-[10px] text-slate-500 block">C>A (Tütün)</span>
+                <input type="number" id="specCA" value="20" min="0" max="100" oninput="updateSignatureSpectrumLive()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-200 font-mono">
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-500 block">C>G (APOBEC)</span>
+                <input type="number" id="specCG" value="15" min="0" max="100" oninput="updateSignatureSpectrumLive()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-200 font-mono">
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-500 block">C>T (UV/Yaş)</span>
+                <input type="number" id="specCT" value="25" min="0" max="100" oninput="updateSignatureSpectrumLive()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-200 font-mono">
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-500 block">T>A</span>
+                <input type="number" id="specTA" value="15" min="0" max="100" oninput="updateSignatureSpectrumLive()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-200 font-mono">
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-500 block">T>C</span>
+                <input type="number" id="specTC" value="15" min="0" max="100" oninput="updateSignatureSpectrumLive()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-200 font-mono">
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-500 block">T>G (POLE)</span>
+                <input type="number" id="specTG" value="10" min="0" max="100" oninput="updateSignatureSpectrumLive()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-200 font-mono">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: Kompozit HRD Skoru, Spektrum Çubukları & Klinik Kılavuz (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- Skor Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Genomik Kararsızlık Durumu</span>
+                <h3 id="hrdClinicalStatus" class="text-lg font-black text-white">HRD Pozitif (BRCA Mutant + Genomik Skar)</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Toplam HRD Skoru (LOH+TAI+LST)</span>
+                <div class="flex items-baseline gap-2">
+                  <span id="hrdTotalScore" class="text-3xl font-black text-purple-400 font-mono">51</span>
+                  <span id="hrdScoreBadge" class="text-xs font-semibold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">≥42 Eşiği (Duyarlı)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 Skar Bileşeni Çubukları -->
+            <div class="grid grid-cols-3 gap-3 text-xs">
+              <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-400 block">LOH Skoru</span>
+                <span id="hrdCardLoh" class="text-lg font-black text-purple-300 block font-mono">18</span>
+                <span class="text-[10px] text-slate-500">Heterozigotluk Kaybı</span>
+              </div>
+              <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-400 block">TAI Skoru</span>
+                <span id="hrdCardTai" class="text-lg font-black text-pink-300 block font-mono">16</span>
+                <span class="text-[10px] text-slate-500">Telomerik Dengesizlik</span>
+              </div>
+              <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-400 block">LST Skoru</span>
+                <span id="hrdCardLst" class="text-lg font-black text-indigo-300 block font-mono">17</span>
+                <span class="text-[10px] text-slate-500">Durum Geçişleri</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- COSMIC İmza Dekonvolüsyonu & 6-Kanal Spektrum Çubukları -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+                <span>🧬 6-Kanal Tek Nükleotit Değişim (SBS) Spektrumu</span>
+              </h4>
+              <span id="dominantSigBadge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">SBS3 Eşleşmesi</span>
+            </div>
+            
+            <div class="space-y-1.5 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-10 font-mono text-[11px] text-slate-400">C>A</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCA" class="bg-sky-400 h-2 rounded-full transition-all duration-300" style="width: 20%"></div>
+                </div>
+                <span id="valCA" class="w-10 text-right font-mono text-[11px] text-slate-300">20%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-10 font-mono text-[11px] text-slate-400">C>G</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCG" class="bg-rose-400 h-2 rounded-full transition-all duration-300" style="width: 15%"></div>
+                </div>
+                <span id="valCG" class="w-10 text-right font-mono text-[11px] text-slate-300">15%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-10 font-mono text-[11px] text-slate-400">C>T</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCT" class="bg-amber-400 h-2 rounded-full transition-all duration-300" style="width: 25%"></div>
+                </div>
+                <span id="valCT" class="w-10 text-right font-mono text-[11px] text-slate-300">25%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-10 font-mono text-[11px] text-slate-400">T>A</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barTA" class="bg-emerald-400 h-2 rounded-full transition-all duration-300" style="width: 15%"></div>
+                </div>
+                <span id="valTA" class="w-10 text-right font-mono text-[11px] text-slate-300">15%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-10 font-mono text-[11px] text-slate-400">T>C</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barTC" class="bg-purple-400 h-2 rounded-full transition-all duration-300" style="width: 15%"></div>
+                </div>
+                <span id="valTC" class="w-10 text-right font-mono text-[11px] text-slate-300">15%</span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="w-10 font-mono text-[11px] text-slate-400">T>G</span>
+                <div class="flex-1 bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barTG" class="bg-teal-400 h-2 rounded-full transition-all duration-300" style="width: 10%"></div>
+                </div>
+                <span id="valTG" class="w-10 text-right font-mono text-[11px] text-slate-300">10%</span>
+              </div>
+            </div>
+
+            <div id="signatureMatchEtiologyBox" class="p-3 bg-slate-950 rounded-2xl border border-sky-900/40 text-[11px] text-sky-200/90 leading-relaxed">
+              Tüm baz değişimlerine yayılan homojen dağılım, çift iplik kırığı onarım bozukluğu (SBS3 / HRD) ile uyumludur.
+            </div>
+          </div>
+
+          <!-- NCCN & ESMO Kanıta Dayalı Tedavi Stratejisi -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-purple-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🎯 NCCN & ESMO PARP / Platin Kılavuz Önerisi</span>
+            </h4>
+            <div id="hrdParpGuidanceBox" class="p-4 rounded-2xl bg-slate-950 border border-purple-900/40 text-xs text-purple-200/90 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- Direnç Uyarısı: İkincil Reversiyon Mutasyonları -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+              <span>⚠️ Direnç Mekanizması & Reversiyon Uyarısı</span>
+            </h4>
+            <div class="p-3.5 rounded-2xl bg-slate-950 border border-amber-900/40 text-xs text-amber-200/90 leading-relaxed">
+              PARP veya platin tedavisi altında ilerleyen olgularda BRCA1 veya BRCA2 geninde okuma çerçevesini onaran (reversion) ikincil mutasyonlar araştırılmalıdır (Sıvı biyopsi ctDNA ile izlenir).
             </div>
           </div>
         </div>
@@ -4560,6 +4846,44 @@
           "• **Pluvicto (Lu-177 PSMA):** Prostat kanserinde PSMA reseptörünü hedef alarak mikro-radyasyonla DNA'yı tahrip eder.\n" +
           "• **Lutathera:** Nöroendokrin tümörlerde somatostatin reseptörlerine bağlanır."
       },
+      'mutational_signatures_cosmic': {
+        patterns: [/mutasyonel imza/i, /cosmic imza/i, /sbs1/i, /sbs2/i, /sbs4/i, /sbs7/i, /apobec imza/i, /mutational signature/i],
+        title: 'COSMIC Mutasyonel İmzalar (SBS)',
+        answer: "🧬 **COSMIC Mutasyonel İmzalar (SBS):**\n\n" +
+          "• **SBS1:** Yaşa bağlı spontan 5-metilsitozin deaminasyonu (biyolojik saat).\n" +
+          "• **SBS2/13:** APOBEC sitidin deaminaz enzim atağı; mesane ve meme kanserinde yüksek mutasyon üretir.\n" +
+          "• **SBS4:** Tütün dumanı ve benzo[a]piren kovalent adüktleri (C>A transversiyonları).\n" +
+          "• **SBS7:** Güneş/UV radyasyon hasarı (melanomda CC>TT).\n" +
+          "• **SBS10:** POLE ekzonükleaz kusuru; ultra-hipermutasyon ve immünoterapiye aşırı duyarlılık."
+      },
+      'hrd_genomic_scar': {
+        patterns: [/hrd skoru/i, /hrd nedir/i, /genomik skar/i, /homolog rekombinasyon eksikliği/i, /heterozigotluk kaybı/i, /loh skoru/i, /mychoice/i],
+        title: 'HRD (Genomik Skar) & PARP İnhibitörleri',
+        answer: "🎯 **Homolog Rekombinasyon Eksikliği (HRD):**\n\n" +
+          "• Tümörün çift iplik DNA kırıklarını onaramadığını gösteren 3 bileşenli skar skorudur (LOH + TAI + LST).\n" +
+          "• **Klinik Eşik:** HRD skoru ≥42 veya patojenik BRCA1/2 mutasyonu olması durumunda PARP inhibitörlerine (Olaparib, Niraparib) ve platin kemoterapisine yüksek yanıt alınır."
+      },
+      'protac_molecular_glues': {
+        patterns: [/protac/i, /hedefe yönelik protein yıkımı/i, /tpd/i, /moleküler yapıştırıcı/i, /molecular glue/i, /e3 ligaz/i, /arv-110/i],
+        title: 'PROTAC & Hedefe Yönelik Protein Yıkımı (TPD)',
+        answer: "💣 **PROTAC (Targeted Protein Degradation):**\n\n" +
+          "• Klasik ilaçlar gibi proteini sadece bloke etmez; E3 ligaz enzimini kullanarak hedef proteini hücrenin proteazomunda tamamen parçalatır.\n" +
+          "• Standart hormonoterapiye dirençli androjen (ARV-110) ve östrojen reseptörlerinde çığır açmaktadır."
+      },
+      'ctc_circulating_tumor_cells': {
+        patterns: [/ctc nedir/i, /dolaşımdaki tümör hücresi/i, /kanda tümör hücresi/i, /cellsearch/i, /metastaz hücresi/i, /dolaşan kanser hücresi/i],
+        title: 'Dolaşımdaki Tümör Hücreleri (CTC)',
+        answer: "🩸 **Dolaşımdaki Tümör Hücreleri (CTC):**\n\n" +
+          "• Katı tümörden kan dolaşımına geçen canlı metastatik hücrelerdir (FDA onaylı CellSearch ile sayılır).\n" +
+          "• ctDNA serbest DNA'yı incelerken, CTC canlı hücreyi yakalayarak ilaç duyarlılık testi yapma imkanı tanır."
+      },
+      'cryo_em_in_drug_discovery': {
+        patterns: [/cryo-em/i, /kriyo em/i, /kriyojenik elektron mikroskop/i, /elektron mikroskobu ilaç/i, /yapısal biyoloji/i, /protein yapısı çözme/i],
+        title: 'Cryo-EM & Yapısal İlaç Tasarımı',
+        answer: "🔬 **Cryo-EM ile Atomik Çözünürlükte İlaç Keşfi:**\n\n" +
+          "• Kristal üretilemeyen zorlu membran reseptörlerini sıvı azotta dondurarak 1.5-2.5 Å çözünürlükte görüntüler.\n" +
+          "• KRAS G12C inhibitörleri ve ribozom hedefli akıllı ilaçların tasarımında kritik rol oynamıştır."
+      },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
         title: 'Bot Hakkında & Kullanım Kılavuzu',
@@ -6549,6 +6873,242 @@ uygulanması oy birliği ile uygun bulunmuştur.
     try {
       if (typeof document !== 'undefined') {
         selectIcbScenario('NSCLC_STK11_KEAP1');
+      }
+    } catch(e) {}
+
+    // ==========================================
+    // TAB 20: COSMIC MUTASYONEL İMZALAR & HRD GENOMİK SKAR
+    // ==========================================
+    const CANONICAL_SIGNATURE_PRESETS = {
+      'SBS3_HRD_BRCA': {
+        title: 'SBS3 (HRD / BRCA1/2 Kusuru)',
+        cancer_type: 'Over Kanseri (Yüksek Dereceli Seröz)',
+        brca: true,
+        loh: 18,
+        tai: 16,
+        lst: 17,
+        spectrum: { 'C>A': 20, 'C>G': 15, 'C>T': 25, 'T>A': 15, 'T>C': 15, 'T>G': 10 },
+        etiology: 'Çift iplik kırığı homolog rekombinasyon (HRR) onarım yetmezliği; mikrohomoloji delesyonları ve dağınık spektrum.',
+        guidance: 'PARP İnhibitörleri (Olaparib, Niraparib, Rucaparib) ve Platin kemoterapisi (Karboplatin) Kategori 1 kılavuz endikasyonudur.'
+      },
+      'SBS4_SMOKING': {
+        title: 'SBS4 (Tütün Dumanı Benzo[a]piren)',
+        cancer_type: 'Akciğer Adenokarsinomu',
+        brca: false,
+        loh: 8,
+        tai: 7,
+        lst: 9,
+        spectrum: { 'C>A': 65, 'C>G': 10, 'C>T': 12, 'T>A': 5, 'T>C': 5, 'T>G': 3 },
+        etiology: 'Sigara dumanı polisiklik aromatik hidrokarbonlarının guanine bağlanması sonucu kuvvetli C>A transversiyonları.',
+        guidance: 'Yüksek TMB (>10 mut/Mb) sağlar; Anti-PD-1 monoterapisine (Pembrolizumab - KEYNOTE-042/024) yüksek duyarlılık.'
+      },
+      'SBS7_UV_LIGHT': {
+        title: 'SBS7 (Güneş / UV Radyasyon Hasarı)',
+        cancer_type: 'Kutanöz Malign Melanom',
+        brca: false,
+        loh: 6,
+        tai: 5,
+        lst: 7,
+        spectrum: { 'C>A': 4, 'C>G': 2, 'C>T': 85, 'T>A': 3, 'T>C': 4, 'T>G': 2 },
+        etiology: 'UVB radyasyonuna bağlı pirimidin dimerleri; dinükleotit CC>TT ve C>T transisyon hipermutasyonu.',
+        guidance: 'Aşırı neoantijen yükü ile Nivolumab + Ipilimumab ikili immünoterapisine ve Anti-PD-1 monoterapisine olağanüstü yanıt.'
+      },
+      'SBS2_13_APOBEC': {
+        title: 'SBS2 / SBS13 (APOBEC Sitidin Deaminaz)',
+        cancer_type: 'Mesane (Ürotelyal Karsinom)',
+        brca: false,
+        loh: 12,
+        tai: 10,
+        lst: 11,
+        spectrum: { 'C>A': 10, 'C>G': 35, 'C>T': 45, 'T>A': 4, 'T>C': 3, 'T>G': 3 },
+        etiology: 'APOBEC3A/B enzimlerinin tek iplikli DNA\'yı deamine etmesi sonucu bölgesel mutasyon kümeleri (kataegis).',
+        guidance: 'Yüksek TMB ve immünojenite oluşturur; FGFR3 yabanıl tip mesane kanserinde immünoterapi için olumlu prediktif belirteç.'
+      },
+      'SBS10_POLE_PROOFREADING': {
+        title: 'SBS10 (POLE Proofreading Kusuru)',
+        cancer_type: 'Endometriyum Kanseri',
+        brca: false,
+        loh: 5,
+        tai: 4,
+        lst: 6,
+        spectrum: { 'C>A': 48, 'C>G': 10, 'C>T': 22, 'T>A': 5, 'T>C': 5, 'T>G': 10 },
+        etiology: 'DNA Polimeraz Epsilon (POLE) ekzonükleaz domain mutasyonu; 100-500+ mut/Mb ultra-hipermutatör fenotip.',
+        guidance: 'Mükemmel prognoz ve Anti-PD-1 kontrol noktası blokajına neredeyse %100 oranında tam/kalıcı yanıt.'
+      },
+      'SBS1_DEAMINATION': {
+        title: 'SBS1 (5-Metilsitozin Deaminasyonu)',
+        cancer_type: 'Kolorektal Kanser',
+        brca: false,
+        loh: 7,
+        tai: 6,
+        lst: 5,
+        spectrum: { 'C>A': 5, 'C>G': 5, 'C>T': 75, 'T>A': 5, 'T>C': 5, 'T>G': 5 },
+        etiology: 'Biyolojik yaşa bağlı CpG adacıklarında spontan sitozin deaminasyonu; genomik saat.',
+        guidance: 'Evrensel yaş saati göstergesidir; tek başına ilaca yönelik spesifik biyobelirteç niteliği taşımaz.'
+      }
+    };
+
+    function selectSignaturePreset(sigId) {
+      const preset = CANONICAL_SIGNATURE_PRESETS[sigId];
+      if (!preset) return;
+
+      document.querySelectorAll('.sig-preset-btn').forEach(btn => {
+        btn.classList.remove('border-purple-500', 'bg-purple-950/20');
+      });
+      const activeBtn = document.getElementById(`sigBtn-${sigId}`);
+      if (activeBtn) activeBtn.classList.add('border-purple-500', 'bg-purple-950/20');
+
+      const titleEl = document.getElementById('activeSignatureTitle');
+      if (titleEl) titleEl.innerText = preset.title;
+
+      const cType = document.getElementById('hrdCancerType');
+      if (cType) cType.value = preset.cancer_type;
+
+      const brcaCb = document.getElementById('hrdBrcaCheckbox');
+      if (brcaCb) brcaCb.checked = preset.brca;
+
+      const lohSlider = document.getElementById('hrdLohSlider');
+      if (lohSlider) lohSlider.value = preset.loh;
+
+      const taiSlider = document.getElementById('hrdTaiSlider');
+      if (taiSlider) taiSlider.value = preset.tai;
+
+      const lstSlider = document.getElementById('hrdLstSlider');
+      if (lstSlider) lstSlider.value = preset.lst;
+
+      // 6-Kanal spektrum girdilerini doldur
+      const sp = preset.spectrum;
+      if (document.getElementById('specCA')) document.getElementById('specCA').value = sp['C>A'];
+      if (document.getElementById('specCG')) document.getElementById('specCG').value = sp['C>G'];
+      if (document.getElementById('specCT')) document.getElementById('specCT').value = sp['C>T'];
+      if (document.getElementById('specTA')) document.getElementById('specTA').value = sp['T>A'];
+      if (document.getElementById('specTC')) document.getElementById('specTC').value = sp['T>C'];
+      if (document.getElementById('specTG')) document.getElementById('specTG').value = sp['T>G'];
+
+      calculateHrdLive();
+      updateSignatureSpectrumLive();
+    }
+
+    function calculateHrdLive() {
+      const loh = parseInt(document.getElementById('hrdLohSlider')?.value || 0, 10);
+      const tai = parseInt(document.getElementById('hrdTaiSlider')?.value || 0, 10);
+      const lst = parseInt(document.getElementById('hrdLstSlider')?.value || 0, 10);
+      const brca = !!document.getElementById('hrdBrcaCheckbox')?.checked;
+
+      // Slider değer etiketleri
+      if (document.getElementById('hrdLohVal')) document.getElementById('hrdLohVal').innerText = loh;
+      if (document.getElementById('hrdTaiVal')) document.getElementById('hrdTaiVal').innerText = tai;
+      if (document.getElementById('hrdLstVal')) document.getElementById('hrdLstVal').innerText = lst;
+
+      // Kart sayıları
+      if (document.getElementById('hrdCardLoh')) document.getElementById('hrdCardLoh').innerText = loh;
+      if (document.getElementById('hrdCardTai')) document.getElementById('hrdCardTai').innerText = tai;
+      if (document.getElementById('hrdCardLst')) document.getElementById('hrdCardLst').innerText = lst;
+
+      const totalHrd = loh + tai + lst;
+      if (document.getElementById('hrdTotalScore')) document.getElementById('hrdTotalScore').innerText = totalHrd;
+
+      const isHrdPositive = (totalHrd >= 42) || brca;
+
+      const statusEl = document.getElementById('hrdClinicalStatus');
+      const badgeEl = document.getElementById('hrdScoreBadge');
+      const guideBox = document.getElementById('hrdParpGuidanceBox');
+
+      if (badgeEl) {
+        if (totalHrd >= 42) {
+          badgeEl.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30';
+          badgeEl.innerText = '≥42 Eşiği (Duyarlı)';
+        } else {
+          badgeEl.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700';
+          badgeEl.innerText = '<42 Eşiği (Düşük Skar)';
+        }
+      }
+
+      if (statusEl) {
+        if (brca && totalHrd >= 42) {
+          statusEl.innerText = 'HRD Pozitif (BRCA Mutant + Yüksek Genomik Skar)';
+        } else if (brca) {
+          statusEl.innerText = 'HRD Pozitif (BRCA Mutant / Fonksiyon Kaybı)';
+        } else if (totalHrd >= 42) {
+          statusEl.innerText = 'HRD Pozitif (BRCA Yabanıl Tip / Epigenetik Skar)';
+        } else {
+          statusEl.innerText = 'HRD Negatif (Homolog Onarım Yeterli / HR-Proficient)';
+        }
+      }
+
+      if (guideBox) {
+        if (isHrdPositive) {
+          guideBox.innerHTML = `
+            <div class="text-purple-300 font-bold mb-1">✅ Kategori 1 PARP İnhibitörü & Platin Duyarlılığı Doğrulandı</div>
+            <div>Hasta <strong>Olaparib, Niraparib, Rucaparib</strong> veya <strong>Talazoparib</strong> monoterapisi/idamesinden ve Platin bazlı kemoterapiden (Karboplatin/Sisplatin) belirgin genel sağkalım avantajı elde edecektir (SOLO-1, PRIMA, PAOLA-1).</div>
+          `;
+        } else {
+          guideBox.innerHTML = `
+            <div class="text-slate-300 font-bold mb-1">ℹ️ Standart Profil (Düşük PARP Duyarlılığı)</div>
+            <div>Homolog onarım yeterlidir. PARP inhibitörü monoterapisinden beklenen klinik fayda kısıtlıdır; standart kemoterapi veya diğer hedefli biyobelirteçler (TMB, MSI, HER2) tercih edilmelidir.</div>
+          `;
+        }
+      }
+    }
+
+    function updateSignatureSpectrumLive() {
+      const ca = parseFloat(document.getElementById('specCA')?.value || 0);
+      const cg = parseFloat(document.getElementById('specCG')?.value || 0);
+      const ct = parseFloat(document.getElementById('specCT')?.value || 0);
+      const ta = parseFloat(document.getElementById('specTA')?.value || 0);
+      const tc = parseFloat(document.getElementById('specTC')?.value || 0);
+      const tg = parseFloat(document.getElementById('specTG')?.value || 0);
+
+      const total = (ca + cg + ct + ta + tc + tg) || 100;
+      const pCA = Math.round((ca / total) * 100);
+      const pCG = Math.round((cg / total) * 100);
+      const pCT = Math.round((ct / total) * 100);
+      const pTA = Math.round((ta / total) * 100);
+      const pTC = Math.round((tc / total) * 100);
+      const pTG = Math.round((tg / total) * 100);
+
+      if (document.getElementById('barCA')) document.getElementById('barCA').style.width = `${pCA}%`;
+      if (document.getElementById('barCG')) document.getElementById('barCG').style.width = `${pCG}%`;
+      if (document.getElementById('barCT')) document.getElementById('barCT').style.width = `${pCT}%`;
+      if (document.getElementById('barTA')) document.getElementById('barTA').style.width = `${pTA}%`;
+      if (document.getElementById('barTC')) document.getElementById('barTC').style.width = `${pTC}%`;
+      if (document.getElementById('barTG')) document.getElementById('barTG').style.width = `${pTG}%`;
+
+      if (document.getElementById('valCA')) document.getElementById('valCA').innerText = `${pCA}%`;
+      if (document.getElementById('valCG')) document.getElementById('valCG').innerText = `${pCG}%`;
+      if (document.getElementById('valCT')) document.getElementById('valCT').innerText = `${pCT}%`;
+      if (document.getElementById('valTA')) document.getElementById('valTA').innerText = `${pTA}%`;
+      if (document.getElementById('valTC')) document.getElementById('valTC').innerText = `${pTC}%`;
+      if (document.getElementById('valTG')) document.getElementById('valTG').innerText = `${pTG}%`;
+
+      // Etiyoloji tespiti
+      const badge = document.getElementById('dominantSigBadge');
+      const box = document.getElementById('signatureMatchEtiologyBox');
+      if (pCA >= 45) {
+        if (badge) badge.innerText = 'SBS4 Eşleşmesi (Tütün)';
+        if (box) box.innerText = 'Baskın C>A transversiyonları sigara dumanındaki polisiklik aromatik hidrokarbonların (benzo[a]piren) DNA adüktleri ile tam uyumludur.';
+      } else if (pCT >= 70) {
+        if (badge) badge.innerText = 'SBS7 Eşleşmesi (UV)';
+        if (box) box.innerText = 'Aşırı C>T pirimidin dimer transisyonları güneş ve ultraviyole radyasyon hasarını göstermektedir.';
+      } else if (pCG >= 25 && pCT >= 35) {
+        if (badge) badge.innerText = 'SBS2/13 Eşleşmesi (APOBEC)';
+        if (box) box.innerText = 'Eşzamanlı C>G ve C>T artışı sitidin deaminaz atağı (APOBEC enzim hiperaktivasyonu) ile karakterizedir.';
+      } else if (pCA >= 30 && pTG >= 8) {
+        if (badge) badge.innerText = 'SBS10 Eşleşmesi (POLE)';
+        if (box) box.innerText = 'Yüksek C>A ve T>G oranı DNA polimeraz epsilon proofreading ekzonükleaz kusuruna (ultra-hipermutatör) işaret eder.';
+      } else if (pCT >= 55) {
+        if (badge) badge.innerText = 'SBS1 Eşleşmesi (Yaş Saati)';
+        if (box) box.innerText = 'CpG adacıklarında 5-metilsitozin deaminasyonuna bağlı evrensel biyolojik yaşlanma imzasıdır.';
+      } else {
+        if (badge) badge.innerText = 'SBS3 Eşleşmesi (HRD)';
+        if (box) box.innerText = 'Tüm baz değişimlerine yayılan homojen dağılım, çift iplik kırığı onarım bozukluğu (SBS3 / HRD) ile uyumludur.';
+      }
+    }
+
+    // İlk yüklemede İmzalar Stüdyosunu hazırla
+    try {
+      if (typeof document !== 'undefined') {
+        selectSignaturePreset('SBS3_HRD_BRCA');
       }
     } catch(e) {}
   </script>
