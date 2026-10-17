@@ -27,6 +27,7 @@ from mutational_signatures_hrd import MutationalSignaturesHrdEngine, CANONICAL_M
 from spatial_transcriptomics import SpatialTranscriptomicsEngine, CANONICAL_SPATIAL_SCENARIOS
 from epigenetics_methylation import EpigenomicsEngine, CANONICAL_EPIGENETIC_SCENARIOS, analyze_epigenetics
 from cell_therapy_cart import CellTherapyCartEngine, CANONICAL_CART_CONSTRUCTS, analyze_cart_construct
+from antibody_drug_conjugates import AntibodyDrugConjugateEngine, CANONICAL_ADC_CONSTRUCTS, analyze_adc_construct
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -126,6 +127,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'icans_neurotoxicity_cart': 'ICANS nedir ve nörotoksisite ICE skoru nasıl bakılır?',
             'bcma_carvykti_myeloma': 'Multipl miyelomda BCMA CAR-T ve Carvykti tedavisi nedir?',
             'claudin18_2_gastric_cancer': 'Claudin 18.2 hedefi Zolbetuximab ve CT041 tedavisi nedir?',
+            'adc_mechanism_bystander': 'Bystander effect komşu hücre öldürme antikor ilaç konjugatlarında nedir?',
+            'enhertu_her2_low': 'HER2-low meme kanseri Enhertu T-DXd tedavisi nedir?',
+            'trodelvy_trop2_tnbc': 'Trodelvy Sacituzumab Trop-2 hedefli üçlü negatif meme kanseri nedir?',
+            'padcev_nectin4_bladder': 'Padcev Enfortumab Vedotin Nectin-4 mesane kanseri tedavisi nedir?',
+            'adc_toxicity_ild_neuropathy': 'ADC yan etkileri ILD pnömonit ve periferik nöropati yönetimi nedir?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -685,6 +691,56 @@ class TestExhaustivePipeline(unittest.TestCase):
         ct041 = analyze_cart_construct('CLDN18_2_GASTRIC_CT041', costimulatory_override='CD28')
         self.assertEqual(ct041['costimulatory_domain'], 'CD28')
         self.assertEqual(ct041['target_antigen'], 'Claudin 18.2 (CLDN18.2)')
+
+    # =========================================================================
+    # 18. ANTIBODY-DRUG CONJUGATES (ADC) & LINKER-PAYLOAD ENGINE
+    # =========================================================================
+    def test_adc_canonical_constructs(self):
+        """Verify all 6 canonical ADC constructs are defined with complete pharmacological metadata."""
+        engine = AntibodyDrugConjugateEngine()
+        constructs = engine.list_constructs()
+        self.assertEqual(len(constructs), 6)
+        ids = [c['id'] for c in constructs]
+        self.assertIn('HER2_T_DXD_ENHERTU', ids)
+        self.assertIn('TROP2_SG_TRODELVY', ids)
+        self.assertIn('NECTIN4_EV_PADCEV', ids)
+        self.assertIn('HER2_T_DM1_KADCYLA', ids)
+        self.assertIn('CD30_BV_ADCETRIS', ids)
+        self.assertIn('TROP2_DATO_DXD', ids)
+
+    def test_adc_kinetics_bystander_and_safety_evaluation(self):
+        """Verify DAR optimization, bystander killing vs non-cleavable SMCC, plasma stability, and ILD/neuropathy risk stratification."""
+        engine = AntibodyDrugConjugateEngine()
+
+        # 1. Trastuzumab Deruxtecan (Enhertu) - Cleavable GGFG, DXd, DAR 8.0, High Bystander
+        enhertu = engine.evaluate_adc_kinetics_and_safety('HER2_T_DXD_ENHERTU')
+        self.assertEqual(enhertu['target_antigen'], 'HER2 (ERBB2 / Neu)')
+        self.assertEqual(enhertu['canonical_dar'], 8.0)
+        self.assertGreater(enhertu['payload_delivery_score'], 85.0)
+        self.assertGreater(enhertu['bystander_index'], 80.0)
+        self.assertIn('High Bystander Killing', enhertu['bystander_summary'])
+        self.assertGreaterEqual(enhertu['ild_risk_percent'], 10.0)
+        self.assertIn('Interstitial Lung Disease', enhertu['primary_toxicity'])
+        self.assertIn('NCCN', enhertu['nccn_guideline'])
+
+        # 2. Trastuzumab Emtansine (Kadcyla) - Non-cleavable SMCC, Zero Bystander
+        kadcyla = engine.evaluate_adc_kinetics_and_safety('HER2_T_DM1_KADCYLA')
+        self.assertFalse(CANONICAL_ADC_CONSTRUCTS['HER2_T_DM1_KADCYLA']['membrane_permeable_payload'])
+        self.assertEqual(kadcyla['bystander_index'], 15.0)
+        self.assertIn('Zero / Negligible Bystander', kadcyla['bystander_summary'])
+        self.assertGreater(kadcyla['plasma_stability_score'], 90.0)
+
+        # 3. Enfortumab Vedotin (Padcev) - Nectin-4, MMAE, Neuropathy
+        padcev = engine.evaluate_adc_kinetics_and_safety('NECTIN4_EV_PADCEV')
+        self.assertEqual(padcev['target_antigen'], 'Nectin-4 (PVRL4 / Cell adhesion molecule)')
+        self.assertGreaterEqual(padcev['neuropathy_risk_percent'], 45.0)
+        self.assertIn('Peripheral Sensory Neuropathy', padcev['primary_toxicity'])
+
+        # 4. Helper function test with custom DAR override
+        custom_trodelvy = analyze_adc_construct('TROP2_SG_TRODELVY', custom_dar=6.0, target_antigen_expression_percent=90.0)
+        self.assertEqual(custom_trodelvy['dar'], 6.0)
+        self.assertEqual(custom_trodelvy['target_antigen'], 'Trop-2 (Trophoblast cell-surface antigen 2 / TACSTD2)')
+        self.assertGreater(custom_trodelvy['payload_delivery_score'], 75.0)
 
 if __name__ == "__main__":
     unittest.main()

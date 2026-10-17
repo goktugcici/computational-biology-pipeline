@@ -1414,6 +1414,75 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
         )
     },
 
+    'adc_mechanism_bystander': {
+        'patterns': [
+            r'bystander effect', r'bystander etkisi', r'adc nasıl öldürür', r'antikor ilaç konjugatı mekanizma', r'bystander öldürme', r'çevre hücreleri öldürme'
+        ],
+        'title': 'Antikor-İlaç Konjugatları (ADC) & Çevre Hücreleri Öldürme (Bystander Effect)',
+        'answer': (
+            "🎯 **ADC'lerde 'Bystander Killing' (Komşu Hücre Öldürme) Etkisi Nedir?**\n\n"
+            "• **Kanser Heterojenitesi Sorunu:** Katı tümörlerdeki kanser hücrelerinin tümü hedef reseptörü (örn. HER2 veya Trop-2) eşit düzeyde taşımaz; bazı hücreler antijen-negatiftir.\n"
+            "• **Bystander Mekanizması:** ADC antijeni taşıyan hücreye bağlanıp endositozla hücre içine girdiğinde, parçalanabilir (cleavable) bağlayıcı kopar ve açığa çıkan sitotoksik yük (payload, örn. DXd, SN-38 veya MMAE) lipid membranları aşabilen (membran-geçirgen) yapıdaysa hücre dışına sızarak çevredeki antijen taşımayan komşu kanser hücrelerini de yok eder.\n"
+            "• **Klinik Önemi:** T-DXd (Enhertu) ve Trodelvy'nin yüksek bystander etkisi, HER2-low veya heterojen Trop-2 tümörlerde kemoterapiye dirençli klonları dahi eradike edebilmesini sağlar. T-DM1 (Kadcyla) gibi parçalanamaz bağlayıcılı ADC'lerde ise bystander etkisi sıfırdır."
+        )
+    },
+    'enhertu_her2_low': {
+        'patterns': [
+            r'her2-low', r'her2 low', r'enhertu meme kanseri', r't-dxd', r'destiny-breast'
+        ],
+        'title': 'Trastuzumab Deruxtecan (Enhertu / T-DXd) & HER2-Low Devrimi',
+        'answer': (
+            "🎀 **Enhertu (T-DXd) ve HER2-Low Yeni Kanser Sınıflaması:**\n\n"
+            "• **Tarihsel Dönüm Noktası:** Geçmişte meme kanseri sadece 'HER2 Pozitif (IHC 3+)' veya 'HER2 Negatif' olarak ikiye ayrılırdı. DESTINY-Breast04 çalışmasıyla **HER2-Low (IHC 1+ veya IHC 2+/ISH-)** adı verilen yepyeni bir hasta grubu tanımlandı (tüm meme kanserlerinin yaklaşık %50-60'ı).\n"
+            "• **Teknolojik Güç:** Enhertu, antikora bağlı 8 adet DXd (DAR=8.0) taşır ve çok düşük HER2 ekspresyonunda dahi güçlü bystander öldürme başlatır.\n"
+            "• **Klinik Başarı:** Standart kemoterapiye kıyasla progresyonsuz sağkalımı (9.9 vs 5.1 ay) ve genel sağkalımı (23.4 vs 16.8 ay, HR=0.64) çarpıcı biçimde uzatarak kılavuzlarda 1. kategori tercih haline gelmiştir. Ayrıca HER2 mutasyonlu akciğer adenokarsinomlarında da FDA onaylıdır."
+        )
+    },
+    'trodelvy_trop2_tnbc': {
+        'patterns': [
+            r'trodelvy', r'sacituzumab', r'trop-2', r'trop2', r'ascent çalışması'
+        ],
+        'title': 'Sacituzumab Govitecan (Trodelvy) & Trop-2 Hedefli Üçlü Negatif Meme Kanseri',
+        'answer': (
+            "🧬 **Trodelvy (Sacituzumab Govitecan) & Üçlü Negatif Meme Kanseri (mTNBC):**\n\n"
+            "• **Trop-2 Hedefi:** Üçlü negatif meme kanserlerinin (östrojen, progesteron ve HER2 negatif) %90'ından fazlasında hücre yüzeyinde aşırı miktarda Trop-2 reseptörü bulunur.\n"
+            "• **Moleküler Mimari:** İrinotekanın en aktif formu olan SN-38 molekülünü yüksek oranda (DAR=7.6) taşır. Asidik tümör ortamında ve lizozomda hızla serbest kalır.\n"
+            "• **ASCENT Faz 3 Çalışması:** Daha önce kemoterapi almış metastatik TNBC hastalarında genel sağkalımı ikiye katlamış (12.1 vs 6.7 ay, HR=0.48), ölüm riskini %52 azaltmıştır.\n"
+            "• **Yan Etki & Yönetim:** En sık görülen yan etkiler nötropeni ve ishaldir. UGT1A1*28 yavaş metabolizörlerinde toksisite artabileceğinden genetik test ve G-CSF profilaksisi önerilir."
+        )
+    },
+    'padcev_nectin4_bladder': {
+        'patterns': [
+            r'padcev', r'enfortumab', r'nectin-4', r'nectin 4', r'ev-302', r'mesane kanseri padcev'
+        ],
+        'title': 'Enfortumab Vedotin (Padcev) & Nectin-4 Hedefli Mesane Kanseri',
+        'answer': (
+            "💧 **Padcev (Enfortumab Vedotin) & İleri Evre Mesane (Ürotelyal) Kanseri:**\n\n"
+            "• **Nectin-4 Reseptörü:** İdrar kesesi ve ürotelyal karsinomların neredeyse tamamında (%95+) hücre yüzeyinde bolca bulunan bir adezyon molekülüdür.\n"
+            "• **Etki Mekanizması:** Padcev, mikrotübül inhibitörü olan MMAE yükünü hücre içine sokarak hücre bölünmesini (mitoz) kilitler.\n"
+            "• **EV-302 / KEYNOTE-A39 Çalışması (Tarihi Başarı):** Padcev + Pembrolizumab (Keytruda) kombinasyonu, 40 yıldır uygulanan standart platin kemoterapisini geride bırakarak genel sağkalımı 16 aydan **31.5 aya** çıkarmıştır (HR=0.47).\n"
+            "• **Toksisite Uyarısı:** Cilt döküntüleri (SJS/TEN şüphesinde derhal kesilmelidir), periferik nöropati (el ve ayaklarda uyuşma/karıncalanma) ve kan şekeri yüksekliği (hiperglisemi) yakından izlenmelidir."
+        )
+    },
+    'adc_toxicity_ild_neuropathy': {
+        'patterns': [
+            r'adc yan etkileri', r'ild pnömoni', r'enhertu akciğer yan etkisi', r'padcev nöropati', r'adc toksisite'
+        ],
+        'title': 'ADC Toksisiteleri: İnterstisyel Akciğer Hastalığı (ILD) & Periferik Nöropati',
+        'answer': (
+            "⚠️ **Yeni Nesil Antikor-İlaç Konjugatlarında (ADC) Kritik Toksisite Yönetimi:**\n\n"
+            "1. **İnterstisyel Akciğer Hastalığı (ILD) / İlaca Bağlı Pnömonit:**\n"
+            "   - **Görüldüğü İlaçlar:** T-DXd (Enhertu) kullanan hastaların yaklaşık %10-12'sinde ortaya çıkar.\n"
+            "   - **Belirtiler:** Yeni başlayan veya kötüleşen nefes darlığı, kuru öksürük, efor dispnesi.\n"
+            "   - **Yönetim:** Asemptomatik olsa dahi (Evre 1) tomografide opasite görüldüğünde ilaç derhal ertelenir; Evre ≥2 ILD'de ilaç **ömür boyu kesilir** ve derhal sistemik yüksek doz Kortikosteroid (≥1 mg/kg/gün prednizolon eşdeğeri) başlanır.\n\n"
+            "2. **Periferik Nöropati (MMAE / Vedotin İlişkili):**\n"
+            "   - **Görüldüğü İlaçlar:** Padcev (Enfortumab Vedotin) ve Adcetris (Brentuximab Vedotin).\n"
+            "   - **Mekanizma:** Mikrotübül taşınmasının aksonlarda inhibisyonu nedeniyle el ve ayaklarda eldiven-çorap tarzı uyuşma, yanma ve güç kaybı.\n"
+            "   - **Yönetim:** Evre 2 nöropatide semptomlar hafifleyene kadar doz durdurulur ve ardından doz indirimine gidilir.\n\n"
+            "3. **Kemik İliği Baskılanması & İshal (SN-38):** Trodelvy'de mutlak nötrofil sayısı (ANC) takip edilmeli ve G-CSF (filgrastim) desteği planlanmalıdır."
+        )
+    },
+
     'bot_help': {
         'patterns': [
             r'sen kimsin', r'ne yapabilirsin', r'yardım', r'komutlar', r'neler yaparsın',

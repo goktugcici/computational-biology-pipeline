@@ -143,8 +143,8 @@ console.log('\n=== [3/3] VERIFYING ALL 16 TABS & MODULES ===');
 if (mockWindow.domLoaded) mockWindow.domLoaded();
 console.log('✓ DOMContentLoaded initialized');
 
-// 23 Tabs
-const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart'];
+// 24 Tabs
+const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc'];
 tabs.forEach(t => sandbox.switchTab(t));
 console.log(`✓ switchTab validated for all ${tabs.length} tabs`);
 
@@ -278,6 +278,14 @@ console.log('✓ Epigenomics & DNA Methylation Studio (5 canonical scenarios, MG
 });
 sandbox.switchTab('cart');
 console.log('✓ CAR-T & Adoptive Cell Engineering Studio (6 canonical constructs, CRS/ICANS grading, costimulation) validated');
+
+// Antibody-Drug Conjugate (ADC) & Linker-Payload Studio
+['HER2_T_DXD_ENHERTU', 'TROP2_SG_TRODELVY', 'NECTIN4_EV_PADCEV', 'HER2_T_DM1_KADCYLA', 'CD30_BV_ADCETRIS', 'TROP2_DATO_DXD'].forEach(c => {
+  sandbox.selectAdcConstruct(c);
+  sandbox.calculateAdcLive();
+});
+sandbox.switchTab('adc');
+console.log('✓ Antibody-Drug Conjugate (ADC) & Linker-Payload Studio (6 canonical constructs, DAR/bystander, ILD/neuropathy) validated');
 
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');

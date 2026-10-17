@@ -170,7 +170,7 @@ console.log('[2/4] Browser environment & DOMContentLoaded initialized successful
 console.log('\n[3/4] RUNNING EXHAUSTIVE VALIDATION ACROSS ALL 16 SECTIONS...');
 
 // 3.1 Tab Navigation
-const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways'];
+const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc'];
 allTabs.forEach(t => sandbox.switchTab(t));
 console.log(`  ✓ All ${allTabs.length} tabs cycled without errors`);
 
@@ -290,6 +290,15 @@ cartConstructs.forEach(c => {
 sandbox.switchTab('cart');
 console.log(`  ✓ CAR-T & Adoptive Cell Engineering studio verified (${cartConstructs.length} canonical constructs, CRS/ICANS grading, costimulation)`);
 
+// 3.14 Antibody-Drug Conjugate (ADC) & Linker-Payload Studio
+const adcConstructs = ['HER2_T_DXD_ENHERTU', 'TROP2_SG_TRODELVY', 'NECTIN4_EV_PADCEV', 'HER2_T_DM1_KADCYLA', 'CD30_BV_ADCETRIS', 'TROP2_DATO_DXD'];
+adcConstructs.forEach(c => {
+  sandbox.selectAdcConstruct(c);
+  sandbox.calculateAdcLive();
+});
+sandbox.switchTab('adc');
+console.log(`  ✓ Antibody-Drug Conjugates (ADC) studio verified (${adcConstructs.length} canonical constructs, DAR/bystander, ILD/neuropathy)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
@@ -349,6 +358,11 @@ const sampleQuestions = [
   'ICANS nörotoksisite ve ICE skoru nedir?',
   'BCMA hedefli CAR-T Carvykti ve Abecma multipl miyelomda nasıl etki eder?',
   'Claudin 18.2 hedeflemesi Zolbetuximab ve CT041 CAR-T mide kanserinde nedir?',
+  'Bystander effect komşu hücre öldürme antikor ilaç konjugatlarında nedir?',
+  'HER2-low meme kanseri Enhertu T-DXd tedavisi nedir?',
+  'Trodelvy Sacituzumab Trop-2 hedefli üçlü negatif meme kanseri nedir?',
+  'Padcev Enfortumab Vedotin Nectin-4 mesane kanseri tedavisi nedir?',
+  'ADC yan etkileri ILD pnömonit ve periferik nöropati yönetimi nedir?',
   'Merhaba günaydın',
   'Çok teşekkür ederim'
 ];
