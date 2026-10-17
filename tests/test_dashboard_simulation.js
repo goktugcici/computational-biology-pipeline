@@ -143,8 +143,8 @@ console.log('\n=== [3/3] VERIFYING ALL 16 TABS & MODULES ===');
 if (mockWindow.domLoaded) mockWindow.domLoaded();
 console.log('✓ DOMContentLoaded initialized');
 
-// 26 Tabs
-const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific'];
+// 27 Tabs
+const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific', 'neovac'];
 tabs.forEach(t => sandbox.switchTab(t));
 console.log(`✓ switchTab validated for all ${tabs.length} tabs`);
 
@@ -302,6 +302,14 @@ console.log('✓ Targeted Radioligand Therapy (RLT) & Theranostics Studio (6 can
 });
 sandbox.switchTab('bispecific');
 console.log('✓ Bispecific Antibodies & T-Cell Engagers (BiTE) Studio (6 canonical constructs, synapse distance, step-up CRS) validated');
+
+// Cancer Neoantigen & Personalized mRNA Vaccine Studio (NeoVac Engine)
+['MRNA_4157_V940_MELANOMA', 'AUTOGENE_CEVUMERAN_BNT122_PDAC', 'MSI_H_FRAMESHIFT_POOL_NOUS209', 'KRAS_MUTANT_AMPLIFY_ELI002', 'EGFR_VIII_GLIOBLASTOMA_RINDOMUPEBTIDE', 'NSCLC_HIGH_TMB_PERSONALIZED'].forEach(r => {
+  sandbox.selectNeoVacRegimen(r);
+  sandbox.calculateNeoVacLive();
+});
+sandbox.switchTab('neovac');
+console.log('✓ Cancer Neoantigen & mRNA Vaccine Design Studio (6 canonical regimens, NetMHCpan HLA affinity, mRNA cassette, LNP biophysics) validated');
 
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');

@@ -705,7 +705,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'kras_sotorasib': {
         'patterns': [
-            r'kras', r'sotorasib', r'lumakras', r'g12c', r'adagrasib', r'kras inhibitör'
+            r'sotorasib', r'lumakras', r'g12c', r'adagrasib', r'kras inhibitör', r'\bkras g12c\b', r'\bkras mutasyonu\b'
         ],
         'title': 'KRAS Mutasyonu & KRAS G12C İnhibitörleri',
         'answer': (
@@ -1113,7 +1113,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'neoantigen_mrna_vaccines': {
         'patterns': [
-            r'mrna kanser aşısı', r'kanser aşısı', r'biontech kanser', r'moderna kanser', r'mrna-4157', r'kişiye özel aşı'
+            r'kanser aşıları genel', r'biontech kanser genel', r'moderna kanser genel', r'kişiye özel aşı nedir', r'genel kanser aşısı'
         ],
         'title': 'Kişiye Özel mRNA Kanser Aşıları & Neoantijen Teknolojisi',
         'answer': (
@@ -1613,6 +1613,101 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
             "2. **Protokol:** Örneğin Teclistamab'da 1. gün 0.06 mg/kg, 4. gün 0.3 mg/kg, 7. gün tam doz 1.5 mg/kg verilir. Blinatumomab'da ilk 7 gün 9 mcg/gün, sonra 28 mcg/gün'e çıkılır.\n"
             "3. **Premedikasyon:** Her basamak öncesi deksametazon, antihistaminik ve parasetamol verilir.\n"
             "4. **CRS & ICANS Yönetimi:** Ateş ve hipotansiyonda derhal Tocilizumab (anti-IL-6R); nörotoksisite (ICANS: titreme, konuşma bozukluğu, kafa karışıklığı) gelişirse yüksek doz Deksametazon uygulanır."
+        )
+    },
+
+    'mrna_cancer_vaccine_keynote942': {
+        'patterns': [
+            r'mrna-4157', r'v940', r'kanser aşısı', r'keynote-942', r'mrna kanser aşısı', r'kişiselleştirilmiş kanser aşısı', r'moderna kanser aşısı'
+        ],
+        'title': 'Kişiselleştirilmiş Kanser mRNA Aşısı (mRNA-4157 / V940 & KEYNOTE-942)',
+        'answer': (
+            "💉 **Kişiselleştirilmiş Kanser mRNA Aşısı (mRNA-4157 / V940 + Pembrolizumab):**\n\n"
+            "• **Mekanizma & Tasarım:** Moderna ve Merck ortaklığıyla geliştirilen bu aşı, hastanın tümör biyopsisinden yeni nesil dizileme (NGS) ile belirlenen en immünojenik 34 adede kadar kişiye özel neoantijeni tek bir sentetik mRNA molekülünde kodlar.\n"
+            "• **KEYNOTE-942 Faz 2b Klinik Sonuçları:** Cerrahi olarak çıkarılmış yüksek riskli evre III/IV melanom hastalarında mRNA-4157 + Pembrolizumab (Keytruda) kombinasyonu, tek başına Keytruda'ya kıyasla:\n"
+            "   - Kanser nüksü veya ölüm riskini **%44 oranında azaltmıştır** (RFS HR=0.56, %95 GA 0.31-1.02).\n"
+            "   - Uzak organ metastazı veya ölüm riskini ise **%65 oranında azaltmıştır** (DMFS HR=0.35, %95 GA 0.17-0.72).\n"
+            "• **Formülasyon & Dozlama:** CleanCap 1 ve SM-102 lipid nanopartikül (LNP) ile kas içine (IM) her 3 haftada bir toplam 9 doz uygulanır.\n"
+            "• **Ruhsat Durumu:** FDA Çığır Açan Tedavi (Breakthrough Therapy) ve EMA PRIME unvanlarına sahiptir."
+        )
+    },
+    'autogene_cevumeran_bnt122_pdac': {
+        'patterns': [
+            r'autogene cevumeran', r'bnt122', r'pankreas kanseri aşısı', r'biontech kanser aşısı', r'inest'
+        ],
+        'title': 'Pankreas Kanserinde Kişiselleştirilmiş mRNA Aşısı: Autogene Cevumeran (BNT122)',
+        'answer': (
+            "🧬 **Pankreas Kanserinde BNT122 (Autogene Cevumeran) Çığırı:**\n\n"
+            "• **Tarihsel Önemi:** Pankreas duktal adenokarsinomu (PDAC), immünolojik olarak 'soğuk' kabul edilen ve immünoterapilere yanıt vermeyen en ölümcül kanserlerden biridir.\n"
+            "• **Nature 2023 Çalışması (MSKCC / Dr. Vinod Balachandran):** Cerrahi rezeksiyon sonrası hastalara Atezolizumab (anti-PD-L1) + 20 neoantijene kadar kodlayan BNT122 mRNA aşısı + mFOLFIRINOX kemoterapisi verilmiştir.\n"
+            "• **İmmün Yanıt:** Hastaların %50'sinde (8/16 hasta) kanda 2.5 yıldan uzun süre saptanabilen ve tüm kan T hücrelerinin %10'una kadar ulaşan devasa neoantijen-özgü polifonksiyonel CD8+ T hücresi oluşmuştur.\n"
+            "• **Sağkalım Başarısı:** Aşıya immün yanıt veren hastalarda medyan nükssüz sağkalıma ulaşılamamışken, yanıt vermeyen grupta 13.4 ayda nüks gelişmiştir (HR=0.08, p=0.003)."
+        )
+    },
+    'neoantigen_hla_binding_netmhcpan': {
+        'patterns': [
+            r'neoantijen', r'mhc bağlama', r'hla afinite', r'netmhcpan', r'neoantijen seçimi', r'neoantijen nedir'
+        ],
+        'title': 'Kanser Neoantijeni Nedir? HLA/MHC Sınıf I ve II Bağlanma Algoritmaları',
+        'answer': (
+            "🎯 **Kanser Neoantijeni Seçimi & HLA Bağlanma Biyofiziği:**\n\n"
+            "• **Neoantijen Nedir?** Kanser hücrelerindeki somatik DNA mutasyonlarının (nokta mutasyonlar, çerçeve kayması, füzyonlar) ürettiği ve sağlıklı vücut hücrelerinde bulunmayan mutant protein fragmanlarıdır.\n"
+            "• **HLA Sınıf I ve II Sunumu:**\n"
+            "   - MHC-I (HLA-A, B, C): 8-11 amino asitlik peptitleri bağlayıp sitotoksik CD8+ T hücrelerine sunar.\n"
+            "   - MHC-II (HLA-DR, DQ, DP): 13-17 amino asitlik peptitleri bağlayıp yardımcı CD4+ T hücrelerine sunar.\n"
+            "• **NetMHCpan Bağlanma Kriterleri:**\n"
+            "   - Güçlü Bağlayıcı (Strong Binder): IC50 < 50 nM veya %Rank < %0.5 (Aşı için Tier 1 öncelik).\n"
+            "   - Zayıf Bağlayıcı (Weak Binder): IC50 50-500 nM veya %Rank %0.5-2.0.\n"
+            "   - Bağlanmayan: IC50 > 500 nM (Aşı kasetine dahil edilmez).\n"
+            "• **TCR Yabancılık Tanıması:** P2 ve P9 (P-omega) çapa rezidüleri HLA yarığına otururken; P4-P7 aralığındaki hidrofobik amino asitler dışarıya bakarak T hücresi reseptörüyle (TCR) yabancı olarak tanınır."
+        )
+    },
+    'mrna_cassette_lnp_formulation': {
+        'patterns': [
+            r'mrna kaseti', r'lipid nanopartikül', r'lnp formülasyonu', r'sm-102', r'n/p oranı', r'aay bağlayıcı', r'gpgpg'
+        ],
+        'title': 'Kanser Aşılarında Sentetik mRNA Kaseti & LNP Biyofiziği (SM-102 / N:P Oranı)',
+        'answer': (
+            "🧪 **Sentetik mRNA Kaset Mimarisi ve LNP Formülasyon Biyofiziği:**\n\n"
+            "1. **mRNA Kaset Yapısı:**\n"
+            "   - **5' CleanCap 1:** m7G(5')ppp(5')(2'OMeA)pG yapısı eIF4E afinitesini artırır ve RIG-I/MDA5 gibi doğuştan gelen bağışıklık sensörlerini aşar.\n"
+            "   - **UTR Bölgeleri:** 5' Alfa-globin veya HSD17B4 lideri; 3' tandem AES + mtRNR1 stabilizatörleri.\n"
+            "   - **Hedefleme Sinyali:** LAMP1 sinyal peptidi proteini lizozomal MHC-II kompartımanına yönlendirir.\n"
+            "   - **Epitop Bağlayıcıları:** MHC-I için proteazomun kolay kestiği **AAY (Ala-Ala-Tyr)**; MHC-II için istenmeyen kavşak neoantijenlerini önleyen **GPGPG** bağlayıcıları.\n"
+            "   - **Poli(A) Kuyruğu:** 100-120 nükleotit optimal translasyon yarı ömrü sağlar.\n"
+            "2. **Lipid Nanopartikül (LNP) Bileşenleri:**\n"
+            "   - İyonize edilebilir lipid (%50 mol, örn. SM-102 veya ALC-0315, pKa 6.1-6.8).\n"
+            "   - Fosfolipid (%10 DSPC), Kolesterol (%38.5) ve PEG-lipid (%1.5 DMG-PEG2000).\n"
+            "3. **N/P Yük Oranı:** İyonize lipiddeki amin azotu (N) ile mRNA'daki fosfat (P) mol oranıdır. Altın standart oran **6:1** olup >%95 enkapsülasyon ve endozomal kaçış sağlar."
+        )
+    },
+    'lynch_syndrome_frameshift_neoantigen': {
+        'patterns': [
+            r'lynch sendromu aşı', r'frameshift neoantijen', r'nous-209', r'dmmr aşı', r'msi-h kanser aşısı', r'çerçeve kayması mutasyonu'
+        ],
+        'title': 'Lynch Sendromu & MSI-H Tümörlerde Çerçeve Kayması (Frameshift) Aşıları',
+        'answer': (
+            "🧬 **Lynch Sendromu ve MSI-H Kanserlerde 'Çerçeve Kayması (Frameshift)' Aşıları:**\n\n"
+            "• **Mekanizma:** DNA Mismatch Repair eksikliği (dMMR / MSI-H) olan tümörlerde mikrosatellitlerde 1 bazlık kaymalar (özellikle TGFBR2 -1A delesyonu c.438delA, CASP8, ACVR2A) ribozom okuma çerçevesini değiştirir.\n"
+            "• **Neden Süper İmmünojeniktir?** Tek bir nükleotit silinmesi, proteinin devamında insan vücudunun daha önce hiç görmediği yepyeni bir amino asit dizisi (örn. RLSSCVPVA...) sentezletir. Bu peptitler timik negatif seleksiyona uğramadığından merkezi toleransı %100 aşar ve olağanüstü güçlü T hücresi yanıtı üretir.\n"
+            "• **Hazır (Off-the-shelf) Aşılar:** Bu mutasyonlar MSI-H hastalarının %80-90'ında aynı kodonda tekrarlar. Bu sayede kişiye özel aşı beklemek yerine **Nous-209** gibi 209 paylaşımlı neoantijen havuzu 'raftan hazır' hemen uygulanabilir.\n"
+            "• **Klinik Kullanım:** Hem dMMR metastatik kolorektal kanserde immünoterapiyle kombine, hem de Lynch sendromu taşıyıcılarında kanseri önleyici koruyucu aşı olarak klinik faz çalışmalarındadır."
+        )
+    },
+
+    'kras_amphiphile_vaccine_amplify': {
+        'patterns': [
+            r'eli-002', r'amplify-201', r'kras aşısı', r'amfifil aşı', r'kras mrd', r'kras g12d aşı'
+        ],
+        'title': 'Lenf Düğümü Hedefli mKRAS Amfifil Aşıları (ELI-002 & AMPLIFY-201)',
+        'answer': (
+            "🎯 **Mutant KRAS Hedefli Amfifil Aşı Teknolojisi (ELI-002 / AMPLIFY-201):**\n\n"
+            "• **Problem:** KRAS (G12D, G12V, G12R vb.) pankreas kanserlerinin %90'ından, kalın bağırsak kanserlerinin %45'inden sorumlu en yaygın onkojenik sürücüdür ancak aşılar serbest dolaşımda hızla degrade olur.\n"
+            "• **Amfifil Taşıyıcı Tasarımı:** Mutant KRAS peptitleri hidrofobik bir lipid kuyruk ile bağlanmıştır. Cilt altına enjekte edildiğinde kandaki albümine bağlanarak doğrudan bağışıklık orkestrasyon merkezi olan lenf düğümlerine (sentinel lymph nodes) taşınır.\n"
+            "• **AMPLIFY-201 Faz 1 Klinik Sonuçları (Nature Medicine 2024):** Cerrahi/kemoterapi sonrası kanda tümör DNA'sı (ctDNA+) veya tümör belirteci pozitif kalan yüksek nüks riskli pankreas ve kolorektal kanser hastalarında:\n"
+            "   - **%84 oranında** kalıcı mutant-KRAS'a özgü CD4+ ve CD8+ bellek T-hücresi yanıtı oluşturmuştur.\n"
+            "   - **%84 oranında** dolaşan ctDNA tümör DNA'sını temizlemiş veya belirgin düşürmüştür.\n"
+            "   - Güçlü T-hücresi üreten grupta medyan nükssüz sağkalıma ulaşılamamışken (NR), yanıt vermeyenlerde 4 ayda nüks gelişmiştir (HR=0.14, p=0.0016)."
         )
     },
 

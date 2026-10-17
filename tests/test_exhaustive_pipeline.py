@@ -30,6 +30,14 @@ from cell_therapy_cart import CellTherapyCartEngine, CANONICAL_CART_CONSTRUCTS, 
 from antibody_drug_conjugates import AntibodyDrugConjugateEngine, CANONICAL_ADC_CONSTRUCTS, analyze_adc_construct
 from radioligand_theranostics import RadioligandTheranosticsEngine, CANONICAL_RADIOLIGAND_REGIMENS, analyze_radioligand_regimen
 from bispecific_antibodies import BispecificAntibodyEngine, CANONICAL_BISPECIFIC_CONSTRUCTS, analyze_bispecific_construct
+from neoantigen_mrna_vaccine import (
+    CANONICAL_NEOVAC_REGIMENS,
+    predict_hla_binding_affinity,
+    calculate_neoantigen_fitness,
+    design_mrna_cassette,
+    model_lnp_biophysics,
+    analyze_neovac_regimen
+)
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -144,6 +152,12 @@ class TestExhaustivePipeline(unittest.TestCase):
             'teclistamab_bcma_cd3_myeloma': 'Teclistamab Tecvayli ve Talquetamab Talvey tedavisi nedir?',
             'tebentafusp_immtac_uveal_melanoma': 'Tebentafusp Kimmtrak ImmTAC tedavisi nedir?',
             'bispecific_step_up_dosing_crs': 'Bispesifik antikorlarda basamaklı dozlama step-up dosing protokolü nedir?',
+            'mrna_cancer_vaccine_keynote942': 'mRNA-4157 V940 melanoma kanser aşısı çalışması nedir?',
+            'autogene_cevumeran_bnt122_pdac': 'Autogene Cevumeran BNT122 pankreas kanseri aşısı nedir?',
+            'neoantigen_hla_binding_netmhcpan': 'Kanser neoantijeni NetMHCpan ile nasıl seçilir?',
+            'mrna_cassette_lnp_formulation': 'Sentetik mRNA kaseti ve LNP SM-102 formülasyonu nasıldır?',
+            'lynch_syndrome_frameshift_neoantigen': 'Lynch sendromu Nous-209 frameshift aşısı nedir?',
+            'kras_amphiphile_vaccine_amplify': 'ELI-002 amfifil mKRAS aşısı sonuçları nelerdir?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -874,6 +888,90 @@ class TestExhaustivePipeline(unittest.TestCase):
         talvey = analyze_bispecific_construct('TALQUETAMAB_TALVEY')
         self.assertEqual(talvey['target_tumor'], 'GPRC5D (G Protein-Coupled Receptor Family C Group 5 Member D)')
         self.assertIn('MonumenTAL-1', talvey['clinical_trial'])
+
+    # =========================================================================
+    # 21. CANCER NEOANTIGEN & PERSONALIZED mRNA VACCINE ENGINE (NEOVAC)
+    # =========================================================================
+    def test_neovac_canonical_regimens(self):
+        """Verify all 6 canonical neoantigen regimens have complete biological and clinical metadata."""
+        self.assertEqual(len(CANONICAL_NEOVAC_REGIMENS), 6)
+        expected_ids = [
+            'MRNA_4157_V940_MELANOMA',
+            'AUTOGENE_CEVUMERAN_BNT122_PDAC',
+            'MSI_H_FRAMESHIFT_POOL_NOUS209',
+            'KRAS_MUTANT_AMPLIFY_ELI002',
+            'EGFR_VIII_GLIOBLASTOMA_RINDOMUPEBTIDE',
+            'NSCLC_HIGH_TMB_PERSONALIZED'
+        ]
+        for rid in expected_ids:
+            self.assertIn(rid, CANONICAL_NEOVAC_REGIMENS)
+            r = CANONICAL_NEOVAC_REGIMENS[rid]
+            self.assertIn('clinical_trial', r)
+            self.assertIn('gene_mutation', r)
+            self.assertIn('sample_peptide', r)
+            self.assertIn('nccn_guideline', r)
+            self.assertGreater(r['base_potency'], 70.0)
+
+    def test_neovac_hla_affinity_and_fitness_scoring(self):
+        """Verify NetMHCpan HLA binding prediction and multi-parametric fitness scoring."""
+        # 1. Strong binder with favored anchors (P2: Thr, P9: Val on HLA-A*02:01)
+        res_strong = predict_hla_binding_affinity('STEKITYSV', 'HLA-A*02:01')
+        self.assertLess(res_strong['ic50_nm'], 50.0)
+        self.assertEqual(res_strong['binding_class'], 'Strong Binder')
+        self.assertLess(res_strong['rank_percent'], 0.5)
+
+        # 2. Non-binder with disfavored anchor (Asp at P2)
+        res_weak = predict_hla_binding_affinity('SDEKITYSP', 'HLA-A*02:01')
+        self.assertGreater(res_weak['ic50_nm'], 500.0)
+        self.assertEqual(res_weak['binding_class'], 'Non-Binder')
+
+        # 3. High fitness evaluation (Clonal VAF=0.48, TPM=125, strong binding)
+        fit_high = calculate_neoantigen_fitness(
+            peptide='STEKITYSV',
+            wt_peptide='STEKITYSL',
+            ic50_nm=18.4,
+            vaf=0.48,
+            tpm_expression=125.0
+        )
+        self.assertGreaterEqual(fit_high['composite_fitness'], 80.0)
+        self.assertIn('Tier 1 Priority', fit_high['recommendation'])
+
+        # 4. Frameshift foreignness boost
+        fit_fs = calculate_neoantigen_fitness(
+            peptide='RLSSCVPVA',
+            wt_peptide='KSLVSSAST',
+            ic50_nm=25.0,
+            vaf=0.52,
+            tpm_expression=195.0,
+            is_frameshift=True
+        )
+        self.assertGreaterEqual(fit_fs['foreignness_score'], 80.0)
+        self.assertGreaterEqual(fit_fs['composite_fitness'], 85.0)
+
+    def test_neovac_mrna_cassette_and_lnp_formulation(self):
+        """Verify synthetic mRNA cassette design, GC/CAI optimization, and LNP biophysics."""
+        # 1. mRNA Cassette Assembly (34 epitopes with AAY linker)
+        cassette = design_mrna_cassette(neoantigen_count=34, linker_type='AAY', signal_peptide='LAMP1')
+        self.assertGreater(cassette['total_mrna_length_nt'], 1200)
+        self.assertIn('CleanCap AG', cassette['cap_structure'])
+        self.assertGreaterEqual(cassette['codon_adaptation_index'], 0.90)
+        self.assertGreaterEqual(cassette['gc_content_percent'], 58.0)
+        self.assertGreaterEqual(cassette['estimated_half_life_hours'], 20.0)
+
+        # 2. LNP Formulation Biophysics (SM-102 at N/P 6.0)
+        lnp = model_lnp_biophysics(ionizable_lipid='SM-102', np_ratio=6.0, total_rna_dose_ug=1000.0)
+        self.assertGreaterEqual(lnp['encapsulation_efficiency_percent'], 96.0)
+        self.assertLess(lnp['mean_particle_diameter_nm'], 90.0)
+        self.assertLess(lnp['polydispersity_index_pdi'], 0.12)
+        self.assertGreaterEqual(lnp['endosomal_escape_percent'], 1.5)
+
+        # 3. Complete End-to-End Orchestration
+        full_analysis = analyze_neovac_regimen('MRNA_4157_V940_MELANOMA')
+        self.assertIn('hla_binding', full_analysis)
+        self.assertIn('neoantigen_fitness', full_analysis)
+        self.assertIn('mrna_cassette', full_analysis)
+        self.assertIn('lnp_formulation', full_analysis)
+        self.assertGreaterEqual(full_analysis['overall_immunogenicity_potency_score'], 85.0)
 
 if __name__ == "__main__":
     unittest.main()

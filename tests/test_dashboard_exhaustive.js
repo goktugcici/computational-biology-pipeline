@@ -170,7 +170,7 @@ console.log('[2/4] Browser environment & DOMContentLoaded initialized successful
 console.log('\n[3/4] RUNNING EXHAUSTIVE VALIDATION ACROSS ALL 16 SECTIONS...');
 
 // 3.1 Tab Navigation
-const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific'];
+const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific', 'neovac'];
 allTabs.forEach(t => sandbox.switchTab(t));
 console.log(`  ✓ All ${allTabs.length} tabs cycled without errors`);
 
@@ -317,6 +317,15 @@ bispConstructs.forEach(c => {
 sandbox.switchTab('bispecific');
 console.log(`  ✓ Bispecific Antibodies & BiTE studio verified (${bispConstructs.length} canonical constructs, synapse distance, step-up CRS)`);
 
+// 3.17 Cancer Neoantigen & Personalized mRNA Vaccine Studio (NeoVac Engine)
+const neovacRegimens = ['MRNA_4157_V940_MELANOMA', 'AUTOGENE_CEVUMERAN_BNT122_PDAC', 'MSI_H_FRAMESHIFT_POOL_NOUS209', 'KRAS_MUTANT_AMPLIFY_ELI002', 'EGFR_VIII_GLIOBLASTOMA_RINDOMUPEBTIDE', 'NSCLC_HIGH_TMB_PERSONALIZED'];
+neovacRegimens.forEach(r => {
+  sandbox.selectNeoVacRegimen(r);
+  sandbox.calculateNeoVacLive();
+});
+sandbox.switchTab('neovac');
+console.log(`  ✓ Cancer Neoantigen & mRNA Vaccine studio verified (${neovacRegimens.length} canonical regimens, NetMHCpan HLA affinity, mRNA cassette, LNP biophysics)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
@@ -391,6 +400,12 @@ const sampleQuestions = [
   'Teclistamab Tecvayli ve Talquetamab Talvey tedavisi nedir?',
   'Tebentafusp Kimmtrak ImmTAC tedavisi nedir?',
   'Bispesifik antikorlarda basamaklı dozlama step-up dosing protokolü nedir?',
+  'mRNA-4157 V940 melanoma kanser aşısı çalışması nedir?',
+  'Autogene Cevumeran BNT122 pankreas kanseri aşısı nedir?',
+  'Kanser neoantijeni NetMHCpan ile nasıl seçilir?',
+  'Sentetik mRNA kaseti ve LNP SM-102 formülasyonu nasıldır?',
+  'Lynch sendromu Nous-209 frameshift aşısı nedir?',
+  'ELI-002 amfifil mKRAS aşısı sonuçları nelerdir?',
   'Merhaba günaydın',
   'Çok teşekkür ederim'
 ];

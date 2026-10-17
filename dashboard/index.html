@@ -134,6 +134,9 @@
         <button onclick="switchTab('bispecific')" id="tabBtn-bispecific" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🔗 Bispesifik Antikor & BiTE
         </button>
+        <button onclick="switchTab('neovac')" id="tabBtn-neovac" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          💉 Neoantijen & mRNA Aşı
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -4053,7 +4056,309 @@
       </div>
     </section>
 
-  </main>
+    <!-- ========================================== -->
+    <!-- TAB 27: KANSER NEOANTİJEN & KİŞİSELLEŞTİRİLMİŞ mRNA AŞI STÜDYOSU (NeoVac Engine) -->
+    <!-- ========================================== -->
+    <section id="tab-neovac" class="tab-content hidden space-y-6">
+      <!-- Üst Başlık & Preset Seçici -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold uppercase tracking-wider">
+                Tab 27 • NeoVac Design Engine
+              </span>
+              <span class="text-xs text-slate-400">NetMHCpan HLA Afinitesi • Neoantijen İmmünojenitesi • mRNA Kaseti • LNP Biyofiziği</span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+              <span>💉 Kanser Neoantijen & Kişiselleştirilmiş mRNA Aşı Tasarım Stüdyosu</span>
+            </h2>
+            <p class="text-slate-400 text-xs mt-1 max-w-3xl leading-relaxed">
+              Hastanın tümör mutasyon yükünden (TMB) elde edilen somatik mutant peptitlerin MHC-I/II sunumunu simüle edin;
+              TCR temas hidrofobikliğini, klonallik ağırlığını (VAF × TPM), 5' Cap1 ve UTR kaset mimarisini ve
+              Lipid Nanopartikül (LNP) N/P yük oranlarını modelleyerek kişiye özel aşı etkinliğini hesaplayın.
+            </p>
+          </div>
+
+          <!-- Preset Butonları -->
+          <div class="flex flex-wrap items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800">
+            <button onclick="selectNeoVacRegimen('MRNA_4157_V940_MELANOMA')" id="btn-neovac-MRNA_4157_V940_MELANOMA" class="neovac-btn px-2.5 py-1 rounded-xl text-xs font-medium bg-rose-600 text-white shadow transition-all">
+              mRNA-4157 (Melanom)
+            </button>
+            <button onclick="selectNeoVacRegimen('AUTOGENE_CEVUMERAN_BNT122_PDAC')" id="btn-neovac-AUTOGENE_CEVUMERAN_BNT122_PDAC" class="neovac-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              BNT122 (Pankreas PDAC)
+            </button>
+            <button onclick="selectNeoVacRegimen('MSI_H_FRAMESHIFT_POOL_NOUS209')" id="btn-neovac-MSI_H_FRAMESHIFT_POOL_NOUS209" class="neovac-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              Nous-209 (MSI-H Lynch)
+            </button>
+            <button onclick="selectNeoVacRegimen('KRAS_MUTANT_AMPLIFY_ELI002')" id="btn-neovac-KRAS_MUTANT_AMPLIFY_ELI002" class="neovac-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              ELI-002 (mKRAS Lenf Düğümü)
+            </button>
+            <button onclick="selectNeoVacRegimen('EGFR_VIII_GLIOBLASTOMA_RINDOMUPEBTIDE')" id="btn-neovac-EGFR_VIII_GLIOBLASTOMA_RINDOMUPEBTIDE" class="neovac-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              EGFRvIII (Glioblastom)
+            </button>
+            <button onclick="selectNeoVacRegimen('NSCLC_HIGH_TMB_PERSONALIZED')" id="btn-neovac-NSCLC_HIGH_TMB_PERSONALIZED" class="neovac-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              NSCLC 30-Plex (TMB-High)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ana Stüdyo Izgarası -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: Parametreler & Kaset Tasarımcısı (5 Kolon) -->
+        <div class="lg:col-span-5 space-y-5">
+          <!-- 1. Neoantijen & HLA Bağlanma Parametreleri -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
+            <h3 class="text-sm font-bold text-white flex items-center justify-between">
+              <span>🧬 Tümör Mutasyonu & Peptit Girişi</span>
+              <span id="neovacTumorTypeBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono">Cutaneous Melanoma</span>
+            </h3>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Mutant Peptit (9-mer)</label>
+                <input type="text" id="neovacPeptideInput" value="STEKITYSV" oninput="calculateNeoVacLive()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono uppercase focus:outline-none focus:border-rose-500">
+              </div>
+              <div>
+                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Gen / Somatik Alterasyon</label>
+                <input type="text" id="neovacGeneInput" value="BRAF V600E (c.1799T>A)" readonly class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-400 font-mono">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Hedef HLA Alleli</label>
+                <select id="neovacHlaSelect" onchange="calculateNeoVacLive()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-rose-500">
+                  <option value="HLA-A*02:01">HLA-A*02:01 (Kafkas %45)</option>
+                  <option value="HLA-A*24:02">HLA-A*24:02 (Asya/TR %28)</option>
+                  <option value="HLA-B*07:02">HLA-B*07:02 (P2 Prolin)</option>
+                  <option value="HLA-A*11:01">HLA-A*11:01 (C-Term Lizin)</option>
+                  <option value="HLA-C*07:01">HLA-C*07:01 (Geniş İfade)</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Kaset İçi Neoantijen Sayısı</label>
+                <input type="number" id="neovacCountInput" value="34" min="1" max="50" oninput="calculateNeoVacLive()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-rose-500">
+              </div>
+            </div>
+
+            <!-- VAF & TPM Sürgüleri -->
+            <div class="space-y-3 pt-1">
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <span class="text-slate-400">Varyant Allel Frekansı (VAF - Klonallik):</span>
+                  <span id="neovacVafValue" class="text-rose-400 font-mono font-bold">%48</span>
+                </div>
+                <input type="range" id="neovacVafSlider" min="5" max="100" value="48" oninput="calculateNeoVacLive()" class="w-full accent-rose-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <span class="text-slate-400">Tümör RNA Ekspresyonu (TPM):</span>
+                  <span id="neovacTpmValue" class="text-rose-400 font-mono font-bold">125 TPM</span>
+                </div>
+                <input type="range" id="neovacTpmSlider" min="1" max="500" value="125" oninput="calculateNeoVacLive()" class="w-full accent-rose-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Sentetik mRNA Kaset Konfigüratörü -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
+            <h3 class="text-sm font-bold text-white flex items-center justify-between">
+              <span>🧬 Sentetik mRNA Kaset Mimarisi</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono">CleanCap 1</span>
+            </h3>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Epitop Bağlayıcı (Linker)</label>
+                <select id="neovacLinkerSelect" onchange="calculateNeoVacLive()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-rose-500">
+                  <option value="AAY">AAY (MHC-I Proteazom Kesim)</option>
+                  <option value="GPGPG">GPGPG (MHC-II CD4+ Esnek Halka)</option>
+                  <option value="furin">Furin (RAKR Subtilisin Kesim)</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Hedefleme Sinyal Peptidi</label>
+                <select id="neovacSignalSelect" onchange="calculateNeoVacLive()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-rose-500">
+                  <option value="LAMP1">LAMP1 (Lizozomal MHC-II)</option>
+                  <option value="Sec61">Sec61 (ER Translokasyon)</option>
+                  <option value="Ig-kappa">Ig-κ (Salgısal Trafik)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="text-slate-400">Poli(A) Kuyruk Uzunluğu (nt):</span>
+                <span id="neovacPolyAValue" class="text-indigo-400 font-mono font-bold">110 nt</span>
+              </div>
+              <input type="range" id="neovacPolyASlider" min="60" max="150" value="110" oninput="calculateNeoVacLive()" class="w-full accent-indigo-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+            </div>
+          </div>
+
+          <!-- 3. Lipid Nanopartikül (LNP) Biyofiziği -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
+            <h3 class="text-sm font-bold text-white flex items-center justify-between">
+              <span>🧪 LNP Formülasyonu & N/P Yük Oranı</span>
+              <span id="neovacLipidPkaBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono">pKa 6.75</span>
+            </h3>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-[11px] font-semibold text-slate-300 block mb-1">İyonize Edilebilir Lipid</label>
+                <select id="neovacLipidSelect" onchange="calculateNeoVacLive()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-rose-500">
+                  <option value="SM-102">SM-102 (Moderna / mRNA-4157)</option>
+                  <option value="ALC-0315">ALC-0315 (BioNTech / BNT122)</option>
+                  <option value="MC3">DLin-MC3-DMA (Benchmark)</option>
+                  <option value="C12-200">C12-200 (Yüksek Potansiyelli)</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-[11px] font-semibold text-slate-300 block mb-1">Toplam Doz (µg)</label>
+                <input type="number" id="neovacDoseInput" value="1000" oninput="calculateNeoVacLive()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-rose-500">
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="text-slate-400">N/P Yük Mol Oranı (Amin / Fosfat):</span>
+                <span id="neovacNpRatioValue" class="text-cyan-400 font-mono font-bold">6.0 : 1</span>
+              </div>
+              <input type="range" id="neovacNpSlider" min="20" max="120" value="60" oninput="calculateNeoVacLive()" class="w-full accent-cyan-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+              <span class="text-[10px] text-slate-500 block mt-1">İdeal 6.0:1 oranı fizyolojik pH 7.4'te nötr, endozomal pH 5.5'te pozitifleşerek membran füzyonu sağlar.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: Metrikler, Kaset Şeması & Faz 3 Kanıt (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- 4 Temel Metrik Kartı -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">HLA Afinitesi (IC50)</span>
+              <p id="neovacHlaAffinity" class="text-2xl font-black font-mono text-emerald-400">18.4 nM</p>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-neovac-affinity" class="bg-emerald-500 h-1 rounded-full" style="width: 90%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Neoantijen Fitness Skoru</span>
+              <p id="neovacFitnessScore" class="text-2xl font-black font-mono text-rose-400">91.5</p>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-neovac-fitness" class="bg-rose-500 h-1 rounded-full" style="width: 91%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">LNP Enkapsülasyon</span>
+              <p id="neovacEncapRate" class="text-2xl font-black font-mono text-cyan-400">%96.4</p>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-neovac-encap" class="bg-cyan-500 h-1 rounded-full" style="width: 96%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Kompozit Aşı Potansı</span>
+              <p id="neovacPotencyScore" class="text-2xl font-black font-mono text-indigo-400">93.8</p>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-neovac-potency" class="bg-indigo-500 h-1 rounded-full" style="width: 94%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Neoantijen İmmünojenite Ayrıntıları Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                <span>🎯 Neoantijen Seçim & Prioritizasyon Biyofiziği</span>
+              </h4>
+              <span id="neovacPriorityBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">
+                Tier 1 Öncelik • Güçlü Bağlayıcı
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">P2 / PΩ Çapa</span>
+                <p id="neovacAnchorResidues" class="font-mono font-bold text-slate-200">P2: T • P9: V</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">TCR Yabancılık</span>
+                <p id="neovacForeignnessScore" class="font-mono font-bold text-rose-400">88.0 / 100</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">Klonallik (VAF*TPM)</span>
+                <p id="neovacClonalityScore" class="font-mono font-bold text-indigo-400">42.8 / 100</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">Proteazom / TAP</span>
+                <p id="neovacCleavageScore" class="font-mono font-bold text-emerald-400">90.0 / 100</p>
+              </div>
+            </div>
+
+            <div id="neovacRecommendationBox" class="p-3.5 rounded-2xl bg-slate-950 border border-emerald-900/40 text-xs text-emerald-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- Sentetik mRNA Kaseti & LNP Yapısı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between">
+              <span>🧬 Sentetik mRNA Kaset Mimarisi & LNP Özellikleri</span>
+              <span id="neovacMrnaLengthBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono">1,482 nt</span>
+            </h4>
+
+            <!-- mRNA Kaset Görsel Şematiği -->
+            <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between gap-1 overflow-x-auto text-[11px] font-mono text-center">
+              <div class="px-2 py-1.5 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 flex-shrink-0">5' CleanCap 1</div>
+              <span class="text-slate-600">→</span>
+              <div class="px-2 py-1.5 rounded-lg bg-sky-500/20 border border-sky-500/40 text-sky-300 flex-shrink-0">5' UTR (HBA1)</div>
+              <span class="text-slate-600">→</span>
+              <div class="px-2 py-1.5 rounded-lg bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 flex-shrink-0">Kozak + Sinyal</div>
+              <span class="text-slate-600">→</span>
+              <div class="px-3 py-1.5 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-300 font-bold flex-shrink-0">Neoantijen Concatemer</div>
+              <span class="text-slate-600">→</span>
+              <div class="px-2 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex-shrink-0">3' UTR (AES+mtRNR1)</div>
+              <span class="text-slate-600">→</span>
+              <div class="px-2 py-1.5 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 flex-shrink-0">Poly(A) 110 nt</div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">GC İçeriği</span>
+                <p id="neovacGcPercent" class="font-mono font-bold text-slate-200">%61.5 (Optimal)</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">Kodon Skoru (CAI)</span>
+                <p id="neovacCaiScore" class="font-mono font-bold text-indigo-400">0.94</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">Translasyon Ömrü</span>
+                <p id="neovacHalfLife" class="font-mono font-bold text-cyan-400">23.9 saat</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">LNP Çapı & PDI</span>
+                <p id="neovacParticleSize" class="font-mono font-bold text-rose-400">76.5 nm (PDI 0.08)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- NCCN Kılavuzu & Faz 2b/3 Klinik Kanıt -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+            <div id="neovacClinicalTrialBox" class="p-4 rounded-2xl bg-slate-950 border border-sky-900/40 text-xs text-sky-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+            <div id="neovacNccnGuidelineBox" class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
   <script>
     // Tab Değiştirme
@@ -6052,7 +6357,7 @@
           "• **Direnç:** Eski nesil ilaçlara direnç geliştiren T790M mutasyonunu yener. Osimertinib direnci durumunda kanda C797S veya MET araştırılır."
       },
       'kras_sotorasib': {
-        patterns: [/kras/i, /sotorasib/i, /lumakras/i, /g12c/i, /adagrasib/i],
+        patterns: [/sotorasib/i, /lumakras/i, /g12c/i, /adagrasib/i, /kras inhibitör/i, /\bkras g12c\b/i, /\bkras mutasyonu\b/i],
         title: 'KRAS G12C Mutasyonu & Sotorasib',
         answer: "🧬 **KRAS G12C Mutasyonu ve Yeni Kuşak İnhibitörler:**\n\n" +
           "• KRAS, 40 yılı aşkın süre ilaç geliştirilemez kabul edilen en yaygın onkogendi.\n" +
@@ -6287,7 +6592,7 @@
           "• Sadece kanser hücrelerini seçici olarak içeriden patlatır (lizis) ve açığa çıkan antijenler ile GM-CSF bağışıklığı uyarır."
       },
       'neoantigen_mrna_vaccines': {
-        patterns: [/mrna kanser aşısı/i, /kanser aşısı/i, /biontech kanser/i, /moderna kanser/i, /mrna-4157/i, /kişiye özel aşı/i],
+        patterns: [/kanser aşıları genel/i, /biontech kanser genel/i, /moderna kanser genel/i, /kişiye özel aşı nedir/i, /genel kanser aşısı/i],
         title: 'Kişiselleştirilmiş mRNA Kanser Aşıları',
         answer: "💉 **Kişiselleştirilmiş mRNA Kanser Aşıları (mRNA-4157 / V940 & BioNTech):**\n\n" +
           "• Her hastanın ameliyatla alınan tümörü dizilenir ve 30+ adet en immünojenik neoantijen tespit edilir.\n" +
@@ -6588,6 +6893,59 @@
           "2. **Protokol:** Örneğin Teclistamab'da 1. gün 0.06 mg/kg, 4. gün 0.3 mg/kg, 7. gün tam doz 1.5 mg/kg verilir. Blinatumomab'da ilk 7 gün 9 mcg/gün, sonra 28 mcg/gün'e çıkılır.\n" +
           "3. **Premedikasyon:** Her basamak öncesi deksametazon, antihistaminik ve parasetamol verilir.\n" +
           "4. **CRS & ICANS Yönetimi:** Ateş ve hipotansiyonda derhal Tocilizumab (anti-IL-6R); nörotoksisite (ICANS: titreme, konuşma bozukluğu, kafa karışıklığı) gelişirse yüksek doz Deksametazon uygulanır."
+      },
+      'mrna_cancer_vaccine_keynote942': {
+        patterns: [/mrna-4157/i, /v940/i, /kanser aşısı/i, /keynote-942/i, /mrna kanser aşısı/i, /kişiselleştirilmiş kanser aşısı/i, /moderna kanser aşısı/i],
+        title: 'Kişiselleştirilmiş Kanser mRNA Aşısı (mRNA-4157 / V940 & KEYNOTE-942)',
+        answer: "💉 **Kişiselleştirilmiş Kanser mRNA Aşısı (mRNA-4157 / V940 + Pembrolizumab):**\n\n" +
+          "• **Mekanizma:** Moderna ve Merck ortaklığıyla hastanın tümöründen dizilenen en immünojenik 34 adede kadar kişiye özel neoantijeni tek sentetik mRNA molekülünde kodlar.\n" +
+          "• **KEYNOTE-942 Faz 2b:** Rezeke evre III/IV melanomda Keytruda ile kombine edildiğinde tek başına Keytruda'ya kıyasla nüks/ölüm riskini **%44 azaltmış** (RFS HR=0.56) ve uzak metastaz riskini **%65 düşürmüştür** (DMFS HR=0.35).\n" +
+          "• **Formülasyon:** CleanCap 1 ve SM-102 lipid nanopartikül (LNP) ile kas içine (IM) her 3 haftada bir uygulanır; FDA Çığır Açan Tedavi unvanına sahiptir."
+      },
+      'autogene_cevumeran_bnt122_pdac': {
+        patterns: [/autogene cevumeran/i, /bnt122/i, /pankreas kanseri aşısı/i, /biontech kanser aşısı/i, /inest/i],
+        title: 'Pankreas Kanserinde Kişiselleştirilmiş mRNA Aşısı: Autogene Cevumeran (BNT122)',
+        answer: "🧬 **Pankreas Kanserinde BNT122 (Autogene Cevumeran) Çığırı:**\n\n" +
+          "• **Tarihsel Önemi:** Pankreas kanseri immünolojik olarak 'soğuk' stroma nedeniyle immünoterapilere dirençlidir.\n" +
+          "• **Nature 2023 (MSKCC / Dr. Vinod Balachandran):** Cerrahi sonrası Atezolizumab + 20 neoantijene kadar kodlayan BNT122 mRNA aşısı + mFOLFIRINOX kemoterapisi verilmiştir.\n" +
+          "• **İmmün Başarı:** Hastaların %50'sinde kanda >2.5 yıl kalıcı polifonksiyonel CD8+ T hücresi oluşmuş; aşıya yanıt verenlerde nükssüz sağkalım anlamlı uzamıştır (HR=0.08, p=0.003)."
+      },
+      'neoantigen_hla_binding_netmhcpan': {
+        patterns: [/neoantijen/i, /mhc bağlama/i, /hla afinite/i, /netmhcpan/i, /neoantijen seçimi/i, /neoantijen nedir/i],
+        title: 'Kanser Neoantijeni Nedir? HLA/MHC Sınıf I ve II Bağlanma Algoritmaları',
+        answer: "🎯 **Kanser Neoantijeni Seçimi & HLA Bağlanma Biyofiziği:**\n\n" +
+          "• **Neoantijen:** Kanser hücrelerindeki somatik mutasyonların ürettiği, sağlıklı dokuda bulunmayan mutant peptitlerdir.\n" +
+          "• **NetMHCpan Kriterleri:**\n" +
+          "   - Güçlü Bağlayıcı: IC50 < 50 nM veya %Rank < %0.5 (Aşı için Tier 1 öncelik).\n" +
+          "   - Zayıf Bağlayıcı: IC50 50-500 nM veya %Rank %0.5-2.0.\n" +
+          "   - Bağlanmayan: IC50 > 500 nM (Aşı kasetine dahil edilmez).\n" +
+          "• **TCR Yabancılık Tanıması:** P2 ve P9 (P-omega) çapa rezidüleri HLA oluğuna otururken; P4-P7 hidrofobik amino asitleri TCR ile temas ederek bağışıklığı tetikler."
+      },
+      'mrna_cassette_lnp_formulation': {
+        patterns: [/mrna kaseti/i, /lipid nanopartikül/i, /lnp formülasyonu/i, /sm-102/i, /n\/p oranı/i, /aay bağlayıcı/i, /gpgpg/i],
+        title: 'Kanser Aşılarında Sentetik mRNA Kaseti & LNP Biyofiziği (SM-102 / N:P Oranı)',
+        answer: "🧪 **Sentetik mRNA Kaset Mimarisi ve LNP Formülasyon Biyofiziği:**\n\n" +
+          "1. **mRNA Kaset Yapısı:** 5' CleanCap 1 (eIF4E affinitesi) -> 5' UTR (Alfa-globin) -> Kozak dizisi -> LAMP1 sinyal peptidi (lizozomal MHC-II sunumu) -> Neoantijen concatemeri (MHC-I için AAY, MHC-II için GPGPG linkerları) -> 3' UTR -> 100-120 nt Poly(A) kuyruğu.\n" +
+          "2. **LNP Bileşimi:** İyonize lipid (%50 SM-102 veya ALC-0315), Fosfolipid (%10 DSPC), Kolesterol (%38.5), PEG-lipid (%1.5 DMG-PEG2000).\n" +
+          "3. **N/P Oranı:** İyonize lipid amini ile RNA fosfatı mol oranıdır. Altın standart oran **6:1** olup >%95 enkapsülasyon ve asidik endozomda ters hekzagonal faz ile sitoplazmik salım sağlar."
+      },
+      'lynch_syndrome_frameshift_neoantigen': {
+        patterns: [/lynch sendromu aşı/i, /frameshift neoantijen/i, /nous-209/i, /dmmr aşı/i, /msi-h kanser aşısı/i, /çerçeve kayması mutasyonu/i],
+        title: 'Lynch Sendromu & MSI-H Tümörlerde Çerçeve Kayması (Frameshift) Aşıları',
+        answer: "🧬 **Lynch Sendromu ve MSI-H Kanserlerde 'Çerçeve Kayması (Frameshift)' Aşıları:**\n\n" +
+          "• **Mekanizma:** dMMR / MSI-H tümörlerde mikrosatellit delesyonları (özellikle TGFBR2 -1A c.438delA, CASP8) ribozom okuma çerçevesini kaydırarak tamamen yabancı peptit dizileri üretir.\n" +
+          "• **Süper İmmünojenite:** İnsan vücudunun hiç görmediği bu yabancı diziler timik toleransı %100 aşar ve olağanüstü güçlü T-hücresi yanıtı oluşturur.\n" +
+          "• **Raftan Hazır (Off-the-shelf):** Bu mutasyonlar hastaların %80'inde aynı kodonda tekrarlar. **Nous-209** gibi 209 paylaşımlı neoantijen havuzu beklemeksizin hemen uygulanabilir."
+      },
+      'kras_amphiphile_vaccine_amplify': {
+        patterns: [/eli-002/i, /amplify-201/i, /kras aşısı/i, /amfifil aşı/i, /kras mrd/i, /kras g12d aşı/i],
+        title: 'Lenf Düğümü Hedefli mKRAS Amfifil Aşıları (ELI-002 & AMPLIFY-201)',
+        answer: "🎯 **Mutant KRAS Hedefli Amfifil Aşı Teknolojisi (ELI-002 / AMPLIFY-201):**\n\n" +
+          "• **Mekanizma:** Mutant KRAS peptitleri (G12D, G12V, G12R vb.) hidrofobik lipid kuyruğu ile albümine bağlanarak doğrudan lenf düğümlerine taşınır.\n" +
+          "• **AMPLIFY-201 Faz 1 (Nature Medicine 2024):** Minimal Rezidüel Hastalık (ctDNA+) pozitif pankreas ve kolorektal kanser hastalarında:\n" +
+          "   - **%84 oranında** kalıcı mutant KRAS-özgü T-hücre yanıtı,\n" +
+          "   - **%84 oranında** dolaşan ctDNA tümör DNA'sında temizlenme veya düşüş,\n" +
+          "   - T-hücre yanıtı veren grupta medyan nükssüz sağkalıma ulaşılamamıştır (HR=0.14, p=0.0016)."
       },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
@@ -10602,7 +10960,333 @@ uygulanması oy birliği ile uygun bulunmuştur.
       if (guideBox) guideBox.innerHTML = `<strong>📋 NCCN & ASCO Klinik Uygulama Kılavuzu:</strong> ${c.guideline}`;
     }
 
-    // İlk yüklemede Uzamsal Transkriptomik, Epigenomik, CAR-T, ADC, Radyoligand & Bispesifik Stüdyolarını hazırla
+    // ======================================================================
+    // TAB 27: KANSER NEOANTİJEN & KİŞİSELLEŞTİRİLMİŞ mRNA AŞI STÜDYOSU (NeoVac Engine)
+    // ======================================================================
+    const CANONICAL_NEOVAC_REGIMENS = {
+      'MRNA_4157_V940_MELANOMA': {
+        id: 'MRNA_4157_V940_MELANOMA',
+        name: 'mRNA-4157 / V940 + Pembrolizumab (Moderna / Merck)',
+        tumorType: 'Kutanöz Melanom (Evre IIIB-IV Rezeke)',
+        platform: 'Kişiselleştirilmiş Sentetik mRNA (34 Neoantijen, CleanCap 1, SM-102 LNP)',
+        samplePeptide: 'STEKITYSV',
+        wtPeptide: 'STEKITYSL',
+        geneMutation: 'BRAF V600E (c.1799T>A)',
+        hlaAllele: 'HLA-A*02:01',
+        neoantigenCount: 34,
+        vaf: 0.48,
+        tpm: 125,
+        linkerType: 'AAY',
+        signalPeptide: 'LAMP1',
+        ionizableLipid: 'SM-102',
+        npRatio: 6.0,
+        doseUg: 1000,
+        clinicalTrial: 'KEYNOTE-942 Faz 2b (Lancet 2023): mRNA-4157 + Keytruda kombinasyonu, tek başına Keytruda\'ya kıyasla ameliyat edilmiş yüksek riskli melanomda nüks/ölüm riskini %44 (RFS HR=0.56, p=0.053) ve uzak metastaz riskini %65 (DMFS HR=0.35) azaltmıştır.',
+        guideline: 'NCCN Kutanöz Melanom Kılavuzu: Kategori 2A Gelişmekte Olan İmmünoterapi. FDA Çığır Açan Tedavi (Breakthrough) ve EMA PRIME statüsündedir.',
+        basePotency: 94.0
+      },
+      'AUTOGENE_CEVUMERAN_BNT122_PDAC': {
+        id: 'AUTOGENE_CEVUMERAN_BNT122_PDAC',
+        name: 'Autogene Cevumeran / BNT122 (BioNTech / Genentech)',
+        tumorType: 'Pankreas Duktal Adenokarsinomu (PDAC Rezeke)',
+        platform: 'iNeST Bireyselleştirilmiş Neoantijen mRNA (20 Neoantijen, 1-mΨ, Lipoplex)',
+        samplePeptide: 'VVGADGVGK',
+        wtPeptide: 'VVGAVGVGK',
+        geneMutation: 'KRAS G12D (c.35G>A)',
+        hlaAllele: 'HLA-A*11:01',
+        neoantigenCount: 20,
+        vaf: 0.38,
+        tpm: 68,
+        linkerType: 'GPGPG',
+        signalPeptide: 'Sec61',
+        ionizableLipid: 'ALC-0315',
+        npRatio: 6.0,
+        doseUg: 50,
+        clinicalTrial: 'Nature 2023 (Vinod Balachandran / MSKCC): Reseke PDAC hastalarının %50\'sinde kanda >2.5 yıl süren yüksek polifonksiyonel CD8+ T hücresi oluşturmuş; aşı yanıtı veren grupta medyan nükssüz sağkalıma ulaşılamamıştır (HR=0.08, p=0.003).',
+        guideline: 'NCCN Pankreas Adenokarsinomu: Soğuk stroma ve erken mikrometastaz zemininde de novo immünite oluşturan tarihi klinik faz çalışması.',
+        basePotency: 91.0
+      },
+      'MSI_H_FRAMESHIFT_POOL_NOUS209': {
+        id: 'MSI_H_FRAMESHIFT_POOL_NOUS209',
+        name: 'Nous-209 Paylaşılan Frameshift Neoantijen Havuzu',
+        tumorType: 'Kolorektal & Mide MSI-H / dMMR (Lynch Sendromu)',
+        platform: 'Raftan Hazır Çerçeve Kayması Havuzu (209 Paylaşılan Peptit, MVA/mRNA)',
+        samplePeptide: 'RLSSCVPVA',
+        wtPeptide: 'KSLVSSAST',
+        geneMutation: 'TGFBR2 -1A Çerçeve Kayması (c.438delA)',
+        hlaAllele: 'HLA-A*02:01',
+        neoantigenCount: 209,
+        vaf: 0.52,
+        tpm: 195,
+        linkerType: 'AAY',
+        signalPeptide: 'LAMP1',
+        ionizableLipid: 'SM-102',
+        npRatio: 6.5,
+        doseUg: 100,
+        clinicalTrial: 'Faz 1/2 Klinik Çalışması (AACR/SITC 2023): TGFBR2 (-1A) ve CASP8 çerçeve kayması neoantijenleri insan genomunda hiç olmadığı için timik merkezi toleransı %100 aşar; %100 T-hücresi serokonversiyonu üretir.',
+        guideline: 'NCCN Kolon & Rektum: dMMR/MSI-H ileri evre kolorektal tümörlerde ve Lynch taşıyıcılarında koruyucu/kombine aşı olarak klinik aşamadadır.',
+        basePotency: 96.0
+      },
+      'KRAS_MUTANT_AMPLIFY_ELI002': {
+        id: 'KRAS_MUTANT_AMPLIFY_ELI002',
+        name: 'ELI-002 7P / AMPLIFY-201 mKRAS Amfifil Aşı',
+        tumorType: 'mKRAS Pankreas & Kolorektal Minimal Rezidüel Hastalık',
+        platform: 'Lenf Düğümü Hedefli Amfifil Peptitler (7 mKRAS + Amph-CpG-7909)',
+        samplePeptide: 'VVGAVGVGK',
+        wtPeptide: 'VVGAGGVGK',
+        geneMutation: 'KRAS G12V (c.35G>T)',
+        hlaAllele: 'HLA-A*02:01',
+        neoantigenCount: 7,
+        vaf: 0.44,
+        tpm: 84,
+        linkerType: 'GPGPG',
+        signalPeptide: 'Ig-kappa',
+        ionizableLipid: 'MC3',
+        npRatio: 6.0,
+        doseUg: 500,
+        clinicalTrial: 'AMPLIFY-201 Faz 1 (Nature Medicine 2024): Minimal Rezidüel Hastalık (ctDNA+) pozitif grupta %84 kalıcı mutant-KRAS T-hücresi yanıtı ve %84 ctDNA temizlenmesi sağlamış; RFS medyanına ulaşılamamıştır (HR=0.14).',
+        guideline: 'NCCN Sıvı Biyopsi & Moleküler Takip: Cerrahi sonrası ctDNA pozitif hastalarda nüksü önleyen hedefe yönelik immün müdahale.',
+        basePotency: 93.0
+      },
+      'EGFR_VIII_GLIOBLASTOMA_RINDOMUPEBTIDE': {
+        id: 'EGFR_VIII_GLIOBLASTOMA_RINDOMUPEBTIDE',
+        name: 'Rindopepimut / CDX-110 EGFRvIII Aşısı',
+        tumorType: 'Glioblastoma Multiforme (EGFRvIII Pozitif)',
+        platform: 'Sentetik Kavşak Neoepitopu (Ekzon 2-7 Deletion LEEKKGNYVVTDHC + KLH/mRNA)',
+        samplePeptide: 'LEEKKGNYV',
+        wtPeptide: 'LEEKKGNYL',
+        geneMutation: 'EGFRvIII (Ekzon 2-7 İçi Çerçeve Silinmesi)',
+        hlaAllele: 'HLA-A*02:01',
+        neoantigenCount: 1,
+        vaf: 0.62,
+        tpm: 340,
+        linkerType: 'AAY',
+        signalPeptide: 'LAMP1',
+        ionizableLipid: 'SM-102',
+        npRatio: 6.0,
+        doseUg: 500,
+        clinicalTrial: 'ACT IV Faz 3 & ReACT Faz 2 (Lancet Oncology 2017): Güçlü immün antikor titresi sağlamış ancak monovalent aşılamada nüks sırasında antijen kaybı (immüno-editing) izlenmiştir; bu durum polivalent çoklu-epitop aşılarının gerekliliğini ortaya koymuştur.',
+        guideline: 'NCCN Santral Sinir Sistemi: Glioblastomda tek hedefli aşılar yerine 20-34 neoantijen içeren genişletilmiş polivalent aşılar önerilmektedir.',
+        basePotency: 82.0
+      },
+      'NSCLC_HIGH_TMB_PERSONALIZED': {
+        id: 'NSCLC_HIGH_TMB_PERSONALIZED',
+        name: 'NeoVac-NSCLC Yüksek TMB 30-Plex Kişisel Aşı',
+        tumorType: 'Küçük Hücreli Dışı Akciğer Kanseri (TMB > 10 mut/Mb, Sigara İmzası)',
+        platform: '30-Plex Kişiselleştirilmiş Sentetik mRNA (CleanCap 1, SM-102 LNP)',
+        samplePeptide: 'KLWVDPREV',
+        wtPeptide: 'KLWVDPREL',
+        geneMutation: 'TP53 R273H (c.818G>A)',
+        hlaAllele: 'HLA-A*02:01',
+        neoantigenCount: 30,
+        vaf: 0.55,
+        tpm: 110,
+        linkerType: 'AAY',
+        signalPeptide: 'Sec61',
+        ionizableLipid: 'SM-102',
+        npRatio: 6.0,
+        doseUg: 100,
+        clinicalTrial: 'NEO-PV-01 / BNT122 Akciğer Kohortları: Yüksek klonal TMB taşıyan akciğer kanserli hastalarda TP53 ve klonal neoantijenlere karşı %88 oranında polifonksiyonel CD4+/CD8+ bellek yanıtı üretmiştir.',
+        guideline: 'NCCN NSCLC Kılavuzu: Yüksek TMB grubunda adjuvan aşı kombinasyonları Faz 3 değerlendirme aşamasındadır.',
+        basePotency: 92.0
+      }
+    };
+
+    let activeNeoVacRegimenId = 'MRNA_4157_V940_MELANOMA';
+
+    function selectNeoVacRegimen(rId) {
+      activeNeoVacRegimenId = rId;
+      document.querySelectorAll('.neovac-btn').forEach(btn => {
+        btn.classList.remove('bg-rose-600', 'text-white', 'shadow');
+        btn.classList.add('text-slate-300');
+      });
+      const activeBtn = document.getElementById(`btn-neovac-${rId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-rose-600', 'text-white', 'shadow');
+        activeBtn.classList.remove('text-slate-300');
+      }
+
+      const r = CANONICAL_NEOVAC_REGIMENS[rId];
+      if (!r) return;
+
+      if (document.getElementById('neovacTumorTypeBadge')) document.getElementById('neovacTumorTypeBadge').innerText = r.tumorType;
+      if (document.getElementById('neovacPeptideInput')) document.getElementById('neovacPeptideInput').value = r.samplePeptide;
+      if (document.getElementById('neovacGeneInput')) document.getElementById('neovacGeneInput').value = r.geneMutation;
+      if (document.getElementById('neovacHlaSelect')) document.getElementById('neovacHlaSelect').value = r.hlaAllele;
+      if (document.getElementById('neovacCountInput')) document.getElementById('neovacCountInput').value = r.neoantigenCount;
+
+      if (document.getElementById('neovacVafSlider')) document.getElementById('neovacVafSlider').value = Math.round(r.vaf * 100);
+      if (document.getElementById('neovacVafValue')) document.getElementById('neovacVafValue').innerText = `%${Math.round(r.vaf * 100)}`;
+
+      if (document.getElementById('neovacTpmSlider')) document.getElementById('neovacTpmSlider').value = r.tpm;
+      if (document.getElementById('neovacTpmValue')) document.getElementById('neovacTpmValue').innerText = `${r.tpm} TPM`;
+
+      if (document.getElementById('neovacLinkerSelect')) document.getElementById('neovacLinkerSelect').value = r.linkerType;
+      if (document.getElementById('neovacSignalSelect')) document.getElementById('neovacSignalSelect').value = r.signalPeptide;
+      if (document.getElementById('neovacLipidSelect')) document.getElementById('neovacLipidSelect').value = r.ionizableLipid;
+
+      if (document.getElementById('neovacNpSlider')) document.getElementById('neovacNpSlider').value = Math.round(r.npRatio * 10);
+      if (document.getElementById('neovacNpRatioValue')) document.getElementById('neovacNpRatioValue').innerText = `${r.npRatio.toFixed(1)} : 1`;
+
+      if (document.getElementById('neovacDoseInput')) document.getElementById('neovacDoseInput').value = r.doseUg;
+
+      calculateNeoVacLive();
+    }
+
+    function calculateNeoVacLive() {
+      const r = CANONICAL_NEOVAC_REGIMENS[activeNeoVacRegimenId] || CANONICAL_NEOVAC_REGIMENS['MRNA_4157_V940_MELANOMA'];
+
+      const peptide = (document.getElementById('neovacPeptideInput') ? document.getElementById('neovacPeptideInput').value.trim().toUpperCase() : r.samplePeptide) || 'STEKITYSV';
+      const hla = (document.getElementById('neovacHlaSelect') ? document.getElementById('neovacHlaSelect').value : r.hlaAllele) || 'HLA-A*02:01';
+      const neoCount = parseInt(document.getElementById('neovacCountInput') ? document.getElementById('neovacCountInput').value : 34) || 34;
+
+      const vafPct = parseInt(document.getElementById('neovacVafSlider') ? document.getElementById('neovacVafSlider').value : 48) || 48;
+      const vaf = vafPct / 100.0;
+      if (document.getElementById('neovacVafValue')) document.getElementById('neovacVafValue').innerText = `%${vafPct}`;
+
+      const tpm = parseInt(document.getElementById('neovacTpmSlider') ? document.getElementById('neovacTpmSlider').value : 125) || 125;
+      if (document.getElementById('neovacTpmValue')) document.getElementById('neovacTpmValue').innerText = `${tpm} TPM`;
+
+      const linker = document.getElementById('neovacLinkerSelect') ? document.getElementById('neovacLinkerSelect').value : 'AAY';
+      const signal = document.getElementById('neovacSignalSelect') ? document.getElementById('neovacSignalSelect').value : 'LAMP1';
+
+      const polyA = parseInt(document.getElementById('neovacPolyASlider') ? document.getElementById('neovacPolyASlider').value : 110) || 110;
+      if (document.getElementById('neovacPolyAValue')) document.getElementById('neovacPolyAValue').innerText = `${polyA} nt`;
+
+      const lipid = document.getElementById('neovacLipidSelect') ? document.getElementById('neovacLipidSelect').value : 'SM-102';
+      const npRaw = parseInt(document.getElementById('neovacNpSlider') ? document.getElementById('neovacNpSlider').value : 60) || 60;
+      const npRatio = npRaw / 10.0;
+      if (document.getElementById('neovacNpRatioValue')) document.getElementById('neovacNpRatioValue').innerText = `${npRatio.toFixed(1)} : 1`;
+
+      const lipidPkaMap = { 'SM-102': 'pKa 6.75', 'ALC-0315': 'pKa 6.09', 'MC3': 'pKa 6.44', 'C12-200': 'pKa 6.80' };
+      if (document.getElementById('neovacLipidPkaBadge')) document.getElementById('neovacLipidPkaBadge').innerText = lipidPkaMap[lipid] || 'pKa 6.75';
+
+      // 1. HLA Binding Affinity Prediction
+      const p2 = peptide.length >= 2 ? peptide[1] : 'A';
+      const pOmega = peptide.length >= 1 ? peptide[peptide.length - 1] : 'L';
+      let score = 50.0;
+
+      if (hla === 'HLA-A*02:01') {
+        if (['L', 'M', 'I', 'V'].includes(p2)) score += 35.0;
+        else if (['D', 'E', 'R', 'K', 'P'].includes(p2)) score -= 30.0;
+        if (['V', 'L', 'I', 'A', 'M'].includes(pOmega)) score += 35.0;
+        else if (['D', 'E', 'R', 'K', 'P'].includes(pOmega)) score -= 30.0;
+      } else if (hla === 'HLA-A*24:02') {
+        if (['Y', 'F', 'W', 'M'].includes(p2)) score += 35.0;
+        if (['L', 'F', 'I', 'W'].includes(pOmega)) score += 35.0;
+      } else if (hla === 'HLA-B*07:02') {
+        if (p2 === 'P') score += 40.0;
+        if (['L', 'M', 'F', 'V'].includes(pOmega)) score += 30.0;
+      } else {
+        if (['L', 'V', 'I'].includes(p2)) score += 25.0;
+        if (['L', 'V', 'K', 'R'].includes(pOmega)) score += 25.0;
+      }
+
+      score = Math.max(5.0, Math.min(99.0, score));
+      const ic50 = Math.round(500.0 * Math.exp(-0.06 * (score - 50.0)) * 10) / 10;
+
+      if (document.getElementById('neovacHlaAffinity')) {
+        document.getElementById('neovacHlaAffinity').innerText = `${ic50 < 10 ? ic50.toFixed(1) : Math.round(ic50)} nM`;
+        document.getElementById('neovacHlaAffinity').className = ic50 < 50 ? 'text-2xl font-black font-mono text-emerald-400' : (ic50 <= 500 ? 'text-2xl font-black font-mono text-amber-400' : 'text-2xl font-black font-mono text-rose-400');
+      }
+      if (document.getElementById('bar-neovac-affinity')) {
+        document.getElementById('bar-neovac-affinity').style.width = `${Math.min(100, Math.round(score))}%`;
+        document.getElementById('bar-neovac-affinity').className = ic50 < 50 ? 'bg-emerald-500 h-1 rounded-full' : (ic50 <= 500 ? 'bg-amber-500 h-1 rounded-full' : 'bg-rose-500 h-1 rounded-full');
+      }
+      if (document.getElementById('neovacAnchorResidues')) {
+        document.getElementById('neovacAnchorResidues').innerText = `P2: ${p2} • P${peptide.length}: ${pOmega}`;
+      }
+
+      // 2. Neoantigen Fitness & Foreignness
+      const pBind = 1.0 / (1.0 + Math.exp((ic50 - 250.0) / 75.0));
+      const mhcScore = pBind * 100.0;
+
+      const tcrContacts = peptide.length >= 7 ? peptide.slice(3, 7) : peptide;
+      let hydrophobicCount = 0;
+      for (const ch of tcrContacts) {
+        if (['W', 'F', 'Y', 'I', 'L', 'V'].includes(ch)) hydrophobicCount++;
+      }
+      let foreignness = 40.0 + (hydrophobicCount * 12.0);
+      if (r.id.includes('FRAMESHIFT')) foreignness += 25.0;
+      foreignness = Math.min(99.0, Math.max(15.0, foreignness));
+
+      const clonalityVaf = Math.min(1.0, vaf / 0.40);
+      const tpmFactor = Math.min(1.0, Math.log2(tpm + 1) / 6.0);
+      const clonality = Math.min(100.0, Math.round(clonalityVaf * tpmFactor * 100 * 10) / 10);
+      const cleavage = ['L', 'F', 'Y', 'M', 'I', 'V', 'R', 'K'].includes(pOmega) ? 92.0 : (['P', 'D', 'E'].includes(pOmega) ? 38.0 : 70.0);
+      const tap = ['R', 'K', 'L', 'I', 'F'].includes(peptide[0] || 'A') ? 88.0 : 70.0;
+      const cleavageTapAvg = (cleavage + tap) / 2.0;
+
+      const fitness = Math.round((0.35 * mhcScore + 0.25 * foreignness + 0.25 * clonality + 0.15 * cleavageTapAvg) * 10) / 10;
+
+      if (document.getElementById('neovacFitnessScore')) document.getElementById('neovacFitnessScore').innerText = fitness.toFixed(1);
+      if (document.getElementById('bar-neovac-fitness')) document.getElementById('bar-neovac-fitness').style.width = `${Math.min(100, Math.round(fitness))}%`;
+
+      if (document.getElementById('neovacForeignnessScore')) document.getElementById('neovacForeignnessScore').innerText = `${Math.round(foreignness)} / 100`;
+      if (document.getElementById('neovacClonalityScore')) document.getElementById('neovacClonalityScore').innerText = `${clonality.toFixed(1)} / 100`;
+      if (document.getElementById('neovacCleavageScore')) document.getElementById('neovacCleavageScore').innerText = `${Math.round(cleavageTapAvg)} / 100`;
+
+      const priorityBadge = document.getElementById('neovacPriorityBadge');
+      if (priorityBadge) {
+        if (fitness >= 80.0) {
+          priorityBadge.innerText = 'Tier 1 Öncelik • Güçlü Bağlayıcı & Yüksek Klonallik';
+          priorityBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono';
+        } else if (fitness >= 60.0) {
+          priorityBadge.innerText = 'Tier 2 Aday • Polivalent Havuz için Uygun';
+          priorityBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono';
+        } else {
+          priorityBadge.innerText = 'Tier 3 Düşük Öncelik • Kaset Dışı Bırakılmalı';
+          priorityBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono';
+        }
+      }
+
+      const recBox = document.getElementById('neovacRecommendationBox');
+      if (recBox) {
+        if (fitness >= 80.0) {
+          recBox.innerHTML = `<strong>Klinik Kaset Önerisi:</strong> Bu neoantijen yüksek bağlanma afinitesi (${ic50} nM), güçlü TCR yabancılığı (${Math.round(foreignness)}) ve yüksek klonaliteye (%${vafPct} VAF, ${tpm} TPM) sahiptir. Kişiye özel aşı kasetine <strong>Tier 1 mutlak öncelikle</strong> dahil edilmelidir.`;
+        } else {
+          recBox.innerHTML = `<strong>Klinik Kaset Önerisi:</strong> Orta/düşük afinite veya subklonal varyant. İmmün kaçışı engellemek için diğer baskın klonal neoantijenlerle dengelenmeli ya da adjuvan dozlama artırılmalıdır.`;
+        }
+      }
+
+      // 3. Synthetic mRNA Cassette Metrics
+      const linkerNt = linker === 'AAY' ? 9 : (linker === 'GPGPG' ? 15 : 12);
+      const signalNt = signal === 'LAMP1' ? 75 : 60;
+      const codingNt = signalNt + (neoCount * 27) + ((neoCount - 1) * linkerNt) + 3;
+      const totalMrnaNt = 2 + 54 + 10 + codingNt + 132 + polyA;
+
+      if (document.getElementById('neovacMrnaLengthBadge')) document.getElementById('neovacMrnaLengthBadge').innerText = `${totalMrnaNt.toLocaleString('tr-TR')} nt Transkript`;
+      const halfLifeHours = Math.round((14.0 + (polyA / 10.0) * 0.9) * 10) / 10;
+      if (document.getElementById('neovacHalfLife')) document.getElementById('neovacHalfLife').innerText = `${halfLifeHours} saat`;
+
+      // 4. LNP Biophysics
+      let encap = 96.0;
+      if (npRatio >= 5.0) encap = 96.0 + Math.min(3.0, (npRatio - 5.0) * 0.4);
+      else if (npRatio >= 4.0) encap = 88.0 + (npRatio - 4.0) * 8.0;
+      else encap = Math.max(45.0, 50.0 + (npRatio - 2.0) * 19.0);
+      encap = Math.round(Math.min(99.4, encap) * 10) / 10;
+
+      if (document.getElementById('neovacEncapRate')) document.getElementById('neovacEncapRate').innerText = `%${encap.toFixed(1)}`;
+      if (document.getElementById('bar-neovac-encap')) document.getElementById('bar-neovac-encap').style.width = `${Math.min(100, Math.round(encap))}%`;
+
+      const particleSize = Math.round((72.0 + (12.0 - npRatio) * 1.5 + (lipid === 'ALC-0315' ? 0.8 : 0.0)) * 10) / 10;
+      const pdi = npRatio >= 5.0 ? '0.08' : '0.14';
+      if (document.getElementById('neovacParticleSize')) document.getElementById('neovacParticleSize').innerText = `${particleSize} nm (PDI ${pdi})`;
+
+      // 5. Composite Potency Score
+      const potency = Math.round(Math.min(99.2, (0.35 * fitness + 0.25 * encap + 0.25 * r.basePotency + 0.15 * 94.0)) * 10) / 10;
+      if (document.getElementById('neovacPotencyScore')) document.getElementById('neovacPotencyScore').innerText = potency.toFixed(1);
+      if (document.getElementById('bar-neovac-potency')) document.getElementById('bar-neovac-potency').style.width = `${Math.min(100, Math.round(potency))}%`;
+
+      // 6. Clinical Trial & Guideline Boxes
+      const trialBox = document.getElementById('neovacClinicalTrialBox');
+      if (trialBox) trialBox.innerHTML = `<strong>Landmark Klinik Kanıt:</strong> ${r.clinicalTrial}`;
+
+      const guideBox = document.getElementById('neovacNccnGuidelineBox');
+      if (guideBox) guideBox.innerHTML = `<strong>📋 NCCN & ASCO Klinik Kılavuz Değerlendirmesi:</strong> ${r.guideline}`;
+    }
+
+    // İlk yüklemede Uzamsal Transkriptomik, Epigenomik, CAR-T, ADC, Radyoligand, Bispesifik & NeoVac Stüdyolarını hazırla
     try {
       if (typeof document !== 'undefined') {
         selectSpatialScenario('NSCLC_TLS_MATURE');
@@ -10611,6 +11295,7 @@ uygulanması oy birliği ile uygun bulunmuştur.
         selectAdcConstruct('HER2_T_DXD_ENHERTU');
         selectTheranosticsRegimen('LU177_PSMA_617_PLUVICTO');
         selectBispecificConstruct('BLINATUMOMAB_BLINCYTO');
+        selectNeoVacRegimen('MRNA_4157_V940_MELANOMA');
       }
     } catch(e) {}
   </script>
