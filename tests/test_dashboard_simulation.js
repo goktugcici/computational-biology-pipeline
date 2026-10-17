@@ -143,8 +143,8 @@ console.log('\n=== [3/3] VERIFYING ALL 16 TABS & MODULES ===');
 if (mockWindow.domLoaded) mockWindow.domLoaded();
 console.log('✓ DOMContentLoaded initialized');
 
-// 22 Tabs
-const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics'];
+// 23 Tabs
+const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart'];
 tabs.forEach(t => sandbox.switchTab(t));
 console.log(`✓ switchTab validated for all ${tabs.length} tabs`);
 
@@ -270,6 +270,14 @@ console.log('✓ Spatial Transcriptomics & Tumor Architecture Studio (4 canonica
 });
 sandbox.switchTab('epigenetics');
 console.log('✓ Epigenomics & DNA Methylation Studio (5 canonical scenarios, MGMT/MLH1/SEPT9, Lynch triage, TOO) validated');
+
+// CAR-T & Adoptive Cell Therapy Studio
+['CD19_B_ALL_KYMRIAH', 'BCMA_MM_CARVYKTI', 'CD19_DLBCL_YESCARTA', 'CLDN18_2_GASTRIC_CT041', 'HER2_ARMORED_TRUCK_SOLID', 'GPC3_HCC_SYNTHETIC'].forEach(c => {
+  sandbox.selectCartConstruct(c);
+  sandbox.calculateCartFitnessLive();
+});
+sandbox.switchTab('cart');
+console.log('✓ CAR-T & Adoptive Cell Engineering Studio (6 canonical constructs, CRS/ICANS grading, costimulation) validated');
 
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');

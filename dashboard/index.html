@@ -122,6 +122,9 @@
         <button onclick="switchTab('epigenetics')" id="tabBtn-epigenetics" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🧪 Epigenomik & Metilasyon
         </button>
+        <button onclick="switchTab('cart')" id="tabBtn-cart" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🧫 CAR-T & Hücre Mühendisliği
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -3024,6 +3027,217 @@
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- TAB 23: CAR-T & HÜCRE MÜHENDİSLİĞİ STÜDYOSU (CELL THERAPY & CAR-T) -->
+    <!-- ========================================== -->
+    <section id="tab-cart" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Tanıtım Paneli -->
+      <div class="bg-gradient-to-r from-violet-950/40 via-slate-900/80 to-purple-950/40 border border-violet-500/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-xs font-semibold">
+              <span>🧫 Hücresel İmmünoterapi & CAR-T Mühendisliği</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-ping"></span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight">Hücre Tedavisi, CAR-T Mimarisi & Adoptif Hücre Mühendisliği Stüdyosu</h2>
+            <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+              1. ila 4. nesil kimerik antijen reseptörü (CAR) yapılarını modelleyin: 4-1BB (mitokondriyal bellek) vs. CD28 (hızlı glikolitik patlama) ko-stimülasyonu, 
+              zırhlı TRUCKs (dnTGFBR2 ve IL-15 salınımı) ile katı tümör stroma penetrasyonu, ASTCT Sitokin Salınım Sendromu (CRS) ve ICANS nörotoksisite protokollerini simüle edin.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-2 rounded-2xl bg-slate-900/90 border border-slate-700 text-xs text-slate-300 font-mono flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-violet-400"></span>
+              FMC63 / VHH Nanobody / ASTCT / Kymriah & Carvykti Modeli
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanonik CAR-T Konstrükt Seçici Butonları -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+        <button onclick="selectCartConstruct('CD19_B_ALL_KYMRIAH')" id="cartBtn-CD19_B_ALL_KYMRIAH" class="cart-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-violet-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">B-ALL / DLBCL</span>
+          <h4 class="text-xs font-bold text-white">Tisagenlecleucel (Kymriah)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-violet-500/20 text-violet-300 border border-violet-500/30">CD19 • 4-1BB (2. Nesil)</span>
+        </button>
+
+        <button onclick="selectCartConstruct('BCMA_MM_CARVYKTI')" id="cartBtn-BCMA_MM_CARVYKTI" class="cart-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-violet-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Multipl Miyelom</span>
+          <h4 class="text-xs font-bold text-white">Ciltacabtagene (Carvykti)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Bi-Epitope BCMA VHH</span>
+        </button>
+
+        <button onclick="selectCartConstruct('CD19_DLBCL_YESCARTA')" id="cartBtn-CD19_DLBCL_YESCARTA" class="cart-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-violet-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Refrakter DLBCL</span>
+          <h4 class="text-xs font-bold text-white">Axicabtagene (Yescarta)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">CD19 • CD28 (Hızlı Patlama)</span>
+        </button>
+
+        <button onclick="selectCartConstruct('CLDN18_2_GASTRIC_CT041')" id="cartBtn-CLDN18_2_GASTRIC_CT041" class="cart-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-violet-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Mide / Pankreas</span>
+          <h4 class="text-xs font-bold text-white">Satricabtagene (CT041)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">Claudin 18.2 Katı Tümör</span>
+        </button>
+
+        <button onclick="selectCartConstruct('HER2_ARMORED_TRUCK_SOLID')" id="cartBtn-HER2_ARMORED_TRUCK_SOLID" class="cart-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-violet-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Glioblastom / Sarkom</span>
+          <h4 class="text-xs font-bold text-white">Zırhlı TRUCK HER2</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">4. Nesil dnTGFBR2-IL15</span>
+        </button>
+
+        <button onclick="selectCartConstruct('GPC3_HCC_SYNTHETIC')" id="cartBtn-GPC3_HCC_SYNTHETIC" class="cart-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-violet-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Karaciğer (HCC)</span>
+          <h4 class="text-xs font-bold text-white">Armored 7x19 GPC3</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">IL-7 + CCL19 Kemokin</span>
+        </button>
+      </div>
+
+      <!-- Ana Grid: Sol Panel (CAR Mimarisi & Ayarlar) | Sağ Panel (Hücresel Fitness, CRS & ICANS Yönetimi) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: Parametreler & CAR Vektör Şeması (5 Kolon) -->
+        <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
+          <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+            <div>
+              <h3 id="activeCartTitle" class="text-sm font-bold text-white">Tisagenlecleucel (Kymriah)</h3>
+              <span id="activeCartAntigenBadge" class="text-xs font-semibold text-violet-400">Hedef: CD19 (2. Nesil CAR)</span>
+            </div>
+            <span id="activeCartBinderBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-400">FMC63 scFv</span>
+          </div>
+
+          <!-- Ko-stimülasyon Alanı Seçimi -->
+          <div class="space-y-1.5">
+            <label class="text-xs font-semibold text-slate-300 block">İntraselüler Ko-stimülatör Sinyal Alanı</label>
+            <select id="cartCostimSelect" onchange="calculateCartFitnessLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-violet-500">
+              <option value="4-1BB (CD137)">4-1BB (CD137) - Yüksek Bellek & Mitokondriyal Sağkalım (Standart)</option>
+              <option value="CD28">CD28 - Hızlı Glikolitik Patlama & Erken Sitotoksisite</option>
+              <option value="CD28 + 4-1BB (3. Nesil)">CD28 + 4-1BB (3. Nesil İkili Ko-stimülasyon)</option>
+            </select>
+          </div>
+
+          <!-- Tümör Antijen Yoğunluğu ve İmmünsüpresyon Sürgüleri -->
+          <div class="space-y-3.5">
+            <div>
+              <div class="flex justify-between text-xs text-slate-400 mb-1">
+                <span>Tümör Antijen Yoğunluğu (%)</span>
+                <span id="cartAntigenVal" class="font-mono text-violet-300 font-bold">85%</span>
+              </div>
+              <input type="range" id="cartAntigenSlider" min="10" max="100" value="85" oninput="calculateCartFitnessLive()" class="w-full accent-violet-500 bg-slate-950 h-1.5 rounded-lg">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs text-slate-400 mb-1">
+                <span>TME Stroma & TGF-β İmmünsüpresyonu (%)</span>
+                <span id="cartStromaVal" class="font-mono text-amber-300 font-bold">25%</span>
+              </div>
+              <input type="range" id="cartStromaSlider" min="0" max="100" value="25" oninput="calculateCartFitnessLive()" class="w-full accent-amber-500 bg-slate-950 h-1.5 rounded-lg">
+            </div>
+          </div>
+
+          <!-- CAR-T Rekombinant Vektör Mimarisi (Şematik Şerit) -->
+          <div class="space-y-2 pt-2 border-t border-slate-800">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Kimerik Reseptör Vektör Mimarisi</span>
+            <div id="cartStructureRibbon" class="flex rounded-xl overflow-hidden h-9 border border-slate-800 text-[10px] font-mono text-white text-center font-bold">
+              <!-- JS ile güncellenir -->
+            </div>
+            <div id="cartArmoringDesc" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: Fitness Metrikleri, CRS ve ICANS Protokolü (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- Hücresel Fitness & Sağkalım Göstergeleri -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400 block">Hücresel İmmünometabolik Durum</span>
+                <h3 class="text-sm font-bold text-white">İn-Vivo Çoğalma & Katı Tümör Penetrasyonu</h3>
+              </div>
+              <span id="cartGenerationBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 font-mono">2. Nesil CAR</span>
+            </div>
+
+            <!-- 3 Gösterge Çubuğu: Çoğalma, Tükenme Riski, Katı Tümör Penetrasyonu -->
+            <div class="space-y-2.5 text-xs">
+              <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>İn-Vivo Çoğalma & Pik Klonal Genleşme İndeksi</span>
+                  <span id="cartExpansionScore" class="font-bold text-violet-300 font-mono">86.0 / 100</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCartExpansion" class="bg-gradient-to-r from-violet-500 to-indigo-400 h-2 rounded-full transition-all duration-300" style="width: 86%"></div>
+                </div>
+              </div>
+
+              <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Tonik Sinyal & T-Hücre Tükenme (Exhaustion) Riski</span>
+                  <span id="cartExhaustionScore" class="font-bold text-amber-300 font-mono">24.0 / 100</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCartExhaustion" class="bg-gradient-to-r from-amber-500 to-rose-500 h-2 rounded-full transition-all duration-300" style="width: 24%"></div>
+                </div>
+              </div>
+
+              <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Katı Tümör İntratümöral Penetrasyon Kapasitesi</span>
+                  <span id="cartPenetranceScore" class="font-bold text-emerald-300 font-mono">45.0 / 100</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                  <div id="barCartPenetrance" class="bg-gradient-to-r from-teal-500 to-emerald-400 h-2 rounded-full transition-all duration-300" style="width: 45%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ASTCT Sitokin Salınım Sendromu (CRS) & Yönetim Protokolü -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-2">
+                <span>🔥 ASTCT Sitokin Salınım Sendromu (CRS) Derecesi</span>
+              </h4>
+              <span id="cartCrsBadge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">Grade 2 (Orta)</span>
+            </div>
+            <div id="cartCrsGrade" class="text-xs font-semibold text-white">
+              Grade 2: Sıvıya yanıt veren hipotansiyon veya düşük akım oksijen ihtiyacı
+            </div>
+            <div id="cartCrsManagement" class="p-3.5 rounded-2xl bg-slate-950 border border-rose-900/40 text-xs text-rose-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- ASTCT ICANS Nörotoksisite Protokolü -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-purple-400 uppercase tracking-wider flex items-center gap-2">
+                <span>🧠 ASTCT ICANS Nörotoksisite & ICE Protokolü</span>
+              </h4>
+              <span id="cartIcansBadge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">Grade 0/1</span>
+            </div>
+            <div id="cartIcansGrade" class="text-xs font-semibold text-white">
+              Grade 0/1: ICE Skoru 7-10 (Hafif veya Yok)
+            </div>
+            <div id="cartIcansManagement" class="p-3.5 rounded-2xl bg-slate-950 border border-purple-900/40 text-xs text-purple-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- NCCN Kılavuzu & Klinik Kanıt -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-violet-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🎯 NCCN & FDA Onay Kılavuz Özeti</span>
+            </h4>
+            <div id="cartNccnGuidelineBox" class="p-4 rounded-2xl bg-slate-950 border border-violet-900/40 text-xs text-violet-200/90 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script>
@@ -5384,6 +5598,50 @@
           "• **Azasitidin & Desitabin (DNMTi):** DNA üzerindeki anormal metilasyon gruplarını silerek susmuş tümör baskılayıcı genleri yeniden çalıştırır (MDS ve AML omurgası).\n" +
           "• **Vorinostat & Romidepsin (HDACi):** Histonları asetilleyerek kromatini açık tutar ve apoptozu tetikler (T-hücreli lenfomalar).\n" +
           "• Ayrıca kanser neoantijenlerini görünür kılarak immünoterapi duyarlılığını artırır."
+      },
+      'cart_therapy_generations': {
+        patterns: [/car-t nesilleri/i, /car-t jenerasyon/i, /truck car-t/i, /4-1bb cd28 farkı/i, /kimera antijen reseptörü/i],
+        title: 'CAR-T Hücre Tedavisi Nesilleri & Ko-Stimülasyon (4-1BB vs CD28)',
+        answer: "🧬 **CAR-T Hücre Mimarisi ve Nesiller:**\n\n" +
+          "• **1. Nesil:** Yalnızca CD3ζ içerir; in-vivo hücre sağkalımı ve çoğalması zayıftır.\n" +
+          "• **2. Nesil (Standart İlaçlar):** Tek ko-stimülatör alan eklenmiştir.\n" +
+          "   - **CD28 (Yescarta):** Hızlı glikolitik patlama; ani tümör yükü azaltımı sağlar ancak tükenme (exhaustion) daha sıktır.\n" +
+          "   - **4-1BB (Kymriah/Carvykti):** Mitokondriyal biyogenez ve Tscm bellek; 5-10 yıl süren in-vivo kalıcılık sağlar.\n" +
+          "• **4. Nesil (TRUCKs):** Katı tümör mikroçevresindeki stroma bariyerini aşmak için IL-12/IL-15 salgılayan veya dnTGFBR2 ile TGF-beta'yı nötralize eden zırhlı hücrelerdir."
+      },
+      'crs_cytokine_release_syndrome': {
+        patterns: [/sitokin salınım sendromu/i, /crs nedir/i, /tocilizumab car-t/i, /sitokin fırtınası car-t/i, /astct crs/i],
+        title: 'Sitokin Salınım Sendromu (CRS) & Tocilizumab Tedavisi',
+        answer: "🔥 **Sitokin Salınım Sendromu (CRS) & ASTCT Klinik Yönetimi:**\n\n" +
+          "• **Mekanizma:** CAR-T hücreleri hedefi tanıdığında patlayarak yüksek miktarda IL-6, IFN-γ ve TNF-α salgılar.\n" +
+          "• **Belirtiler:** Yüksek ateş (≥38.0°C), hipotansiyon ve hipoksi.\n" +
+          "• **ASTCT Yönetimi:**\n" +
+          "   - Grade 1: Sadece ateş; parasetamol ve hidrasyonla izlenir.\n" +
+          "   - Grade 2: Sıvıya yanıt veren hipotansiyon/düşük akım O2; **Tocilizumab (8 mg/kg IV - IL-6R antagonisti)** uygulanır.\n" +
+          "   - Grade 3/4: Yoğun bakım; Tocilizumab + yüksek doz Deksametazon (20 mg IV) verilir."
+      },
+      'icans_neurotoxicity_cart': {
+        patterns: [/icans nedir/i, /car-t nörotoksisite/i, /ice skoru/i, /ensefalopati car-t/i, /deksametazon icans/i],
+        title: 'ICANS Nörotoksisitesi & İmmün Efektör Hücre Ensefalopatisi (ICE)',
+        answer: "🧠 **ICANS (İmmün Hücre Aracılı Nörotoksisite):**\n\n" +
+          "• Kan-beyin bariyerinin açılması ve beyin parankiminde miyeloid hücre inflamasyonudur. Disgrafi (yazı bozulması), afazi ve konfüzyon ile başlar.\n" +
+          "• **ICE Skoru (0-10):** Günlük seri testlerle nörolojik gerileme erkenden tespit edilir.\n" +
+          "• **Tedavi:** Tocilizumab santral sinir sistemine az geçtiği için primer tedavi **Kortikosteroidlerdir (Deksametazon 10 mg q6h / Metilprednizolon)**."
+      },
+      'bcma_carvykti_myeloma': {
+        patterns: [/bcma car-t/i, /carvykti/i, /abecma/i, /ciltacabtagene/i, /multipl miyelom car-t/i],
+        title: 'BCMA Hedefli CAR-T (Carvykti / Abecma) & Multipl Miyelom',
+        answer: "🩸 **BCMA Hedefli CAR-T (Carvykti & Abecma):**\n\n" +
+          "• Plazma hücresi yüzeyindeki BCMA antijenine bağlanan hücresel tedavidir.\n" +
+          "• **Carvykti (Ciltacabtagene Autoleucel):** İki farklı BCMA epitopuna bağlanan VHH llama nanobody yapısıyla CARTITUDE-4 çalışmasında **%98 Objektif Yanıt (ORR)** ve **%82.5 Sıkı Tam Yanıt (sCR)** sağlamıştır."
+      },
+      'claudin18_2_gastric_cancer': {
+        patterns: [/claudin 18.2/i, /cldn18.2/i, /zolbetuximab/i, /ct041/i, /mide kanseri hedefe yönelik claudin/i],
+        title: 'Claudin 18.2 (CLDN18.2) & Mide / Pankreas Kanseri Hedeflemesi',
+        answer: "🎯 **Claudin 18.2 (CLDN18.2) Hedefli Tedaviler:**\n\n" +
+          "• Mide mukozasının sıkı bağlantı proteinidir; tümörde polarite bozulunca dışarı açığa çıkar ve hedeflenebilir.\n" +
+          "• **Zolbetuximab (Vyloy):** CLDN18.2 pozitif ileri evre mide kanserinde FDA/EMA onaylı monoklonal antikordur.\n" +
+          "• **CT041 (Satricabtagene):** Katı tümörlerde başarı gösteren ilk Claudin 18.2 CAR-T hücresidir; kemoterapiye dirençli mide kanserinde %57 ORR sağlamaktadır."
       },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
@@ -8175,11 +8433,294 @@ uygulanması oy birliği ile uygun bulunmuştur.
       }
     }
 
-    // İlk yüklemede Uzamsal Transkriptomik & Epigenomik Stüdyolarını hazırla
+    // ==========================================
+    // CAR-T & HÜCRESEL İMMÜNOTERAPİ STÜDYOSU (TAB 23)
+    // ==========================================
+    const CANONICAL_CART_CONSTRUCTS = {
+      'CD19_B_ALL_KYMRIAH': {
+        id: 'CD19_B_ALL_KYMRIAH',
+        name: 'Tisagenlecleucel (Kymriah)',
+        antigen: 'CD19',
+        generation: '2. Nesil CAR',
+        binder: 'FMC63 scFv (Murin)',
+        costim: '4-1BB (CD137)',
+        hinge: 'CD8α Menteşe & Transmembran',
+        armoring: '4-1BB ile mitokondriyal biyogenez ve uzun vadeli Tscm kök hücre benzeri bellek.',
+        baseExpansion: 86.0,
+        baseExhaustion: 24.0,
+        basePenetrance: 35.0,
+        clinicalTrial: 'ELIANA Faz 2: Pediyatrik ve genç erişkin B-ALL olgularında %82 tam remisyon (CR/CRi). 5 yılı aşan fonksiyonel CAR kalıcılığı.',
+        normalSafety: 'B-Hücre soyu sınırlı hedef. Beklenen B-hücre aplazisi ve hipogamaglobulinemi IVIG replasman tedavisi ile güvenle yönetilir.',
+        guideline: 'NCCN Pediatrik B-ALL Kılavuzu: 25 yaşa kadar nüks veya refrakter olgularda Kategori 1 tercih. Kalıcı Grade >=2 CRS varlığında Tocilizumab (8 mg/kg IV) hemen başlanmalıdır.'
+      },
+      'BCMA_MM_CARVYKTI': {
+        id: 'BCMA_MM_CARVYKTI',
+        name: 'Ciltacabtagene (Carvykti)',
+        antigen: 'BCMA (TNFRSF17)',
+        generation: '2. Nesil Çift Epitop Nanobody CAR',
+        binder: 'Bi-Epitope VHH Llama Nanobody',
+        costim: '4-1BB (CD137)',
+        hinge: 'CD8α Menteşe & Transmembran',
+        armoring: 'İki farklı BCMA epitopunu yakalayan yüksek aviditeli çift başlıklı VHH nanobody mimarisi.',
+        baseExpansion: 94.0,
+        baseExhaustion: 18.0,
+        basePenetrance: 42.0,
+        clinicalTrial: 'CARTITUDE-4 & CARTITUDE-1: İleri evre miyelomda %97.9 Objektif Yanıt (ORR) ve %82.5 Sıkı Tam Yanıt (sCR); 10^-5 düzeyinde derin MRD negatifliği.',
+        normalSafety: 'Plazma hücreleri ile sınırlı. Hipogamaglobulinemi IVIG ile desteklenir.',
+        guideline: 'FDA Onaylı & NCCN Tercih Edilen Rejim: En az 1 seri proteazom inhibitörü ve IMiD almış nüks/dirençli miyelomda birinci sınıf tedavi.'
+      },
+      'CD19_DLBCL_YESCARTA': {
+        id: 'CD19_DLBCL_YESCARTA',
+        name: 'Axicabtagene (Yescarta)',
+        antigen: 'CD19',
+        generation: '2. Nesil CD28 CAR',
+        binder: 'FMC63 scFv (Murin)',
+        costim: 'CD28',
+        hinge: 'CD28 Menteşe & Transmembran',
+        armoring: 'CD28 ile hızlı glikolitik patlama ve ani yüksek sitotoksisite; yüksek sitokin salınımı.',
+        baseExpansion: 92.0,
+        baseExhaustion: 42.0,
+        basePenetrance: 38.0,
+        clinicalTrial: 'ZUMA-7 Faz 3: Erken nükseden DLBCL olgularında standart kurtarma kemoterapisi + otolog KİT\'e kıyasla olaysız sağkalımda (EFS HR 0.40) çığır açan üstünlük.',
+        normalSafety: 'B-hücre aplazisi (IVIG profilaksisi önerilir).',
+        guideline: 'NCCN Kılavuzu: 12 ay içinde nükseden veya primer refrakter diffüz büyük B-hücreli lenfomada (DLBCL) Kategori 1 2. basamak tercih.'
+      },
+      'CLDN18_2_GASTRIC_CT041': {
+        id: 'CLDN18_2_GASTRIC_CT041',
+        name: 'Satricabtagene (CT041)',
+        antigen: 'Claudin 18.2 (CLDN18.2)',
+        generation: '2. Nesil Katı Tümör CAR',
+        binder: 'İnsanlaştırılmış anti-CLDN18.2 scFv',
+        costim: '4-1BB (CD137)',
+        hinge: 'CD8α Menteşe & Transmembran',
+        armoring: 'Normal mukozada sıkı bağlantılar arasına gömülü, ancak tümör hücresinde açığa çıkan neo-epitopu seçici olarak tanıma.',
+        baseExpansion: 78.0,
+        baseExhaustion: 38.0,
+        basePenetrance: 68.0,
+        clinicalTrial: 'Faz 1b/2 Çalışması: Ağır ön tedavi almış ileri evre CLDN18.2-pozitif mide kanserinde %57.1 ORR ve %75.0 Hastalık Kontrol Oranı (DCR).',
+        normalSafety: 'Mide epitelyal mukozası ile sınırlı; geçici hafif gastrit/bulantı, sistemik toksisite düşüktür.',
+        guideline: 'FDA Çığır Açan Terapi (Breakthrough Therapy): CLDN18.2 ekspresyonu >=%75 olan mide/GEJ adenokarsinomlarında klinik çalışma seçeneği.'
+      },
+      'HER2_ARMORED_TRUCK_SOLID': {
+        id: 'HER2_ARMORED_TRUCK_SOLID',
+        name: 'Zırhlı TRUCK HER2 (HER2-dnTGFBR2-IL15)',
+        antigen: 'HER2 / ERBB2 (Ekstrasellüler Alan IV)',
+        generation: '4. Nesil Zırhlı TRUCK (Universal Cytokine Killer)',
+        binder: 'Trastuzumab-Türevi 4D5 scFv',
+        costim: '4-1BB (CD137)',
+        hinge: 'CD8α Menteşe & Transmembran',
+        armoring: 'Dominant-negatif TGF-β Reseptör Tip 2 (dnTGFBR2) yemi + Membrana bağlı transgenik İnterlökin-15 (IL-15) salınımı.',
+        baseExpansion: 88.0,
+        baseExhaustion: 20.0,
+        basePenetrance: 89.0,
+        clinicalTrial: 'Preklinik & Erken Faz 1: Desmoplastik stroma ve TGF-beta bariyerine tam direnç; glioblastom ve sarkom modellerinde kök hücre benzeri infiltrasyon.',
+        normalSafety: 'Normal dokulardaki düşük HER2 ekspresyonu nedeniyle afinite ayarlı güvenli menteşe mimarisi.',
+        guideline: 'Araştırma Faz 1/2 Protokolü: Katı tümörlerde tümör mikroçevresi immün baskısını kıran öncü 4. nesil hücre tasarımı.'
+      },
+      'GPC3_HCC_SYNTHETIC': {
+        id: 'GPC3_HCC_SYNTHETIC',
+        name: 'Armored 7x19 GPC3 (GPC3-IL7-CCL19)',
+        antigen: 'Glypican-3 (GPC3)',
+        generation: '4. Nesil Çift Kemokin Zırhlı CAR',
+        binder: 'İnsanlaştırılmış GC33 scFv',
+        costim: '4-1BB (CD137)',
+        hinge: 'CD8α Menteşe & Transmembran',
+        armoring: 'İnterlökin-7 (T-hücre sağkalımı) ve Kemokin CCL19 (konakçı dendritik hücre ve T-hücre kemotaksisi) çift salınımı.',
+        baseExpansion: 82.0,
+        baseExhaustion: 26.0,
+        basePenetrance: 84.0,
+        clinicalTrial: 'Faz 1 Çalışması: Tirozin kinaz inhibitörlerine dirençli GPC3+ hepatosellüler karsinomda tam radyolojik remisyon ve uzamış doku kalıcılığı.',
+        normalSafety: 'Onkofetal antijen; erişkin sağlıklı karaciğer dokusunda eksprese edilmez, karaciğer parankim hasarı yapmaz.',
+        guideline: 'Klinik Çalışma Protokolü: İlerlemiş evre HCC hastalarında immün infiltrasyonu tetikleyen sentetik kemokin platformu.'
+      }
+    };
+
+    let activeCartConstructId = 'CD19_B_ALL_KYMRIAH';
+
+    function selectCartConstruct(cId) {
+      activeCartConstructId = cId;
+      const c = CANONICAL_CART_CONSTRUCTS[cId];
+      if (!c) return;
+
+      document.querySelectorAll('.cart-construct-btn').forEach(btn => {
+        btn.classList.remove('border-violet-500', 'bg-violet-950/20');
+      });
+      const activeBtn = document.getElementById(`cartBtn-${cId}`);
+      if (activeBtn) activeBtn.classList.add('border-violet-500', 'bg-violet-950/20');
+
+      const titleEl = document.getElementById('activeCartTitle');
+      if (titleEl) titleEl.innerText = c.name;
+
+      const antigenBadgeEl = document.getElementById('activeCartAntigenBadge');
+      if (antigenBadgeEl) antigenBadgeEl.innerText = `Hedef: ${c.antigen} (${c.generation})`;
+
+      const binderBadgeEl = document.getElementById('activeCartBinderBadge');
+      if (binderBadgeEl) binderBadgeEl.innerText = c.binder;
+
+      const costimSelect = document.getElementById('cartCostimSelect');
+      if (costimSelect) {
+        if (c.costim.includes('CD28') && !c.costim.includes('4-1BB')) {
+          costimSelect.value = 'CD28';
+        } else if (c.costim.includes('4-1BB')) {
+          costimSelect.value = '4-1BB (CD137)';
+        }
+      }
+
+      calculateCartFitnessLive();
+    }
+
+    function calculateCartFitnessLive() {
+      const c = CANONICAL_CART_CONSTRUCTS[activeCartConstructId] || CANONICAL_CART_CONSTRUCTS['CD19_B_ALL_KYMRIAH'];
+      const costimSelect = document.getElementById('cartCostimSelect');
+      const selectedCostim = costimSelect ? costimSelect.value : c.costim;
+
+      const antigenSlider = document.getElementById('cartAntigenSlider');
+      const stromaSlider = document.getElementById('cartStromaSlider');
+
+      const antigenDensity = antigenSlider ? parseFloat(antigenSlider.value) : 85.0;
+      const stromaBarrier = stromaSlider ? parseFloat(stromaSlider.value) : 25.0;
+
+      if (document.getElementById('cartAntigenVal')) document.getElementById('cartAntigenVal').innerText = `${antigenDensity}%`;
+      if (document.getElementById('cartStromaVal')) document.getElementById('cartStromaVal').innerText = `${stromaBarrier}%`;
+
+      // Kinetics factor
+      let expansionFactor = 1.0;
+      let exhaustionFactor = 0.8;
+      let toxicityWeight = 0.95;
+
+      if (selectedCostim === 'CD28') {
+        expansionFactor = 1.15;
+        exhaustionFactor = 1.45;
+        toxicityWeight = 1.25;
+      } else if (selectedCostim.includes('3. Nesil')) {
+        expansionFactor = 1.22;
+        exhaustionFactor = 1.30;
+        toxicityWeight = 1.35;
+      }
+
+      const expansionScore = Math.min(100.0, Math.max(10.0, (c.baseExpansion * expansionFactor) * (antigenDensity / 85.0)));
+      const exhaustionScore = Math.min(100.0, Math.max(5.0, (c.baseExhaustion * exhaustionFactor) + (stromaBarrier * 0.40)));
+
+      let solidPenetrance = c.basePenetrance;
+      if (c.generation.includes('4. Nesil')) {
+        solidPenetrance = solidPenetrance - (stromaBarrier * 0.18);
+      } else {
+        solidPenetrance = solidPenetrance - (stromaBarrier * 0.60);
+      }
+      solidPenetrance = Math.min(100.0, Math.max(10.0, solidPenetrance));
+
+      if (document.getElementById('cartExpansionScore')) document.getElementById('cartExpansionScore').innerText = `${expansionScore.toFixed(1)} / 100`;
+      if (document.getElementById('barCartExpansion')) document.getElementById('barCartExpansion').style.width = `${Math.round(expansionScore)}%`;
+
+      if (document.getElementById('cartExhaustionScore')) document.getElementById('cartExhaustionScore').innerText = `${exhaustionScore.toFixed(1)} / 100`;
+      if (document.getElementById('barCartExhaustion')) document.getElementById('barCartExhaustion').style.width = `${Math.round(exhaustionScore)}%`;
+
+      if (document.getElementById('cartPenetranceScore')) document.getElementById('cartPenetranceScore').innerText = `${solidPenetrance.toFixed(1)} / 100`;
+      if (document.getElementById('barCartPenetrance')) document.getElementById('barCartPenetrance').style.width = `${Math.round(solidPenetrance)}%`;
+
+      if (document.getElementById('cartGenerationBadge')) document.getElementById('cartGenerationBadge').innerText = c.generation;
+
+      // Render Visual Vector Ribbon
+      const ribbon = document.getElementById('cartStructureRibbon');
+      if (ribbon) {
+        let isArmored = c.generation.includes('4. Nesil');
+        ribbon.innerHTML = `
+          <div class="bg-indigo-600 flex items-center justify-center px-2" style="width: 25%" title="Antijen Bağlayıcı Domain">
+            ${c.binder.split(' ')[0]}
+          </div>
+          <div class="bg-slate-700 flex items-center justify-center px-1" style="width: 15%" title="Menteşe / Transmembran">
+            CD8α H/TM
+          </div>
+          <div class="${selectedCostim.includes('CD28') ? 'bg-sky-600' : 'bg-purple-600'} flex items-center justify-center px-1" style="width: 25%" title="Ko-stimülasyon Alanı">
+            ${selectedCostim.split(' ')[0]}
+          </div>
+          <div class="bg-violet-700 flex items-center justify-center px-1" style="width: 20%" title="Sinyal Aktivasyon Zinciri">
+            CD3ζ (ITAM)
+          </div>
+          ${isArmored ? `<div class="bg-rose-600 flex items-center justify-center px-1" style="width: 15%" title="Zırhlama Transgeni">TRUCK</div>` : ''}
+        `;
+      }
+
+      const armDesc = document.getElementById('cartArmoringDesc');
+      if (armDesc) armDesc.innerText = c.armoring;
+
+      // CRS Toxicity Stratification
+      const crsIndex = (expansionScore * 0.50) + (toxicityWeight * 25.0) + (antigenDensity * 0.20);
+      const crsGradeEl = document.getElementById('cartCrsGrade');
+      const crsBadgeEl = document.getElementById('cartCrsBadge');
+      const crsMgmtEl = document.getElementById('cartCrsManagement');
+
+      if (crsIndex >= 88.0) {
+        if (crsGradeEl) crsGradeEl.innerText = 'Grade 3/4: Sıvıya dirençli hipotansiyon, FiO2 >= %40 oksijen ihtiyacı veya vazopressör desteği';
+        if (crsBadgeEl) {
+          crsBadgeEl.innerText = 'Grade 3/4 (Şiddetli)';
+          crsBadgeEl.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30';
+        }
+        if (crsMgmtEl) crsMgmtEl.innerText = 'Acil Yoğun Bakım Transferi: Hemen Tocilizumab (8 mg/kg IV, maks 800 mg) + Deksametazon 20 mg IV her 6 saatte bir. Yanıtsız olgularda 8 saat sonra Tocilizumab tekrarı ve Anakinra (IL-1R antagonisti) düşünülmelidir.';
+      } else if (crsIndex >= 65.0) {
+        if (crsGradeEl) crsGradeEl.innerText = 'Grade 2: Sıvı yüklemesine yanıt veren hipotansiyon veya düşük akımlı nazal kanül oksijen ihtiyacı';
+        if (crsBadgeEl) {
+          crsBadgeEl.innerText = 'Grade 2 (Orta Düzey)';
+          crsBadgeEl.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30';
+        }
+        if (crsMgmtEl) crsMgmtEl.innerText = 'İlk Tercih: Tocilizumab (8 mg/kg IV) tek doz infüzyon. 24 saat içinde klinik düzelme olmazsa Deksametazon 10 mg IV q12h eklenir. Vital bulgular saatlik takip edilir.';
+      } else {
+        if (crsGradeEl) crsGradeEl.innerText = 'Grade 1: Ateş >= 38.0°C; hipotansiyon veya oksijen desatürasyonu yok';
+        if (crsBadgeEl) {
+          crsBadgeEl.innerText = 'Grade 1 (Hafif)';
+          crsBadgeEl.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30';
+        }
+        if (crsMgmtEl) crsMgmtEl.innerText = 'Destek Tedavisi: Parasetamol, IV hidrasyon ve kan kültürleri alınarak nötropenik ateş protokolü başlatılır. Tocilizumab Grade 2 ve üzerine ilerleyene kadar rezerve tutulur.';
+      }
+
+      // ICANS Stratification
+      const icansIndex = (expansionScore * 0.40) + (toxicityWeight * 30.0);
+      const icansGradeEl = document.getElementById('cartIcansGrade');
+      const icansBadgeEl = document.getElementById('cartIcansBadge');
+      const icansMgmtEl = document.getElementById('cartIcansManagement');
+
+      if (icansIndex >= 82.0) {
+        if (icansGradeEl) icansGradeEl.innerText = 'Grade 3/4: ICE Skoru 0-2 (Şiddetli Ensefalopati), stupor, afazi veya nöbet';
+        if (icansBadgeEl) {
+          icansBadgeEl.innerText = 'Grade 3/4 (Yüksek Risk)';
+          icansBadgeEl.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30';
+        }
+        if (icansMgmtEl) icansMgmtEl.innerText = 'Yüksek Doz Kortikosteroid: Metilprednizolon 1,000 mg/gün IV (3 gün), ardından hızla azaltılarak kesilir. Nöbet profilaksisi için Levetirasetam (1,000 mg IV q12h) zorunludur.';
+      } else if (icansIndex >= 60.0) {
+        if (icansGradeEl) icansGradeEl.innerText = 'Grade 2: ICE Skoru 3-6 (Ekspresif disfazı, tremor, hafif uyuşukluk)';
+        if (icansBadgeEl) {
+          icansBadgeEl.innerText = 'Grade 2 (Orta Risk)';
+          icansBadgeEl.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
+        }
+        if (icansMgmtEl) icansMgmtEl.innerText = 'Kortikosteroid Protokolü: Deksametazon 10 mg IV her 6 saatte bir. Her 4 saatte bir ICE nörolojik değerlendirmesi yapılır; sedatif antihistaminikler kesilir.';
+      } else {
+        if (icansGradeEl) icansGradeEl.innerText = 'Grade 0/1: ICE Skoru 7-10 (Normal veya hafif konsantrasyon kaybı)';
+        if (icansBadgeEl) {
+          icansBadgeEl.innerText = 'Grade 0/1 (Düşük Risk)';
+          icansBadgeEl.className = 'text-[11px] font-mono px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30';
+        }
+        if (icansMgmtEl) icansMgmtEl.innerText = 'Seri ICE Takibi: Günde 2 kez yazı yazma ve konuşma muayenesi yapılır. Kortikosteroid gerekmez.';
+      }
+
+      const guideBox = document.getElementById('cartNccnGuidelineBox');
+      if (guideBox) {
+        guideBox.innerHTML = `
+          <div class="text-violet-300 font-bold mb-1">📋 ${c.name} Klinik Kılavuzu:</div>
+          <div class="mb-2">${c.guideline}</div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300">
+            <strong>Klinik Etkinlik Verisi:</strong> ${c.clinicalTrial}<br/>
+            <strong>Hedef Güvenliği:</strong> ${c.normalSafety}
+          </div>
+        `;
+      }
+    }
+
+    // İlk yüklemede Uzamsal Transkriptomik, Epigenomik & CAR-T Stüdyolarını hazırla
     try {
       if (typeof document !== 'undefined') {
         selectSpatialScenario('NSCLC_TLS_MATURE');
         selectEpigeneticScenario('GBM_MGMT_METHYLATED');
+        selectCartConstruct('CD19_B_ALL_KYMRIAH');
       }
     } catch(e) {}
   </script>

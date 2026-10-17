@@ -26,6 +26,7 @@ from immunotherapy_resistance import ImmunotherapyResistanceEngine, CANONICAL_IC
 from mutational_signatures_hrd import MutationalSignaturesHrdEngine, CANONICAL_MUTATIONAL_SIGNATURES
 from spatial_transcriptomics import SpatialTranscriptomicsEngine, CANONICAL_SPATIAL_SCENARIOS
 from epigenetics_methylation import EpigenomicsEngine, CANONICAL_EPIGENETIC_SCENARIOS, analyze_epigenetics
+from cell_therapy_cart import CellTherapyCartEngine, CANONICAL_CART_CONSTRUCTS, analyze_cart_construct
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -120,6 +121,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'multicancer_early_detection_mced': 'MCED sıvı biyopsi testleri ve cfDNA metilasyonu nedir?',
             'ezh2_inhibitors_epigenetics': 'EZH2 inhibitörü Tazemetostat ve SMARCB1 kaybı nedir?',
             'hypomethylating_agents_dnmt_hdac': 'Hipometilleyici ajanlar Azasitidin ve HDAC inhibitörleri nasıl etki eder?',
+            'cart_therapy_generations': 'CAR-T nesilleri 4-1BB CD28 farkı ve TRUCK zırhlı hücreler nedir?',
+            'crs_cytokine_release_syndrome': 'Sitokin salınım sendromu CRS nedir ve Tocilizumab nasıl uygulanır?',
+            'icans_neurotoxicity_cart': 'ICANS nedir ve nörotoksisite ICE skoru nasıl bakılır?',
+            'bcma_carvykti_myeloma': 'Multipl miyelomda BCMA CAR-T ve Carvykti tedavisi nedir?',
+            'claudin18_2_gastric_cancer': 'Claudin 18.2 hedefi Zolbetuximab ve CT041 tedavisi nedir?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -635,6 +641,50 @@ class TestExhaustivePipeline(unittest.TestCase):
         # 5. Low-grade Glioma IDH1 G-CIMP
         lgg = engine.calculate_epigenetic_metrics('LGG_IDH1_GCIMP')
         self.assertIn('Vorasidenib', lgg['predicted_therapeutic_response'])
+
+    # =========================================================================
+    # 17. CAR-T & ADOPTIVE CELL ENGINEERING ENGINE
+    # =========================================================================
+    def test_cart_canonical_constructs(self):
+        """Verify all 6 canonical CAR-T constructs are defined with complete clinical and signaling metadata."""
+        engine = CellTherapyCartEngine()
+        constructs = engine.list_constructs()
+        self.assertEqual(len(constructs), 6)
+        ids = [c['id'] for c in constructs]
+        self.assertIn('CD19_B_ALL_KYMRIAH', ids)
+        self.assertIn('BCMA_MM_CARVYKTI', ids)
+        self.assertIn('CD19_DLBCL_YESCARTA', ids)
+        self.assertIn('CLDN18_2_GASTRIC_CT041', ids)
+        self.assertIn('HER2_ARMORED_TRUCK_SOLID', ids)
+        self.assertIn('GPC3_HCC_SYNTHETIC', ids)
+
+    def test_cart_fitness_and_astct_safety_evaluation(self):
+        """Verify expansion kinetics, exhaustion risk, solid tumor penetrance, and ASTCT CRS/ICANS grading."""
+        engine = CellTherapyCartEngine()
+
+        # 1. Kymriah (4-1BB) in pediatric B-ALL
+        kym = engine.evaluate_cart_fitness_and_safety('CD19_B_ALL_KYMRIAH', tumor_antigen_density_percent=90.0, tme_immunosuppression_percent=15.0)
+        self.assertEqual(kym['costimulatory_domain'], '4-1BB (CD137)')
+        self.assertGreater(kym['expansion_score'], 80.0)
+        self.assertLess(kym['exhaustion_score'], 40.0)
+        self.assertIn('Grade', kym['crs_grade'])
+        self.assertIn('Tocilizumab', kym['crs_management'])
+        self.assertIn('NCCN', kym['nccn_guideline'])
+
+        # 2. Carvykti (Bivalent Nanobody) in Multiple Myeloma
+        carvykti = engine.evaluate_cart_fitness_and_safety('BCMA_MM_CARVYKTI')
+        self.assertEqual(carvykti['target_antigen'], 'B-Cell Maturation Antigen (BCMA / TNFRSF17)')
+        self.assertGreaterEqual(carvykti['expansion_score'], 90.0)
+
+        # 3. Armored 4th Gen TRUCK in Solid Tumor with high immunosuppression
+        truck = engine.evaluate_cart_fitness_and_safety('HER2_ARMORED_TRUCK_SOLID', tumor_antigen_density_percent=80.0, tme_immunosuppression_percent=85.0)
+        self.assertIn('4th Generation', truck['generation'])
+        self.assertGreater(truck['solid_penetrance_index'], 50.0)
+
+        # 4. Helper function test
+        ct041 = analyze_cart_construct('CLDN18_2_GASTRIC_CT041', costimulatory_override='CD28')
+        self.assertEqual(ct041['costimulatory_domain'], 'CD28')
+        self.assertEqual(ct041['target_antigen'], 'Claudin 18.2 (CLDN18.2)')
 
 if __name__ == "__main__":
     unittest.main()

@@ -281,6 +281,15 @@ epigeneticScenarios.forEach(sc => {
 sandbox.switchTab('epigenetics');
 console.log(`  ✓ Epigenomics & DNA Methylation studio verified (${epigeneticScenarios.length} canonical scenarios, MGMT/MLH1/SEPT9, Lynch triage, TOO)`);
 
+// 3.13 CAR-T & Adoptive Cell Engineering Studio
+const cartConstructs = ['CD19_B_ALL_KYMRIAH', 'BCMA_MM_CARVYKTI', 'CD19_DLBCL_YESCARTA', 'CLDN18_2_GASTRIC_CT041', 'HER2_ARMORED_TRUCK_SOLID', 'GPC3_HCC_SYNTHETIC'];
+cartConstructs.forEach(c => {
+  sandbox.selectCartConstruct(c);
+  sandbox.calculateCartFitnessLive();
+});
+sandbox.switchTab('cart');
+console.log(`  ✓ CAR-T & Adoptive Cell Engineering studio verified (${cartConstructs.length} canonical constructs, CRS/ICANS grading, costimulation)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
@@ -335,6 +344,11 @@ const sampleQuestions = [
   'MCED sıvı biyopsi testleri ve cfDNA metilasyonu nedir?',
   'EZH2 inhibitörü Tazemetostat ve SMARCB1 kaybı nedir?',
   'Hipometilleyici ajanlar Azasitidin ve HDAC inhibitörleri nasıl etki eder?',
+  'CAR-T hücre tedavisi nesilleri ve 4-1BB CD28 farkı nedir?',
+  'Sitokin salınım sendromu CRS nedir ve Tocilizumab nasıl kullanılır?',
+  'ICANS nörotoksisite ve ICE skoru nedir?',
+  'BCMA hedefli CAR-T Carvykti ve Abecma multipl miyelomda nasıl etki eder?',
+  'Claudin 18.2 hedeflemesi Zolbetuximab ve CT041 CAR-T mide kanserinde nedir?',
   'Merhaba günaydın',
   'Çok teşekkür ederim'
 ];

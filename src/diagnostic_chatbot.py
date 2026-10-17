@@ -972,7 +972,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'cart_cell_therapy': {
         'patterns': [
-            r'car-t', r'car t', r'kymriah', r'yescarta', r'hücresel tedavi', r'kimerik antijen', r'car-t hücre'
+            r'car-t hücresi nedir', r'car-t hücre tedavisi nedir', r'car-t nedir', r'kimerik antijen reseptörü', r'yaşayan ilaç', r'hücresel tedavi nedir', r'chimeric antigen receptor'
         ],
         'title': 'CAR-T Hücre Tedavisi (Kimerik Antijen Reseptörü) & Yaşayan İlaçlar',
         'answer': (
@@ -1341,6 +1341,76 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
             "• **Histon Yeniden Şekillendirme (HDAC İnhibitörleri):**\n"
             "   - **Vorinostat (SAHA), Romidepsin, Belinostat:** Histon deasetilazları bloke ederek kromatinin açık kalmasını sağlar; T-hücreli lenfomalarda hücre ölümünü tetikler.\n"
             "• **Epigenetik Aşıcılık:** Bu ilaçlar kanser antijenlerini yeniden eksprese ettirerek immünoterapinin başarısını da artırır."
+        )
+    },
+
+    'cart_therapy_generations': {
+        'patterns': [
+            r'car-t nesilleri', r'car-t jenerasyon', r'truck car-t', r'4-1bb cd28', r'kimera antijen reseptörü', r'ko-stimülasyon'
+        ],
+        'title': 'CAR-T Hücre Tedavisi Nesilleri & Ko-Stimülasyon (4-1BB vs CD28)',
+        'answer': (
+            "🧬 **CAR-T Hücre Mimarisi ve Nesiller Arası Evrim:**\n\n"
+            "• **1. Nesil:** Yalnızca CD3ζ aktivasyon zinciri içerir; in-vivo hücre sağkalımı ve çoğalması yetersizdir.\n"
+            "• **2. Nesil (Günümüz Onaylı İlaçları):** Bir adet ko-stimülatör alan (CD28 veya 4-1BB/CD137) eklenmiştir.\n"
+            "   - **CD28 (Yescarta/Tecartus):** Hızlı ve yoğun glikolitik patlama; ani tümör yükü azaltımı sağlar ancak tükenme (exhaustion) daha sıktır.\n"
+            "   - **4-1BB (Kymriah/Carvykti/Breyanzi):** Mitokondriyal biyogenezi destekler; kanda 5-10 yıla varan uzun vadeli kalıcılık (persistence) ve bellek sağlar.\n"
+            "• **3. Nesil:** Çift ko-stimülasyon (CD28 + 4-1BB + CD3ζ).\n"
+            "• **4. Nesil (TRUCKs / Zırhlı CAR):** Katı tümör mikroçevresindeki stroma bariyerini aşmak için IL-12, IL-15 salgılayan veya baskılayıcı TGF-beta reseptörünü etkisiz kılan (dnTGFBR2) akıllı hücrelerdir."
+        )
+    },
+    'crs_cytokine_release_syndrome': {
+        'patterns': [
+            r'sitokin salınım sendromu', r'crs nedir', r'tocilizumab car-t', r'sitokin fırtınası car-t', r'astct crs', r'\bcrs\b'
+        ],
+        'title': 'Sitokin Salınım Sendromu (CRS) & Tocilizumab Tedavisi',
+        'answer': (
+            "🔥 **Sitokin Salınım Sendromu (CRS) & ASTCT Klinik Yönetimi:**\n\n"
+            "• **Neden Olur?** CAR-T hücreleri kanser antijeniyle karşılaşıp patladığında yoğun miktarda İnterlökin-6 (IL-6), IFN-γ ve TNF-α salgılanır.\n"
+            "• **Belirtiler:** Yüksek dirençli ateş (≥38.0°C), tansiyon düşüklüğü (hipotansiyon) ve oksijen düşüşü (hipoksi).\n"
+            "• **Evreleme ve Tedavi (ASTCT Konsensusu):**\n"
+            "   - **Evre 1 (Hafif):** Yalnızca ateş; parasetamol ve hidrasyonla izlenir.\n"
+            "   - **Evre 2 (Orta):** Sıvıya yanıt veren hipotansiyon veya düşük akım oksijen ihtiyacı; **Tocilizumab (8 mg/kg IV - IL-6 reseptör antagonisti)** uygulanır.\n"
+            "   - **Evre 3/4 (Şiddetli):** Yoğun bakım, vazopressör ve ventilatör desteği; Tocilizumab + yüksek doz Deksametazon (20 mg IV) verilir."
+        )
+    },
+    'icans_neurotoxicity_cart': {
+        'patterns': [
+            r'icans', r'car-t nörotoksisite', r'ice skoru', r'ensefalopati car-t', r'deksametazon icans'
+        ],
+        'title': 'ICANS Nörotoksisitesi & İmmün Efektör Hücre Ensefalopatisi (ICE)',
+        'answer': (
+            "🧠 **ICANS (Immune Effector Cell-Associated Neurotoxicity Syndrome):**\n\n"
+            "• **Mekanizma:** Sitokin fırtınası nedeniyle kan-beyin bariyerinin geçirgenliğinin artması ve merkezi sinir sisteminde miyeloid hücre inflamasyonudur.\n"
+            "• **İlk Sinyal:** Yazı yazmada bozulma (disgrafi), isimleri hatırlayamama (afazi) ve kafa karışıklığı.\n"
+            "• **ICE Skoru (0-10 Puan):** Yönelim, nesne isimlendirme, emirleri uygulama ve yazı yazma ile günde 2-3 kez objektif olarak taranır.\n"
+            "• **Tedavi:** Tocilizumab kan-beyin bariyerini iyi geçemediği için primer tedavi **Kortikosteroidlerdir (Deksametazon 10 mg q6h veya Metilprednizolon 1000 mg/gün)**. Nöbet profilaksisi için Levetirasetam verilir."
+        )
+    },
+    'bcma_carvykti_myeloma': {
+        'patterns': [
+            r'bcma car-t', r'carvykti', r'abecma', r'ciltacabtagene', r'multipl miyelom car-t', r'\bbcma\b'
+        ],
+        'title': 'BCMA Hedefli CAR-T (Carvykti / Abecma) & Multipl Miyelomda Yanıt',
+        'answer': (
+            "🩸 **BCMA Hedefli CAR-T Hücreleri ve Multipl Miyelomda Başarı:**\n\n"
+            "• **Hedef:** B-Hücre Olgunlaşma Antijeni (BCMA), plazma hücrelerinde ve miyelomda yüksek oranda eksprese edilen ideal bir hedeftir.\n"
+            "• **Ciltacabtagene Autoleucel (Carvykti - CARTITUDE-4):**\n"
+            "   - İki farklı BCMA epitopuna bağlanan benzersiz llama/alpaka nanobody yapısına sahiptir.\n"
+            "   - Daha önce 3-4 basamak tedavi görmüş dirençli hastalarda **%98 Objektif Yanıt (ORR)** ve **%82.5 Sıkı Tam Yanıt (sCR)** sağlamıştır.\n"
+            "• **İde-cel (Abecma):** İlk FDA onaylı BCMA CAR-T hücresidir; tek doz infüzyonla kemoterapisiz uzun remisyonlar sunar."
+        )
+    },
+    'claudin18_2_gastric_cancer': {
+        'patterns': [
+            r'claudin 18.2', r'cldn18.2', r'claudin', r'zolbetuximab', r'ct041', r'mide kanseri hedefe yönelik claudin'
+        ],
+        'title': 'Claudin 18.2 Hedeflemesi (Zolbetuximab & CT041 CAR-T) Mide Kanseri',
+        'answer': (
+            "🎯 **Claudin 18.2 (CLDN18.2) & Mide / Pankreas Kanserinde Yeni Çığır:**\n\n"
+            "• **Seçici Tümör Antijeni:** Normalde mide mukozasının sıkı bağlantı (tight junction) aralarında gizlidir. Kanserleşme sırasında hücre polaritesi kaybolunca bu hedef dışarı açılır ve hedeflenebilir hale gelir.\n"
+            "• **Zolbetuximab (Vyloy - FDA/EMA Onaylı):** CLDN18.2 pozitif (≥%75 hücrede 2+/3+ boyanma) HER2-negatif ileri evre mide/GEJ kanserinde kemoterapi ile sağkalımı belirgin uzatır (SPOTLIGHT & GLOW Faz 3).\n"
+            "• **Satricabtagene Autoleucel (CT041):** Katı tümörlerde umut vadeden ilk Claudin 18.2 hedefli CAR-T hücresidir; ileri evre mide kanserinde %57 ORR sağlamaktadır."
         )
     },
 
