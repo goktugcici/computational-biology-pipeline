@@ -131,6 +131,9 @@
         <button onclick="switchTab('theranostics')" id="tabBtn-theranostics" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           ⚛️ Radyoligand & Teranostik
         </button>
+        <button onclick="switchTab('bispecific')" id="tabBtn-bispecific" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🔗 Bispesifik Antikor & BiTE
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -3798,6 +3801,258 @@
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- TAB 26: BİSPESİFİK ANTİKORLAR & ÇOKLU ÖZGÜLLÜ ENGAJERLER (BiTE) -->
+    <!-- ========================================== -->
+    <section id="tab-bispecific" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Tanıtım Paneli -->
+      <div class="bg-gradient-to-r from-indigo-950/40 via-slate-900/80 to-cyan-950/40 border border-indigo-500/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold">
+              <span>🔗 Yeni Nesil Bispesifik Biyomoleküler İmmün Mühendisliği</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight">Bispesifik Antikorlar & Çoklu Özgüllü T-Hücre Angaje Edicileri (BiTE) Stüdyosu</h2>
+            <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+              Kansere karşı iki kollu moleküler kıskaçları simüle edin:
+              BiTE (Tandem scFv, Fc'siz, 55 kDa) vs. DuoBody (Tam IgG1/4, Fc-aracılı) vs. ImmTAC (Çözünür yüksek afiniteli TCR x anti-CD3),
+              litik immünolojik sinaps mesafesi (<12 nm pore oluşumu), T-hücre periferik tuzaklanma afinite dengesi (Kd oranı),
+              basamaklı dozlama (Step-Up Dosing) ile ASTCT CRS ve ICANS nörotoksisite kontrolü.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-2 rounded-2xl bg-slate-900/90 border border-slate-700 text-xs text-slate-300 font-mono flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+              Blincyto • Rybrevant • Tecvayli • Kimmtrak • Tepkinly • Talvey
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanonik Bispesifik Konstrükt Seçici Butonları -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+        <button onclick="selectBispecificConstruct('BLINATUMOMAB_BLINCYTO')" id="bispBtn-BLINATUMOMAB_BLINCYTO" class="bisp-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">B-ALL / MRD Pozitif</span>
+          <h4 class="text-xs font-bold text-white">Blinatumomab (Blincyto)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">BiTE • CD19xCD3 • 55 kDa</span>
+        </button>
+
+        <button onclick="selectBispecificConstruct('AMIVANTAMAB_RYBREVANT')" id="bispBtn-AMIVANTAMAB_RYBREVANT" class="bisp-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">NSCLC / Exon 20</span>
+          <h4 class="text-xs font-bold text-white">Amivantamab (Rybrevant)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">DuoBody • EGFRxMET • ADCC</span>
+        </button>
+
+        <button onclick="selectBispecificConstruct('TECLISTAMAB_TECVAYLI')" id="bispBtn-TECLISTAMAB_TECVAYLI" class="bisp-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Multipl Miyelom / BCMA</span>
+          <h4 class="text-xs font-bold text-white">Teclistamab (Tecvayli)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">DuoBody • BCMAxCD3 • SC</span>
+        </button>
+
+        <button onclick="selectBispecificConstruct('TEBENTAFUSP_KIMMTRAK')" id="bispBtn-TEBENTAFUSP_KIMMTRAK" class="bisp-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Uveal Melanom / gp100</span>
+          <h4 class="text-xs font-bold text-white">Tebentafusp (Kimmtrak)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">ImmTAC • TCRxCD3 • 50 pM</span>
+        </button>
+
+        <button onclick="selectBispecificConstruct('EPCORITAMAB_TEPKINLY')" id="bispBtn-EPCORITAMAB_TEPKINLY" class="bisp-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">DLBCL / Lenfoma</span>
+          <h4 class="text-xs font-bold text-white">Epcoritamab (Tepkinly)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">DuoBody • CD20xCD3 • Subkutan</span>
+        </button>
+
+        <button onclick="selectBispecificConstruct('TALQUETAMAB_TALVEY')" id="bispBtn-TALQUETAMAB_TALVEY" class="bisp-construct-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Refrakter Miyelom</span>
+          <h4 class="text-xs font-bold text-white">Talquetamab (Talvey)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">DuoBody • GPRC5DxCD3</span>
+        </button>
+      </div>
+
+      <!-- Ana Çalışma Izgarası -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: Biyofizik Format Mimarisi, Sinaps Geometrisi & Parametreler (5 Kolon) -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>🧬 Moleküler Bispesifik Format Şeması</span>
+              </h3>
+              <span id="bispTargetBadge" class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                CD19 (B-Hücre)
+              </span>
+            </div>
+
+            <!-- Hedef Reseptör & Format Özeti Kartları -->
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-1">
+                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">Tümör Hedef Antijeni</span>
+                <p id="bispTargetName" class="text-xs font-semibold text-white">CD19 Surface Marker</p>
+                <span class="text-[10px] text-slate-400 block">Tümör spesifik bağlanma kolu</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-1">
+                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">Efektör Bağlanma Kolu</span>
+                <p id="bispEffectorTarget" class="text-xs font-semibold text-cyan-300">CD3 epsilon (T-Hücresi)</p>
+                <span class="text-[10px] text-slate-400 block">Poliklonal T-hücre aktivasyonu</span>
+              </div>
+            </div>
+
+            <!-- Format, Ağırlık, Yarı Ömür & Sinaps Mesafesi -->
+            <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Moleküler Format Mimarisi</span>
+                <span id="bispFormatBadge" class="text-[10px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">
+                  BiTE (Tandem scFv)
+                </span>
+              </div>
+              <p id="bispFormat" class="text-xs text-slate-300">
+                BiTE (Tandem scFv, Fc'siz, 54 kDa)
+              </p>
+              <div class="border-t border-slate-800/80 pt-2 grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <span class="text-[10px] text-slate-500 uppercase block font-bold">Yarı Ömür & Uygulama</span>
+                  <p id="bispWeightHalfLife" class="text-[11px] font-mono text-emerald-400 font-semibold">2.1 saat (t1/2)</p>
+                  <span id="bispDeliveryMode" class="text-[10px] text-slate-400 block">28 gün sürekli IV pompa</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-slate-500 uppercase block font-bold">İmmünolojik Sinaps</span>
+                  <p id="bispSynapseDistance" class="text-[11px] font-mono text-amber-400 font-bold">11.2 nm</p>
+                  <span id="bispSynapseBadge" class="text-[10px] text-emerald-300 block">Optimal Litik Sinaps</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Simülasyon Sürgüleri (Sliders) & Step-Up Dosing Onayı -->
+            <div class="space-y-4 pt-2">
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <label for="slider-bisp-target-exp" class="text-slate-300 font-medium">Tümör Antijen Ekspresyon Yoğunluğu:</label>
+                  <span id="label-bisp-target-exp" class="font-mono text-indigo-400 font-bold">%75</span>
+                </div>
+                <input type="range" id="slider-bisp-target-exp" min="5" max="100" step="5" value="75" oninput="calculateBispecificLive()" class="w-full accent-indigo-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
+                <span class="text-[10px] text-slate-500 block mt-0.5">Tümör hücresindeki hedef yoğunluğu; antijen azaldıkça sitolitik etki zayıflar.</span>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <label for="slider-bisp-et-ratio" class="text-slate-300 font-medium">Efektör / Hedef (E:T) Hücre Oranı:</label>
+                  <span id="label-bisp-et-ratio" class="font-mono text-cyan-400 font-bold">5.0 : 1</span>
+                </div>
+                <input type="range" id="slider-bisp-et-ratio" min="0.5" max="20.0" step="0.5" value="5.0" oninput="calculateBispecificLive()" class="w-full accent-cyan-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
+                <span class="text-[10px] text-slate-500 block mt-0.5">Tümör mikroçevresindeki sitotoksik CD8+ T lenfositlerin tümör hücresine oranı.</span>
+              </div>
+
+              <!-- Basamaklı Dozlama (Step-Up Dosing) Protokolü Aç/Kapa -->
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                <div class="space-y-0.5">
+                  <span class="text-xs font-bold text-white block">Basamaklı Dozlama (Step-Up Dosing Protokolü)</span>
+                  <span class="text-[10px] text-slate-400 block">Kademeli doz artışı ile Grade 3/4 CRS riskini %75 oranında düşürür.</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="check-bisp-stepup" checked onchange="calculateBispecificLive()" class="sr-only peer">
+                  <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: Sitolitik Lizis Skorları, CRS Riski & Kılavuzlar (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- 4 Temel Metrik Kartı -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Tümör Lizis Skoru</span>
+              <p id="bispLysisScore" class="text-2xl font-black font-mono text-indigo-400">92.5</p>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-bisp-lysis" class="bg-indigo-500 h-1 rounded-full" style="width: 92%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Tümör Homing & Dağılım</span>
+              <p id="bispBiodistScore" class="text-2xl font-black font-mono text-cyan-400">92.0</p>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-bisp-biodist" class="bg-cyan-500 h-1 rounded-full" style="width: 92%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">ASTCT CRS Riski</span>
+              <p id="bispCrsRisk" class="text-2xl font-black font-mono text-emerald-400">%10.5</p>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-bisp-crs" class="bg-emerald-500 h-1 rounded-full" style="width: 10%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Nörotoksisite (ICANS)</span>
+              <p id="bispIcansRisk" class="text-2xl font-black font-mono text-amber-400">%12.0</p>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-bisp-icans" class="bg-amber-500 h-1 rounded-full" style="width: 12%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- İmmünolojik Sinaps & Biyodağılım Profili Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+                <span>⚡ İmmünolojik Litik Sinaps & Hedefleme Kinetiği</span>
+              </h4>
+              <span id="bispSynapseStatusBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">
+                Optimal Sinaps (<12 nm)
+              </span>
+            </div>
+            <p id="bispBiodistProfile" class="text-xs text-slate-300 leading-relaxed p-3.5 rounded-2xl bg-slate-950 border border-cyan-900/40">
+              <!-- JS ile güncellenir -->
+            </p>
+            <p id="bispPkProfile" class="text-xs text-slate-400 leading-relaxed px-1">
+              <!-- JS ile güncellenir -->
+            </p>
+          </div>
+
+          <!-- Kritik Toksisite, Basamaklı Dozlama & Organ Risk Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-2">
+                <span>⚠️ Güvenlik ve Sitokin Salınım Sendromu (CRS) Yönetimi</span>
+              </h4>
+              <span id="bispCrsStatusBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">
+                Step-Up Dosing Aktif
+              </span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 text-xs">
+              <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">Resmi Basamaklı Dozlama (Step-Up Dosing) Takvimi</span>
+              <p id="bispStepUpSchedule" class="text-xs text-slate-200 leading-snug">
+                <!-- JS ile güncellenir -->
+              </p>
+            </div>
+
+            <!-- Eylem & Toksisite Yönetim Kutusu -->
+            <div id="bispPrimaryToxBox" class="p-4 rounded-2xl bg-slate-950 border border-rose-900/40 text-xs text-rose-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- NCCN Kılavuzu & Landmark Faz 3 Klinik Kanıt -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <span>📚 NCCN Kılavuzu & Landmark Faz 3 Klinik Çalışma Verisi</span>
+            </h4>
+            <div id="bispClinicalTrialBox" class="p-4 rounded-2xl bg-slate-950 border border-sky-900/40 text-xs text-sky-200/90 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+            <div id="bispNccnGuidelineBox" class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script>
@@ -5960,7 +6215,7 @@
           "• Dirençli lösemi ve lenfomalarda %70-80 oranında tam remisyon sağlayabilmektedir (Kymriah, Yescarta, Carvykti)."
       },
       'bispecific_antibodies': {
-        patterns: [/bispesifik antikor/i, /amivantamab/i, /rybrevant/i, /tebentafusp/i, /ikili antikor/i, /bispecific/i],
+        patterns: [/bispesifik antikor nedir/i, /bispesifik nedir/i, /ikili antikor nedir/i, /bispesifik teknoloji/i],
         title: 'Bispesifik Antikorlar & Çift Hedefleme',
         answer: "🔗 **Bispesifik Antikorlar (Bispecific mAbs):**\n\n" +
           "• Aynı anda iki farklı hedefi bağlayan özel antikorlardır.\n" +
@@ -6287,6 +6542,52 @@
           "2. **Amino Asit Nefroproteksiyonu:** Peptitler böbrek proksimal tübüllerindeki megalin/kübilin reseptörlerinden geri emilir. L-Lizin ve L-Arjinin infüzyonu bu reseptörleri rekabetçi olarak doyurarak böbrek radyasyon tutulumunu %40-50 azaltır.\n" +
           "3. **Kemik İliği Güvenliği:** Kırmızı kemik iliği dozu <2 Gy tutulur. Tedavi öncesi hemoglobin, trombosit ve nötrofil sayımları kontrol edilir.\n" +
           "4. **Radyasyon İzolasyonu:** Hastalar infüzyon sonrası bol sıvı tüketerek radyoizotopun atılmasını hızlandırır; ilk birkaç gün yakın temas önlemlerine uyulur."
+      },
+      'blinatumomab_bite_all': {
+        patterns: [/blinatumomab/i, /blincyto/i, /cd19.*cd3/i, /bite.*lösemi/i, /bite antikor/i],
+        title: 'Blinatumomab (Blincyto) & CD19xCD3 BiTE ile B-ALL Tedavisi',
+        answer: "🧬 **Blinatumomab (Blincyto) & BiTE (Bispecific T-Cell Engager) Teknolojisi:**\n\n" +
+          "• **Mekanizma:** Fc bölgesi bulunmayan tandem iki scFv antikor parçacığından (~55 kDa) oluşur. Bir koluyla B hücre yüzeyindeki CD19 antijenine, diğer koluyla sitotoksik T hücrelerinin CD3 reseptörüne bağlanır.\n" +
+          "• **İmmünolojik Sinaps:** T hücresi ile tümör arasında <12 nm'lik ultra dar bir litik sinaps oluşturur. T hücresi MHC antijen sunumuna gerek duymadan aktive olarak perforin ve granzim salgılar, B-ALL hücrelerini imha eder.\n" +
+          "• **Endikasyon & Kanıt:** Nüks/dirençli B hücreli akut lenfoblastik lösemi (B-ALL) ve Minimal Rezidüel Hastalık (MRD) pozitifliğinde altın standarttır (TOWER ve ECOG E1910 çalışmaları).\n" +
+          "• **Uygulama:** Yarı ömrü çok kısa (~2 saat) olduğu için taşınabilir infüzyon pompası ile 28 gün aralıksız damardan verilir."
+      },
+      'amivantamab_egfr_met_nsclc': {
+        patterns: [/amivantamab/i, /rybrevant/i, /egfr.*met/i, /ekzon 20 insersiyon/i, /mariposa/i],
+        title: 'Amivantamab (Rybrevant) EGFRxMET Bispesifik Antikor & Akciğer Kanseri',
+        answer: "🎯 **Amivantamab (Rybrevant) & Çift Reseptör Blokajı:**\n\n" +
+          "• **Hedef:** Küçük hücreli dışı akciğer kanserinde (NSCLC) hem EGFR hem de MET tirozin kinaz reseptörlerini aynı anda bağlayan tam IgG1 DuoBody bispesifik antikordur.\n" +
+          "• **Üçlü Etki Mekanizması:**\n" +
+          "   1. EGFR ve MET ligand bağlanmasını eş zamanlı bloke eder.\n" +
+          "   2. Reseptör komplekslerini hücre içine çekerek parçalanmaya yönlendirir (endositoz).\n" +
+          "   3. Bağışıklık hücrelerini çağırarak antikor bağımlı hücresel sitotoksisite (ADCC) ve trogositoz ile tümörü tüketir.\n" +
+          "• **Landmark Çalışmalar:** MARIPOSA çalışmasında Lazertinib ile kombine edilerek Osimertinib'e kıyasla progresyonsuz sağkalımı (PFS 23.7 vs 16.6 ay, HR=0.70) belirgin uzatmıştır; PAPILLON çalışmasında EGFR Ekzon 20 insersiyonlu grupta kemoterapiyle birlikte 1. basamak standarttır."
+      },
+      'teclistamab_bcma_cd3_myeloma': {
+        patterns: [/teclistamab/i, /tecvayli/i, /talquetamab/i, /talvey/i, /gprc5d/i, /bcma.*bispesifik/i],
+        title: 'Teclistamab & Talquetamab: Multipl Miyelomda Bispesifik T-Hücre Angajmanı',
+        answer: "🩸 **Multipl Miyelomda Bispesifik T-Hücre Angaje Edicileri (BsAbs):**\n\n" +
+          "• **Teclistamab (Tecvayli):** Miyelom hücrelerindeki BCMA antijenini T hücresinin CD3 molekülüne kilitler (MajesTEC-1 çalışması, %63 genel yanıt oranı). CAR-T tedavisi için haftalarca bekleyemeyen refrakter miyelom hastalarında 'raftan hazır (off-the-shelf)' hemen başlanabilir devrimsel tedavidir.\n" +
+          "• **Talquetamab (Talvey):** BCMA'dan bağımsız yeni bir hedef olan GPRC5D reseptörünü hedefler (MonumenTAL-1, %74 yanıt). BCMA CAR-T veya Teclistamab sonrası nüks eden hastalarda çapraz direnç olmaksızın derin yanıtlar üretir.\n" +
+          "• **Uygulama:** Her iki ilaç da cilt altı (subkutan) enjeksiyon şeklinde ve basamaklı dozlama (step-up) ile verilir."
+      },
+      'tebentafusp_immtac_uveal_melanoma': {
+        patterns: [/tebentafusp/i, /kimmtrak/i, /immtac/i, /uveal melanom/i, /gp100.*hla/i],
+        title: 'Tebentafusp (Kimmtrak) & Uveal Melanomda İlk TCR Bispesifik Tedavisi',
+        answer: "👁️ **Tebentafusp (Kimmtrak) & ImmTAC (TCR Tabanlı Bispesifik İlaç) Devrimi:**\n\n" +
+          "• **Dünyada Bir İlk:** Yalnızca hücre yüzeyindeki antijenleri değil, hücre içindeki protein parçacıklarını da tanıyan ilk çözünür T-hücre reseptörü (TCR) bispesifik ilacıdır.\n" +
+          "• **Hedef:** HLA-A*02:01 molekülü tarafından sunulan hücre içi gp100 melanom peptidine ultra yüksek pikomolar ilgiyle (~50 pM) bağlanır; diğer ucuyla CD3 T hücrelerini aktive eder.\n" +
+          "• **IMCgp100-202 Faz 3 Çalışması:** Karaciğer metastazı yapan ve tedavi seçeneği bulunmayan ölümcül metastatik uveal (göz) melanomunda genel sağkalımı kanıtlanmış ilk ilaçtır (21.7 vs 16.0 ay, HR=0.51, ölüm riskini %49 azaltmıştır).\n" +
+          "• **Ön Koşul:** Hastanın genetik olarak HLA-A*02:01 doku tipine sahip olması zorunludur."
+      },
+      'bispecific_step_up_dosing_crs': {
+        patterns: [/step-up dosing/i, /basamaklı dozlama/i, /bispesifik crs/i, /blincyto nörotoksisite/i, /bispesifik yan etkileri/i],
+        title: 'Bispesifik Antikorlarda Basamaklı Dozlama (Step-Up Dosing) & Güvenlik',
+        answer: "🛡️ **Bispesifik Antikorlarda Güvenlik ve Basamaklı Dozlama (Step-Up Dosing):**\n\n" +
+          "1. **Neden Basamaklı Dozlama Yapılır?** T hücrelerinin ilk temas anında aşırı fırtına şeklinde sitokin (IL-6, IFN-gamma, TNF) salgılamasını (Sitokin Salınım Sendromu - CRS) engellemek için tedaviye tam dozla değil, çok düşük mikro-dozlarla başlanır.\n" +
+          "2. **Protokol:** Örneğin Teclistamab'da 1. gün 0.06 mg/kg, 4. gün 0.3 mg/kg, 7. gün tam doz 1.5 mg/kg verilir. Blinatumomab'da ilk 7 gün 9 mcg/gün, sonra 28 mcg/gün'e çıkılır.\n" +
+          "3. **Premedikasyon:** Her basamak öncesi deksametazon, antihistaminik ve parasetamol verilir.\n" +
+          "4. **CRS & ICANS Yönetimi:** Ateş ve hipotansiyonda derhal Tocilizumab (anti-IL-6R); nörotoksisite (ICANS: titreme, konuşma bozukluğu, kafa karışıklığı) gelişirse yüksek doz Deksametazon uygulanır."
       },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
@@ -10005,7 +10306,303 @@ uygulanması oy birliği ile uygun bulunmuştur.
       if (guideBox) guideBox.innerHTML = `<strong>📋 NCCN & ASCO Klinik Uygulama Kılavuzu:</strong> ${r.guideline}`;
     }
 
-    // İlk yüklemede Uzamsal Transkriptomik, Epigenomik, CAR-T, ADC & Radyoligand Stüdyolarını hazırla
+    // ==========================================
+    // TAB 26: BISPECIFIC ANTIBODIES & T-CELL ENGAGERS (BiTE) STUDIO
+    // ==========================================
+    const CANONICAL_BISPECIFIC_CONSTRUCTS = {
+      'BLINATUMOMAB_BLINCYTO': {
+        id: 'BLINATUMOMAB_BLINCYTO',
+        name: 'Blinatumomab (Blincyto)',
+        targetTumor: 'CD19 (B-Hücre Yüzey Antijeni)',
+        targetEffector: 'CD3 epsilon (Sitotoksik T-Hücresi)',
+        format: 'BiTE (Tandem scFv, Fc\'siz İkili Antikor)',
+        formatBadge: 'BiTE (54 kDa)',
+        molecularWeight: '54.1 kDa',
+        halfLife: '2.1 saat',
+        deliveryMode: '28 gün sürekli IV infüzyon (taşınabilir pompa)',
+        synapseDistance: 11.2,
+        synapseQuality: 'Optimal Litik Sinaps (<12 nm)',
+        kdTarget: 1.49,
+        kdCd3: 100.0,
+        affinityRatio: 67.1,
+        indication: 'Nüks/Dirençli B-ALL & MRD Pozitif Lösemi',
+        clinicalTrial: 'TOWER Faz 3: Genel sağkalımı neredeyse ikiye katlamıştır (7.7 vs 4.0 ay, HR=0.71, p=0.01) ve tam remisyonu %44\'e çıkarmıştır. ECOG-ACRIN E1910: MRD-negatif konsolidasyonda 3 yıllık genel sağkalım %83.',
+        crsRisk: 15.0,
+        icansRisk: 24.0,
+        stepUpSchedule: '1-7. Günler: 9 mcg/gün sürekli IV infüzyon -> 8-28. Günler: 28 mcg/gün hedef doza basamaklı artış. Her basamak öncesi Deksametazon premedikasyonu şarttır.',
+        primaryToxicity: 'Nörotoksisite / ICANS (Titreme, afazi, nöbet, konfüzyon - %24) & Sitokin Salınım Sendromu (CRS).',
+        guideline: 'NCCN Kategori 1 Tercih: CD19+ B-ALL olgularında MRD >= %0.1 tespit edildiğinde ve nüks/dirençli hastalıkta allojenik KİT öncesi standart köprüleme tedavisi.',
+        basePotency: 94.0
+      },
+      'AMIVANTAMAB_RYBREVANT': {
+        id: 'AMIVANTAMAB_RYBREVANT',
+        name: 'Amivantamab (Rybrevant)',
+        targetTumor: 'EGFR & MET Reseptörleri (Çift RTK Blokajı)',
+        targetEffector: 'Doğal Bağışıklık (FcγRIIIa / CD16a ile ADCC & Trogositoz)',
+        format: 'DuoBody (Düşük fukozlu tam IgG1 bispesifik antikor)',
+        formatBadge: 'DuoBody (148 kDa)',
+        molecularWeight: '148.0 kDa',
+        halfLife: '11.3 gün (271 saat)',
+        deliveryMode: 'Haftalık IV infüzyon (4 hafta), ardından 2 haftada bir',
+        synapseDistance: 14.5,
+        synapseQuality: 'Fonksiyonel Sinaps (12-15 nm)',
+        kdTarget: 1.4,
+        kdCd3: 0.0,
+        affinityRatio: 95.0,
+        indication: 'EGFR Ekzon 20 İnsersiyonlu NSCLC & Osimertinib Dirençli Akciğer',
+        clinicalTrial: 'MARIPOSA Faz 3: Lazertinib ile kombine edildiğinde Osimertinib tek ajanına kıyasla hastalık ilerlemesi veya ölüm riskini %30 azaltmıştır (PFS 23.7 vs 16.6 ay, HR=0.70). PAPILLON: Ekzon 20 insersiyonunda PFS HR=0.40.',
+        crsRisk: 6.0,
+        icansRisk: 1.0,
+        stepUpSchedule: 'İlk kür bölünmüş doz: 1. Gün 350 mg IV -> 2. Gün 1050 mg IV (İnfüzyon reaksiyonunu önlemek için bölünmüş doz ve antihistaminik/kortikosteroid şarttır).',
+        primaryToxicity: 'Dermatolojik Toksisite (Akneiform döküntü, paronişi, tırnak distrofisi) & İnfüzyon İlişkili Reaksiyonlar (IRR ~%65).',
+        guideline: 'NCCN Kategori 1: EGFR Ekzon 20 insersiyonu taşıyan ileri evre NSCLC hastalarında kemoterapi ile birinci basamak tercih; klasik EGFR mutasyonlarında Lazertinib ile kemoterapisiz birinci basamak alternatif.',
+        basePotency: 91.0
+      },
+      'TECLISTAMAB_TECVAYLI': {
+        id: 'TECLISTAMAB_TECVAYLI',
+        name: 'Teclistamab (Tecvayli)',
+        targetTumor: 'BCMA (B-Hücre Matürasyon Antijeni)',
+        targetEffector: 'CD3 epsilon (T-Hücre Aktivasyonu)',
+        format: 'DuoBody (İnsanlaştırılmış IgG4-PAA bispesifik T-hücre angaje edici)',
+        formatBadge: 'DuoBody (146 kDa)',
+        molecularWeight: '146.0 kDa',
+        halfLife: '10.0 gün (240 saat)',
+        deliveryMode: 'Subkutan (SC) enjeksiyon (Haftalık 1.5 mg/kg)',
+        synapseDistance: 12.8,
+        synapseQuality: 'Optimal Litik Sinaps',
+        kdTarget: 0.20,
+        kdCd3: 18.0,
+        affinityRatio: 90.0,
+        indication: 'En az 4 basamak tedavi almış Nüks/Dirençli Multipl Miyelom',
+        clinicalTrial: 'MajesTEC-1 Faz 1/2: Penta-refrakter miyelom olgularında %63.0 Genel Yanıt Oranı (ORR) ve %39.4 Tam Yanıt (CR) sağlamıştır; median yanıt süresi 18.4 aydır.',
+        crsRisk: 72.0,
+        icansRisk: 14.5,
+        stepUpSchedule: '1. Gün: 0.06 mg/kg SC -> 4. Gün: 0.3 mg/kg SC -> 7. Gün: 1.5 mg/kg tam tedavi dozu. Parasetamol + difenhidramin + deksametazon premedikasyonu.',
+        primaryToxicity: 'Sitokin Salınım Sendromu (CRS %72 - basamaklı dozlama ile %98 Evre 1-2), Şiddetli Fırsatçı Enfeksiyonlar (Hipogammaglobulinemi - IVIG desteği gerekir), Nötropeni.',
+        guideline: 'NCCN Kategori 1: Proteazom inhibitörü, immünomodülatör ajan (IMiD) ve anti-CD38 antikor almış dirençli multipl miyelom hastalarında standart "raftan hazır" T-hücre yönlendirici tedavi.',
+        basePotency: 93.0
+      },
+      'TEBENTAFUSP_KIMMTRAK': {
+        id: 'TEBENTAFUSP_KIMMTRAK',
+        name: 'Tebentafusp (Kimmtrak)',
+        targetTumor: 'gp100 Peptid / HLA-A*02:01 Kompleksi (İntraselüler Antijen)',
+        targetEffector: 'CD3 epsilon (T-Hücre Aktivasyonu)',
+        format: 'ImmTAC (Çözünür Yüksek Afiniteli TCR x anti-CD3 scFv)',
+        formatBadge: 'ImmTAC TCR (77 kDa)',
+        molecularWeight: '77.0 kDa',
+        halfLife: '7.5 saat',
+        deliveryMode: 'Haftalık IV infüzyon (20 mcg -> 30 mcg -> 68 mcg)',
+        synapseDistance: 9.8,
+        synapseQuality: 'Ultra-Dar TCR Litik Sinaps (<10 nm)',
+        kdTarget: 0.05,
+        kdCd3: 2.5,
+        affinityRatio: 50.0,
+        indication: 'HLA-A*02:01 Pozitif Rezeke Edilemeyen / Metastatik Uveal Melanom',
+        clinicalTrial: 'IMCgp100-202 Faz 3: Metastatik göz melanomunda genel sağkalımı anlamlı uzatan tarihteki ilk tedavidir (21.7 vs 16.0 ay, HR=0.51, p<0.001 vs hekim seçimi pembrolizumab/ipilimumab).',
+        crsRisk: 89.0,
+        icansRisk: 3.0,
+        stepUpSchedule: '1. Gün: 20 mcg IV -> 8. Gün: 30 mcg IV -> 15. Gün ve sonrası: 68 mcg IV. İlk 3 doz sonrası hastanede 16 saatlik hemodinamik gözlem zorunludur.',
+        primaryToxicity: 'Sitokin Salınım Sendromu (ateş, hipotansiyon) & Melanosit Hedefli Cilt Reaksiyonları (Döküntü, eritem, vitiligo/cilt beyazlaması, kaşıntı).',
+        guideline: 'NCCN Kategori 1 Tercih: HLA-A*02:01 genotipi pozitif metastatik uveal melanomda birinci basamak standart. Tedavi öncesi HLA doku tiplemesi zorunludur.',
+        basePotency: 95.0
+      },
+      'EPCORITAMAB_TEPKINLY': {
+        id: 'EPCORITAMAB_TEPKINLY',
+        name: 'Epcoritamab (Tepkinly / Epkinly)',
+        targetTumor: 'CD20 (B-Hücre Yüzey Proteini)',
+        targetEffector: 'CD3 epsilon (T-Hücre Aktivasyonu)',
+        format: 'DuoBody (Fc-susturulmuş tam boy insan IgG1 bispesifik)',
+        formatBadge: 'DuoBody (147 kDa)',
+        molecularWeight: '147.0 kDa',
+        halfLife: '14.0 gün (336 saat)',
+        deliveryMode: 'Subkutan (SC) enjeksiyon (0.16 mg -> 0.8 mg -> 48 mg)',
+        synapseDistance: 13.0,
+        synapseQuality: 'Optimal Litik Sinaps',
+        kdTarget: 0.40,
+        kdCd3: 12.0,
+        affinityRatio: 30.0,
+        indication: 'Nüks/Dirençli Diffüz Büyük B-Hücreli Lenfoma (DLBCL) & Foliküler Lenfoma',
+        clinicalTrial: 'EPCORE NHL-1: CAR-T tedavisi başarısız olmuş hastalar dahil ağır ön tedavi almış DLBCL olgularında %63.1 Genel Yanıt ve %38.9 Tam Metabolik Yanıt sağlamıştır.',
+        crsRisk: 51.0,
+        icansRisk: 6.1,
+        stepUpSchedule: '1. Kür 1. Gün: 0.16 mg SC -> 8. Gün: 0.8 mg SC -> 15. Gün ve 22. Gün: 48 mg tam tedavi dozu. Subkutan yavaş salınım tepe IL-6 dalgalanmasını önler.',
+        primaryToxicity: 'Sitokin Salınım Sendromu (CRS %51 - subkutan uygulama sayesinde Grade 3 CRS yalnızca %2.5), Nötropeni, Enjeksiyon yeri reaksiyonları.',
+        guideline: 'NCCN Kategori 1: En az iki basamak sistemik tedavi almış nüks/dirençli DLBCL, yüksek dereceli B-hücreli lenfoma ve foliküler lenfomada tercih edilen seçenek.',
+        basePotency: 92.0
+      },
+      'TALQUETAMAB_TALVEY': {
+        id: 'TALQUETAMAB_TALVEY',
+        name: 'Talquetamab (Talvey)',
+        targetTumor: 'GPRC5D (G-Protein Eşleşmiş Reseptör C Sınıfı)',
+        targetEffector: 'CD3 epsilon (T-Hücre Aktivasyonu)',
+        format: 'DuoBody (Modifiye Fc içeren insanlaştırılmış IgG4 bispesifik)',
+        formatBadge: 'DuoBody (146 kDa)',
+        molecularWeight: '146.0 kDa',
+        halfLife: '9.0 gün (216 saat)',
+        deliveryMode: 'Subkutan (SC) enjeksiyon (0.4 mg/kg haftalık veya 0.8 mg/kg 2 haftada bir)',
+        synapseDistance: 13.5,
+        synapseQuality: 'Optimal Litik Sinaps',
+        kdTarget: 0.85,
+        kdCd3: 15.0,
+        affinityRatio: 17.6,
+        indication: 'BCMA-Dirençli veya Ön Tedavi Almış Nüks/Refrakter Multipl Miyelom',
+        clinicalTrial: 'MonumenTAL-1 Faz 1/2: Haftalık 0.4 mg/kg grubunda %74.1, 2 haftada bir 0.8 mg/kg grubunda %71.7 ORR sağlamıştır; BCMA CAR-T sonrası nüks eden hastalarda da tam aktiftir.',
+        crsRisk: 79.0,
+        icansRisk: 11.0,
+        stepUpSchedule: 'Haftalık Program: 1. Gün 0.01 mg/kg -> 4. Gün 0.06 mg/kg -> 7. Gün 0.4 mg/kg. İki Haftalık: 1. Gün 0.01 mg/kg -> 4. Gün 0.06 mg/kg -> 7. Gün 0.3 mg/kg -> 10. Gün 0.8 mg/kg.',
+        primaryToxicity: 'GPRC5D Hedefli Dokusal Toksisite (Tat duyusu kaybı / Disgeuzi ~%70, Tırnak distrofisi/dökülmesi ~%50, Avuç içi-ayak tabanı soyulması) & CRS (%79).',
+        guideline: 'NCCN Kategori 1: IMiD, proteazom inhibitörü ve anti-CD38 antikor almış refrakter miyelom hastalarında standart. BCMA hedefli tedavilerden bağımsız etki mekanizmasıyla kritik kurtarma ilacıdır.',
+        basePotency: 91.0
+      }
+    };
+
+    let activeBispecificConstructId = 'BLINATUMOMAB_BLINCYTO';
+
+    function selectBispecificConstruct(cId) {
+      activeBispecificConstructId = cId;
+      const c = CANONICAL_BISPECIFIC_CONSTRUCTS[cId];
+      if (!c) return;
+
+      document.querySelectorAll('.bisp-construct-btn').forEach(btn => {
+        btn.classList.remove('border-indigo-500', 'bg-indigo-950/20');
+      });
+      const activeBtn = document.getElementById(`bispBtn-${cId}`);
+      if (activeBtn) activeBtn.classList.add('border-indigo-500', 'bg-indigo-950/20');
+
+      const targetBadge = document.getElementById('bispTargetBadge');
+      if (targetBadge) targetBadge.innerText = c.targetTumor.split(' ')[0];
+
+      const targetName = document.getElementById('bispTargetName');
+      if (targetName) targetName.innerText = c.targetTumor;
+
+      const effector = document.getElementById('bispEffectorTarget');
+      if (effector) effector.innerText = c.targetEffector;
+
+      const formatBadge = document.getElementById('bispFormatBadge');
+      if (formatBadge) formatBadge.innerText = c.formatBadge;
+
+      const formatElem = document.getElementById('bispFormat');
+      if (formatElem) formatElem.innerText = c.format;
+
+      const weightHalfLife = document.getElementById('bispWeightHalfLife');
+      if (weightHalfLife) weightHalfLife.innerText = `${c.molecularWeight} • t1/2: ${c.halfLife}`;
+
+      const delivery = document.getElementById('bispDeliveryMode');
+      if (delivery) delivery.innerText = c.deliveryMode;
+
+      const synDist = document.getElementById('bispSynapseDistance');
+      if (synDist) synDist.innerText = `${c.synapseDistance} nm`;
+
+      const synBadge = document.getElementById('bispSynapseBadge');
+      if (synBadge) synBadge.innerText = c.synapseQuality;
+
+      calculateBispecificLive();
+    }
+
+    function calculateBispecificLive() {
+      const c = CANONICAL_BISPECIFIC_CONSTRUCTS[activeBispecificConstructId] || CANONICAL_BISPECIFIC_CONSTRUCTS['BLINATUMOMAB_BLINCYTO'];
+
+      const targetExpSlider = document.getElementById('slider-bisp-target-exp');
+      const etRatioSlider = document.getElementById('slider-bisp-et-ratio');
+      const stepUpCheck = document.getElementById('check-bisp-stepup');
+
+      const targetExp = targetExpSlider ? parseFloat(targetExpSlider.value) : 75.0;
+      const etRatio = etRatioSlider ? parseFloat(etRatioSlider.value) : 5.0;
+      const stepUpActive = stepUpCheck ? stepUpCheck.checked : true;
+
+      if (document.getElementById('label-bisp-target-exp')) {
+        document.getElementById('label-bisp-target-exp').innerText = `%${Math.round(targetExp)}`;
+      }
+      if (document.getElementById('label-bisp-et-ratio')) {
+        document.getElementById('label-bisp-et-ratio').innerText = `${etRatio.toFixed(1)} : 1`;
+      }
+
+      // 1. Synapse Efficiency and Tumor Lysis Score
+      const synapseEfficiency = c.synapseDistance <= 12.0 ? 1.0 : (c.synapseDistance <= 15.0 ? 0.90 : 0.70);
+      const etFactor = Math.min(1.3, 0.5 + (etRatio / 10.0) * 0.8);
+      const lysisScore = Math.min(100.0, Math.round(((c.basePotency * 0.55) + (targetExp * 0.25 * synapseEfficiency) + (etFactor * 20.0)) * 10) / 10);
+
+      if (document.getElementById('bispLysisScore')) document.getElementById('bispLysisScore').innerText = lysisScore.toFixed(1);
+      if (document.getElementById('bar-bisp-lysis')) document.getElementById('bar-bisp-lysis').style.width = `${Math.round(lysisScore)}%`;
+
+      // 2. Biodistribution Score
+      let biodistScore = 85.0;
+      let biodistProfile = '';
+      if (c.kdCd3 > 0) {
+        if (c.affinityRatio >= 50.0) {
+          biodistScore = 92.0;
+          biodistProfile = `Optimal Tümör Öncelikli Dağılım: Hedef antijene olan afinite T-hücresine (CD3) kıyasla ${c.affinityRatio.toFixed(1)} kat daha yüksektir. İlaç önce tümör dokusuna bağlanarak birikir; dolaşımdaki T hücrelerinin dalak veya kanda erken tükenmesini (peripheral sink effect) engeller.`;
+        } else if (c.affinityRatio >= 20.0) {
+          biodistScore = 82.0;
+          biodistProfile = `Dengeli İmmünolojik Dağılım: Hedef antijen ve CD3 afinite oranı (${c.affinityRatio.toFixed(1)}x) hızlı poliklonal T hücresi angajmanı sağlar; kanda hafif periferik tutulum izlenir.`;
+        } else {
+          biodistScore = 68.0;
+          biodistProfile = `Periferik Tuzaklanma Riski: CD3 afinitesi görece yüksektir (oran: ${c.affinityRatio.toFixed(1)}x); dolaşımdaki periferik lenfositler ilacı tümör dokusuna varmadan bağlayabilir.`;
+        }
+      } else {
+        biodistScore = 95.0;
+        biodistProfile = `Çift Reseptör Blokajı ve ADCC: Dolaşımdaki T hücrelerine değil, tümör yüzeyindeki EGFR ve MET kinazlarına kilitlenir; doğal öldürücü (NK) hücreler ve makrofajlar aracılığıyla antikor bağımlı hücresel sitotoksisite (ADCC) başlatır.`;
+      }
+
+      if (document.getElementById('bispBiodistScore')) document.getElementById('bispBiodistScore').innerText = biodistScore.toFixed(1);
+      if (document.getElementById('bar-bisp-biodist')) document.getElementById('bar-bisp-biodist').style.width = `${Math.round(biodistScore)}%`;
+      if (document.getElementById('bispBiodistProfile')) document.getElementById('bispBiodistProfile').innerText = biodistProfile;
+
+      // 3. Pharmacokinetic profile
+      const pkElem = document.getElementById('bispPkProfile');
+      if (pkElem) {
+        if (c.format.includes('BiTE')) {
+          pkElem.innerText = `BiTE Farmakokinetiği: Fc parçası olmadığı için (~54 kDa) glomerüler filtrasyonla çok hızlı temizlenir (t1/2 ~2.1 saat). Kararlı plazma konsantrasyonu sağlamak için 28 gün aralıksız taşınabilir CADD pompası ile sürekli IV infüzyon zorunludur.`;
+        } else if (c.format.includes('ImmTAC')) {
+          pkElem.innerText = `ImmTAC Farmakokinetiği: Çözünür TCR parçası pikomolar afiniteyle (~50 pM) HLA-gp100 kompleksine kenetlenir (t1/2 ~7.5 saat). Haftalık IV infüzyonla uygulanır; ilk dozlarda hastanede hemodinamik izlem yapılır.`;
+        } else {
+          pkElem.innerText = `DuoBody / Tam IgG Farmakokinetiği: Tasarlanmış Fc bölgesi sayesinde neonatal Fc reseptöründen (FcRn) geri emilir ve yarı ömrü ${c.halfLife}'e ulaşır. Haftalık veya iki haftada bir subkutan (SC) kolay enjeksiyon avantajı sunar.`;
+        }
+      }
+
+      // 4. CRS & ICANS Risk Calculations
+      let crsRisk = 0;
+      let icansRisk = 0;
+      if (stepUpActive) {
+        crsRisk = Math.round(c.crsRisk * (c.crsRisk > 30 ? 0.35 : 0.70) * 10) / 10;
+        icansRisk = Math.round(c.icansRisk * 0.50 * 10) / 10;
+      } else {
+        crsRisk = Math.min(100.0, Math.round(c.crsRisk * 1.5 * 10) / 10);
+        icansRisk = Math.min(100.0, Math.round(c.icansRisk * 1.3 * 10) / 10);
+      }
+
+      if (document.getElementById('bispCrsRisk')) document.getElementById('bispCrsRisk').innerText = `%${crsRisk.toFixed(1)}`;
+      if (document.getElementById('bar-bisp-crs')) document.getElementById('bar-bisp-crs').style.width = `${Math.min(100, Math.round(crsRisk))}%`;
+
+      if (document.getElementById('bispIcansRisk')) document.getElementById('bispIcansRisk').innerText = `%${icansRisk.toFixed(1)}`;
+      if (document.getElementById('bar-bisp-icans')) document.getElementById('bar-bisp-icans').style.width = `${Math.min(100, Math.round(icansRisk))}%`;
+
+      const crsBadge = document.getElementById('bispCrsStatusBadge');
+      if (crsBadge) {
+        if (stepUpActive) {
+          crsBadge.innerText = 'Step-Up Dosing Aktif • Düşük Ağır CRS';
+          crsBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono';
+        } else {
+          crsBadge.innerText = 'DİKKAT: Step-Up Omitted • YÜKSEK CRS RİSKİ!';
+          crsBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono animate-pulse';
+        }
+      }
+
+      // 5. Toxicity & Step-Up Schedules
+      const scheduleElem = document.getElementById('bispStepUpSchedule');
+      if (scheduleElem) scheduleElem.innerText = c.stepUpSchedule;
+
+      const toxBox = document.getElementById('bispPrimaryToxBox');
+      if (toxBox) toxBox.innerHTML = `<strong>Kritik Organ Toksisitesi & Güvenlik Protokolü:</strong> ${c.primaryToxicity}`;
+
+      const trialBox = document.getElementById('bispClinicalTrialBox');
+      if (trialBox) trialBox.innerHTML = `<strong>Landmark Faz 3 Klinik Çalışma Verisi:</strong> ${c.clinicalTrial}`;
+
+      const guideBox = document.getElementById('bispNccnGuidelineBox');
+      if (guideBox) guideBox.innerHTML = `<strong>📋 NCCN & ASCO Klinik Uygulama Kılavuzu:</strong> ${c.guideline}`;
+    }
+
+    // İlk yüklemede Uzamsal Transkriptomik, Epigenomik, CAR-T, ADC, Radyoligand & Bispesifik Stüdyolarını hazırla
     try {
       if (typeof document !== 'undefined') {
         selectSpatialScenario('NSCLC_TLS_MATURE');
@@ -10013,6 +10610,7 @@ uygulanması oy birliği ile uygun bulunmuştur.
         selectCartConstruct('CD19_B_ALL_KYMRIAH');
         selectAdcConstruct('HER2_T_DXD_ENHERTU');
         selectTheranosticsRegimen('LU177_PSMA_617_PLUVICTO');
+        selectBispecificConstruct('BLINATUMOMAB_BLINCYTO');
       }
     } catch(e) {}
   </script>

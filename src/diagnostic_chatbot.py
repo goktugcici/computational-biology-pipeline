@@ -985,7 +985,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'bispecific_antibodies': {
         'patterns': [
-            r'bispesifik antikor', r'amivantamab', r'rybrevant', r'tebentafusp', r'ikili antikor', r'bispecific'
+            r'bispesifik antikor nedir', r'bispesifik nedir', r'ikili antikor nedir', r'bispesifik teknoloji'
         ],
         'title': 'Bispesifik Antikorlar (Bispecific Antibodies) & Çift Hedefleme',
         'answer': (
@@ -1546,6 +1546,73 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
             "2. **Amino Asit Nefroproteksiyonu:** Peptitler böbrek proksimal tübüllerindeki megalin/kübilin reseptörlerinden geri emilir. L-Lizin ve L-Arjinin infüzyonu bu reseptörleri rekabetçi olarak doyurarak böbrek radyasyon tutulumunu %40-50 azaltır.\n"
             "3. **Kemik İliği Güvenliği:** Kırmızı kemik iliği dozu <2 Gy tutulur. Tedavi öncesi hemoglobin, trombosit ve nötrofil sayımları kontrol edilir.\n"
             "4. **Radyasyon İzolasyonu:** Hastalar infüzyon sonrası bol sıvı tüketerek radyoizotopun atılmasını hızlandırır; ilk birkaç gün yakın temas önlemlerine uyulur."
+        )
+    },
+
+    'blinatumomab_bite_all': {
+        'patterns': [
+            r'blinatumomab', r'blincyto', r'cd19.*cd3', r'bite.*lösemi', r'bite antikor'
+        ],
+        'title': 'Blinatumomab (Blincyto) & CD19xCD3 BiTE ile B-ALL Tedavisi',
+        'answer': (
+            "🧬 **Blinatumomab (Blincyto) & BiTE (Bispecific T-Cell Engager) Teknolojisi:**\n\n"
+            "• **Mekanizma:** Fc bölgesi bulunmayan tandem iki scFv antikor parçacığından (~55 kDa) oluşur. Bir koluyla B hücre yüzeyindeki CD19 antijenine, diğer koluyla sitotoksik T hücrelerinin CD3 reseptörüne bağlanır.\n"
+            "• **İmmünolojik Sinaps:** T hücresi ile tümör arasında <12 nm'lik ultra dar bir litik sinaps oluşturur. T hücresi MHC antijen sunumuna gerek duymadan aktive olarak perforin ve granzim salgılar, B-ALL hücrelerini imha eder.\n"
+            "• **Endikasyon & Kanıt:** Nüks/dirençli B hücreli akut lenfoblastik lösemi (B-ALL) ve Minimal Rezidüel Hastalık (MRD) pozitifliğinde altın standarttır (TOWER ve ECOG E1910 çalışmaları).\n"
+            "• **Uygulama:** Yarı ömrü çok kısa (~2 saat) olduğu için taşınabilir infüzyon pompası ile 28 gün aralıksız damardan verilir."
+        )
+    },
+    'amivantamab_egfr_met_nsclc': {
+        'patterns': [
+            r'amivantamab', r'rybrevant', r'egfr.*met', r'ekzon 20 insersiyon', r'mariposa'
+        ],
+        'title': 'Amivantamab (Rybrevant) EGFRxMET Bispesifik Antikor & Akciğer Kanseri',
+        'answer': (
+            "🎯 **Amivantamab (Rybrevant) & Çift Reseptör Blokajı:**\n\n"
+            "• **Hedef:** Küçük hücreli dışı akciğer kanserinde (NSCLC) hem EGFR hem de MET tirozin kinaz reseptörlerini aynı anda bağlayan tam IgG1 DuoBody bispesifik antikordur.\n"
+            "• **Üçlü Etki Mekanizması:**\n"
+            "   1. EGFR ve MET ligand bağlanmasını eş zamanlı bloke eder.\n"
+            "   2. Reseptör komplekslerini hücre içine çekerek parçalanmaya yönlendirir (endositoz).\n"
+            "   3. Bağışıklık hücrelerini çağırarak antikor bağımlı hücresel sitotoksisite (ADCC) ve trogositoz ile tümörü tüketir.\n"
+            "• **Landmark Çalışmalar:** MARIPOSA çalışmasında Lazertinib ile kombine edilerek Osimertinib'e kıyasla progresyonsuz sağkalımı (PFS 23.7 vs 16.6 ay, HR=0.70) belirgin uzatmıştır; PAPILLON çalışmasında EGFR Ekzon 20 insersiyonlu grupta kemoterapiyle birlikte 1. basamak standarttır."
+        )
+    },
+    'teclistamab_bcma_cd3_myeloma': {
+        'patterns': [
+            r'teclistamab', r'tecvayli', r'talquetamab', r'talvey', r'gprc5d', r'bcma.*bispesifik'
+        ],
+        'title': 'Teclistamab & Talquetamab: Multipl Miyelomda Bispesifik T-Hücre Angajmanı',
+        'answer': (
+            "🩸 **Multipl Miyelomda Bispesifik T-Hücre Angaje Edicileri (BsAbs):**\n\n"
+            "• **Teclistamab (Tecvayli):** Miyelom hücrelerindeki BCMA antijenini T hücresinin CD3 molekülüne kilitler (MajesTEC-1 çalışması, %63 genel yanıt oranı). CAR-T tedavisi için haftalarca bekleyemeyen refrakter miyelom hastalarında 'raftan hazır (off-the-shelf)' hemen başlanabilir devrimsel tedavidir.\n"
+            "• **Talquetamab (Talvey):** BCMA'dan bağımsız yeni bir hedef olan GPRC5D reseptörünü hedefler (MonumenTAL-1, %74 yanıt). BCMA CAR-T veya Teclistamab sonrası nüks eden hastalarda çapraz direnç olmaksızın derin yanıtlar üretir.\n"
+            "• **Uygulama:** Her iki ilaç da cilt altı (subkutan) enjeksiyon şeklinde ve basamaklı dozlama (step-up) ile verilir."
+        )
+    },
+    'tebentafusp_immtac_uveal_melanoma': {
+        'patterns': [
+            r'tebentafusp', r'kimmtrak', r'immtac', r'uveal melanom', r'gp100.*hla'
+        ],
+        'title': 'Tebentafusp (Kimmtrak) & Uveal Melanomda İlk TCR Bispesifik Tedavisi',
+        'answer': (
+            "👁️ **Tebentafusp (Kimmtrak) & ImmTAC (TCR Tabanlı Bispesifik İlaç) Devrimi:**\n\n"
+            "• **Dünyada Bir İlk:** Yalnızca hücre yüzeyindeki antijenleri değil, hücre içindeki protein parçacıklarını da tanıyan ilk çözünür T-hücre reseptörü (TCR) bispesifik ilacıdır.\n"
+            "• **Hedef:** HLA-A*02:01 molekülü tarafından sunulan hücre içi gp100 melanom peptidine ultra yüksek pikomolar ilgiyle (~50 pM) bağlanır; diğer ucuyla CD3 T hücrelerini aktive eder.\n"
+            "• **IMCgp100-202 Faz 3 Çalışması:** Karaciğer metastazı yapan ve tedavi seçeneği bulunmayan ölümcül metastatik uveal (göz) melanomunda genel sağkalımı kanıtlanmış ilk ilaçtır (21.7 vs 16.0 ay, HR=0.51, ölüm riskini %49 azaltmıştır).\n"
+            "• **Ön Koşul:** Hastanın genetik olarak HLA-A*02:01 doku tipine sahip olması zorunludur."
+        )
+    },
+    'bispecific_step_up_dosing_crs': {
+        'patterns': [
+            r'step-up dosing', r'basamaklı dozlama', r'bispesifik crs', r'blincyto nörotoksisite', r'bispesifik yan etkileri'
+        ],
+        'title': 'Bispesifik Antikorlarda Basamaklı Dozlama (Step-Up Dosing) & Güvenlik',
+        'answer': (
+            "🛡️ **Bispesifik Antikorlarda Güvenlik ve Basamaklı Dozlama (Step-Up Dosing):**\n\n"
+            "1. **Neden Basamaklı Dozlama Yapılır?** T hücrelerinin ilk temas anında aşırı fırtına şeklinde sitokin (IL-6, IFN-gamma, TNF) salgılamasını (Sitokin Salınım Sendromu - CRS) engellemek için tedaviye tam dozla değil, çok düşük mikro-dozlarla başlanır.\n"
+            "2. **Protokol:** Örneğin Teclistamab'da 1. gün 0.06 mg/kg, 4. gün 0.3 mg/kg, 7. gün tam doz 1.5 mg/kg verilir. Blinatumomab'da ilk 7 gün 9 mcg/gün, sonra 28 mcg/gün'e çıkılır.\n"
+            "3. **Premedikasyon:** Her basamak öncesi deksametazon, antihistaminik ve parasetamol verilir.\n"
+            "4. **CRS & ICANS Yönetimi:** Ateş ve hipotansiyonda derhal Tocilizumab (anti-IL-6R); nörotoksisite (ICANS: titreme, konuşma bozukluğu, kafa karışıklığı) gelişirse yüksek doz Deksametazon uygulanır."
         )
     },
 

@@ -170,7 +170,7 @@ console.log('[2/4] Browser environment & DOMContentLoaded initialized successful
 console.log('\n[3/4] RUNNING EXHAUSTIVE VALIDATION ACROSS ALL 16 SECTIONS...');
 
 // 3.1 Tab Navigation
-const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics'];
+const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific'];
 allTabs.forEach(t => sandbox.switchTab(t));
 console.log(`  ✓ All ${allTabs.length} tabs cycled without errors`);
 
@@ -308,6 +308,15 @@ theranosticsRegimens.forEach(r => {
 sandbox.switchTab('theranostics');
 console.log(`  ✓ Targeted Radioligand Therapy (RLT) studio verified (${theranosticsRegimens.length} canonical regimens, MIRD dosimetry, alpha vs beta LET)`);
 
+// 3.16 Bispecific Antibodies & Multi-Specific Engagers (BiTE) Studio
+const bispConstructs = ['BLINATUMOMAB_BLINCYTO', 'AMIVANTAMAB_RYBREVANT', 'TECLISTAMAB_TECVAYLI', 'TEBENTAFUSP_KIMMTRAK', 'EPCORITAMAB_TEPKINLY', 'TALQUETAMAB_TALVEY'];
+bispConstructs.forEach(c => {
+  sandbox.selectBispecificConstruct(c);
+  sandbox.calculateBispecificLive();
+});
+sandbox.switchTab('bispecific');
+console.log(`  ✓ Bispecific Antibodies & BiTE studio verified (${bispConstructs.length} canonical constructs, synapse distance, step-up CRS)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
@@ -377,6 +386,11 @@ const sampleQuestions = [
   'Hedefe yönelik alfa tedavisi Actinium-225 ve TAT nedir?',
   'Teranostik tıp nedir ve PET eşleştirilmiş tedavi nasıl yapılır?',
   'Radyoligand güvenliği MIRD dozimetri ve böbrek koruma nasıl yapılır?',
+  'Blinatumomab Blincyto CD19xCD3 BiTE tedavisi nedir?',
+  'Amivantamab Rybrevant EGFR MET ekzon 20 insersiyon tedavisi nedir?',
+  'Teclistamab Tecvayli ve Talquetamab Talvey tedavisi nedir?',
+  'Tebentafusp Kimmtrak ImmTAC tedavisi nedir?',
+  'Bispesifik antikorlarda basamaklı dozlama step-up dosing protokolü nedir?',
   'Merhaba günaydın',
   'Çok teşekkür ederim'
 ];

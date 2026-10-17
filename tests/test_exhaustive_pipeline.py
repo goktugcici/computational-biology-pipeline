@@ -29,6 +29,7 @@ from epigenetics_methylation import EpigenomicsEngine, CANONICAL_EPIGENETIC_SCEN
 from cell_therapy_cart import CellTherapyCartEngine, CANONICAL_CART_CONSTRUCTS, analyze_cart_construct
 from antibody_drug_conjugates import AntibodyDrugConjugateEngine, CANONICAL_ADC_CONSTRUCTS, analyze_adc_construct
 from radioligand_theranostics import RadioligandTheranosticsEngine, CANONICAL_RADIOLIGAND_REGIMENS, analyze_radioligand_regimen
+from bispecific_antibodies import BispecificAntibodyEngine, CANONICAL_BISPECIFIC_CONSTRUCTS, analyze_bispecific_construct
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -138,6 +139,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'targeted_alpha_therapy_actinium': 'Hedefe yönelik alfa tedavisi Actinium-225 ve TAT nedir?',
             'theranostics_pet_paired_imaging': 'Teranostik tıp nedir ve PET eşleştirilmiş tedavi nasıl yapılır?',
             'rlt_radiation_safety_dosimetry': 'Radyoligand güvenliği MIRD dozimetri ve böbrek koruma nasıl yapılır?',
+            'blinatumomab_bite_all': 'Blinatumomab Blincyto CD19xCD3 BiTE tedavisi nedir?',
+            'amivantamab_egfr_met_nsclc': 'Amivantamab Rybrevant EGFR MET ekzon 20 insersiyon tedavisi nedir?',
+            'teclistamab_bcma_cd3_myeloma': 'Teclistamab Tecvayli ve Talquetamab Talvey tedavisi nedir?',
+            'tebentafusp_immtac_uveal_melanoma': 'Tebentafusp Kimmtrak ImmTAC tedavisi nedir?',
+            'bispecific_step_up_dosing_crs': 'Bispesifik antikorlarda basamaklı dozlama step-up dosing protokolü nedir?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -808,6 +814,66 @@ class TestExhaustivePipeline(unittest.TestCase):
         xofigo = analyze_radioligand_regimen('RA223_DICHLORIDE_XOFIGO')
         self.assertEqual(xofigo['target_antigen'], 'Bone Hydroxyapatite (Calcium-Mimetic Osteoblastic Targeting)')
         self.assertIn('ALSYMPCA', xofigo['clinical_efficacy'])
+
+    # =========================================================================
+    # 20. BISPECIFIC ANTIBODIES & MULTI-SPECIFIC ENGAGERS (BiTE) ENGINE
+    # =========================================================================
+    def test_bispecific_canonical_constructs(self):
+        """Verify all 6 canonical bispecific constructs are defined with complete pharmacological metadata."""
+        engine = BispecificAntibodyEngine()
+        constructs = engine.list_constructs()
+        self.assertEqual(len(constructs), 6)
+        ids = [c['id'] for c in constructs]
+        self.assertIn('BLINATUMOMAB_BLINCYTO', ids)
+        self.assertIn('AMIVANTAMAB_RYBREVANT', ids)
+        self.assertIn('TECLISTAMAB_TECVAYLI', ids)
+        self.assertIn('TEBENTAFUSP_KIMMTRAK', ids)
+        self.assertIn('EPCORITAMAB_TEPKINLY', ids)
+        self.assertIn('TALQUETAMAB_TALVEY', ids)
+
+    def test_bispecific_synapse_affinity_and_stepup_crs_mitigation(self):
+        """Verify synapse distance, tumor-to-CD3 affinity ratio, ASTCT CRS mitigation via step-up dosing, and ICANS risk."""
+        engine = BispecificAntibodyEngine()
+
+        # 1. Blinatumomab (BiTE) - CD19xCD3, 11.2 nm synapse, step-up dosing, ICANS risk
+        blin = engine.evaluate_bispecific_mechanics(
+            'BLINATUMOMAB_BLINCYTO',
+            custom_target_expression=85.0,
+            effector_to_target_ratio=5.0,
+            step_up_dosing_adherent=True
+        )
+        self.assertEqual(blin['target_tumor'], 'CD19 (B-Cell Surface Antigen)')
+        self.assertIn('BiTE', blin['format'])
+        self.assertLessEqual(blin['synapse_distance_nm'], 12.0)
+        self.assertIn('Optimal Lytic Synapse', blin['synapse_badge'])
+        self.assertGreater(blin['tumor_lysis_score'], 85.0)
+        self.assertIn('Optimal Tumor First', blin['biodistribution_profile'])
+        self.assertLess(blin['crs_risk_percent'], 15.0)  # Mitigated by step-up
+        self.assertIn('Neurotoxicity / ICANS', blin['primary_toxicity'])
+        self.assertIn('TOWER', blin['clinical_trial'])
+
+        # 2. Step-up dosing omitted test
+        blin_no_stepup = engine.evaluate_bispecific_mechanics('BLINATUMOMAB_BLINCYTO', step_up_dosing_adherent=False)
+        self.assertGreater(blin_no_stepup['crs_risk_percent'], blin['crs_risk_percent'])
+        self.assertIn('HIGH RISK OF GRADE >=3 CRS', blin_no_stepup['crs_mitigation_status'])
+
+        # 3. Tebentafusp (ImmTAC TCR soluble bispecific for Uveal Melanoma)
+        kimmtrak = engine.evaluate_bispecific_mechanics('TEBENTAFUSP_KIMMTRAK')
+        self.assertIn('ImmTAC', kimmtrak['format'])
+        self.assertIn('HLA-A*02:01', kimmtrak['target_tumor'])
+        self.assertLessEqual(kimmtrak['synapse_distance_nm'], 10.0)
+        self.assertIn('IMCgp100-202', kimmtrak['clinical_trial'])
+
+        # 4. Amivantamab (EGFRxMET DuoBody with ADCC)
+        rybrevant = engine.evaluate_bispecific_mechanics('AMIVANTAMAB_RYBREVANT')
+        self.assertIn('DuoBody', rybrevant['format'])
+        self.assertEqual(rybrevant['target_tumor'], 'EGFR (ErbB1) & MET (HGF Receptor)')
+        self.assertIn('MARIPOSA', rybrevant['clinical_trial'])
+
+        # 5. Helper convenience function test
+        talvey = analyze_bispecific_construct('TALQUETAMAB_TALVEY')
+        self.assertEqual(talvey['target_tumor'], 'GPRC5D (G Protein-Coupled Receptor Family C Group 5 Member D)')
+        self.assertIn('MonumenTAL-1', talvey['clinical_trial'])
 
 if __name__ == "__main__":
     unittest.main()

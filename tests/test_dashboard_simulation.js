@@ -143,8 +143,8 @@ console.log('\n=== [3/3] VERIFYING ALL 16 TABS & MODULES ===');
 if (mockWindow.domLoaded) mockWindow.domLoaded();
 console.log('✓ DOMContentLoaded initialized');
 
-// 25 Tabs
-const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics'];
+// 26 Tabs
+const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific'];
 tabs.forEach(t => sandbox.switchTab(t));
 console.log(`✓ switchTab validated for all ${tabs.length} tabs`);
 
@@ -294,6 +294,14 @@ console.log('✓ Antibody-Drug Conjugate (ADC) & Linker-Payload Studio (6 canoni
 });
 sandbox.switchTab('theranostics');
 console.log('✓ Targeted Radioligand Therapy (RLT) & Theranostics Studio (6 canonical regimens, MIRD dosimetry, alpha vs beta LET) validated');
+
+// Bispecific Antibodies & Multi-Specific Engagers (BiTE) Studio
+['BLINATUMOMAB_BLINCYTO', 'AMIVANTAMAB_RYBREVANT', 'TECLISTAMAB_TECVAYLI', 'TEBENTAFUSP_KIMMTRAK', 'EPCORITAMAB_TEPKINLY', 'TALQUETAMAB_TALVEY'].forEach(c => {
+  sandbox.selectBispecificConstruct(c);
+  sandbox.calculateBispecificLive();
+});
+sandbox.switchTab('bispecific');
+console.log('✓ Bispecific Antibodies & T-Cell Engagers (BiTE) Studio (6 canonical constructs, synapse distance, step-up CRS) validated');
 
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');
