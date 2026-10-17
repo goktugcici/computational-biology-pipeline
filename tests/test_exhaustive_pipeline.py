@@ -28,6 +28,7 @@ from spatial_transcriptomics import SpatialTranscriptomicsEngine, CANONICAL_SPAT
 from epigenetics_methylation import EpigenomicsEngine, CANONICAL_EPIGENETIC_SCENARIOS, analyze_epigenetics
 from cell_therapy_cart import CellTherapyCartEngine, CANONICAL_CART_CONSTRUCTS, analyze_cart_construct
 from antibody_drug_conjugates import AntibodyDrugConjugateEngine, CANONICAL_ADC_CONSTRUCTS, analyze_adc_construct
+from radioligand_theranostics import RadioligandTheranosticsEngine, CANONICAL_RADIOLIGAND_REGIMENS, analyze_radioligand_regimen
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -132,6 +133,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'trodelvy_trop2_tnbc': 'Trodelvy Sacituzumab Trop-2 hedefli üçlü negatif meme kanseri nedir?',
             'padcev_nectin4_bladder': 'Padcev Enfortumab Vedotin Nectin-4 mesane kanseri tedavisi nedir?',
             'adc_toxicity_ild_neuropathy': 'ADC yan etkileri ILD pnömonit ve periferik nöropati yönetimi nedir?',
+            'pluvicto_psma_mcrpc': '177Lu-PSMA-617 Pluvicto tedavisi nedir?',
+            'lutathera_sstr2_net': 'Lutathera 177Lu-DOTATATE nöroendokrin tümörlerde PRRT tedavisi nedir?',
+            'targeted_alpha_therapy_actinium': 'Hedefe yönelik alfa tedavisi Actinium-225 ve TAT nedir?',
+            'theranostics_pet_paired_imaging': 'Teranostik tıp nedir ve PET eşleştirilmiş tedavi nasıl yapılır?',
+            'rlt_radiation_safety_dosimetry': 'Radyoligand güvenliği MIRD dozimetri ve böbrek koruma nasıl yapılır?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -741,6 +747,67 @@ class TestExhaustivePipeline(unittest.TestCase):
         self.assertEqual(custom_trodelvy['dar'], 6.0)
         self.assertEqual(custom_trodelvy['target_antigen'], 'Trop-2 (Trophoblast cell-surface antigen 2 / TACSTD2)')
         self.assertGreater(custom_trodelvy['payload_delivery_score'], 75.0)
+
+    # =========================================================================
+    # 19. TARGETED RADIOLIGAND THERAPY (RLT) & THERANOSTICS ENGINE
+    # =========================================================================
+    def test_radioligand_canonical_regimens(self):
+        """Verify all 6 canonical theranostic regimens are defined with complete nuclear oncology parameters."""
+        engine = RadioligandTheranosticsEngine()
+        regimens = engine.list_regimens()
+        self.assertEqual(len(regimens), 6)
+        ids = [r['id'] for r in regimens]
+        self.assertIn('LU177_PSMA_617_PLUVICTO', ids)
+        self.assertIn('LU177_DOTATATE_LUTATHERA', ids)
+        self.assertIn('AC225_PSMA_617_ALPHA', ids)
+        self.assertIn('RA223_DICHLORIDE_XOFIGO', ids)
+        self.assertIn('I131_MIBG_AZEDRA', ids)
+        self.assertIn('AC225_DOTATATE_ALPHA_NET', ids)
+
+    def test_theranostics_dosimetry_and_vision_criteria(self):
+        """Verify PET avidity (VISION criteria), MIRD absorbed dosimetry, amino acid nephroprotection, and LET physics."""
+        engine = RadioligandTheranosticsEngine()
+
+        # 1. 177Lu-PSMA-617 (Pluvicto) - VISION Criteria, Beta Low LET, 7.4 GBq
+        pluvicto = engine.evaluate_theranostics_and_dosimetry(
+            'LU177_PSMA_617_PLUVICTO',
+            tumor_suv_max=24.5,
+            liver_suv_mean=6.2,
+            amino_acid_nephroprotection=True
+        )
+        self.assertEqual(pluvicto['target_antigen'], 'Prostate-Specific Membrane Antigen (PSMA / FOLH1)')
+        self.assertEqual(pluvicto['administered_activity_gbq'], 7.4)
+        self.assertGreaterEqual(pluvicto['avidity_ratio'], 1.5)
+        self.assertIn('Optimal Theranostic Candidate', pluvicto['eligibility_status'])
+        self.assertGreater(pluvicto['tumor_absorbed_dose_gy'], 50.0)
+        self.assertLess(pluvicto['cumulative_kidney_dose_gy'], 23.0)  # Within 23 Gy limit
+        self.assertLessEqual(pluvicto['cumulative_marrow_dose_gy'], 2.0)   # Within 2.0 Gy limit
+        self.assertIn('Beta-Minus', pluvicto['radiation_physics_profile'])
+        self.assertIn('VISION', pluvicto['clinical_efficacy'])
+
+        # 2. 225Ac-PSMA-617 (Targeted Alpha Therapy) - High LET, cluster DSBs, severe xerostomia
+        ac_alpha = engine.evaluate_theranostics_and_dosimetry(
+            'AC225_PSMA_617_ALPHA',
+            administered_activity_gbq=0.008,
+            tumor_suv_max=30.0,
+            liver_suv_mean=5.0
+        )
+        self.assertIn('Alpha', ac_alpha['radiation_type'])
+        self.assertIn('High LET', ac_alpha['radiation_physics_profile'])
+        self.assertIn('clustered double-strand DNA breaks', ac_alpha['dna_damage_mechanism'])
+        self.assertGreaterEqual(ac_alpha['salivary_risk_score'], 80.0)
+        self.assertIn('High / Dose-Limiting', ac_alpha['xerostomia_risk'])
+
+        # 3. 177Lu-DOTATATE (Lutathera) - NETTER-1, SSTR2, AA nephroprotection test
+        with_aa = engine.evaluate_theranostics_and_dosimetry('LU177_DOTATATE_LUTATHERA', amino_acid_nephroprotection=True)
+        without_aa = engine.evaluate_theranostics_and_dosimetry('LU177_DOTATATE_LUTATHERA', amino_acid_nephroprotection=False)
+        self.assertLess(with_aa['cumulative_kidney_dose_gy'], without_aa['cumulative_kidney_dose_gy'])
+        self.assertAlmostEqual(with_aa['cumulative_kidney_dose_gy'], round(without_aa['cumulative_kidney_dose_gy'] * 0.55, 1), delta=0.5)
+
+        # 4. Helper convenience function test
+        xofigo = analyze_radioligand_regimen('RA223_DICHLORIDE_XOFIGO')
+        self.assertEqual(xofigo['target_antigen'], 'Bone Hydroxyapatite (Calcium-Mimetic Osteoblastic Targeting)')
+        self.assertIn('ALSYMPCA', xofigo['clinical_efficacy'])
 
 if __name__ == "__main__":
     unittest.main()

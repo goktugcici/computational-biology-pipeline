@@ -1125,7 +1125,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'radioligand_pluvicto_lutathera': {
         'patterns': [
-            r'radyoligand', r'pluvicto', r'lutathera', r'akıllı radyasyon', r'atom tedavisi.*prostat', r'lutesyum'
+            r'radyoligand tedavisi nedir', r'akıllı radyasyon nedir', r'atom tedavisi.*prostat', r'radyoligand nedir'
         ],
         'title': 'Hassas Radyoligand Tedavileri: Pluvicto (Lu-177 PSMA) & Lutathera',
         'answer': (
@@ -1480,6 +1480,72 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
             "   - **Mekanizma:** Mikrotübül taşınmasının aksonlarda inhibisyonu nedeniyle el ve ayaklarda eldiven-çorap tarzı uyuşma, yanma ve güç kaybı.\n"
             "   - **Yönetim:** Evre 2 nöropatide semptomlar hafifleyene kadar doz durdurulur ve ardından doz indirimine gidilir.\n\n"
             "3. **Kemik İliği Baskılanması & İshal (SN-38):** Trodelvy'de mutlak nötrofil sayısı (ANC) takip edilmeli ve G-CSF (filgrastim) desteği planlanmalıdır."
+        )
+    },
+
+    'pluvicto_psma_mcrpc': {
+        'patterns': [
+            r'pluvicto', r'psma-617', r'lutesyum.*psma', r'lu-177.*psma', r'177lu-psma'
+        ],
+        'title': '177Lu-PSMA-617 (Pluvicto) & Prostat Kanserinde Akıllı Radyasyon',
+        'answer': (
+            "🎯 **177Lu-PSMA-617 (Pluvicto) Nedir & Prostat Kanserinde Nasıl Çalışır?**\n\n"
+            "• **Hedef:** Prostat kanseri hücrelerinin yüzeyinde aşırı miktarda üretilen Prostat-Spesifik Membran Antijeni (PSMA / FOLH1).\n"
+            "• **Mekanizma:** PSMA'ya kilitlenen akıllı bir küçük molekül ligandın ucuna Lutesyum-177 (177Lu) radyoizotopu bağlanmıştır. Kanser hücresine girer ve 1-2 mm çapındaki mikroskobik beta ışınlarıyla DNA'yı kırarak tümörü içeriden yakar.\n"
+            "• **VISION Faz 3 Çalışması:** Daha önce hormon (ARPI) ve kemoterapi almış dirençli metastatik prostat kanserinde (mCRPC) genel sağkalımı belirgin şekilde uzatmıştır (15.3 vs 11.3 ay, HR=0.62) ve PSA50 yanıt oranı %46'ya ulaşmıştır.\n"
+            "• **Ön Koşul:** Tedavi öncesinde 68Ga-PSMA PET/CT çekilmeli ve lezyonların karaciğerden daha parlak tutulum gösterdiği (SUVmax > karaciğer) kanıtlanmalıdır."
+        )
+    },
+    'lutathera_sstr2_net': {
+        'patterns': [
+            r'lutathera', r'dotatate', r'prrt', r'lutesyum.*dotatate', r'177lu-dotatate', r'sstr2'
+        ],
+        'title': '177Lu-DOTATATE (Lutathera) & Nöroendokrin Tümörler (GEP-NET)',
+        'answer': (
+            "🧬 **Lutathera (177Lu-DOTATATE) & Peptit Reseptör Radyonüklit Tedavisi (PRRT):**\n\n"
+            "• **Hedef:** Mide-bağırsak ve pankreas nöroendokrin tümörlerinin (GEP-NET) yüzeyindeki Somatostatin Reseptör Tip 2 (SSTR2).\n"
+            "• **Yapı:** Oktreotat peptidi, DOTA şelatörü ile Lutesyum-177'ye bağlanmıştır.\n"
+            "• **NETTER-1 & NETTER-2 Çalışmaları:** İlerlemiş midgut NET'lerde hastalık ilerlemesi veya ölüm riskini **%79 oranında azaltmıştır** (PFS HR=0.21); yüksek dereceli G2/G3 tümörlerde birinci basamakta da üstünlük sağlamıştır.\n"
+            "• **Böbrek Koruması:** Böbrek proksimal tübüllerinde birikimi engellemek için infüzyonla birlikte L-Lizin ve L-Arjinin amino asit solüsyonu verilir."
+        )
+    },
+    'targeted_alpha_therapy_actinium': {
+        'patterns': [
+            r'aktinyum', r'actinium', r'225ac', r'alfa tedavisi', r'targeted alpha', r'tat tedavisi'
+        ],
+        'title': 'Hedefe Yönelik Alfa Tedavisi (TAT: Actinium-225) & Yüksek LET',
+        'answer': (
+            "⚡ **Hedefe Yönelik Alfa Tedavisi (TAT - Targeted Alpha Therapy) ve Actinium-225 (225Ac):**\n\n"
+            "• **Alfa Parçacıklarının Gücü:** Beta ışınlarına (elektron) kıyasla Helyum çekirdeği (alfa) yaklaşık 7.300 kat daha ağırdır ve çok yüksek Doğrusal Enerji Transferine (LET ~100 keV/μm) sahiptir.\n"
+            "• **Hücresel Hassasiyet:** Alfa parçacıklarının dokudaki menzili yalnızca 40-80 mikrometredir (2-4 hücre çapı). Tüm enerjisini bu dar alana bırakarak DNA'da onarılması imkansız 'küme çift zincir kırıkları' (complex clustered DSB) açar.\n"
+            "• **Klinik Devrim:** Lutesyum-177 tedavisine direnç kazanmış veya hipoksik radyo-dirençli metastatik prostat kanserli hastalarda **225Ac-PSMA-617**, hastaların %82'sinde derin PSA düşüşü ve tam radyolojik yanıtlar sağlamaktadır.\n"
+            "• **Tükürük Bezi Koruması:** En kritik yan etki ağız kuruluğudur (kserostomi); tükürük bezlerine lokal buz uygulaması veya botulinum toksini enjeksiyonu ile perfüzyon azaltılır."
+        )
+    },
+    'theranostics_pet_paired_imaging': {
+        'patterns': [
+            r'teranostik', r'theranostics', r'we see what we treat', r'ga-68.*lu-177', r'galyum 68'
+        ],
+        'title': 'Teranostik Tıp (Theranostics) & Eşleştirilmiş Görüntüleme-Tedavi',
+        'answer': (
+            "🔮 **Teranostik (Theranostics - 'Tedavi + Teşhis') Tıp Felsefesi:**\n\n"
+            "• **'Gördüğümüzü Tedavi Ediyoruz, Tedavi Ettiğimizi Görüyoruz' Prensibi:**\n"
+            "   1. **Görüntüleme Fazı (Teşhis):** Aynı hedefleme molekülü pozitron yayan bir izotopla (örn. Galyum-68 veya Flor-18) işaretlenir ve PET/CT çekilir. Tümörün reseptörü taşıyıp taşımadığı ve vücuttaki tam koordinatları milimetrik olarak haritalanır.\n"
+            "   2. **Tedavi Fazı:** Reseptör pozitif hastada aynı molekülün ucuna bu kez öldürücü ışın yayan bir izotop (Lutesyum-177 veya Aktinyum-225) takılarak hastaya damardan verilir.\n"
+            "• **Avantajı:** İlacın tümöre ulaşıp ulaşmayacağı tahmin edilmez; tedavi başlamadan önce PET ekranında bizzat görülür."
+        )
+    },
+    'rlt_radiation_safety_dosimetry': {
+        'patterns': [
+            r'radyoligand güvenliği', r'mird dozimetri', r'böbrek koruma', r'amino asit infüzyonu', r'pluvicto ağız kuruluğu'
+        ],
+        'title': 'Radyoligand Güvenliği, Böbrek Koruma & MIRD Dozimetri',
+        'answer': (
+            "🛡️ **Radyoligand Tedavilerinde Güvenlik Protokolleri & Dozimetri:**\n\n"
+            "1. **MIRD (Medical Internal Radiation Dose) Dozimetrisi:** Tümörün ve kritik organların (Böbrekler, Kemik İliği) soğurduğu toplam radyasyon dozu (Gray - Gy) hesaplanır. Kümülatif böbrek dozunun 23 Gray eşiğini aşmaması hedeflenir.\n"
+            "2. **Amino Asit Nefroproteksiyonu:** Peptitler böbrek proksimal tübüllerindeki megalin/kübilin reseptörlerinden geri emilir. L-Lizin ve L-Arjinin infüzyonu bu reseptörleri rekabetçi olarak doyurarak böbrek radyasyon tutulumunu %40-50 azaltır.\n"
+            "3. **Kemik İliği Güvenliği:** Kırmızı kemik iliği dozu <2 Gy tutulur. Tedavi öncesi hemoglobin, trombosit ve nötrofil sayımları kontrol edilir.\n"
+            "4. **Radyasyon İzolasyonu:** Hastalar infüzyon sonrası bol sıvı tüketerek radyoizotopun atılmasını hızlandırır; ilk birkaç gün yakın temas önlemlerine uyulur."
         )
     },
 

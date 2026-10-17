@@ -170,7 +170,7 @@ console.log('[2/4] Browser environment & DOMContentLoaded initialized successful
 console.log('\n[3/4] RUNNING EXHAUSTIVE VALIDATION ACROSS ALL 16 SECTIONS...');
 
 // 3.1 Tab Navigation
-const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc'];
+const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics'];
 allTabs.forEach(t => sandbox.switchTab(t));
 console.log(`  ✓ All ${allTabs.length} tabs cycled without errors`);
 
@@ -299,6 +299,15 @@ adcConstructs.forEach(c => {
 sandbox.switchTab('adc');
 console.log(`  ✓ Antibody-Drug Conjugates (ADC) studio verified (${adcConstructs.length} canonical constructs, DAR/bystander, ILD/neuropathy)`);
 
+// 3.15 Targeted Radioligand Therapy (RLT) & Theranostics Studio
+const theranosticsRegimens = ['LU177_PSMA_617_PLUVICTO', 'LU177_DOTATATE_LUTATHERA', 'AC225_PSMA_617_ALPHA', 'RA223_DICHLORIDE_XOFIGO', 'I131_MIBG_AZEDRA', 'AC225_DOTATATE_ALPHA_NET'];
+theranosticsRegimens.forEach(r => {
+  sandbox.selectTheranosticsRegimen(r);
+  sandbox.calculateTheranosticsLive();
+});
+sandbox.switchTab('theranostics');
+console.log(`  ✓ Targeted Radioligand Therapy (RLT) studio verified (${theranosticsRegimens.length} canonical regimens, MIRD dosimetry, alpha vs beta LET)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
@@ -363,6 +372,11 @@ const sampleQuestions = [
   'Trodelvy Sacituzumab Trop-2 hedefli üçlü negatif meme kanseri nedir?',
   'Padcev Enfortumab Vedotin Nectin-4 mesane kanseri tedavisi nedir?',
   'ADC yan etkileri ILD pnömonit ve periferik nöropati yönetimi nedir?',
+  '177Lu-PSMA-617 Pluvicto tedavisi nedir?',
+  'Lutathera 177Lu-DOTATATE nöroendokrin tümörlerde PRRT tedavisi nedir?',
+  'Hedefe yönelik alfa tedavisi Actinium-225 ve TAT nedir?',
+  'Teranostik tıp nedir ve PET eşleştirilmiş tedavi nasıl yapılır?',
+  'Radyoligand güvenliği MIRD dozimetri ve böbrek koruma nasıl yapılır?',
   'Merhaba günaydın',
   'Çok teşekkür ederim'
 ];

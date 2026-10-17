@@ -128,6 +128,9 @@
         <button onclick="switchTab('adc')" id="tabBtn-adc" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           🎯 ADC & Linker-Payload
         </button>
+        <button onclick="switchTab('theranostics')" id="tabBtn-theranostics" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          ⚛️ Radyoligand & Teranostik
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -3510,6 +3513,291 @@
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- TAB 25: RADYOLİGAND TEDAVİSİ (RLT) & TERANOSTİK STÜDYOSU -->
+    <!-- ========================================== -->
+    <section id="tab-theranostics" class="tab-content hidden space-y-6">
+      <!-- Başlık ve Tanıtım Paneli -->
+      <div class="bg-gradient-to-r from-amber-950/40 via-slate-900/80 to-purple-950/40 border border-amber-500/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold">
+              <span>⚛️ Hassas Nükleer Onkoloji & Eşleştirilmiş Teranostik Mimarisi</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight">Hedefe Yönelik Radyoligand Tedavisi (RLT) & Teranostik Stüdyosu</h2>
+            <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+              "Gördüğümüzü Tedavi Ediyoruz, Tedavi Ettiğimizi Görüyoruz" ilkesiyle teranostik tıbbı modelleyin:
+              Eşleştirilmiş PET teşhisi (68Ga-PSMA / 68Ga-DOTATATE), MIRD absorbe dozimetrisi, Beta (177Lu) vs. Yüksek LET Alfa (225Ac) parçacık biyofiziği,
+              VISION çalışma kriterleri (SUVmax / Karaciğer SUVmean), L-Lizin/L-Arjinin amino asit nefroproteksiyonu, kümülatif böbrek (23 Gy) ve kemik iliği güvenlik limitleri.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-2 rounded-2xl bg-slate-900/90 border border-slate-700 text-xs text-slate-300 font-mono flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              Pluvicto • Lutathera • 225Ac-TAT • Xofigo • Azedra
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanonik Radyoligand Rejim Seçici Butonları -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+        <button onclick="selectTheranosticsRegimen('LU177_PSMA_617_PLUVICTO')" id="theraBtn-LU177_PSMA_617_PLUVICTO" class="thera-regimen-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">mCRPC / PSMA</span>
+          <h4 class="text-xs font-bold text-white">177Lu-PSMA-617 (Pluvicto)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">Beta- • 7.4 GBq • VISION</span>
+        </button>
+
+        <button onclick="selectTheranosticsRegimen('LU177_DOTATATE_LUTATHERA')" id="theraBtn-LU177_DOTATATE_LUTATHERA" class="thera-regimen-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">GEP-NET / SSTR2</span>
+          <h4 class="text-xs font-bold text-white">177Lu-DOTATATE (Lutathera)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Beta- • PRRT • NETTER-1</span>
+        </button>
+
+        <button onclick="selectTheranosticsRegimen('AC225_PSMA_617_ALPHA')" id="theraBtn-AC225_PSMA_617_ALPHA" class="thera-regimen-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Dirençli mCRPC / TAT</span>
+          <h4 class="text-xs font-bold text-white">225Ac-PSMA-617 (Alfa TAT)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">Alfa • High-LET • Küme DSB</span>
+        </button>
+
+        <button onclick="selectTheranosticsRegimen('RA223_DICHLORIDE_XOFIGO')" id="theraBtn-RA223_DICHLORIDE_XOFIGO" class="thera-regimen-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Kemik Metastazı / Ca-Mimik</span>
+          <h4 class="text-xs font-bold text-white">223Ra-Dichloride (Xofigo)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Alfa • ALSYMPCA • 55 kBq/kg</span>
+        </button>
+
+        <button onclick="selectTheranosticsRegimen('I131_MIBG_AZEDRA')" id="theraBtn-I131_MIBG_AZEDRA" class="thera-regimen-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Feokromositoma / NET</span>
+          <h4 class="text-xs font-bold text-white">131I-Iobenguane (Azedra)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">Beta/Gama • Tiroid Blokajı</span>
+        </button>
+
+        <button onclick="selectTheranosticsRegimen('AC225_DOTATATE_ALPHA_NET')" id="theraBtn-AC225_DOTATATE_ALPHA_NET" class="thera-regimen-btn p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 text-left transition-all space-y-1">
+          <span class="text-[10px] uppercase font-bold text-slate-400 block">Refrakter NET / Alfa</span>
+          <h4 class="text-xs font-bold text-white">225Ac-DOTATATE (Alfa NET)</h4>
+          <span class="inline-block text-[10px] px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">Alfa • SSTR2 Kurtarma</span>
+        </button>
+      </div>
+
+      <!-- Ana Çalışma Izgarası -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: Biyofizik Radronüklid Mimarisi, Teranostik Eşleşme & Kontroller (5 Kolon) -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>🧬 Teranostik Biyofizik Mimarisi</span>
+              </h3>
+              <span id="theraTargetBadge" class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                PSMA (FOLH1)
+              </span>
+            </div>
+
+            <!-- Eşleştirilmiş Teşhis ve Tedavi Kartları -->
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-1">
+                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">Eşleştirilmiş PET Teşhisi</span>
+                <p id="theraDiagnosticPair" class="text-xs font-semibold text-sky-300">68Ga-PSMA-11 PET/CT</p>
+                <span class="text-[10px] text-slate-400 block">"Gördüğümüzü tedavi ediyoruz"</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-1">
+                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold block">Terapötik Radyoizotop</span>
+                <p id="theraRadionuclide" class="text-xs font-semibold text-amber-400">Lutesyum-177 (177Lu)</p>
+                <span id="theraHalfLife" class="text-[10px] text-emerald-400 font-mono block">Yarı Ömür: 6.65 gün</span>
+              </div>
+            </div>
+
+            <!-- Radyasyon Emisyon Tipi ve LET Profili -->
+            <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Radyasyon Emisyon Fiziği</span>
+                <span id="theraRadiationType" class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
+                  Beta- Emitter
+                </span>
+              </div>
+              <div class="border-t border-slate-800/80 pt-2 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] text-slate-500 uppercase block font-bold">Doku Penetrasyonu & LET</span>
+                  <p id="theraPenetrationLet" class="text-xs font-bold text-white">1.5 mm • Low LET (~0.2 keV/μm)</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-slate-500 uppercase block font-bold">Standart Siklus</span>
+                  <span id="theraCycles" class="text-[10px] font-mono text-purple-400">6 Siklus (q6w)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Simülasyon Sürgüleri (Sliders) & Nefroproteksiyon -->
+            <div class="space-y-4 pt-2">
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <label for="slider-thera-activity" class="text-slate-300 font-medium">Uygulanan Radyoaktivite Dozu:</label>
+                  <span id="label-thera-activity" class="font-mono text-amber-400 font-bold">7.40 GBq</span>
+                </div>
+                <input type="range" id="slider-thera-activity" min="0.001" max="25.0" step="0.1" value="7.4" oninput="calculateTheranosticsLive()" class="w-full accent-amber-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
+                <span class="text-[10px] text-slate-500 block mt-0.5">Siklus başına enjekte edilen aktivite (GBq veya MBq cinsinden kalibre edilir).</span>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <label for="slider-thera-tumor-suv" class="text-slate-300 font-medium">Tümör Lezyonu SUVmax (PET Tutulumu):</label>
+                  <span id="label-thera-tumor-suv" class="font-mono text-sky-400 font-bold">24.5</span>
+                </div>
+                <input type="range" id="slider-thera-tumor-suv" min="1.0" max="60.0" step="0.5" value="24.5" oninput="calculateTheranosticsLive()" class="w-full accent-sky-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
+                <span class="text-[10px] text-slate-500 block mt-0.5">68Ga veya 18F PET/CT'de hedef lezyondaki tepe tutulum değeri (SUVmax).</span>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <label for="slider-thera-liver-suv" class="text-slate-300 font-medium">Referans Karaciğer SUVmean (Eşik Zemin):</label>
+                  <span id="label-thera-liver-suv" class="font-mono text-emerald-400 font-bold">6.2</span>
+                </div>
+                <input type="range" id="slider-thera-liver-suv" min="1.0" max="15.0" step="0.2" value="6.2" oninput="calculateTheranosticsLive()" class="w-full accent-emerald-500 bg-slate-800 rounded-lg h-2 cursor-pointer">
+                <span class="text-[10px] text-slate-500 block mt-0.5">VISION kriteri: Lezyon SUVmax > Karaciğer SUVmean (oran >= 1.5) olmalıdır.</span>
+              </div>
+
+              <!-- L-Lizin / L-Arjinin Amino Asit Nefroproteksiyonu Onay Kutusu -->
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                <div class="space-y-0.5">
+                  <span class="text-xs font-bold text-white block">Amino Asit Nefroproteksiyonu (L-Lizin + L-Arjinin)</span>
+                  <span class="text-[10px] text-slate-400 block">Proksimal tübüler geri emilimi bloke ederek böbrek dozunu %45 düşürür.</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="check-thera-amino-acid" checked onchange="calculateTheranosticsLive()" class="sr-only peer">
+                  <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: MIRD Dozimetri Skorları, Organ Güvenliği & Kılavuzlar (7 Kolon) -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- 4 Temel Metrik Kartı (MIRD Dozimetri & VISION) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">PET Avidite Oranı</span>
+              <p id="theraAvidityRatio" class="text-2xl font-black font-mono text-amber-400">3.95x</p>
+              <span id="theraVisionBadge" class="inline-block text-[9px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">VISION Uygun</span>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-thera-avidity" class="bg-amber-500 h-1 rounded-full" style="width: 80%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Tümör Absorbe Doz</span>
+              <p id="theraTumorDose" class="text-2xl font-black font-mono text-purple-400">82.4 Gy</p>
+              <span class="text-[9px] text-slate-500 block">Sitotoksik Çift İplik Kırığı</span>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-thera-tumor-dose" class="bg-purple-500 h-1 rounded-full" style="width: 82%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Kümülatif Böbrek Dozu</span>
+              <p id="theraKidneyDose" class="text-2xl font-black font-mono text-emerald-400">17.6 Gy</p>
+              <span class="text-[9px] text-slate-500 block">Limit: &lt;23.0 Gy</span>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-thera-kidney-dose" class="bg-emerald-500 h-1 rounded-full" style="width: 76%;"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center space-y-1">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Kemik İliği Dozu</span>
+              <p id="theraMarrowDose" class="text-2xl font-black font-mono text-cyan-400">1.20 Gy</p>
+              <span class="text-[9px] text-slate-500 block">Limit: &lt;2.00 Gy</span>
+              <div class="w-full bg-slate-800 rounded-full h-1 mt-1">
+                <div id="bar-thera-marrow-dose" class="bg-cyan-500 h-1 rounded-full" style="width: 60%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biyofizik ve DNA Kırılma Mekanizması Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-purple-400 uppercase tracking-wider flex items-center gap-2">
+                <span>⚡ Radyasyon Biyofiziği & DNA Hasar Mekanizması</span>
+              </h4>
+              <span id="theraPhysicsBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-mono">
+                Beta Crossfire İyonizasyonu
+              </span>
+            </div>
+            <p id="theraPhysicsProfile" class="text-xs text-slate-300 leading-relaxed p-3.5 rounded-2xl bg-slate-950 border border-purple-900/40">
+              <!-- JS ile güncellenir -->
+            </p>
+            <p id="theraDnaDamageDesc" class="text-xs text-slate-400 leading-relaxed px-1">
+              <!-- JS ile güncellenir -->
+            </p>
+          </div>
+
+          <!-- Kritik Organ Güvenliği, Kserostomi & Dozimetri Toleransı Kartı -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                <span>🛡️ Risk Altındaki Kritik Organlar (OAR) & Kserostomi Analizi</span>
+              </h4>
+              <span id="theraSalivaryRiskBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono">
+                Tükürük Bezi: Orta Risk
+              </span>
+            </div>
+
+            <!-- Organ Tolerans Durum Çubukları -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                <div class="flex justify-between text-[11px]">
+                  <span class="text-slate-400">Tükürük Bezi / Ağız Kuruluğu:</span>
+                  <span id="theraSalivaryRiskScore" class="font-mono text-amber-400 font-bold">59.2</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-1.5">
+                  <div id="bar-thera-salivary" class="bg-amber-500 h-1.5 rounded-full" style="width: 59%;"></div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                <div class="flex justify-between text-[11px]">
+                  <span class="text-slate-400">Böbrek Güvenlik Marjı:</span>
+                  <span id="theraKidneyMargin" class="font-mono text-emerald-400 font-bold">+5.4 Gy Güvenli</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-1.5">
+                  <div id="bar-thera-kidney-margin" class="bg-emerald-500 h-1.5 rounded-full" style="width: 85%;"></div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                <div class="flex justify-between text-[11px]">
+                  <span class="text-slate-400">Kemik İliği Toksisitesi:</span>
+                  <span id="theraMarrowRiskStatus" class="font-mono text-cyan-400 font-bold">Tolerans İçinde</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-1.5">
+                  <div id="bar-thera-marrow-margin" class="bg-cyan-500 h-1.5 rounded-full" style="width: 90%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dozimetri & Güvenlik Önlem Protokolü -->
+            <div id="theraSafetyActionBox" class="p-4 rounded-2xl bg-slate-950 border border-amber-900/40 text-xs text-amber-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+
+          <!-- NCCN Kılavuzu & Landmark Faz 3 Klinik Kanıt -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
+            <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-2">
+              <span>📚 NCCN Kılavuzu & Landmark Faz 3 Klinik Çalışma Verisi</span>
+            </h4>
+            <div id="theraClinicalTrialBox" class="p-4 rounded-2xl bg-slate-950 border border-sky-900/40 text-xs text-sky-200/90 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+            <div id="theraNccnGuidelineBox" class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script>
@@ -5751,7 +6039,7 @@
           "• Hastaya özel sentetik mRNA aşısı üretilerek Pembrolizumab ile kombine edilir; nüks riskini %44-49 azaltmaktadır."
       },
       'radioligand_pluvicto_lutathera': {
-        patterns: [/radyoligand/i, /pluvicto/i, /lutathera/i, /akıllı radyasyon/i, /atom tedavisi.*prostat/i, /lutesyum/i],
+        patterns: [/radyoligand tedavisi nedir/i, /akıllı radyasyon nedir/i, /atom tedavisi.*prostat/i, /radyoligand nedir/i],
         title: 'Hassas Radyoligand Tedavileri (Pluvicto & Lutathera)',
         answer: "☢️ **Radyoligand Tedavisi (Teranostik / Akıllı Atom):**\n\n" +
           "• Hedefe yönelik molekül radyoaktif Lutesyum-177 izotopu ile birleştirilerek damardan verilir.\n" +
@@ -5954,6 +6242,51 @@
           "1. **İnterstisyel Akciğer Hastalığı (ILD / Pnömonit - T-DXd):** Hastaların %10-12'sinde görülür. Öksürük ve nefes darlığı yakından izlenir. Evre ≥2 ILD'de ilaç **ömür boyu kesilir** ve derhal sistemik yüksek doz Kortikosteroid (≥1 mg/kg/gün prednizolon) başlanır.\n" +
           "2. **Periferik Nöropati (MMAE - Padcev & Adcetris):** El ve ayaklarda uyuşma; Evre 2'de semptomlar hafifleyene kadar doz durdurulur ve doz azaltılır.\n" +
           "3. **Kemik İliği Baskılanması & İshal (SN-38 - Trodelvy):** ANC takibi ve G-CSF (filgrastim) desteği planlanmalıdır."
+      },
+      'pluvicto_psma_mcrpc': {
+        patterns: [/pluvicto/i, /psma-617/i, /lutesyum.*psma/i, /lu-177.*psma/i, /177lu-psma/i],
+        title: '177Lu-PSMA-617 (Pluvicto) & Prostat Kanserinde Akıllı Radyasyon',
+        answer: "🎯 **177Lu-PSMA-617 (Pluvicto) Nedir & Prostat Kanserinde Nasıl Çalışır?**\n\n" +
+          "• **Hedef:** Prostat kanseri hücrelerinin yüzeyinde aşırı miktarda üretilen Prostat-Spesifik Membran Antijeni (PSMA / FOLH1).\n" +
+          "• **Mekanizma:** PSMA'ya kilitlenen akıllı bir küçük molekül ligandın ucuna Lutesyum-177 (177Lu) radyoizotopu bağlanmıştır. Kanser hücresine girer ve 1-2 mm çapındaki mikroskobik beta ışınlarıyla DNA'yı kırarak tümörü içeriden yakar.\n" +
+          "• **VISION Faz 3 Çalışması:** Daha önce hormon (ARPI) ve kemoterapi almış dirençli metastatik prostat kanserinde (mCRPC) genel sağkalımı belirgin şekilde uzatmıştır (15.3 vs 11.3 ay, HR=0.62) ve PSA50 yanıt oranı %46'ya ulaşmıştır.\n" +
+          "• **Ön Koşul:** Tedavi öncesinde 68Ga-PSMA PET/CT çekilmeli ve lezyonların karaciğerden daha parlak tutulum gösterdiği (SUVmax > karaciğer) kanıtlanmalıdır."
+      },
+      'lutathera_sstr2_net': {
+        patterns: [/lutathera/i, /dotatate/i, /prrt/i, /lutesyum.*dotatate/i, /177lu-dotatate/i, /sstr2/i],
+        title: '177Lu-DOTATATE (Lutathera) & Nöroendokrin Tümörler (GEP-NET)',
+        answer: "🧬 **Lutathera (177Lu-DOTATATE) & Peptit Reseptör Radyonüklit Tedavisi (PRRT):**\n\n" +
+          "• **Hedef:** Mide-bağırsak ve pankreas nöroendokrin tümörlerinin (GEP-NET) yüzeyindeki Somatostatin Reseptör Tip 2 (SSTR2).\n" +
+          "• **Yapı:** Oktreotat peptidi, DOTA şelatörü ile Lutesyum-177'ye bağlanmıştır.\n" +
+          "• **NETTER-1 & NETTER-2 Çalışmaları:** İlerlemiş midgut NET'lerde hastalık ilerlemesi veya ölüm riskini **%79 oranında azaltmıştır** (PFS HR=0.21); yüksek dereceli G2/G3 tümörlerde birinci basamakta da üstünlük sağlamıştır.\n" +
+          "• **Böbrek Koruması:** Böbrek proksimal tübüllerinde birikimi engellemek için infüzyonla birlikte L-Lizin ve L-Arjinin amino asit solüsyonu verilir."
+      },
+      'targeted_alpha_therapy_actinium': {
+        patterns: [/aktinyum/i, /actinium/i, /225ac/i, /alfa tedavisi/i, /targeted alpha/i, /tat tedavisi/i],
+        title: 'Hedefe Yönelik Alfa Tedavisi (TAT: Actinium-225) & Yüksek LET',
+        answer: "⚡ **Hedefe Yönelik Alfa Tedavisi (TAT - Targeted Alpha Therapy) ve Actinium-225 (225Ac):**\n\n" +
+          "• **Alfa Parçacıklarının Gücü:** Beta ışınlarına (elektron) kıyasla Helyum çekirdeği (alfa) yaklaşık 7.300 kat daha ağırdır ve çok yüksek Doğrusal Enerji Transferine (LET ~100 keV/μm) sahiptir.\n" +
+          "• **Hücresel Hassasiyet:** Alfa parçacıklarının dokudaki menzili yalnızca 40-80 mikrometredir (2-4 hücre çapı). Tüm enerjisini bu dar alana bırakarak DNA'da onarılması imkansız 'küme çift zincir kırıkları' (complex clustered DSB) açar.\n" +
+          "• **Klinik Devrim:** Lutesyum-177 tedavisine direnç kazanmış veya hipoksik radyo-dirençli metastatik prostat kanserli hastalarda **225Ac-PSMA-617**, hastaların %82'sinde derin PSA düşüşü ve tam radyolojik yanıtlar sağlamaktadır.\n" +
+          "• **Tükürük Bezi Koruması:** En kritik yan etki ağız kuruluğudur (kserostomi); tükürük bezlerine lokal buz uygulaması veya botulinum toksini enjeksiyonu ile perfüzyon azaltılır."
+      },
+      'theranostics_pet_paired_imaging': {
+        patterns: [/teranostik/i, /theranostics/i, /we see what we treat/i, /ga-68.*lu-177/i, /galyum 68/i],
+        title: 'Teranostik Tıp (Theranostics) & Eşleştirilmiş Görüntüleme-Tedavi',
+        answer: "🔮 **Teranostik (Theranostics - 'Tedavi + Teşhis') Tıp Felsefesi:**\n\n" +
+          "• **'Gördüğümüzü Tedavi Ediyoruz, Tedavi Ettiğimizi Görüyoruz' Prensibi:**\n" +
+          "   1. **Görüntüleme Fazı (Teşhis):** Aynı hedefleme molekülü pozitron yayan bir izotopla (örn. Galyum-68 veya Flor-18) işaretlenir ve PET/CT çekilir. Tümörün reseptörü taşıyıp taşımadığı ve vücuttaki tam koordinatları milimetrik olarak haritalanır.\n" +
+          "   2. **Tedavi Fazı:** Reseptör pozitif hastada aynı molekülün ucuna bu kez öldürücü ışın yayan bir izotop (Lutesyum-177 veya Aktinyum-225) takılarak hastaya damardan verilir.\n" +
+          "• **Avantajı:** İlacın tümöre ulaşıp ulaşmayacağı tahmin edilmez; tedavi başlamadan önce PET ekranında bizzat görülür."
+      },
+      'rlt_radiation_safety_dosimetry': {
+        patterns: [/radyoligand güvenliği/i, /mird dozimetri/i, /böbrek koruma/i, /amino asit infüzyonu/i, /pluvicto ağız kuruluğu/i],
+        title: 'Radyoligand Güvenliği, Böbrek Koruma & MIRD Dozimetri',
+        answer: "🛡️ **Radyoligand Tedavilerinde Güvenlik Protokolleri & Dozimetri:**\n\n" +
+          "1. **MIRD (Medical Internal Radiation Dose) Dozimetrisi:** Tümörün ve kritik organların (Böbrekler, Kemik İliği) soğurduğu toplam radyasyon dozu (Gray - Gy) hesaplanır. Kümülatif böbrek dozunun 23 Gray eşiğini aşmaması hedeflenir.\n" +
+          "2. **Amino Asit Nefroproteksiyonu:** Peptitler böbrek proksimal tübüllerindeki megalin/kübilin reseptörlerinden geri emilir. L-Lizin ve L-Arjinin infüzyonu bu reseptörleri rekabetçi olarak doyurarak böbrek radyasyon tutulumunu %40-50 azaltır.\n" +
+          "3. **Kemik İliği Güvenliği:** Kırmızı kemik iliği dozu <2 Gy tutulur. Tedavi öncesi hemoglobin, trombosit ve nötrofil sayımları kontrol edilir.\n" +
+          "4. **Radyasyon İzolasyonu:** Hastalar infüzyon sonrası bol sıvı tüketerek radyoizotopun atılmasını hızlandırır; ilk birkaç gün yakın temas önlemlerine uyulur."
       },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
@@ -9323,13 +9656,363 @@ uygulanması oy birliği ile uygun bulunmuştur.
       }
     }
 
-    // İlk yüklemede Uzamsal Transkriptomik, Epigenomik, CAR-T & ADC Stüdyolarını hazırla
+    // ==========================================
+    // TAB 25: TARGETED RADIOLIGAND THERAPY (RLT) & THERANOSTICS STUDIO
+    // ==========================================
+    const CANONICAL_RADIOLIGAND_REGIMENS = {
+      'LU177_PSMA_617_PLUVICTO': {
+        id: 'LU177_PSMA_617_PLUVICTO',
+        name: '177Lu-PSMA-617 (Pluvicto)',
+        target: 'PSMA (FOLH1 / Prostat Membran Antijeni)',
+        indication: 'ARPI ve Dosetaksel Sonrası Metastatik mCRPC',
+        diagnosticPair: '68Ga-PSMA-11 veya 18F-DCFPyL (Pylarify) PET/CT',
+        radionuclide: 'Lutesyum-177 (177Lu)',
+        radiationType: 'Beta- Emitter (Elektron)',
+        energyMev: 0.498,
+        penetrationMm: 1.5,
+        letProfile: 'Low LET (~0.2 keV/μm)',
+        halfLife: '6.65 gün',
+        standardActivityGbq: 7.4,
+        cycles: 6,
+        cycleInterval: '6 haftada bir (q6w) x 6 kür',
+        dnaDamage: 'İyonlaştırıcı beta partikülleri ile mikro-çapraz ateş (crossfire effect); tek iplik (SSB) ve orta düzey çift iplik (DSB) DNA kırıkları.',
+        clinicalTrial: 'VISION Faz 3: Genel sağkalımda belirgin uzama (15.3 vs 11.3 ay, HR=0.62), radyolojik PFS avantajı (8.7 vs 3.4 ay, HR=0.40) ve %46 PSA50 yanıtı. PSMAfore: Takzan kemoterapisi öncesi basamakta da üstün rPFS sağlamıştır.',
+        kidneyCoeff: 0.72,
+        marrowCoeff: 0.040,
+        salivaryUptake: 74.0,
+        baseTumorPotency: 88.0,
+        guideline: 'NCCN Kategori 1 Tercih: PSMA-pozitif mCRPC hastalarında standart. Ön koşul: 68Ga/18F PET/CT\'de lezyon tutulumunun karaciğer SUVmean değerini aşması (SUVmax > karaciğer). Kümülatif böbrek dozu 23 Gy altında tutulmalıdır.',
+        safetyProtocol: 'Radyasyon ve Organ Güvenliği: İnfüzyon günü ve ertesi gün bol hidrasyon (>2 L/gün) ile idrarla atılım hızlandırılır. Kserostomi (ağız kuruluğu) için tükürük bezi soğutması (buz jeli) önerilir; her kür öncesi tam kan sayımı ve böbrek fonksiyonları (eGFR) kontrol edilir.'
+      },
+      'LU177_DOTATATE_LUTATHERA': {
+        id: 'LU177_DOTATATE_LUTATHERA',
+        name: '177Lu-DOTATATE (Lutathera)',
+        target: 'Somatostatin Reseptör Tip 2 (SSTR2)',
+        indication: 'İlerlemiş Gastroenteropankreatik Nöroendokrin Tümörler (GEP-NET)',
+        diagnosticPair: '68Ga-DOTATATE (Netspot) veya 64Cu-DOTATATE PET/CT',
+        radionuclide: 'Lutesyum-177 (177Lu)',
+        radiationType: 'Beta- Emitter (Elektron)',
+        energyMev: 0.498,
+        penetrationMm: 1.5,
+        letProfile: 'Low LET (~0.2 keV/μm)',
+        halfLife: '6.65 gün',
+        standardActivityGbq: 7.4,
+        cycles: 4,
+        cycleInterval: '8 haftada bir (q8w) x 4 kür',
+        dnaDamage: 'SSTR2 reseptör aracılı internalizasyon sonrası tümör içi beta ışıması ile apoptoz ve mikrovasküler nekroz indüksiyonu.',
+        clinicalTrial: 'NETTER-1 Faz 3: Progresyon veya ölüm riskinde %79 azalma (PFS HR=0.21, p<0.001 vs yüksek doz oktreotid LAR 60mg). NETTER-2: Yüksek dereceli (G2/G3) GEP-NET\'lerde birinci basamakta üstün PFS (22.8 vs 8.5 ay, HR=0.276).',
+        kidneyCoeff: 0.65,
+        marrowCoeff: 0.038,
+        salivaryUptake: 12.0,
+        baseTumorPotency: 92.0,
+        guideline: 'NCCN Kategori 1 Tercih: İlerleyen SSTR2-pozitif GEP-NET ve bronkopulmoner karsinoidlerde standart. İnfüzyondan 30 dk önce başlanıp 3-4 saat süren L-Lizin ve L-Arjinin amino asit infüzyonu böbrek tübüler toksisitesini önlemek için ZORUNLUDUR.',
+        safetyProtocol: 'Zorunlu Nefroproteksiyon: 2.5% L-Lizin ve 2.5% L-Arjinin karışımı amino asit çözeltisi (1000-2000 mL) verilmeden radyoizotop verilemez; proksimal tübüllerdeki megalin/kübilin reseptörleri doyurularak böbrek tutulumu %45 düşürülür.'
+      },
+      'AC225_PSMA_617_ALPHA': {
+        id: 'AC225_PSMA_617_ALPHA',
+        name: '225Ac-PSMA-617 (Hedefe Yönelik Alfa Tedavisi - TAT)',
+        target: 'PSMA (FOLH1 / Prostat Membran Antijeni)',
+        indication: '177Lu-Dirençli veya Hipoksik Agresif Metastatik Prostat Kanseri',
+        diagnosticPair: '68Ga-PSMA-11 PET/CT',
+        radionuclide: 'Aktinyum-225 (225Ac)',
+        radiationType: 'Alfa (He Çekirdeği) 4\'lü Bozunma Kaskadı',
+        energyMev: 5.8,
+        penetrationMm: 0.08,
+        letProfile: 'Ultra Yüksek LET (~100 keV/μm)',
+        halfLife: '9.92 gün',
+        standardActivityGbq: 0.008,
+        cycles: 3,
+        cycleInterval: '8 haftada bir x 3 kür (~100 kBq/kg)',
+        dnaDamage: 'Yüksek LET alfa parçacıkları 40-80 mikrometre mesafede (2-4 hücre çapı) DNA\'da onarımı imkansız yoğun küme çift zincir kırıkları (clustered DSB) açar; hipoksiden ve p53 direnç durumundan bağımsız öldürür.',
+        clinicalTrial: 'Heidelberg & Würzburg Kohortları: 177Lu-PSMA tedavisine direnç kazanmış terminal hastalarda %82 oranında PSA50 yanıtı ve yaygın kemik/visseral metastazlarda tam radyolojik remisyonlar bildirilmiştir.',
+        kidneyCoeff: 14.5,
+        marrowCoeff: 0.85,
+        salivaryUptake: 96.0,
+        baseTumorPotency: 98.0,
+        guideline: 'Klinik Araştırma / İnsani Kullanım Protokolü: 177Lu-PSMA-617 sonrası progresyon gösteren hastalarda kurtarma tedavisi. Doz sınırlayıcı toksisite kalıcı tükürük bezi nekrozu ve şiddetli kserostomidir.',
+        safetyProtocol: 'Kserostomi Önleme: İnfüzyon sırasında ve sonrasında bilateral tükürük bezlerine buz kompresi uygulanır; bazı merkezlerde perfüzyonu düşürmek için intraglandüler botulinum toksini enjeksiyonu tercih edilir.'
+      },
+      'RA223_DICHLORIDE_XOFIGO': {
+        id: 'RA223_DICHLORIDE_XOFIGO',
+        name: '223Ra-Dichloride (Xofigo)',
+        target: 'Kemik Hidroksiapatiti (Kalsiyum Mimetik Osteoblastik Hedefleme)',
+        indication: 'Semptomatik Kemik Metastazlı, Visseral Metastazı Olmayan mCRPC',
+        diagnosticPair: '99mTc-MDP Kemik Sintigrafisi veya 18F-NaF PET/CT',
+        radionuclide: 'Radyum-223 (223Ra)',
+        radiationType: 'Alfa Partikül Yayıcı',
+        energyMev: 5.78,
+        penetrationMm: 0.10,
+        letProfile: 'Yüksek LET (~80 keV/μm)',
+        halfLife: '11.43 gün',
+        standardActivityGbq: 0.004,
+        cycles: 6,
+        cycleInterval: '4 haftada bir (q4w) x 6 kür (55 kBq/kg)',
+        dnaDamage: 'Kemik turnover hızının yüksek olduğu metastaz odaklarında kalsiyum yerine hidroksiapatit kristallerine yerleşerek mikroçevredeki tümör ve osteoklastları alfa radyasyonuyla tahrip eder.',
+        clinicalTrial: 'ALSYMPCA Faz 3: Genel sağkalımda belirgin uzama (14.9 vs 11.3 ay, HR=0.70, p<0.001) ve ilk semptomatik iskelet olayı (kırık, omurilik basısı) süresinde gecikme (15.6 vs 9.8 ay, HR=0.66).',
+        kidneyCoeff: 0.15,
+        marrowCoeff: 1.10,
+        salivaryUptake: 4.0,
+        baseTumorPotency: 84.0,
+        guideline: 'NCCN Kategori 1: Semptomatik kemik metastazlı ve visseral metastazı bulunmayan CRPC olgularında standart. KONTRENDİKASYON: Kırık riskini katlayarak artırdığı için Abirateron + Prednizon ile kombine KULLANILMAMALIDIR (ERA 223 çalışması).',
+        safetyProtocol: 'Hematolojik Takip: Her doz öncesi mutlak nötrofil (>=1.5 x 10^9/L) ve trombosit (>=100 x 10^9/L) düzeyleri doğrulanmalıdır; osteoblastik tamir sürecinde kemik kırığı riski ortopedik olarak takip edilir.'
+      },
+      'I131_MIBG_AZEDRA': {
+        id: 'I131_MIBG_AZEDRA',
+        name: '131I-Iobenguane (Azedra / Ultra-Yüksek Özgül Aktiviteli MIBG)',
+        target: 'Norepinefrin Taşıyıcısı (NET / SLC6A2)',
+        indication: 'Malign, Cerrahi Olarak Çıkarılamayan Feokromositoma ve Paragangliom',
+        diagnosticPair: '123I-MIBG Sintigrafisi veya 68Ga-DOTATATE PET/CT',
+        radionuclide: 'İyot-131 (131I)',
+        radiationType: 'Beta- ve Gama Yayıcı',
+        energyMev: 0.606,
+        penetrationMm: 2.0,
+        letProfile: 'Low LET (~0.25 keV/μm)',
+        halfLife: '8.02 gün',
+        standardActivityGbq: 18.5,
+        cycles: 2,
+        cycleInterval: '3 ay arayla 2 terapötik infüzyon (500 mCi)',
+        dnaDamage: 'Kromafin granüllerinde NET aracılı yoğun birikimle intrakapsüler beta-ışınlaması ve tümör lizisi.',
+        clinicalTrial: 'Ruhsat Faz 2b Çalışması: Hastaların %25\'inde antihipertansif ilaç gereksiniminde en az 6 ay süren >=%50 kalıcı düşüş sağlanmış; objektif tümör yanıtı veya stabilite %92\'ye ulaşmıştır.',
+        kidneyCoeff: 0.45,
+        marrowCoeff: 0.22,
+        salivaryUptake: 24.0,
+        baseTumorPotency: 80.0,
+        guideline: 'FDA Onaylı Standart: İobenguan taramasında pozitif tutulum gösteren rezeke edilemeyen feokromositoma hastalarında. Tedaviden en az 24 saat önce tiroidi serbest radyoaktif iyottan korumak için potasyum iyodür (SSKI) blokajı ZORUNLUDUR.',
+        safetyProtocol: 'Tiroid ve Kemik İliği Güvenliği: İnorganik potasyum iyodür (SSKI veya Lugol) solüsyonu infüzyondan 24-48 saat önce başlanıp 10 gün sürdürülür. Uzun süreli miyelosupresyon riski nedeniyle otolog kök hücre kriyo-saklaması önerilir.'
+      },
+      'AC225_DOTATATE_ALPHA_NET': {
+        id: 'AC225_DOTATATE_ALPHA_NET',
+        name: '225Ac-DOTATATE (Nöroendokrin Tümörlerde Alfa PRRT)',
+        target: 'Somatostatin Reseptör Tip 2 (SSTR2)',
+        indication: '177Lu-Lutathera Tedavisine Dirençli veya Hızlı İlerleyen NET',
+        diagnosticPair: '68Ga-DOTATATE PET/CT',
+        radionuclide: 'Aktinyum-225 (225Ac)',
+        radiationType: 'Alfa Partikül Kaskadı',
+        energyMev: 5.8,
+        penetrationMm: 0.08,
+        letProfile: 'Ultra Yüksek LET (~100 keV/μm)',
+        halfLife: '9.92 gün',
+        standardActivityGbq: 0.0075,
+        cycles: 3,
+        cycleInterval: '8 haftada bir x 3 kür (~7.5 MBq)',
+        dnaDamage: 'SSTR2 eksprese eden nöroendokrin hücre kümelerinde mikroskobik menzilli alfa bombardment ile somatostatin reseptör regülasyonunu ve radyo-direnci aşan doğrudan DNA çift iplik kırıkları.',
+        clinicalTrial: 'Uluslararası İnsani Kurtarma Çalışmaları: 4 kür 177Lu-DOTATATE sonrası nüks eden ileri evre karsinoid ve pankreas NET olgularında %62.5 objektif yanıt oranı ve klinik semptom kontrolü sağlamıştır.',
+        kidneyCoeff: 12.0,
+        marrowCoeff: 0.70,
+        salivaryUptake: 14.0,
+        baseTumorPotency: 94.0,
+        guideline: 'Gelişmekte Olan Tedavi Protokolü: 177Lu-PRRT refrakter gastroenteropankreatik nöroendokrin tümörlerde umut vadeden kurtarma seçeneği. Amino asit nefroproteksiyonu ve eGFR takibi zorunludur.',
+        safetyProtocol: 'Renal & Hemodinamik İzlem: İnfüzyon boyunca lizin/arjinin solüsyonu uygulanır; karsinoid kriz riskine karşı oktreotid subkutan hazır bulundurulur.'
+      }
+    };
+
+    let activeTheranosticsRegimenId = 'LU177_PSMA_617_PLUVICTO';
+
+    function selectTheranosticsRegimen(rId) {
+      activeTheranosticsRegimenId = rId;
+      const r = CANONICAL_RADIOLIGAND_REGIMENS[rId];
+      if (!r) return;
+
+      document.querySelectorAll('.thera-regimen-btn').forEach(btn => {
+        btn.classList.remove('border-amber-500', 'bg-amber-950/20');
+      });
+      const activeBtn = document.getElementById(`theraBtn-${rId}`);
+      if (activeBtn) activeBtn.classList.add('border-amber-500', 'bg-amber-950/20');
+
+      const targetBadge = document.getElementById('theraTargetBadge');
+      if (targetBadge) targetBadge.innerText = r.target.split(' ')[0];
+
+      const diagPair = document.getElementById('theraDiagnosticPair');
+      if (diagPair) diagPair.innerText = r.diagnosticPair;
+
+      const radionuclide = document.getElementById('theraRadionuclide');
+      if (radionuclide) radionuclide.innerText = r.radionuclide;
+
+      const halfLife = document.getElementById('theraHalfLife');
+      if (halfLife) halfLife.innerText = `Yarı Ömür: ${r.halfLife}`;
+
+      const radType = document.getElementById('theraRadiationType');
+      if (radType) radType.innerText = r.radiationType;
+
+      const penLet = document.getElementById('theraPenetrationLet');
+      if (penLet) penLet.innerText = `${r.penetrationMm} mm • ${r.letProfile}`;
+
+      const cycles = document.getElementById('theraCycles');
+      if (cycles) cycles.innerText = r.cycleInterval;
+
+      const actSlider = document.getElementById('slider-thera-activity');
+      if (actSlider) {
+        actSlider.value = r.standardActivityGbq;
+        if (r.standardActivityGbq < 0.1) {
+          actSlider.step = "0.001";
+          actSlider.max = "0.05";
+        } else {
+          actSlider.step = "0.1";
+          actSlider.max = "25.0";
+        }
+      }
+
+      calculateTheranosticsLive();
+    }
+
+    function calculateTheranosticsLive() {
+      const r = CANONICAL_RADIOLIGAND_REGIMENS[activeTheranosticsRegimenId] || CANONICAL_RADIOLIGAND_REGIMENS['LU177_PSMA_617_PLUVICTO'];
+
+      const actSlider = document.getElementById('slider-thera-activity');
+      const tumorSlider = document.getElementById('slider-thera-tumor-suv');
+      const liverSlider = document.getElementById('slider-thera-liver-suv');
+      const aaCheck = document.getElementById('check-thera-amino-acid');
+
+      const activity = actSlider ? parseFloat(actSlider.value) : r.standardActivityGbq;
+      const tumorSuv = tumorSlider ? parseFloat(tumorSlider.value) : 24.5;
+      const liverSuv = liverSlider ? parseFloat(liverSlider.value) : 6.2;
+      const aaActive = aaCheck ? aaCheck.checked : true;
+
+      if (document.getElementById('label-thera-activity')) {
+        document.getElementById('label-thera-activity').innerText = activity >= 0.1 ? `${activity.toFixed(2)} GBq` : `${(activity * 1000).toFixed(1)} MBq`;
+      }
+      if (document.getElementById('label-thera-tumor-suv')) {
+        document.getElementById('label-thera-tumor-suv').innerText = tumorSuv.toFixed(1);
+      }
+      if (document.getElementById('label-thera-liver-suv')) {
+        document.getElementById('label-thera-liver-suv').innerText = liverSuv.toFixed(1);
+      }
+
+      // 1. PET Avidity Ratio (VISION Trial Criteria)
+      const avidityRatio = Math.round((tumorSuv / Math.max(0.5, liverSuv)) * 100) / 100;
+      const avidityElem = document.getElementById('theraAvidityRatio');
+      if (avidityElem) avidityElem.innerText = `${avidityRatio.toFixed(2)}x`;
+
+      const barAvidity = document.getElementById('bar-thera-avidity');
+      if (barAvidity) barAvidity.style.width = `${Math.min(100, Math.round(avidityRatio * 20))}%`;
+
+      const visionBadge = document.getElementById('theraVisionBadge');
+      if (visionBadge) {
+        if (avidityRatio >= 2.0) {
+          visionBadge.innerText = 'Optimal Aday (>=2.0x)';
+          visionBadge.className = 'inline-block text-[9px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono';
+        } else if (avidityRatio >= 1.5) {
+          visionBadge.innerText = 'VISION Uygun (>=1.5x)';
+          visionBadge.className = 'inline-block text-[9px] px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-mono';
+        } else {
+          visionBadge.innerText = 'Sınırda / Düşük Tutulum (<1.5x)';
+          visionBadge.className = 'inline-block text-[9px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono';
+        }
+      }
+
+      // 2. MIRD Tumor Absorbed Dose
+      const isAlpha = r.radiationType.includes('Alfa');
+      let tumorDose = 0;
+      if (isAlpha) {
+        tumorDose = Math.round(activity * (r.baseTumorPotency * 45.0) * (avidityRatio / 3.0) * 10) / 10;
+      } else {
+        tumorDose = Math.round(activity * (r.baseTumorPotency * 0.08) * (avidityRatio / 2.5) * 10) / 10;
+      }
+      if (document.getElementById('theraTumorDose')) document.getElementById('theraTumorDose').innerText = `${tumorDose.toFixed(1)} Gy`;
+      if (document.getElementById('bar-thera-tumor-dose')) document.getElementById('bar-thera-tumor-dose').style.width = `${Math.min(100, Math.max(5, Math.round(tumorDose)))}%`;
+
+      // 3. MIRD Organ at Risk Absorbed Doses (Kidney & Marrow)
+      const nephroFactor = aaActive ? 0.55 : 1.0;
+      const kidneyDosePerCycle = activity * r.kidneyCoeff * nephroFactor;
+      const cumulativeKidneyDose = Math.round(kidneyDosePerCycle * r.cycles * 10) / 10;
+      const marrowDosePerCycle = activity * r.marrowCoeff;
+      const cumulativeMarrowDose = Math.round(marrowDosePerCycle * r.cycles * 100) / 100;
+
+      if (document.getElementById('theraKidneyDose')) document.getElementById('theraKidneyDose').innerText = `${cumulativeKidneyDose.toFixed(1)} Gy`;
+      if (document.getElementById('bar-thera-kidney-dose')) {
+        const kidneyPercent = Math.min(100, Math.round((cumulativeKidneyDose / 23.0) * 100));
+        document.getElementById('bar-thera-kidney-dose').style.width = `${kidneyPercent}%`;
+      }
+
+      if (document.getElementById('theraMarrowDose')) document.getElementById('theraMarrowDose').innerText = `${cumulativeMarrowDose.toFixed(2)} Gy`;
+      if (document.getElementById('bar-thera-marrow-dose')) {
+        const marrowPercent = Math.min(100, Math.round((cumulativeMarrowDose / 2.0) * 100));
+        document.getElementById('bar-thera-marrow-dose').style.width = `${marrowPercent}%`;
+      }
+
+      // 4. Salivary & Xerostomia Risk
+      const salivaryRiskScore = Math.min(100, Math.max(5, Math.round(r.salivaryUptake * (isAlpha ? 1.2 : 0.8) * 10) / 10));
+      if (document.getElementById('theraSalivaryRiskScore')) document.getElementById('theraSalivaryRiskScore').innerText = salivaryRiskScore.toFixed(1);
+      if (document.getElementById('bar-thera-salivary')) document.getElementById('bar-thera-salivary').style.width = `${Math.round(salivaryRiskScore)}%`;
+
+      const salivaryBadge = document.getElementById('theraSalivaryRiskBadge');
+      if (salivaryBadge) {
+        if (salivaryRiskScore >= 80) {
+          salivaryBadge.innerText = 'Tükürük Bezi: Şiddetli / Doz Sınırlayıcı';
+          salivaryBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono';
+        } else if (salivaryRiskScore >= 40) {
+          salivaryBadge.innerText = 'Tükürük Bezi: Orta / Yönetilebilir';
+          salivaryBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono';
+        } else {
+          salivaryBadge.innerText = 'Tükürük Bezi: Düşük / İhmal Edilebilir';
+          salivaryBadge.className = 'text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono';
+        }
+      }
+
+      // Kidney Safety Margin
+      const kidneyMargin = Math.round((23.0 - cumulativeKidneyDose) * 10) / 10;
+      const kidneyMarginElem = document.getElementById('theraKidneyMargin');
+      if (kidneyMarginElem) {
+        if (kidneyMargin >= 0) {
+          kidneyMarginElem.innerText = `+${kidneyMargin.toFixed(1)} Gy Güvenli`;
+          kidneyMarginElem.className = 'font-mono text-emerald-400 font-bold';
+        } else {
+          kidneyMarginElem.innerText = `${kidneyMargin.toFixed(1)} Gy EŞİK AŞILDI!`;
+          kidneyMarginElem.className = 'font-mono text-rose-400 font-bold animate-pulse';
+        }
+      }
+
+      // Marrow Tolerance
+      const marrowElem = document.getElementById('theraMarrowRiskStatus');
+      if (marrowElem) {
+        if (cumulativeMarrowDose <= 1.5) {
+          marrowElem.innerText = 'Tam Güvenli (<1.5 Gy)';
+          marrowElem.className = 'font-mono text-emerald-400 font-bold';
+        } else if (cumulativeMarrowDose <= 2.0) {
+          marrowElem.innerText = 'Tolerans Sınırında (<2.0 Gy)';
+          marrowElem.className = 'font-mono text-amber-400 font-bold';
+        } else {
+          marrowElem.innerText = 'Miyelosupresyon Riski!';
+          marrowElem.className = 'font-mono text-rose-400 font-bold animate-pulse';
+        }
+      }
+
+      // Physics Profile & DNA Damage
+      const physBadge = document.getElementById('theraPhysicsBadge');
+      if (physBadge) {
+        physBadge.innerText = isAlpha ? 'Targeted Alpha Therapy (TAT) • Yüksek LET' : 'Beta Crossfire İyonizasyonu • Düşük LET';
+        physBadge.className = isAlpha ? 'text-[10px] px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-mono' : 'text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono';
+      }
+
+      const physProfile = document.getElementById('theraPhysicsProfile');
+      if (physProfile) {
+        physProfile.innerText = isAlpha
+          ? `Targeted Alpha Therapy (TAT): Ağır Helyum çekirdeği (Alfa) parçacıkları 40-80 mikrometre mesafede (2-4 hücre çapı) çok yüksek Doğrusal Enerji Transferi (${r.letProfile}) ile tüm kinetik enerjisini boşaltır. Homolog rekombinasyon (HR) onarım yollarını tamamen çökerten onarılmaz küme çift zincir kırıkları (complex clustered DSB) açar; hipoksik hücrelerde de tam etkilidir.`
+          : `Beta-Minus Radyoligand Tedavisi: Düşük LET (${r.letProfile}) elektronları 1.5 - 2.0 mm menzilde çapraz ateş (crossfire effect) yaparak antijen-negatif heterojen komşu tümör hücrelerini de ışınlar. İyonlaştırıcı serbest radikal hasarı ile tek ve çift zincir kırıkları oluşturur.`;
+      }
+
+      const dnaDesc = document.getElementById('theraDnaDamageDesc');
+      if (dnaDesc) dnaDesc.innerText = r.dnaDamage;
+
+      // Boxes
+      const safetyBox = document.getElementById('theraSafetyActionBox');
+      if (safetyBox) safetyBox.innerHTML = `<strong>Klinik Güvenlik Protokolü:</strong> ${r.safetyProtocol}`;
+
+      const trialBox = document.getElementById('theraClinicalTrialBox');
+      if (trialBox) trialBox.innerHTML = `<strong>Landmark Faz 3 Klinik Çalışma Verisi:</strong> ${r.clinicalTrial}`;
+
+      const guideBox = document.getElementById('theraNccnGuidelineBox');
+      if (guideBox) guideBox.innerHTML = `<strong>📋 NCCN & ASCO Klinik Uygulama Kılavuzu:</strong> ${r.guideline}`;
+    }
+
+    // İlk yüklemede Uzamsal Transkriptomik, Epigenomik, CAR-T, ADC & Radyoligand Stüdyolarını hazırla
     try {
       if (typeof document !== 'undefined') {
         selectSpatialScenario('NSCLC_TLS_MATURE');
         selectEpigeneticScenario('GBM_MGMT_METHYLATED');
         selectCartConstruct('CD19_B_ALL_KYMRIAH');
         selectAdcConstruct('HER2_T_DXD_ENHERTU');
+        selectTheranosticsRegimen('LU177_PSMA_617_PLUVICTO');
       }
     } catch(e) {}
   </script>
