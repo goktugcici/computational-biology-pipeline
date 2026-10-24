@@ -38,6 +38,15 @@ from neoantigen_mrna_vaccine import (
     model_lnp_biophysics,
     analyze_neovac_regimen
 )
+from oncolytic_virotherapy import (
+    CANONICAL_OV_CONSTRUCTS,
+    model_oncolytic_viral_kinetics,
+    calculate_icd_biomarker_score,
+    calculate_abscopal_systemic_index,
+    evaluate_neutralizing_antibody_impact,
+    analyze_oncolytic_regimen,
+    OncolyticVirotherapyEngine
+)
 
 class TestExhaustivePipeline(unittest.TestCase):
     @classmethod
@@ -45,6 +54,7 @@ class TestExhaustivePipeline(unittest.TestCase):
         cls.chatbot = DiagnosticChatbot()
         cls.risk_predictor = CancerRiskPredictor()
         cls.aligner = SequenceAligner()
+        cls.ov_engine = OncolyticVirotherapyEngine()
 
     # =========================================================================
     # 1. CHATBOT: ALL 52 KNOWLEDGE TOPICS (100% COVERAGE)
@@ -158,6 +168,11 @@ class TestExhaustivePipeline(unittest.TestCase):
             'mrna_cassette_lnp_formulation': 'Sentetik mRNA kaseti ve LNP SM-102 formülasyonu nasıldır?',
             'lynch_syndrome_frameshift_neoantigen': 'Lynch sendromu Nous-209 frameshift aşısı nedir?',
             'kras_amphiphile_vaccine_amplify': 'ELI-002 amfifil mKRAS aşısı sonuçları nelerdir?',
+            'tvec_imlygic_melanoma': 'T-VEC onkolitik virüs nasıl çalışır?',
+            'delytact_g47delta_glioblastoma': 'DELYTACT glioblastoma tedavisinde onaylı mı?',
+            'pelareorep_reolysin_ras': 'Pelareorep reovirüs ve KRAS ilişkisi nedir?',
+            'immunogenic_cell_death_icd_ov': 'Onkolitik virüslerde immünojenik hücre ölümü ve calreticulin nasıl uyarılır?',
+            'ov_neutralizing_antibodies_abscopal': 'Onkolitik tedavide nötralizan antikorlar ve abskopal etki nedir?',
             'greetings': 'Merhaba günaydın selam',
             'gratitude': 'Çok teşekkür ederim eline sağlık sağol',
             'bot_help': 'Yardım nasıl kullanılır ne sorabilirim?'
@@ -972,6 +987,114 @@ class TestExhaustivePipeline(unittest.TestCase):
         self.assertIn('mrna_cassette', full_analysis)
         self.assertIn('lnp_formulation', full_analysis)
         self.assertGreaterEqual(full_analysis['overall_immunogenicity_potency_score'], 85.0)
+
+    # =========================================================================
+    # 22. ONCOLYTIC VIROTHERAPY & SYNTHETIC IMMUNO-VIROLOGY (OV ENGINE)
+    # =========================================================================
+    def test_oncolytic_virotherapy_constructs_and_kinetics(self):
+        """Verify all 6 canonical OV constructs and ODE kinetic replication simulation."""
+        # 1. Verify 6 canonical constructs
+        self.assertEqual(len(CANONICAL_OV_CONSTRUCTS), 6)
+        expected_ids = [
+            'TVEC_IMLYGIC_MELANOMA',
+            'DELYTACT_G47DELTA_GBM',
+            'PELAREOREP_REOLYSIN_RAS',
+            'CAN2409_HSV_TK_ADENOVIRUS',
+            'CRETOSTIMOGENE_CG0070_BLADDER',
+            'VCN01_HYALURONIDASE_ADENOVIRUS'
+        ]
+        for c_id in expected_ids:
+            self.assertIn(c_id, CANONICAL_OV_CONSTRUCTS)
+            c = CANONICAL_OV_CONSTRUCTS[c_id]
+            self.assertIn('name', c)
+            self.assertIn('burst_size', c)
+            self.assertIn('lysis_cycle_hours', c)
+            self.assertIn('default_dose_pfu', c)
+            self.assertGreaterEqual(c['burst_size'], 0)
+            self.assertGreater(c['default_dose_pfu'], 1.0e6)
+
+        # 2. Test 14-day ODE kinetics for T-VEC
+        kinetics = model_oncolytic_viral_kinetics(
+            initial_tumor_cells=1.0e8,
+            initial_dose_pfu=1.0e8,
+            infectivity_rate=1.0e-9,
+            burst_size=1000,
+            lysis_rate_per_day=1.0,
+            viral_clearance_per_day=0.45,
+            days=14
+        )
+        self.assertGreaterEqual(kinetics['tumor_lysis_percent'], 95.0)
+        self.assertGreater(kinetics['peak_viral_titer_pfu'], 1.0e8)
+        self.assertGreater(len(kinetics['time_history']), 10)
+        self.assertLess(kinetics['nadir_tumor_cells'], 1.0e8)
+
+        # 3. Test ICD Biomarker scoring
+        icd = calculate_icd_biomarker_score(
+            lysis_percent=98.0,
+            virus_family='Herpesviridae (HSV-1)',
+            gmcsf_present=True
+        )
+        self.assertGreaterEqual(icd['calreticulin_translocation_percent'], 70.0)
+        self.assertGreaterEqual(icd['extracellular_atp_uM'], 5.0)
+        self.assertGreaterEqual(icd['hmgb1_release_ng_ml'], 30.0)
+        self.assertGreaterEqual(icd['composite_icd_score'], 80.0)
+
+    def test_oncolytic_virotherapy_nab_and_abscopal_synergy(self):
+        """Verify pre-existing NAb pharmacokinetics, carrier shielding, and abscopal synergy."""
+        # 1. NAb impact: Intratumoral vs Intravenous
+        it_nab = evaluate_neutralizing_antibody_impact(
+            virus_family='HSV-1',
+            pre_existing_nab_percent=70.0,
+            delivery_route='intratumoral',
+            carrier_cell_shielding=False
+        )
+        self.assertGreaterEqual(it_nab['effective_payload_percent'], 75.0)
+
+        # IV without shielding: severe attenuation
+        iv_unshielded = evaluate_neutralizing_antibody_impact(
+            virus_family='Ad5',
+            pre_existing_nab_percent=80.0,
+            delivery_route='intravenous',
+            carrier_cell_shielding=False
+        )
+        self.assertLessEqual(iv_unshielded['effective_payload_percent'], 45.0)
+
+        # IV with carrier shielding: rescued effective dose
+        iv_shielded = evaluate_neutralizing_antibody_impact(
+            virus_family='Ad5',
+            pre_existing_nab_percent=80.0,
+            delivery_route='intravenous',
+            carrier_cell_shielding=True
+        )
+        self.assertGreaterEqual(iv_shielded['effective_payload_percent'], 70.0)
+
+        # 2. Abscopal Systemic Effect with Anti-PD-1 synergy
+        abscopal_mono = calculate_abscopal_systemic_index(
+            local_lysis_score=95.0,
+            icd_score=90.0,
+            delivery_route='intratumoral',
+            anti_pd1_combination=False
+        )
+        abscopal_combo = calculate_abscopal_systemic_index(
+            local_lysis_score=95.0,
+            icd_score=90.0,
+            delivery_route='intratumoral',
+            anti_pd1_combination=True
+        )
+        self.assertGreater(abscopal_combo['abscopal_systemic_index'], abscopal_mono['abscopal_systemic_index'])
+        self.assertIn('Synergy', abscopal_combo['checkpoint_synergy'])
+
+        # 3. Engine Class & Full Regimen Analysis
+        constructs_list = self.ov_engine.list_constructs()
+        self.assertEqual(len(constructs_list), 6)
+        c_tvec = self.ov_engine.get_construct('TVEC_IMLYGIC_MELANOMA')
+        self.assertIsNotNone(c_tvec)
+
+        eval_res = self.ov_engine.evaluate_oncolytic_treatment('TVEC_IMLYGIC_MELANOMA', custom_dose_pfu=1.0e8)
+        self.assertIn('viral_kinetics', eval_res)
+        self.assertIn('icd_biomarkers', eval_res)
+        self.assertIn('abscopal_effect', eval_res)
+        self.assertGreaterEqual(eval_res['overall_therapeutic_score'], 85.0)
 
 if __name__ == "__main__":
     unittest.main()

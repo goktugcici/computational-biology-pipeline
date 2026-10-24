@@ -170,7 +170,7 @@ console.log('[2/4] Browser environment & DOMContentLoaded initialized successful
 console.log('\n[3/4] RUNNING EXHAUSTIVE VALIDATION ACROSS ALL 16 SECTIONS...');
 
 // 3.1 Tab Navigation
-const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific', 'neovac'];
+const allTabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific', 'neovac', 'ov'];
 allTabs.forEach(t => sandbox.switchTab(t));
 console.log(`  ✓ All ${allTabs.length} tabs cycled without errors`);
 
@@ -326,6 +326,15 @@ neovacRegimens.forEach(r => {
 sandbox.switchTab('neovac');
 console.log(`  ✓ Cancer Neoantigen & mRNA Vaccine studio verified (${neovacRegimens.length} canonical regimens, NetMHCpan HLA affinity, mRNA cassette, LNP biophysics)`);
 
+// 3.20 Oncolytic Virotherapy & Synthetic Immuno-Virology Studio (OV Engine)
+const ovConstructs = ['TVEC_IMLYGIC_MELANOMA', 'DELYTACT_G47DELTA_GBM', 'PELAREOREP_REOLYSIN_RAS', 'CAN2409_HSV_TK_ADENOVIRUS', 'CRETOSTIMOGENE_CG0070_BLADDER', 'VCN01_HYALURONIDASE_ADENOVIRUS'];
+ovConstructs.forEach(c => {
+  sandbox.selectOvConstruct(c);
+  sandbox.calculateOvLive();
+});
+sandbox.switchTab('ov');
+console.log(`  ✓ Oncolytic Virotherapy studio verified (${ovConstructs.length} canonical constructs, ODE kinetics, ICD DAMPs, NAb barrier)`);
+
 // ================================================================
 // 4. CHATBOT EXHAUSTIVE TESTING (52 TOPICS + 16 ORGANS + ANAMNESIS)
 // ================================================================
@@ -406,6 +415,11 @@ const sampleQuestions = [
   'Sentetik mRNA kaseti ve LNP SM-102 formülasyonu nasıldır?',
   'Lynch sendromu Nous-209 frameshift aşısı nedir?',
   'ELI-002 amfifil mKRAS aşısı sonuçları nelerdir?',
+  'T-VEC Imlygic onkolitik virüs nasıl çalışır?',
+  'DELYTACT G47delta glioblastoma onayı nedir?',
+  'Pelareorep Reolysin ve Ras mutasyonu ilişkisi nedir?',
+  'Onkolitik immünojenik hücre ölümü ve calreticulin DAMP nedir?',
+  'Onkolitik nötralizan antikorlar ve abskopal etki nedir?',
   'Merhaba günaydın',
   'Çok teşekkür ederim'
 ];

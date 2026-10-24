@@ -137,6 +137,9 @@
         <button onclick="switchTab('neovac')" id="tabBtn-neovac" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
           💉 Neoantijen & mRNA Aşı
         </button>
+        <button onclick="switchTab('ov')" id="tabBtn-ov" class="tab-btn px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">
+          🦠 Onkolitik Viroterapi & Viroloji
+        </button>
         <a href="../reports/executive_summary.html" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all flex items-center gap-1">
           📄 Rapor ↗
         </a>
@@ -4360,6 +4363,294 @@
       </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- TAB 28: ONKOLİTİK VİROTERAPİ & SENTETİK İMMÜNO-VİROLOJİ STÜDYOSU (OV Engine) -->
+    <!-- ========================================== -->
+    <section id="tab-ov" class="tab-content hidden space-y-6">
+      <!-- Üst Başlık & Preset Seçici -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider">
+                Tab 28 • OV Engine Studio
+              </span>
+              <span class="text-xs text-slate-400">Viral ODE Kinetiği • İmmünojenik Hücre Ölümü (ICD) • Sistemik Obskopal Etki • NAb Bariyeri</span>
+            </div>
+            <h2 class="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+              <span>🦠 Onkolitik Viroterapi & Sentetik İmmüno-Viroloji Tasarım Stüdyosu</span>
+            </h2>
+            <p class="text-slate-400 text-xs mt-1 max-w-3xl leading-relaxed">
+              T-VEC (HSV-1), DELYTACT (G47Δ), Pelareorep (Reovirüs), CAN-2409, Cretostimogene (CG0070) ve VCN-01
+              onkolitik viral yapılarını modelleyin; 14 günlük diferansiyel viral replikasyon & lizis kinetiğini,
+              Calreticulin/ATP/HMGB1 immünojenik hücre ölümü (ICD) belirteçlerini, serum nötralizan antikor (NAb) etkisini ve
+              uzak metastazları eriten sistemik obskopal (abscopal) aşı yanıtını simüle edin.
+            </p>
+          </div>
+
+          <!-- Preset Butonları -->
+          <div class="flex flex-wrap items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800">
+            <button onclick="selectOvConstruct('TVEC_IMLYGIC_MELANOMA')" id="btn-ov-TVEC_IMLYGIC_MELANOMA" class="ov-btn px-2.5 py-1 rounded-xl text-xs font-medium bg-emerald-600 text-white shadow transition-all">
+              T-VEC (Melanom)
+            </button>
+            <button onclick="selectOvConstruct('DELYTACT_G47DELTA_GBM')" id="btn-ov-DELYTACT_G47DELTA_GBM" class="ov-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              DELYTACT (Glioblastom)
+            </button>
+            <button onclick="selectOvConstruct('PELAREOREP_REOLYSIN_RAS')" id="btn-ov-PELAREOREP_REOLYSIN_RAS" class="ov-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              Pelareorep (KRAS Reovirüs)
+            </button>
+            <button onclick="selectOvConstruct('CAN2409_HSV_TK_ADENOVIRUS')" id="btn-ov-CAN2409_HSV_TK_ADENOVIRUS" class="ov-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              CAN-2409 (PDAC Prodrug)
+            </button>
+            <button onclick="selectOvConstruct('CRETOSTIMOGENE_CG0070_BLADDER')" id="btn-ov-CRETOSTIMOGENE_CG0070_BLADDER" class="ov-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              Cretostimogene (Mesane)
+            </button>
+            <button onclick="selectOvConstruct('VCN01_HYALURONIDASE_ADENOVIRUS')" id="btn-ov-VCN01_HYALURONIDASE_ADENOVIRUS" class="ov-btn px-2.5 py-1 rounded-xl text-xs font-medium text-slate-300 hover:text-white transition-all">
+              VCN-01 (Stroma Lizisi)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ana Çalışma Izgarası -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sol Panel: Parametreler & Giriş Kontrolleri (4 Kolon) -->
+        <div class="lg:col-span-4 space-y-5">
+          <!-- Viral Yapı & Moleküler Tasarım -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
+            <h3 class="text-sm font-bold text-white flex items-center justify-between">
+              <span class="flex items-center gap-2">🧬 Viral Yapı & Genetik Mimari</span>
+              <span id="ovVirusFamilyBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">HSV-1 (Herpesviridae)</span>
+            </h3>
+
+            <div class="space-y-3 text-xs">
+              <div>
+                <label class="block text-slate-400 mb-1">Onkolitik Virüs & Ticari İsim</label>
+                <div id="ovConstructName" class="font-bold text-slate-200 bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                  Talimogene laherparepvec (T-VEC / Imlygic)
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">Genetik Mühendislik & Modifikasyonlar</label>
+                <div id="ovGenomeEngineering" class="text-[11px] text-slate-300 bg-slate-950 p-2.5 rounded-xl border border-slate-800 leading-relaxed font-mono">
+                  ICP34.5- / ICP47- / GM-CSF+
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-slate-400 mb-1">Hedef Endikasyon</label>
+                  <div id="ovIndicationBadge" class="text-[10px] font-semibold text-sky-300 bg-sky-950/50 p-2 rounded-xl border border-sky-800/40">
+                    Kutanöz Melanom
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">Hücresel Reseptör</label>
+                  <div id="ovReceptorBadge" class="text-[10px] font-mono text-purple-300 bg-purple-950/50 p-2 rounded-xl border border-purple-800/40">
+                    Nectin-1 / HVEM
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- İnteraktif Simülasyon Kontrolleri -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>⚙️ Simülasyon Parametreleri & İmmünolojik Bariyerler</span>
+            </h3>
+
+            <div class="space-y-3.5 text-xs">
+              <div>
+                <label class="block text-slate-400 mb-1">Başlangıç Tümör Yükü (Hücre Sayısı)</label>
+                <select id="ovTumorBurdenInput" onchange="calculateOvLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+                  <option value="10000000">1.0 × 10⁷ Hücre (Küçük / Mikroskopik Nüks)</option>
+                  <option value="100000000" selected>1.0 × 10⁸ Hücre (Standart Palpabl Lezyon ~1 cm³)</option>
+                  <option value="500000000">5.0 × 10⁸ Hücre (Büyük Kitle ~5 cm³)</option>
+                  <option value="1000000000">1.0 × 10⁹ Hücre (Büyük Tümör Yükü / İleri Evre)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">Uygulanan Viral Doz (PFU)</label>
+                <select id="ovViralDoseInput" onchange="calculateOvLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+                  <option value="10000000">1.0 × 10⁷ PFU (Düşük Başlangıç Dozu)</option>
+                  <option value="100000000" selected>1.0 × 10⁸ PFU (T-VEC Standart Doz)</option>
+                  <option value="500000000">5.0 × 10⁸ PFU (Yüksek Titreli Ajan)</option>
+                  <option value="1000000000">1.0 × 10⁹ PFU (Maksimum Tolere Edilen Doz MTD)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">Uygulama Yolu (Delivery Route)</label>
+                <select id="ovDeliveryRouteSelect" onchange="calculateOvLive()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+                  <option value="intratumoral">İntratümoral / Doğrudan Lezyon İçi (Lokal Enjeksiyon)</option>
+                  <option value="intravenous">İntravenöz (Sistemik IV İnfüzyon)</option>
+                  <option value="intravesical">İntravezikal (Mesane Boşluğu Kateter İçi)</option>
+                </select>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-400 mb-1">
+                  <span>Önceden Var Olan NAb Seroprevalansı</span>
+                  <span id="ovNabValue" class="font-mono text-emerald-400">%65</span>
+                </div>
+                <input type="range" id="ovNabSlider" min="0" max="100" value="65" oninput="calculateOvLive()" class="w-full accent-emerald-500">
+                <span class="text-[10px] text-slate-500">Toplumda anti-HSV (%65) veya anti-Ad5 (%75) seropozitifliği</span>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800/80 space-y-2">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="ovCarrierToggle" onchange="calculateOvLive()" class="w-4 h-4 rounded bg-slate-950 border-slate-700 text-emerald-500 focus:ring-0">
+                  <span class="text-xs text-slate-300">🛡️ Taşıyıcı Hücre Kalkanı (Trojan Horse Protection)</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" id="ovAntiPd1Toggle" checked onchange="calculateOvLive()" class="w-4 h-4 rounded bg-slate-950 border-slate-700 text-emerald-500 focus:ring-0">
+                  <span class="text-xs text-slate-300">⚡ Anti-PD-1 (Pembrolizumab) ile İmmün Kontrol Kombinasyonu</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Panel: Sonuçlar, Grafikler ve Biyomühendislik Panoları (8 Kolon) -->
+        <div class="lg:col-span-8 space-y-5">
+          <!-- Üst Özet Skor Kartları -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- 1. Tümör Lizis Oranı -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 space-y-2">
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>14-Günlük Tümör Lizisi</span>
+                <span class="text-emerald-400 text-xs">ODE Kinetik</span>
+              </div>
+              <div id="ovTumorLysisPercent" class="text-3xl font-black font-mono text-emerald-400">%99.8</div>
+              <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                <div id="bar-ov-lysis" class="bg-emerald-500 h-1.5 rounded-full" style="width: 99.8%"></div>
+              </div>
+              <p id="ovKineticsSummary" class="text-[11px] text-slate-400">Peak viral titer: 4.2 × 10⁹ PFU</p>
+            </div>
+
+            <!-- 2. İmmünojenik Hücre Ölümü (ICD) Skoru -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 space-y-2">
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>Kompozit ICD Skoru</span>
+                <span class="text-rose-400 text-xs">DAMP Aktivasyonu</span>
+              </div>
+              <div id="ovCompositeIcdScore" class="text-3xl font-black font-mono text-rose-400">95.0 / 100</div>
+              <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                <div id="bar-ov-icd" class="bg-rose-500 h-1.5 rounded-full" style="width: 95%"></div>
+              </div>
+              <p class="text-[11px] text-slate-400">Calreticulin + ATP + HMGB1 + IFN-β</p>
+            </div>
+
+            <!-- 3. Sistemik Obskopal İndeks -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 space-y-2">
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>Sistemik Obskopal İndeks</span>
+                <span class="text-indigo-400 text-xs">Uzak Yanıt</span>
+              </div>
+              <div id="ovAbscopalIndex" class="text-3xl font-black font-mono text-indigo-400">98.0 / 100</div>
+              <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                <div id="bar-ov-abscopal" class="bg-indigo-500 h-1.5 rounded-full" style="width: 98%"></div>
+              </div>
+              <p id="ovPd1SynergyBonus" class="text-[11px] text-slate-400">+25.0 Anti-PD-1 Sinerjisi</p>
+            </div>
+          </div>
+
+          <!-- ICD Biyobelirteçleri & Detaylı Panel -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
+            <h3 class="text-sm font-bold text-white flex items-center justify-between">
+              <span class="flex items-center gap-2">💥 İmmünojenik Hücre Ölümü (ICD) ve DAMP Sinyal Ağı</span>
+              <span class="text-[10px] text-rose-300 font-mono">In Situ Kanser Aşısı Dönüşümü</span>
+            </h3>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">Calreticulin (CRT)</span>
+                <p id="ovCalreticulinExposure" class="font-mono font-bold text-emerald-400 text-base">%92.0</p>
+                <span class="text-[10px] text-slate-400">Zar translokasyonu (Eat-me)</span>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">Ekstraselüler ATP</span>
+                <p id="ovExtracellularAtp" class="font-mono font-bold text-amber-400 text-base">38.5 µM</p>
+                <span class="text-[10px] text-slate-400">P2RX7 kemotaksis (Find-me)</span>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">HMGB1 Salınımı</span>
+                <p id="ovHmgb1Level" class="font-mono font-bold text-rose-400 text-base">46.0 ng/mL</p>
+                <span class="text-[10px] text-slate-400">TLR4 çapraz antijen sunumu</span>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
+                <span class="text-[10px] text-slate-500 uppercase block">Tip-I İnterferon (IFN-β)</span>
+                <p id="ovType1IfnFold" class="font-mono font-bold text-cyan-400 text-base">18.5x</p>
+                <span class="text-[10px] text-slate-400">cGAS-STING & CXCL10 akışı</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Obskopal Etki & Farmakokinetik NAb Bariyeri -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- NAb İmmünolojik Bariyeri -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+              <h3 class="text-sm font-bold text-white flex items-center justify-between">
+                <span>🛡️ Nötralizan Antikor (NAb) Bariyeri</span>
+                <span id="ovCarrierProtectionStatus" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">Doğrudan İntratümoral</span>
+              </h3>
+              <div class="space-y-2 text-xs">
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Etkili Tümöre Ulaşan Yük:</span>
+                  <span id="ovEffectiveDosePercent" class="font-mono font-bold text-emerald-400">%87.0</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div id="bar-ov-payload" class="bg-emerald-500 h-1.5 rounded-full" style="width: 87%"></div>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Serum Antikor Kaybı:</span>
+                  <span id="ovNeutralizationLoss" class="font-mono text-rose-400">-%13.0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Genel Terapötik Potens & Uzak Kontrol -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+              <h3 class="text-sm font-bold text-white flex items-center justify-between">
+                <span>🎯 Genel Terapötik Potens</span>
+                <span id="ovRecommendationBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">Çok Yüksek Potens</span>
+              </h3>
+              <div class="space-y-2 text-xs">
+                <div class="flex justify-between items-baseline">
+                  <span class="text-slate-400">Kompozit Skor:</span>
+                  <span id="ovOverallTherapeuticScore" class="font-mono font-black text-2xl text-emerald-400">96.8 / 100</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div id="bar-ov-potency" class="bg-emerald-500 h-1.5 rounded-full" style="width: 96.8%"></div>
+                </div>
+                <div class="flex justify-between text-[11px]">
+                  <span class="text-slate-400">Uzak Metastaz Kontrol Oranı:</span>
+                  <span id="ovDistantControlRate" class="font-mono text-indigo-400 font-bold">%78.5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NCCN Kılavuzu & Faz 2/3 Klinik Kanıt Kutuları -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-3">
+            <div id="ovClinicalTrialBox" class="p-4 rounded-2xl bg-slate-950 border border-emerald-900/40 text-xs text-emerald-200/90 leading-relaxed">
+              <!-- JS ile güncellenir -->
+            </div>
+            <div id="ovNccnGuidelineBox" class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-300 leading-relaxed space-y-1">
+              <!-- JS ile güncellenir -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   <script>
     // Tab Değiştirme
     function switchTab(tabId) {
@@ -6585,7 +6876,7 @@
           "• Dirençli metastatik melanomda FDA onayı alan ilk hücresel katı tümör tedavisidir."
       },
       'oncolytic_virus_therapy': {
-        patterns: [/onkolitik virüs/i, /imlygic/i, /t-vec/i, /virüsle kanser tedavisi/i, /kanser virüsü/i],
+        patterns: [/onkolitik virüs nedir/i, /onkolitik viroterapi genel/i, /onkolitik nedir/i, /virüsle kanser tedavisi/i, /kanser virüsü genel/i],
         title: 'Onkolitik Virüs Tedavileri (T-VEC / Imlygic)',
         answer: "🦠 **Onkolitik Virüs İmmünoterapisi (T-VEC):**\n\n" +
           "• Genetik modifiye Herpes virüsü doğrudan tümör içine enjekte edilir.\n" +
@@ -6947,6 +7238,57 @@
           "   - **%84 oranında** dolaşan ctDNA tümör DNA'sında temizlenme veya düşüş,\n" +
           "   - T-hücre yanıtı veren grupta medyan nükssüz sağkalıma ulaşılamamıştır (HR=0.14, p=0.0016)."
       },
+      'tvec_imlygic_melanoma': {
+        patterns: [/t-vec.*onkolitik/i, /onkolitik.*t-vec/i, /t-vec/i, /tvec/i, /imlygic/i, /talimogene/i, /melanom onkolitik/i, /onkolitik hsv/i],
+        title: 'Onkolitik Viroterapi & T-VEC (Talimogene Laherparepvec - Imlygic)',
+        answer: "🦠 **Talimogene Laherparepvec (T-VEC / Imlygic) & Onkolitik HSV-1 Tedavisi:**\n\n" +
+          "• **Genetik Tasarım:** T-VEC, genetiği değiştirilmiş bir Herpes Simplex Tip 1 (HSV-1) virüsüdür. Nörovirülansı önlemek ve replikasyonu sadece PKR yolak defekti olan tümör hücrelerine kısıtlamak için **ICP34.5 geni silinmiştir**. MHC-I antijen sunumunu korumak ve US11 erken ekspresyonu için **ICP47 silinmiştir**. Ayrıca anti-tümör bağışıklığını tetiklemek üzere 2 kopya **insan GM-CSF (CSF2)** geni yerleştirilmiştir.\n" +
+          "• **Endikasyon & Onay:** Cerrahi olarak rezeke edilemeyen evre IIIB-IVM1a kutanöz melanom lezyonlarının lokal tedavisi için FDA ve EMA onaylı ilk onkolitik virüstür.\n" +
+          "• **OPTiM Faz 3 Çalışması (JCO 2015):** T-VEC vs GM-CSF kontrol kolunda: Kalıcı Yanıt Oranı (DRR) **%16.3 vs %2.1** (OR=8.9, p<0.001); Objektif Yanıt Oranı (ORR) **%26.4**; medyan genel sağkalım 23.3 vs 18.9 ay.\n" +
+          "• **Sistemik Obskopal (Abscopal) Etki:** T-VEC doğrudan lezyon içine enjekte edildiğinde yalnızca enjekte edilen tümörü eritmekle kalmaz; salınan neoantijenler ve GM-CSF sayesinde enjekte edilmeyen uzak metastazlarda da gerileme sağlar (in situ aşı etkisi).\n" +
+          "• **NCCN Kılavuz Derecesi:** NCCN Kategori 1 tercih edilen lokal terapi; anti-PD-1 (Pembrolizumab) ile sinerjistik kombinasyonu araştırılmaktadır."
+      },
+      'delytact_g47delta_glioblastoma': {
+        patterns: [/delytact.*glioblastom/i, /glioblastom.*delytact/i, /delytact/i, /g47delta/i, /g47Δ/i, /teserpaturev/i, /glioblastom.*virüs/i, /üçlü mutasyonlu hsv/i],
+        title: 'Üçlü Mutasyonlu Onkolitik HSV-1 (DELYTACT / G47Δ / Teserpaturev)',
+        answer: "🧠 **Teserpaturev (G47Δ / DELYTACT) & Glioblastoma Onkolitik Tedavisi:**\n\n" +
+          "• **Moleküler Mimari:** Tokyo Üniversitesi tarafından geliştirilen dünyanın ilk 3. nesil üçlü mutasyonlu onkolitik HSV-1 virüsüdür. **ICP34.5** ve **ICP47** delesyonuna ek olarak, viral ribonükleotid redüktazı inaktive eden **ICP6 delesyonu** (lacZ eklenmesi) taşır. Bu sayede normal bölünmeyen nöronlarda asla replike olamaz; sadece ribonükleotid redüktazı aşırı yüksek olan çoğalan glioblastoma hücrelerini lizise uğratır.\n" +
+          "• **Faz 2 Klinik Çalışması (Nature Medicine 2022):** Radyoterapi ve temozolomid sonrası nüks veya rezidüel glioblastoma hastalarında stereotaktik tümör içi enjeksiyon ile: **1 yıllık genel sağkalım (1-yr OS) %84.2** olarak gerçekleşmiştir (Tarihsel kontrol kohortunda bu oran yaklaşık %15'tir, p<0.0001).\n" +
+          "• **Ruhsat ve Onay Durumu:** Japonya Sağlık Bakanlığı (PMDA) tarafından primer beyin tümörleri için koşullu tam onay verilmiş dünyadaki ilk onkolitik beyin kanseri ilacıdır.\n" +
+          "• **Etki Mekanizması:** Doğrudan onkolizis + bağışıklık çölü (cold) olan glioblastoma mikroçevresine CD8+ T ve NK lenfosit infiltrasyonu sağlar."
+      },
+      'pelareorep_reolysin_ras': {
+        patterns: [/pelareorep/i, /reolysin/i, /reovirüs.*ras/i, /reovirüs/i, /reovirus/i, /ras mutasyonu virüs/i],
+        title: 'KRAS Yolağı Hedefli Doğal dsRNA Reovirüs Terapisi (Pelareorep / Reolysin)',
+        answer: "🧬 **Pelareorep (Reolysin) & Aktive Ras Yolak Hedefli Reovirüs Terapisi:**\n\n" +
+          "• **Biyolojik Köken:** Pelareorep, patojenik olmayan, zarfsız çift sarmallı RNA (dsRNA) virüsüdür (Reovirus Type 3 Dearing strain). Genetik modifikasyon gerektirmeksizin doğal tropizm gösterir.\n" +
+          "• **Ras Seçiciliği Mekanizması:** Normal hücrelerde virüs hücreye girdiğinde PKR fosforile olarak viral protein sentezini bloke eder. Ancak **aktive Ras (KRAS, NRAS, BRAF) mutasyonu** taşıyan tümör hücrelerinde PKR fosforilasyonu engellenir ve reovirüs kontrolsüzce çoğalarak tümörü içeriden patlatır.\n" +
+          "• **İntravenöz (IV) Sistemik Uygulama:** Çoğu onkolitik virüsün aksine kanda taşınarak metastatik lezyonlara ulaşabilen ve sistemik IV yolla verilebilen nadir ajanlardandır.\n" +
+          "• **BRACELET-1 Faz 2 Çalışması (ASCO 2023):** HR+/HER2- metastatik meme kanserinde pelareorep + paklitaksel + anti-PD-L1 kombinasyonu: Objektif yanıt oranını (ORR) **%13.3'ten %37.5'e (yaklaşık 3 katına)** çıkarmış ve medyan progresyonsuz sağkalımı (PFS) belirgin uzatmıştır.\n" +
+          "• **PDAC ve Kolorektal Kanserler:** KRAS mutant pankreas ve kolon kanserlerinde T-hücresi inflamasini artırıcı kombinasyonlarda Faz 2 aşamasındadır."
+      },
+      'immunogenic_cell_death_icd_ov': {
+        patterns: [/onkolitik.*calreticulin/i, /calreticulin.*onkolitik/i, /immünojenik hücre ölümü/i, /onkolitik icd/i, /calreticulin/i, /hmgb1/i, /damp salınımı/i, /tümör aşısı in situ/i],
+        title: 'Onkolitik Virüs Kaynaklı İmmünojenik Hücre Ölümü (ICD) ve DAMP Sinyal Ağı',
+        answer: "💥 **Onkolitik Virüslerde İmmünojenik Hücre Ölümü (ICD) Biyolojisi:**\n\n" +
+          "Onkolitik viroterapinin temel gücü yalnızca tümörü mekanik olarak parçalaması değil, 'soğuk' tümörleri **in situ aşıya** dönüştüren güçlü bir ICD yanıtı uyarmasıdır.\n\n" +
+          "• **Temel Moleküler DAMP Belirteçleri:**\n" +
+          "   1. **Hücre Yüzeyine Kalretikülin (CRT) Translokasyonu:** Endoplazmik retikulum stresine bağlı olarak hücre zarına çıkan CRT, dendritik hücreler için en güçlü 'BENİ YE (Eat-me)' sinyalidir.\n" +
+          "   2. **Hücre Dışı ATP Salınımı:** Lizis olan hücrelerden dökülen ATP, monosit ve dendritik hücreleri P2RX7 pürinerjik reseptörleri üzerinden tümör yatağına çeken 'BENİ BUL (Find-me)' kemokinidir.\n" +
+          "   3. **HMGB1 (High Mobility Group Box 1) Salınımı:** Nekrotik parçalanmada çekirdekten salınan HMGB1, TLR4 reseptörüne bağlanarak antijen çapraz sunumunu (cross-presentation) maksimuma çıkarır.\n" +
+          "   4. **Tip-I İnterferon (IFN-α/β) & CXCL9/CXCL10 Ekseni:** Viral dsRNA/dsDNA sensörleri (cGAS-STING, RIG-I) sayesinde tümör yatağına yoğun sitotoksik CD8+ T ve NK hücre göçü gerçekleşir."
+      },
+      'ov_neutralizing_antibodies_abscopal': {
+        patterns: [/onkolitik.*abskopal/i, /abskopal.*onkolitik/i, /onkolitik.*nötralizan/i, /abskopal/i, /abscopal/i, /nötralizan antikor/i, /nab viroterapi/i, /taşıyıcı hücre kalkan/i],
+        title: 'Nötralizan Antikorlar (NAb), Taşıyıcı Hücreler ve Obskopal (Abscopal) Yanıt',
+        answer: "🛡️ **Onkolitik Viroterapide İmmünolojik Bariyerler ve Çözümler:**\n\n" +
+          "• **Nötralizan Antikor (NAb) Engeli:** Toplumda HSV-1 (%60-80) ve Adenovirüs Ad5 (%70-90) gibi virüslere karşı önceden var olan antikorlar (NAb), virüsün kanda nötralize edilmesine ve karaciğerde tutulmasına yol açar.\n" +
+          "• **Biyomühendislik Çözümleri:**\n" +
+          "   - **İntratümoral / Doğrudan Lezyon İçi Enjeksiyon:** T-VEC ve G47Δ'da olduğu gibi virüsün doğrudan tümör kütlesine verilmesi sistemik NAb bariyerini aşar.\n" +
+          "   - **Taşıyıcı Hücre Kalkanı (Trojan Horse Carrier Cells):** Mezenkimal kök hücreler veya monositlerin virüsle yüklenerek tümöre ulaştırılması virüsü kandaki NAb'lardan gizler.\n" +
+          "• **Sistemik Obskopal (Abscopal) Yanıt:** Yalnızca tek bir primer lezyonun enjeksiyonu sonrasında, aktive olan CD8+ sitotoksik T hücreleri ve bellek hücreleri kan dolaşımına katılarak enjekte edilmemiş uzak metastazları hedefler.\n" +
+          "• **İmmün Kontrol Noktası İnhibitörleri ile Sinerji:** Onkolitik virüsler tümörde PD-L1 ekspresyonunu artırır ve 'soğuk' mikroçevreyi 'sıcak' T-hücresi zengini ortama çevirir. Bu nedenle anti-PD-1 (Pembrolizumab, Nivolumab) veya anti-CTLA-4 (İpilimumab) ile kombine edildiğinde sinerjistik yanıt oranları gözlenir."
+      },
       'bot_help': {
         patterns: [/sen kimsin/i, /ne yapabilirsin/i, /yardım/i, /komutlar/i, /neler yaparsın/i, /kimsin/i],
         title: 'Bot Hakkında & Kullanım Kılavuzu',
@@ -6968,12 +7310,21 @@
 
     function findMatchingKnowledge(text) {
       const norm = normalizeTurkishText(text);
+      let bestMatch = null;
+      let bestLen = 0;
       for (const [key, item] of Object.entries(JS_OFFLINE_KNOWLEDGE)) {
         for (const p of item.patterns) {
-          if (p.test(norm)) return item;
+          const m = norm.match(p);
+          if (m) {
+            const matchLen = m[0].length;
+            if (matchLen > bestLen) {
+              bestLen = matchLen;
+              bestMatch = item;
+            }
+          }
         }
       }
-      return null;
+      return bestMatch;
     }
 
     function synthesizeClinicalGuidance(text) {
@@ -11286,6 +11637,292 @@ uygulanması oy birliği ile uygun bulunmuştur.
       if (guideBox) guideBox.innerHTML = `<strong>📋 NCCN & ASCO Klinik Kılavuz Değerlendirmesi:</strong> ${r.guideline}`;
     }
 
+    // ================================================================
+    // TAB 28: ONKOLİTİK VİROTERAPİ & SENTETİK İMMÜNO-VİROLOJİ (OV Engine)
+    // ================================================================
+    const CANONICAL_OV_CONSTRUCTS = {
+      'TVEC_IMLYGIC_MELANOMA': {
+        id: 'TVEC_IMLYGIC_MELANOMA',
+        name: 'Talimogene laherparepvec (T-VEC / Imlygic - Amgen)',
+        virusFamily: 'HSV-1 (Herpesviridae)',
+        genomeType: 'dsDNA (~152 kb)',
+        geneticEngineering: 'ICP34.5 Deletion (Nörovirülans zayıflatma, PKR-defektif tümör seçiciliği) + ICP47 Deletion (MHC-I antijen sunumunu koruma & US11 erken ekspresyonu) + İnsan GM-CSF (CSF2) insersiyonu (2 kopya)',
+        tumorIndication: 'Cerrahi Olarak Rezeke Edilemeyen Evre IIIB-IVM1a Kutanöz Melanom',
+        primaryReceptor: 'Nectin-1 (CD111) & HVEM (TNFRSF14)',
+        burstSize: 1000,
+        lysisCycleHours: 24.0,
+        defaultDosePfu: 100000000,
+        defaultTumorBurden: 100000000,
+        deliveryRoute: 'intratumoral',
+        innateIcdPotency: 92.0,
+        gmcsfExpression: true,
+        nabSeroprevalencePercent: 65,
+        clinicalTrial: 'OPTiM Faz 3 Çalışması (JCO 2015): T-VEC vs subkütan GM-CSF kontrol kolunda Kalıcı Yanıt Oranı (DRR) %16.3 vs %2.1 (OR=8.9, p<0.001); Objektif Yanıt Oranı (ORR) %26.4; medyan OS 23.3 vs 18.9 ay; doğrudan enjekte edilmeyen lezyonlarda da sistemik obskopal gerileme kanıtlandı.',
+        guideline: 'NCCN Melanom Kılavuzu: Rezeke edilemeyen lokal/bölgesel nükslerde Kategori 1 Tercih Edilen Lokal Tedavi; Pembrolizumab ile kombine kullanımı araştırılmaktadır (MASTERKEY-265).',
+        baseEfficacy: 93.0
+      },
+      'DELYTACT_G47DELTA_GBM': {
+        id: 'DELYTACT_G47DELTA_GBM',
+        name: 'Teserpaturev / G47Δ (DELYTACT - Daiichi Sankyo)',
+        virusFamily: 'HSV-1 (3. Nesil Üçlü Mutasyon)',
+        genomeType: 'dsDNA (~152 kb)',
+        geneticEngineering: 'ICP34.5 Delesyonu + ICP47 Delesyonu + ICP6 (UL39) İnaktivasyonu (lacZ insersiyonu: Ribonükleotid redüktaz kaybı ile normal bölünmeyen nöronlarda sıfır replikasyon, sadece glioblastomda çoğalma)',
+        tumorIndication: 'Radyoterapi & Temozolomid Sonrası Rezidüel / Nüks Glioblastoma',
+        primaryReceptor: 'Nectin-1 (CD111) & HVEM',
+        burstSize: 850,
+        lysisCycleHours: 26.0,
+        defaultDosePfu: 1000000000,
+        defaultTumorBurden: 100000000,
+        deliveryRoute: 'intratumoral',
+        innateIcdPotency: 95.0,
+        gmcsfExpression: false,
+        nabSeroprevalencePercent: 68,
+        clinicalTrial: 'Tokyo Üniversitesi Faz 2 Klinik Çalışması (Nature Medicine 2022): Stereotaktik intrakraniyal enjeksiyon ile 1 yıllık genel sağkalım (1-yr OS) %84.2 olarak bildirilmiştir (Tarihsel kontrol kohortunda %15, p<0.0001).',
+        guideline: 'Japonya PMDA Koşullu ve Zaman Sınırlı Onay (2021): Dünyada primer beyin tümörleri için ruhsatlandırılmış ilk onkolitik virüs ilacıdır.',
+        baseEfficacy: 95.0
+      },
+      'PELAREOREP_REOLYSIN_RAS': {
+        id: 'PELAREOREP_REOLYSIN_RAS',
+        name: 'Pelareorep (Reolysin - Oncolytics Biotech)',
+        virusFamily: 'Reoviridae (dsRNA)',
+        genomeType: 'Segmentsiz Çift Sarmallı RNA',
+        geneticEngineering: 'Doğal İnsan Reovirüsü (Type 3 Dearing): Genetik modifikasyon içermez; aktif Ras yolağı (KRAS/NRAS/BRAF mutasyonu) olan hücrelerde PKR fosforilasyonunun blokajından yararlanarak seçici çoğalır',
+        tumorIndication: 'HR+/HER2- Metastatik Meme Kanseri & KRAS-Mutant Pankreas (PDAC)',
+        primaryReceptor: 'Junctional Adhesion Molecule-A (JAM-A) & Sialik Asit',
+        burstSize: 1200,
+        lysisCycleHours: 18.0,
+        defaultDosePfu: 450000000,
+        defaultTumorBurden: 100000000,
+        deliveryRoute: 'intravenous',
+        innateIcdPotency: 88.0,
+        gmcsfExpression: false,
+        nabSeroprevalencePercent: 55,
+        clinicalTrial: "BRACELET-1 Faz 2 Çalışması (ASCO 2023): Pelareorep + Paklitaksel + anti-PD-L1 kombinasyonu objektif yanıt oranını (ORR) %13.3'ten %37.5'e yükseltmiş ve medyan PFS'i belirgin uzatmıştır.",
+        guideline: 'FDA Fast Track & Orphan Drug Unvanı: İleri evre meme ve pankreas duktal adenokarsinomu için kemo-immünoterapi kombinasyonlarında Faz 3 yolundadır.',
+        baseEfficacy: 89.0
+      },
+      'CAN2409_HSV_TK_ADENOVIRUS': {
+        id: 'CAN2409_HSV_TK_ADENOVIRUS',
+        name: 'CAN-2409 (Aglatimagene besadenovec - Candel Therapeutics)',
+        virusFamily: 'Adenoviridae (Ad5 Replikasyon Defektif)',
+        genomeType: 'dsDNA (~36 kb)',
+        geneticEngineering: 'Replikasyon defektif Ad5 vektörü içine klonlanmış HSV-1 Timidin Kinaz (HSV-tk) geni + Oral Valasiklovir ön-ilaç (prodrug) kombinasyonu (İntraselüler GCV-trifosfat ile DNA zincir sonlandırma & tümör intiharı)',
+        tumorIndication: 'Borderline Rezeke Edilebilir / Lokal İleri Pankreas Duktal Adenokarsinomu (PDAC)',
+        primaryReceptor: 'Coxsackievirus and Adenovirus Receptor (CAR)',
+        burstSize: 500,
+        lysisCycleHours: 36.0,
+        defaultDosePfu: 1000000000,
+        defaultTumorBurden: 100000000,
+        deliveryRoute: 'intratumoral',
+        innateIcdPotency: 90.0,
+        gmcsfExpression: false,
+        nabSeroprevalencePercent: 78,
+        clinicalTrial: "ASCO 2024 Faz 2 Çalışması: Standart kemoradyoterapiye CAN-2409 + valasiklovir eklenmesi 24 aylık genel sağkalımı %57.1'e çıkarmıştır (Kontrol kolunda %22.2; Ölüm riski tehlike oranı HR=0.42).",
+        guideline: 'FDA Fast Track & Yetim İlaç: Pankreas kanserinde mikroçevreyi CD8+ T hücreleri lehine infiltre eden yenilikçi gen-aracılı immünoterapi (GMCI).',
+        baseEfficacy: 91.0
+      },
+      'CRETOSTIMOGENE_CG0070_BLADDER': {
+        id: 'CRETOSTIMOGENE_CG0070_BLADDER',
+        name: 'Cretostimogene grenadavirec (CG0070 - CG Oncology)',
+        virusFamily: 'Adenoviridae (Ad5 Kondisyonel Replikatif)',
+        genomeType: 'dsDNA (~36 kb)',
+        geneticEngineering: 'İnsan E2F-1 promötörü kontrolünde E1A viral geni (Rb yolağı defektif mesane kanserinde seçici replikasyon) + İnsan GM-CSF cDNA insersiyonu (Lokal bağışıklık uyarımı)',
+        tumorIndication: 'BCG-Tedavisine Yanıtsız Karsinoma İn Situ (CIS) Non-Kas İnvaziv Mesane Kanseri (NMIBC)',
+        primaryReceptor: 'CAR & αv İntegrinler',
+        burstSize: 950,
+        lysisCycleHours: 28.0,
+        defaultDosePfu: 1000000000,
+        defaultTumorBurden: 100000000,
+        deliveryRoute: 'intravesical',
+        innateIcdPotency: 94.0,
+        gmcsfExpression: true,
+        nabSeroprevalencePercent: 40,
+        clinicalTrial: 'BOND-003 Faz 3 Çalışması (SUO 2023 / AUA 2024): BCG yanıtsız yüksek riskli NMIBC hastalarında herhangi bir zamanda Tam Yanıt (Complete Response - CR) oranı %75.7 olarak gerçekleşmiştir.',
+        guideline: 'FDA Breakthrough Therapy & Fast Track Unvanı: Radikal sistektomiye (mesanenin alınması) alternatif cerrahisiz organ koruyucu viroterapi.',
+        baseEfficacy: 94.0
+      },
+      'VCN01_HYALURONIDASE_ADENOVIRUS': {
+        id: 'VCN01_HYALURONIDASE_ADENOVIRUS',
+        name: 'VCN-01 (Theriva Biologics)',
+        virusFamily: 'Adenoviridae (Ad5 Retargeted RGDK)',
+        genomeType: 'dsDNA (~36 kb)',
+        geneticEngineering: 'E2F promötör kontrollü E1A + Fiber mili içerisine integrin hedefli RGDK motifi eklenmesi + Viral majör geç promötör kontrolünde insan PH20 Hyaluronidaz geni (Desmoplastik tümör stromasını eritir)',
+        tumorIndication: 'Metastatik Pankreas Kanseri (PDAC) & Baş-Boyun Skuamöz Karsinomu',
+        primaryReceptor: 'αvβ3 / αvβ5 İntegrinler (RGDK Tropizmi) & Heparan Sülfat Proteoglikanlar',
+        burstSize: 800,
+        lysisCycleHours: 30.0,
+        defaultDosePfu: 1000000000,
+        defaultTumorBurden: 100000000,
+        deliveryRoute: 'intravenous',
+        innateIcdPotency: 91.0,
+        gmcsfExpression: false,
+        nabSeroprevalencePercent: 75,
+        clinicalTrial: 'VIRAGE Faz 2b Çok Merkezli Çalışması: Gemcitabine/Nab-paclitaxel ile kombine VCN-01 sistemik IV uygulaması, yoğun hyaluronan matriksini parçalayarak kemoterapötik ve CTL penetrasyonunu 3-5 kat artırmıştır.',
+        guideline: 'FDA Orphan Drug Unvanı: Pankreas kanserindeki aşırı interstisyel sıvı basıncını düşüren ilk stroma-parçalayıcı onkolitik virüs adayı.',
+        baseEfficacy: 92.0
+      }
+    };
+
+    let activeOvConstructId = 'TVEC_IMLYGIC_MELANOMA';
+
+    function selectOvConstruct(cId) {
+      activeOvConstructId = cId;
+      document.querySelectorAll('.ov-btn').forEach(btn => {
+        btn.classList.remove('bg-emerald-600', 'text-white', 'shadow');
+        btn.classList.add('text-slate-300');
+      });
+      const activeBtn = document.getElementById(`btn-ov-${cId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow');
+        activeBtn.classList.remove('text-slate-300');
+      }
+
+      const c = CANONICAL_OV_CONSTRUCTS[cId];
+      if (!c) return;
+
+      if (document.getElementById('ovConstructName')) document.getElementById('ovConstructName').innerText = c.name;
+      if (document.getElementById('ovVirusFamilyBadge')) document.getElementById('ovVirusFamilyBadge').innerText = c.virusFamily;
+      if (document.getElementById('ovGenomeEngineering')) document.getElementById('ovGenomeEngineering').innerText = c.geneticEngineering;
+      if (document.getElementById('ovIndicationBadge')) document.getElementById('ovIndicationBadge').innerText = c.tumorIndication;
+      if (document.getElementById('ovReceptorBadge')) document.getElementById('ovReceptorBadge').innerText = c.primaryReceptor;
+
+      if (document.getElementById('ovTumorBurdenInput')) document.getElementById('ovTumorBurdenInput').value = c.defaultTumorBurden.toString();
+      if (document.getElementById('ovViralDoseInput')) document.getElementById('ovViralDoseInput').value = c.defaultDosePfu.toString();
+      if (document.getElementById('ovDeliveryRouteSelect')) document.getElementById('ovDeliveryRouteSelect').value = c.deliveryRoute;
+
+      if (document.getElementById('ovNabSlider')) document.getElementById('ovNabSlider').value = c.nabSeroprevalencePercent;
+      if (document.getElementById('ovNabValue')) document.getElementById('ovNabValue').innerText = `%${c.nabSeroprevalencePercent}`;
+
+      calculateOvLive();
+    }
+
+    function calculateOvLive() {
+      const c = CANONICAL_OV_CONSTRUCTS[activeOvConstructId] || CANONICAL_OV_CONSTRUCTS['TVEC_IMLYGIC_MELANOMA'];
+
+      const tumorBurden = parseFloat(document.getElementById('ovTumorBurdenInput') ? document.getElementById('ovTumorBurdenInput').value : 100000000) || 100000000;
+      const viralDose = parseFloat(document.getElementById('ovViralDoseInput') ? document.getElementById('ovViralDoseInput').value : 100000000) || 100000000;
+      const deliveryRoute = document.getElementById('ovDeliveryRouteSelect') ? document.getElementById('ovDeliveryRouteSelect').value : c.deliveryRoute;
+
+      const nabPct = parseInt(document.getElementById('ovNabSlider') ? document.getElementById('ovNabSlider').value : c.nabSeroprevalencePercent) || c.nabSeroprevalencePercent;
+      if (document.getElementById('ovNabValue')) document.getElementById('ovNabValue').innerText = `%${nabPct}`;
+
+      const carrierShielding = document.getElementById('ovCarrierToggle') ? document.getElementById('ovCarrierToggle').checked : false;
+      const antiPd1Combo = document.getElementById('ovAntiPd1Toggle') ? document.getElementById('ovAntiPd1Toggle').checked : true;
+
+      // 1. NAb impact
+      let effectivePayloadPct = 100.0;
+      if (deliveryRoute === 'intratumoral' || deliveryRoute === 'intravesical') {
+        effectivePayloadPct = Math.min(98.0, Math.max(70.0, 100.0 - (nabPct * 0.18) + (carrierShielding ? 6.0 : 0.0)));
+      } else {
+        if (carrierShielding) {
+          effectivePayloadPct = Math.min(88.0, Math.max(50.0, 100.0 - (nabPct * 0.35)));
+        } else {
+          effectivePayloadPct = Math.max(12.0, 100.0 - (nabPct * 0.88));
+        }
+      }
+      effectivePayloadPct = Math.round(effectivePayloadPct * 10) / 10;
+      const lossPct = Math.round((100.0 - effectivePayloadPct) * 10) / 10;
+
+      if (document.getElementById('ovEffectiveDosePercent')) document.getElementById('ovEffectiveDosePercent').innerText = `%${effectivePayloadPct.toFixed(1)}`;
+      if (document.getElementById('bar-ov-payload')) document.getElementById('bar-ov-payload').style.width = `${Math.min(100, Math.round(effectivePayloadPct))}%`;
+      if (document.getElementById('ovNeutralizationLoss')) document.getElementById('ovNeutralizationLoss').innerText = `-%${lossPct.toFixed(1)}`;
+
+      const carrierStatus = document.getElementById('ovCarrierProtectionStatus');
+      if (carrierStatus) {
+        if (carrierShielding) {
+          carrierStatus.innerText = 'Kalkan Aktif (Trojan Horse MSC)';
+          carrierStatus.className = 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono';
+        } else if (deliveryRoute === 'intratumoral') {
+          carrierStatus.innerText = 'Doğrudan İntratümoral Enjeksiyon';
+          carrierStatus.className = 'text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono';
+        } else {
+          carrierStatus.innerText = 'Serbest IV (Serum NAb Riski)';
+          carrierStatus.className = 'text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono';
+        }
+      }
+
+      // 2. Kinetic Simulation (ODE)
+      const effectiveDose = viralDose * (effectivePayloadPct / 100.0);
+      let U = tumorBurden;
+      let I = 0.0;
+      let V = effectiveDose;
+      let peakV = V;
+      const beta = 1.0e-9;
+      const burst = c.burstSize;
+      const lysisRate = 24.0 / Math.max(8.0, c.lysisCycleHours);
+      const clearance = 0.45;
+
+      for (let day = 1; day <= 14; day++) {
+        const dInew = Math.min(U, beta * U * V);
+        U = Math.max(0.0, U - dInew);
+        const Ilys = I * (1.0 - Math.exp(-lysisRate));
+        I = Math.max(0.0, I + dInew - Ilys);
+        V = Math.max(0.0, V - dInew + (Ilys * burst) - (clearance * V));
+        if (V > peakV) peakV = V;
+      }
+
+      const lysisPct = Math.round(Math.min(100.0, Math.max(5.0, ((tumorBurden - U) / tumorBurden) * 100.0)) * 10) / 10;
+      const peakExp = Math.floor(Math.log10(Math.max(1.0, peakV)));
+      const peakBase = (peakV / Math.pow(10, peakExp)).toFixed(1);
+
+      if (document.getElementById('ovTumorLysisPercent')) document.getElementById('ovTumorLysisPercent').innerText = `%${lysisPct.toFixed(1)}`;
+      if (document.getElementById('bar-ov-lysis')) document.getElementById('bar-ov-lysis').style.width = `${Math.min(100, Math.round(lysisPct))}%`;
+      if (document.getElementById('ovKineticsSummary')) document.getElementById('ovKineticsSummary').innerText = `Zirve virion titresi: ${peakBase} × 10^${peakExp} PFU`;
+
+      // 3. ICD Biomarkers
+      const crtExposure = Math.min(99.0, Math.round((30.0 + (lysisPct * 0.58) + (c.gmcsfExpression ? 8.0 : 0.0)) * 10) / 10);
+      const extracellularAtp = Math.round((5.0 + (lysisPct * 0.35)) * 10) / 10;
+      const hmgb1Level = Math.round((8.0 + (lysisPct * 0.40)) * 10) / 10;
+      const ifnFold = Math.round((2.0 + (lysisPct * 0.16) + (c.gmcsfExpression ? 4.0 : 0.0)) * 10) / 10;
+
+      const compositeIcd = Math.min(99.0, Math.round((0.35 * crtExposure + 0.25 * Math.min(100.0, (extracellularAtp / 40.0) * 100.0) + 0.20 * Math.min(100.0, (hmgb1Level / 48.0) * 100.0) + 0.20 * Math.min(100.0, (ifnFold / 22.0) * 100.0)) * 10) / 10);
+
+      if (document.getElementById('ovCompositeIcdScore')) document.getElementById('ovCompositeIcdScore').innerText = `${compositeIcd.toFixed(1)} / 100`;
+      if (document.getElementById('bar-ov-icd')) document.getElementById('bar-ov-icd').style.width = `${Math.min(100, Math.round(compositeIcd))}%`;
+      if (document.getElementById('ovCalreticulinExposure')) document.getElementById('ovCalreticulinExposure').innerText = `%${crtExposure.toFixed(1)}`;
+      if (document.getElementById('ovExtracellularAtp')) document.getElementById('ovExtracellularAtp').innerText = `${extracellularAtp.toFixed(1)} µM`;
+      if (document.getElementById('ovHmgb1Level')) document.getElementById('ovHmgb1Level').innerText = `${hmgb1Level.toFixed(1)} ng/mL`;
+      if (document.getElementById('ovType1IfnFold')) document.getElementById('ovType1IfnFold').innerText = `${ifnFold.toFixed(1)}x`;
+
+      // 4. Abscopal Effect
+      let baseAbscopal = 0.50 * lysisPct + 0.50 * compositeIcd;
+      if (antiPd1Combo) baseAbscopal += 25.0;
+      const abscopalIndex = Math.min(99.0, Math.max(10.0, Math.round(baseAbscopal * 10) / 10));
+      const distantControlRate = Math.min(94.0, Math.round((abscopalIndex * 0.80) * 10) / 10);
+
+      if (document.getElementById('ovAbscopalIndex')) document.getElementById('ovAbscopalIndex').innerText = `${abscopalIndex.toFixed(1)} / 100`;
+      if (document.getElementById('bar-ov-abscopal')) document.getElementById('bar-ov-abscopal').style.width = `${Math.min(100, Math.round(abscopalIndex))}%`;
+      if (document.getElementById('ovPd1SynergyBonus')) document.getElementById('ovPd1SynergyBonus').innerText = antiPd1Combo ? '+25.0 Anti-PD-1 Sinerjisi' : 'Monoterapi (Sinerji Yok)';
+      if (document.getElementById('ovDistantControlRate')) document.getElementById('ovDistantControlRate').innerText = `%${distantControlRate.toFixed(1)}`;
+
+      // 5. Overall Therapeutic Potency Score
+      const overallPotency = Math.min(99.2, Math.max(25.0, Math.round((0.30 * lysisPct + 0.25 * compositeIcd + 0.25 * abscopalIndex + 0.20 * c.baseEfficacy) * 10) / 10));
+
+      if (document.getElementById('ovOverallTherapeuticScore')) document.getElementById('ovOverallTherapeuticScore').innerText = `${overallPotency.toFixed(1)} / 100`;
+      if (document.getElementById('bar-ov-potency')) document.getElementById('bar-ov-potency').style.width = `${Math.min(100, Math.round(overallPotency))}%`;
+
+      const badge = document.getElementById('ovRecommendationBadge');
+      if (badge) {
+        if (overallPotency >= 85.0) {
+          badge.innerText = 'Çok Yüksek Potens • Güçlü Obskopal Yanıt';
+          badge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono';
+        } else if (overallPotency >= 65.0) {
+          badge.innerText = 'Orta / Yüksek Potens • Kombinasyon Önerilir';
+          badge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono';
+        } else {
+          badge.innerText = 'Sınırlı Etkinlik • NAb Kaybı Yüksek';
+          badge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono';
+        }
+      }
+
+      // 6. Clinical Trial & Guideline Boxes
+      const trialBox = document.getElementById('ovClinicalTrialBox');
+      if (trialBox) trialBox.innerHTML = `<strong>Klinik Kanıt (Landmark Trial):</strong> ${c.clinicalTrial}`;
+
+      const guideBox = document.getElementById('ovNccnGuidelineBox');
+      if (guideBox) guideBox.innerHTML = `<strong>📋 Kılavuz & Ruhsat Statüsü:</strong> ${c.guideline}`;
+    }
+
     // İlk yüklemede Uzamsal Transkriptomik, Epigenomik, CAR-T, ADC, Radyoligand, Bispesifik & NeoVac Stüdyolarını hazırla
     try {
       if (typeof document !== 'undefined') {
@@ -11296,6 +11933,7 @@ uygulanması oy birliği ile uygun bulunmuştur.
         selectTheranosticsRegimen('LU177_PSMA_617_PLUVICTO');
         selectBispecificConstruct('BLINATUMOMAB_BLINCYTO');
         selectNeoVacRegimen('MRNA_4157_V940_MELANOMA');
+        selectOvConstruct('TVEC_IMLYGIC_MELANOMA');
       }
     } catch(e) {}
   </script>

@@ -143,8 +143,8 @@ console.log('\n=== [3/3] VERIFYING ALL 16 TABS & MODULES ===');
 if (mockWindow.domLoaded) mockWindow.domLoaded();
 console.log('✓ DOMContentLoaded initialized');
 
-// 27 Tabs
-const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific', 'neovac'];
+// 28 Tabs
+const tabs = ['3d', 'survival', 'liquidbiopsy', 'cancerrisk', 'chatbot', 'database', 'pgx', 'oncology', 'synergy', 'immuno', 'alphafold', 'ppi', 'align', 'screening', 'variants', 'pharma', 'mtb', 'pathways', 'timeresistance', 'signatures', 'spatial', 'epigenetics', 'cart', 'adc', 'theranostics', 'bispecific', 'neovac', 'ov'];
 tabs.forEach(t => sandbox.switchTab(t));
 console.log(`✓ switchTab validated for all ${tabs.length} tabs`);
 
@@ -310,6 +310,14 @@ console.log('✓ Bispecific Antibodies & T-Cell Engagers (BiTE) Studio (6 canoni
 });
 sandbox.switchTab('neovac');
 console.log('✓ Cancer Neoantigen & mRNA Vaccine Design Studio (6 canonical regimens, NetMHCpan HLA affinity, mRNA cassette, LNP biophysics) validated');
+
+// Oncolytic Virotherapy & Synthetic Immuno-Virology Studio (OV Engine)
+['TVEC_IMLYGIC_MELANOMA', 'DELYTACT_G47DELTA_GBM', 'PELAREOREP_REOLYSIN_RAS', 'CAN2409_HSV_TK_ADENOVIRUS', 'CRETOSTIMOGENE_CG0070_BLADDER', 'VCN01_HYALURONIDASE_ADENOVIRUS'].forEach(c => {
+  sandbox.selectOvConstruct(c);
+  sandbox.calculateOvLive();
+});
+sandbox.switchTab('ov');
+console.log('✓ Oncolytic Virotherapy & Synthetic Immuno-Virology Studio (6 canonical constructs, viral ODE kinetics, ICD DAMPs, abscopal synergy) validated');
 
 console.log('\n======================================================');
 console.log('ALL DASHBOARD FRONTEND AND INTERACTIVE TESTS PASSED (100%)');

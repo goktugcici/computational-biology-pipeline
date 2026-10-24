@@ -1099,7 +1099,7 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
     },
     'oncolytic_virus_therapy': {
         'patterns': [
-            r'onkolitik virüs', r'imlygic', r't-vec', r'virüsle kanser tedavisi', r'kanser virüsü'
+            r'onkolitik virüs nedir', r'onkolitik viroterapi genel', r'onkolitik nedir', r'virüsle kanser tedavisi', r'kanser virüsü genel'
         ],
         'title': 'Onkolitik Virüs Tedavileri (T-VEC / Imlygic) & İmmün Uyarım',
         'answer': (
@@ -1711,6 +1711,91 @@ OFFLINE_KNOWLEDGE_TOPICS: Dict[str, Dict[str, Any]] = {
         )
     },
 
+    'tvec_imlygic_melanoma': {
+        'patterns': [
+            r't-vec.*onkolitik', r'onkolitik.*t-vec', r't-vec', r'tvec', r'imlygic', r'talimogene', r'melanom onkolitik', r'onkolitik hsv'
+        ],
+        'title': 'Onkolitik Viroterapi & T-VEC (Talimogene Laherparepvec - Imlygic)',
+        'answer': (
+            "🦠 **Talimogene Laherparepvec (T-VEC / Imlygic) & Onkolitik HSV-1 Tedavisi:**\n\n"
+            "• **Genetik Tasarım:** T-VEC, genetiği değiştirilmiş bir Herpes Simplex Tip 1 (HSV-1) virüsüdür. "
+            "Nörovirülansı önlemek ve replikasyonu sadece PKR yolak defekti olan tümör hücrelerine kısıtlamak için **ICP34.5 geni silinmiştir**. "
+            "MHC-I antijen sunumunu korumak ve US11 erken ekspresyonu için **ICP47 silinmiştir**. "
+            "Ayrıca anti-tümör bağışıklığını tetiklemek üzere 2 kopya **insan GM-CSF (CSF2)** geni yerleştirilmiştir.\n"
+            "• **Endikasyon & Onay:** Cerrahi olarak rezeke edilemeyen evre IIIB-IVM1a kutanöz melanom lezyonlarının lokal tedavisi için FDA ve EMA onaylı ilk onkolitik virüstür.\n"
+            "• **OPTiM Faz 3 Klinik Çalışması (JCO 2015):** T-VEC vs GM-CSF kontrol kolunda: "
+            "Kalıcı Yanıt Oranı (DRR) **%16.3 vs %2.1** (OR=8.9, p<0.001); Objektif Yanıt Oranı (ORR) **%26.4**; medyan genel sağkalım 23.3 vs 18.9 ay.\n"
+            "• **Sistemik Obskopal (Abscopal) Etki:** T-VEC doğrudan lezyon içine enjekte edildiğinde yalnızca enjekte edilen tümörü eritmekle kalmaz; "
+            "salınan neoantijenler ve GM-CSF sayesinde enjekte edilmeyen uzak metastazlarda da gerileme sağlar (in situ aşı etkisi).\n"
+            "• **NCCN Kılavuz Derecesi:** NCCN Kategori 1 tercih edilen lokal terapi; anti-PD-1 (Pembrolizumab) ile sinerjistik kombinasyonu araştırılmaktadır."
+        )
+    },
+
+    'delytact_g47delta_glioblastoma': {
+        'patterns': [
+            r'delytact.*glioblastom', r'glioblastom.*delytact', r'delytact', r'g47delta', r'g47Δ', r'teserpaturev', r'glioblastom virüs', r'glioblastom onkolitik'
+        ],
+        'title': 'Üçlü Mutasyonlu Onkolitik HSV-1 (DELYTACT / G47Δ / Teserpaturev)',
+        'answer': (
+            "🧠 **Teserpaturev (G47Δ / DELYTACT) & Glioblastoma Onkolitik Tedavisi:**\n\n"
+            "• **Moleküler Mimari:** Tokyo Üniversitesi tarafından geliştirilen dünyanın ilk 3. nesil üçlü mutasyonlu onkolitik HSV-1 virüsüdür. "
+            "**ICP34.5** ve **ICP47** delesyonuna ek olarak, viral ribonükleotid redüktazı inaktive eden **ICP6 delesyonu** (lacZ eklenmesi) taşır. "
+            "Bu sayede normal bölünmeyen nöronlarda asla replike olamaz; sadece ribonükleotid redüktazı aşırı yüksek olan çoğalan glioblastoma hücrelerini lizise uğratır.\n"
+            "• **Faz 2 Klinik Çalışması (Nature Medicine 2022):** Radyoterapi ve temozolomid sonrası nüks veya rezidüel glioblastoma hastalarında stereotaktik tümör içi enjeksiyon ile: "
+            "**1 yıllık genel sağkalım (1-yr OS) %84.2** olarak gerçekleşmiştir (Tarihsel kontrol kohortunda bu oran yaklaşık %15'tir, p<0.0001).\n"
+            "• **Ruhsat ve Onay Durumu:** Japonya Sağlık Bakanlığı (PMDA) tarafından primer beyin tümörleri için koşullu tam onay verilmiş dünyadaki ilk onkolitik beyin kanseri ilacıdır.\n"
+            "• **Etki Mekanizması:** Doğrudan onkolizis + bağışıklık çölü (cold) olan glioblastoma mikroçevresine CD8+ T ve NK lenfosit infiltrasyonu sağlar."
+        )
+    },
+
+    'pelareorep_reolysin_ras': {
+        'patterns': [
+            r'pelareorep', r'reolysin', r'reovirüs.*ras', r'reovirüs', r'reovirus', r'ras mutasyonu virüs'
+        ],
+        'title': 'KRAS Yolağı Hedefli Doğal dsRNA Reovirüs Terapisi (Pelareorep / Reolysin)',
+        'answer': (
+            "🧬 **Pelareorep (Reolysin) & Aktive Ras Yolak Hedefli Reovirüs Terapisi:**\n\n"
+            "• **Biyolojik Köken:** Pelareorep, patojenik olmayan, zarfsız çift sarmallı RNA (dsRNA) virüsüdür (Reovirus Type 3 Dearing strain). Genetik modifikasyon gerektirmeksizin doğal tropizm gösterir.\n"
+            "• **Ras Seçiciliği Mekanizması:** Normal hücrelerde virüs hücreye girdiğinde PKR fosforile olarak viral protein sentezini bloke eder. "
+            "Ancak **aktive Ras (KRAS, NRAS, BRAF) mutasyonu** taşıyan tümör hücrelerinde PKR fosforilasyonu engellenir ve reovirüs kontrolsüzce çoğalarak tümörü içeriden patlatır.\n"
+            "• **İntravenöz (IV) Sistemik Uygulama:** Çoğu onkolitik virüsün aksine kanda taşınarak metastatik lezyonlara ulaşabilen ve sistemik IV yolla verilebilen nadir ajanlardandır.\n"
+            "• **BRACELET-1 Faz 2 Çalışması (ASCO 2023):** HR+/HER2- metastatik meme kanserinde pelareorep + paklitaksel + anti-PD-L1 kombinasyonu: "
+            "Objektif yanıt oranını (ORR) **%13.3'ten %37.5'e (yaklaşık 3 katına)** çıkarmış ve medyan progresyonsuz sağkalımı (PFS) belirgin uzatmıştır.\n"
+            "• **PDAC ve Kolorektal Kanserler:** KRAS mutant pankreas ve kolon kanserlerinde T-hücresi inflamasini artırıcı kombinasyonlarda Faz 2 aşamasındadır."
+        )
+    },
+
+    'immunogenic_cell_death_icd_ov': {
+        'patterns': [
+            r'onkolitik.*calreticulin', r'calreticulin.*onkolitik', r'immünojenik hücre ölümü', r'onkolitik icd', r'calreticulin', r'hmgb1', r'damp salınımı', r'tümör aşısı in situ'
+        ],
+        'title': 'Onkolitik Virüs Kaynaklı İmmünojenik Hücre Ölümü (ICD) ve DAMP Sinyal Ağı',
+        'answer': (
+            "💥 **Onkolitik Virüslerde İmmünojenik Hücre Ölümü (ICD) Biyolojisi:**\n\n"
+            "Onkolitik viroterapinin temel gücü yalnızca tümörü mekanik olarak parçalaması değil, 'soğuk' tümörleri **in situ aşıya** dönüştüren güçlü bir ICD yanıtı uyarmasıdır.\n\n"
+            "• **Temel Moleküler DAMP Belirteçleri:**\n"
+            "   1. **Hücre Yüzeyine Kalretikülin (CRT) Translokasyonu:** Endoplazmik retikulum stresine bağlı olarak hücre zarına çıkan CRT, dendritik hücreler için en güçlü 'BENİ YE (Eat-me)' sinyalidir.\n"
+            "   2. **Hücre Dışı ATP Salınımı:** Lizis olan hücrelerden dökülen ATP, monosit ve dendritik hücreleri P2RX7 pürinerjik reseptörleri üzerinden tümör yatağına çeken 'BENİ BUL (Find-me)' kemokinidir.\n"
+            "   3. **HMGB1 (High Mobility Group Box 1) Salınımı:** Nekrotik parçalanmada çekirdekten salınan HMGB1, TLR4 reseptörüne bağlanarak antijen çapraz sunumunu (cross-presentation) maksimuma çıkarır.\n"
+            "   4. **Tip-I İnterferon (IFN-α/β) & CXCL9/CXCL10 Ekseni:** Viral dsRNA/dsDNA sensörleri (cGAS-STING, RIG-I) sayesinde tümör yatağına yoğun sitotoksik CD8+ T ve NK hücre göçü gerçekleşir."
+        )
+    },
+
+    'ov_neutralizing_antibodies_abscopal': {
+        'patterns': [
+            r'onkolitik.*abskopal', r'abskopal.*onkolitik', r'onkolitik.*nötralizan', r'abskopal', r'abscopal', r'nötralizan antikor', r'nab viroterapi', r'taşıyıcı hücre kalkan'
+        ],
+        'title': 'Nötralizan Antikorlar (NAb), Taşıyıcı Hücreler ve Obskopal (Abscopal) Yanıt',
+        'answer': (
+            "🛡️ **Onkolitik Viroterapide İmmünolojik Bariyerler ve Çözümler:**\n\n"
+            "• **Nötralizan Antikor (NAb) Engeli:** Toplumda HSV-1 (%60-80) ve Adenovirüs Ad5 (%70-90) gibi virüslere karşı önceden var olan antikorlar (NAb), virüsün kanda nötralize edilmesine ve karaciğerde tutulmasına yol açar.\n"
+            "• **Biyomühendislik Çözümleri:**\n"
+            "   - **İntratümoral / Doğrudan Lezyon İçi Enjeksiyon:** T-VEC ve G47Δ'da olduğu gibi virüsün doğrudan tümör kütlesine verilmesi sistemik NAb bariyerini aşar.\n"
+            "   - **Taşıyıcı Hücre Kalkanı (Trojan Horse Carrier Cells):** Mezenkimal kök hücreler veya monositlerin virüsle yüklenerek tümöre ulaştırılması virüsü kandaki NAb'lardan gizler.\n"
+            "• **Sistemik Obskopal (Abscopal) Yanıt:** Yalnızca tek bir primer lezyonun enjeksiyonu sonrasında, aktive olan CD8+ sitotoksik T hücreleri ve bellek hücreleri kan dolaşımına katılarak enjekte edilmemiş uzak metastazları hedefler.\n"
+            "• **İmmün Kontrol Noktası İnhibitörleri ile Sinerji:** Onkolitik virüsler tümörde PD-L1 ekspresyonunu artırır ve 'soğuk' mikroçevreyi 'sıcak' T-hücresi zengini ortama çevirir. Bu nedenle anti-PD-1 (Pembrolizumab, Nivolumab) veya anti-CTLA-4 (İpilimumab) ile kombine edildiğinde sinerjistik yanıt oranları gözlenir."
+        )
+    },
     'bot_help': {
         'patterns': [
             r'sen kimsin', r'ne yapabilirsin', r'yardım', r'komutlar', r'neler yaparsın',
@@ -1830,11 +1915,17 @@ class DiagnosticChatbot:
     def find_matching_topic(self, text: str) -> Optional[Dict[str, Any]]:
         """Finds matching offline medical topic from built-in knowledge base."""
         norm = self.normalize_text(text)
+        best_match = None
+        best_len = 0
         for topic_key, topic_data in OFFLINE_KNOWLEDGE_TOPICS.items():
             for pat in topic_data['patterns']:
-                if re.search(pat, norm):
-                    return topic_data
-        return None
+                m = re.search(pat, norm)
+                if m:
+                    match_len = len(m.group(0))
+                    if match_len > best_len:
+                        best_len = match_len
+                        best_match = topic_data
+        return best_match
 
     def extract_symptoms_from_text(self, text: str) -> List[str]:
         """Uses Turkish NLP regex patterns to extract clinical symptom keys from natural language text."""
